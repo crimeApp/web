@@ -1,0 +1,112 @@
+{
+    "MENU": {
+        "COMMENTS": "Dejar un comentario",
+        "REPORTS": "Ver reportes.",
+        "MAP": "Ver mapa",
+        "CURRENTCRIME": "DenunciaYa",
+        "PASTCRIME": "Siniestros Antiguos"
+    },
+    "COMMON": {
+        "CONFIRM": "Confirmar",
+        "CANCEL": "Cancelar",
+        "NEXT": "Siguiente",
+        "BACK": "Atrás",
+        "LOADING": "Cargando los datos...",
+        "ERROR": "Uf! Parece que hubo un error. Intente de nuevo."
+    },
+    "SELECT": {
+        "PLACEHOLDER": "Seleccione una de las opciones."
+    },
+
+    "FORM": {
+        "TITLE": "DenunciaYa",
+        "TITLE-PASTCRIME": "Siniestros Antiguos",
+        "SUBTITLE": "Toda la informacion que se registre quedara completamente anonima. El objetivo es tener datos para analizar la delincuencia en Cordoba.",
+
+        "THEFTINFO": {
+            "THIEFINFO": "Información del Robo",
+            "THEFT": "Tipo de robo, huerto, agresión.",
+            "TIMEFRACTION": "Ingrese franja horaria",
+            "DATE": "Ingrese fecha",
+            "DATE-PLACEHOLDER": "dd-mm-aa",
+            "STOLEN-CAPITAL": "Capital robado",
+            "STOLEN-CAPITAL-PLACEHOLDER": "Ingrese cantidad aproximada",
+            "STOLEN-OBJECTS": "Objetos robados",
+            "STOLEN-OBJECTS-PLACEHOLDER": "Seleccione los objetos robados",
+            "PLACE-DESCRIPTION": "Descripcion del lugar",
+            "COMPANY": "Con quien te encontrabas?",
+            "LOCATION": "Ubicación"
+        },
+
+        "PERSONALINFO": {
+            "PERSONALINFO": "Información Personal",
+            "NAME": "Nombre",
+            "NAME-PLACEHOLDER": "Ingrese su nombre.",
+            "DNI": "DNI",
+            "DNI-PLACEHOLDER": "Ingrese su DNI.",
+            "GENDER": "Genero",
+            "GENDER-PLACEHOLDER": "Ingrese su genero.",
+            "SKIN": "Tonalidad de piel",
+            "SKIN-PLACEHOLDER": "Ingrese su tono de piel.",
+            "CLOTHING": "Vestimenta",
+            "CLOTHING-PLACEHOLDER": "Ingrese su vestimenta.",
+            "AGE": "Edad",
+            "AGE-PLACEHOLDER": "Ingrese su edad.",
+            "HEIGHT": "Altura",
+            "HEIGHT-PLACEHOLDER": "Ingrese su altura.",
+            "PHYSICAL": "Fisico",
+            "PHYSICAL-PLACEHOLDER": "Ingrese su tipo de fisico."
+        },
+
+        "THEFTDETAILS": {
+            "THIEFINFO": "Información del Agresor",
+            "PROFILE": "Perfil del agresor",
+            "PROFILE-PLACEHOLDER": "Como lo trato el agresor",
+            "AGE": "Edad aproximada",
+            "AGE-PLACEHOLDER": "Ingrese su edad.",
+            "GENDER": "Genero",
+            "GENDER-PLACEHOLDER": "Ingrese su genero.",
+            "SKIN": "Tonalidad de piel",
+            "SKIN-PLACEHOLDER": "Ingrese su tono de piel.",
+            "CLOTHING": "Vestimenta",
+            "CLOTHING-PLACEHOLDER": "Ingrese su vestimenta.",
+            "HEIGHT": "Altura",
+            "HEIGHT-PLACEHOLDER": "Ingrese su altura.",
+            "PHYSICAL": "Fisico",
+            "PHYSICAL-PLACEHOLDER": "Ingrese su tipo de fisico."
+        }
+
+    },
+    "CONFIRMATION-DIALOG": {
+        "TITLE": "Gracias por completar el formulario!",
+        "TEXT": "Todos los datos ya han sido guardados por requerimientos legales si quiere que la denuncia sea tratada legalmente.",
+        "BUTTON-TEXT": "Volver a Inicio"
+    },
+
+    "GENDER": {
+        "MAN": "hombre",
+        "WOMAN": "mujer"
+    },
+    "HEIGHT": {
+        "HIGH": "alto",
+        "MEDIUM": "mediano",
+        "SMALL": "bajo"
+    },
+    "CLOTHING": {
+        "FORMAL": "formal",
+        "CASUAL": "casual",
+        "SPORTY": "deportivo",
+        "WORK": "de trabajo",
+        "SEMIFORMAL": "semiformal",
+        "SCHOLAR": "escolar",
+        "TIDY": "arreglado",
+        "UNTIDY": "desprolija"
+    },
+    "PHYSICAL_BUILD": {
+        "THIN": "delgado",
+        "NORMAL": "normal",
+        "STRONG": "corpulento",
+        "OBESE": "obeso",
+        "ATHELTIC": "atletico"
+    }
+}

@@ -1,0 +1,11 @@
+.layout-basic-header{
+    position: sticky;
+    top: 0;
+    background-color:  var(--light-gray);
+}
+
+.layout-basic-content {
+    height: fit-content;
+    width: auto;
+    padding-top: 60px;
+}

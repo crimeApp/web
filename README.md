@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Crimen
+La espera me agotó
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+No sé nada de vos
 
-## Available Scripts
+Dejaste tanto en mí
 
-In the project directory, you can run:
+En llamas me acosté
 
-### `npm start`
+Y en un lento degradé
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Supe que te perdí
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+¿Qué otra cosa puedo hacer?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Si no olvido, moriré
 
-### `npm run build`
+Y otro crimen quedará
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Otro crimen quedará
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Sin resolver
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Una rápida traición
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Y salimos del amor
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Tal vez me lo busqué
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Mi ego va a estallar
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Ahí donde no estás
 
-## Learn More
+Oh, los celos otra vez
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+¿Qué otra cosa puedo hacer?
 
-### Code Splitting
+Si no olvido moriré
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Y otro crimen quedará
 
-### Analyzing the Bundle Size
+Otro crimen quedará
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Sin resolver
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+No lo sé
 
-### Advanced Configuration
+Cuánto falta no lo sé
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Si es muy tarde no lo sé
 
-### Deployment
+Si no olvido, moriré
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+¿Qué otra cosa puedo hacer?
 
-### `npm run build` fails to minify
+¿Qué otra cosa puedo hacer?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Ahora sé lo que es perder
+
+Y otro crimen quedará
+
+Mmm, otro crimen quedará
+
+Sin resolver
