@@ -7,6 +7,7 @@ const Validator = async (values: any, schema: any): Promise<{ err: boolean, data
         }
     } catch (err) {
         let object = {}
+        // eslint-disable-next-line array-callback-return
         err.errors.map((value: any) => {
             object = {
                 ...object,

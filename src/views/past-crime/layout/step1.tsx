@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Map from "../../../components/map/Map";
 import { Grid } from "@material-ui/core";
 import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
@@ -7,8 +6,49 @@ import Validator from "../../../utils/validator";
 import { Menu } from "@material-ui/icons";
 
 const schema = yup.object({
-    name: yup.string().required().transform( (e:string) => e.toLowerCase() )
-});
+    type: yup.string()
+      .transform((e) => e.toLowerCase())
+      .oneOf([
+        "robo",
+        "asesinato",
+        "abuso sexual",
+        "secuestro",
+        "asalto",
+        "hurto",
+      ])
+      .required("Completar la casilla"),
+    hour: yup.string()
+      .transform((e) => e.toLowerCase())
+      .oneOf(["mañana", "mediodia", "tarde", "noche"])
+      .required("Completar la casilla"),
+    date: yup.date()
+      .min(new Date("01/01/2010"))
+      .max(new Date())
+      .required("Ingresar una fecha valida"),
+    place_description: yup.mixed()
+      .transform((e) => e.toLowerCase())
+      .oneOf([
+        "otro",
+        "en el estacionamiento",
+        "parada de colectivo",
+        "supermercado",
+        "propiedad privada",
+        "calle",
+        "centro comercial",
+        "parque",
+      ])
+      .required("Completar la casilla"),
+    accompaniment: yup.mixed()
+      .transform((e) => e.toLowerCase())
+      .oneOf([
+        "solo/a, gente alrededor",
+        "acompañado, gente alrededor",
+        "solo/a, no gente alrededor",
+        "acompañado, no gente alrededor",
+      ])
+      .required("Completar la casilla"),
+  });
+  
 
 interface PastCrimeStepOneProps {
     data: any,
@@ -19,8 +59,12 @@ const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
 
     const [data_state, set_data] = useState({
         ...data,
-        name: "",
-        surname: "",
+        type: "",
+        hour: "", 
+        date: "",
+        place_description: "",
+        accompaniment: "",
+       
         position: {
             lat: 0,
             lng: 0
@@ -45,21 +89,18 @@ const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
     }
 
 
-    return <Grid item xs={8} container justify="center">
+    return <Grid item xs={8} container justify="center" className="form-content">
         <Input 
             xs={12} 
             iconLeft={<Menu />}
-            label={"Nombre"} 
-            value={data_state.name} 
-            onChange={(e) => HandleChange("name", e.target.value)} 
-            error={error?.name} 
-            error_msg={error?.name?.msg}
-            />
-        <Grid item xs={12}>
-            <h3>{data_state.surname}</h3>
-        </Grid>
-        <Map label="Ubicacion" xs={12} position={data_state.position} onChange={(newValue) => HandleChange("position", newValue)} />
-        <button onClick={OnSubmit} > SIGUIENTE </button>
+            label={"Fecha"} 
+            value={data_state.date} 
+            onChange={(e) => HandleChange("date", e.target.value)} 
+            error={error?.date} 
+            error_msg={error?.date?.msg}
+        />
+        
+        <button onClick={OnSubmit}> SIGUIENTE </button>
     </Grid>
 }
 

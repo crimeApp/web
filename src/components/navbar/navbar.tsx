@@ -10,8 +10,7 @@ import {
     AppBar,
     Button,
     IconButton,
-    Drawer,
-    GridList
+    Drawer
 } from "@material-ui/core";
 import traslate from "../../assets/traslate/es.json";
 import useWindowSize from "../../hooks/useWindows";
