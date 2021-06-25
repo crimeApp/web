@@ -93,7 +93,7 @@ const Input = ({
                 error={error}
                 FormHelperTextProps={{
                     style: {
-                        color: error ? `var(--red)` : `var(--secondary-color)`,
+                        color: error ? `var(--red)` : `var(--${colorFont})`,
                         marginLeft: "15px",
                         marginRight: "15px",
                         ...styleHelperText
