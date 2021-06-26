@@ -1,105 +1,40 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import Input from "../../../components/input/Input";
+import Selector from "../../../components/selector/selector";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
-/* const place_options = [
-  {
-    label: "Parque",
-    value: "parque",
-  },
-  {
-    label: "Calle",
-    value: "calle",
-  },
-  {
-    label: "Parada de colectivo",
-    value: "parada de colectivo",
-  },
-  {
-    label: "centro comercial",
-    value: "centro comercial",
-  },
-  {
-    label: "propiedad privada",
-    value: "propiedad privada",
-  },
-  {
-    label: "supermercado",
-    value: "supermercado",
-  },
-  {
-    label: "Estacionamiento",
-    value: "estacionamiento",
-  },
-  {
-    label: "Otro",
-    value: "otro",
-  },
+const place_options = ["Parque",
+  "Calle",
+  "Parada de colectivo",
+  "centro comercial", "propiedad privada",
+  "supermercado",
+  "Estacionamiento",
+  "Otro"
 ];
 
-const accompaniment_options = [
-  {
-    label: "Solo/a, gente alrededor",
-    value: "solo/a, gente alrededor",
-  },
-  {
-    label: "Acompañado, gente alrededor",
-    value: "acompañado, gente alrededor",
-  },
-  {
-    label: "Solo/a, no gente",
-    value: "solo/a, no gente alrededor",
-  },
-  {
-    label: "Acompañado, no gente alrededor",
-    value: "acompañado, no gente alrededor",
-  },
+const accompaniment_options = [ "Solo/a, gente alrededor",
+     "Acompañado, gente alrededor",
+  "Solo/a, no gente",
+   "Acompañado, no gente alrededor",
 ];
 
 const type_options = [
-  {
-    label: "Abuso sexual",
-    value: "abuso sexual",
-  },
-  {
-    label: "Asesinato",
-    value: "asesinato",
-  },
-  {
-    label: "Robo",
-    value: "robo",
-  },
-  {
-    label: "Hurto",
-    value: "hurto",
-  },
-  {
-    label: "Asalto",
-    value: "asalto",
-  },
+  "Abuso sexual",
+  "Asesinato",
+  "Robo",
+  "Hurto",
+  "Asalto"
 ];
 
 const hour_options = [
-  {
-    label: "Mañana",
-    value: "mañana",
-  },
-  {
-    label: "Mediodia",
-    value: "mediodia",
-  },
-  {
-    label: "tarde",
-    value: "tarde",
-  },
-  {
-    label: "noche",
-    value: "noche",
-  },
-]; */
+  "Mañana",
+   "Mediodia",
+   "Tarde",
+   "Noche"
+];
 
 const schema = yup.object({
   type: yup
@@ -153,9 +88,10 @@ const schema = yup.object({
 interface PastCrimeStepOneProps {
   data: any;
   handleNext: (data: any) => void;
+  handleBack: (data: any) => void;
 }
 
-const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
+const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProps) => {
   const [data_state, set_data] = useState({
     ...data,
     type: "",
@@ -196,10 +132,12 @@ const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
       alignItems="center"
     >
       <Grid item>
-        <Input
+        <Selector
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.THEFTINFO.THEFT}
-          //options={type_options}
+          options={type_options}
           value={data_state.type}
           onChange={(e) => HandleChange("type", e.target.value)}
           error={error?.type}
@@ -208,11 +146,13 @@ const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
       </Grid>
 
       <Grid item>
-        <Input
+        <Selector
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.THEFTINFO.TIMEFRACTION}
           value={data_state.hour}
-          //options={time_options}
+          options={hour_options}
           onChange={(e) => HandleChange("hour", e.target.value)}
           error={error?.hour}
           error_msg={error?.hour?.msg}
@@ -220,10 +160,12 @@ const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
       </Grid>
 
       <Grid item>
-        <Input
+        <Selector
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={"Fecha"}
-          //options={place_options}
+          options={place_options}
           value={data_state.place_description}
           onChange={(e) => HandleChange("place_description", e.target.value)}
           error={error?.place_description}
@@ -234,6 +176,8 @@ const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
       <Grid item>
         <Input
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.THEFTINFO.DATE}
           value={data_state.date}
           onChange={(e) => HandleChange("date", e.target.value)}
@@ -243,10 +187,12 @@ const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
       </Grid>
 
       <Grid item>
-        <Input
+        <Selector
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.THEFTINFO.COMPANY}
-          //options={accompaniment_options}
+          options={accompaniment_options}
           value={data_state.accompaniment}
           onChange={(e) => HandleChange("accompaniment", e.target.value)}
           error={error?.accompaniment}
@@ -254,12 +200,22 @@ const PastCrimeStepOne = ({ data, handleNext }: PastCrimeStepOneProps) => {
         />
       </Grid>
 
-      <Grid item>
+      <Grid item className="m-top-1 m-bottom-2">
         <Button
           variant="contained"
           color="primary"
           type="submit"
-          className="m-top-1 m-bottom-2"
+          className="m-right-3"
+          onClick={handleBack}
+        >
+          {traslate.COMMON.BACK}
+        </Button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className=" m-left-3"
           onClick={OnFoward}
         >
           {traslate.COMMON.NEXT}

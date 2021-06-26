@@ -56,7 +56,7 @@ const ReviewPastCrime = ({ data, handleNext, handleBack }) => {
     event.preventDefault();
     setLoading(true);
 
-    try {
+    /* try {
       const response = await axios.post(url + "/old-sinister", data );
       console.log("Returned data:", response);
       setTimeout(setLoading(false), 3000);
@@ -67,7 +67,7 @@ const ReviewPastCrime = ({ data, handleNext, handleBack }) => {
         setError(true);
         setLoading(false);
       }, 3000);
-    }
+    } */
   }
 
   /* const loadingMessage = <Alert>{traslate["COMMON"]["LOADING"]}</Alert>;
@@ -226,7 +226,7 @@ const ReviewPastCrime = ({ data, handleNext, handleBack }) => {
         {error ? errorMessage : null}
       </Grid> */}
 
-      <Grid item className="m-top-1">
+      <Grid item className="m-top-3">
         <Grid
           container
           direction="row"

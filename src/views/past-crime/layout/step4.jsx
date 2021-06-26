@@ -6,6 +6,12 @@ import RadioButtons from "../../../components/radio-buttons/RadioButtons";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
+const gender_options = [
+  { label: "Hombre", value: "hombre" },
+  { label: "Mujer", value: "mujer" },
+  { label: "Prefiero no decir", value: "indefinido" },
+];
+
 const schema = yup.object({
   victim_name: yup
     .string()
@@ -76,6 +82,8 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Grid item>
         <Input
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.NAME}
           //options={place_options}
           value={data_state.victim_name}
@@ -87,6 +95,8 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Grid item>
         <Input
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.DNI}
           //options={place_options}
           value={data_state.victim_dni}
@@ -96,8 +106,11 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
         />
       </Grid>
       <Grid item>
-        <Input
+        <RadioButtons
           xs={12}
+          color='light-gray'
+          options={gender_options}
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.GENDER}
           value={data_state.victim_gender}
           onChange={(e) => HandleChange("victim_gender", e.target.value)}
@@ -108,6 +121,8 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Grid item>
         <Input
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.AGE}
           value={data_state.victim_age}
           onChange={(e) => HandleChange("victim_age", e.target.value)}
@@ -118,6 +133,8 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Grid item>
         <Input
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.HEIGHT}
           value={data_state.victim_height}
           //options={height_options}
@@ -129,6 +146,8 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Grid item>
         <Input
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.SKIN}
           //options={skin_options}
           value={data_state.victim_skin}
@@ -140,6 +159,8 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Grid item>
         <Input
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.CLOTHING}
           //options={clothing_options}
           value={data_state.victim_clothing}
@@ -150,8 +171,10 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       </Grid>
 
       <Grid item>
-        <RadioButtons
+        <Input
           xs={12}
+          color='light-gray'
+          className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.PHYSICAL}
           //options={pyshic_options}
           value={data_state.victim_pyshical}

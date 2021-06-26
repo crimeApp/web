@@ -23,7 +23,7 @@ const RadioButtons = ({ label, options, className, xs, sm, md, lg, xl }) => {
       md={md}
       lg={lg}
       xl={xl}
-      className={`input-container m-top-2 m-bottom-2 ${className}`}
+      className={`${className}`}
     >
       <FormControl component="fieldset">
         <FormLabel component="legend">{label}</FormLabel>
@@ -36,7 +36,7 @@ const RadioButtons = ({ label, options, className, xs, sm, md, lg, xl }) => {
           {options.map((option) => (
             <FormControlLabel
               value={option.value}
-              control={<Radio />}
+              control={<Radio color="default" />}
               label={option.label}
             />
           ))}

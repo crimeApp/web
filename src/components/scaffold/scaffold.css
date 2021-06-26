@@ -1,4 +1,5 @@
 .layout-basic-header{
+    z-index: 1;
     position: sticky;
     top: 0;
     background-color:  var(--light-gray);

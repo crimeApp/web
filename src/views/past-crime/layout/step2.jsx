@@ -56,219 +56,240 @@ import Validator from "../../../utils/validator";
   ]; */
 
 const schema = yup.object({
-    thief_profile: yup.mixed()
-        .oneOf([
-            "violento",
-            "amable",
-            "tranquilo",
-            "cauteloso",
-            "desconfiado",
-            "indiferente",
-            "visiblemente intoxicado",
-            "carismaticos",
-            "no recuerdo",
-        ])
-        .required("Elija una de las opciones"),
-    thief_age: yup.mixed()
-        .oneOf([
-            "menor de edad",
-            "18-25",
-            "25-35",
-            "35-45",
-            "mas de 50",
-            "No recuerdo",
-        ])
-        .required("Elija una de las opciones"),
-    thief_height: yup.mixed().oneOf(["alto", "mediano", "bajo", "no recuerdo"]),
-    thief_clothing: yup.mixed().oneOf([
-        "formal",
-        "casual",
-        "deportivo",
-        "trabajo",
-        "semiformal",
-        "escolar",
-        "arreglado",
-        "desalineado"
+  thief_profile: yup
+    .mixed()
+    .oneOf([
+      "violento",
+      "amable",
+      "tranquilo",
+      "cauteloso",
+      "desconfiado",
+      "indiferente",
+      "visiblemente intoxicado",
+      "carismaticos",
+      "no recuerdo",
+    ])
+    .required("Elija una de las opciones"),
+  thief_age: yup
+    .mixed()
+    .oneOf([
+      "menor de edad",
+      "18-25",
+      "25-35",
+      "35-45",
+      "mas de 50",
+      "No recuerdo",
+    ])
+    .required("Elija una de las opciones"),
+  thief_height: yup.mixed().oneOf(["alto", "mediano", "bajo", "no recuerdo"]),
+  thief_clothing: yup
+    .mixed()
+    .oneOf([
+      "formal",
+      "casual",
+      "deportivo",
+      "trabajo",
+      "semiformal",
+      "escolar",
+      "arreglado",
+      "desalineado",
     ]),
-    thief_physical: yup.mixed().oneOf([
-        "delgado",
-        "casual",
-        "corpulento",
-        "obeso",
-        "atletico"
-    ]),
-    complaint: yup.boolean().optional(),
-    arrested: yup.boolean().optional(),
+  thief_physical: yup
+    .mixed()
+    .oneOf(["delgado", "casual", "corpulento", "obeso", "atletico"]),
+  complaint: yup.boolean().optional(),
+  arrested: yup.boolean().optional(),
 });
 
-
 const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
+  const [data_state, set_data] = useState({
+    thief_profile: "",
+    thief_age: "",
+    thief_gender: "",
+    thief_skin: "",
+    thief_height: "",
+    thief_clothing: "",
+    thief_physical: "",
+    thief_complaint: false,
+    thief_arrested: false,
+  });
 
-    const [data_state, set_data] = useState({
-        thief_profile: "",
-        thief_age: "",
-        thief_gender: "",
-        thief_skin: "",
-        thief_height: "",
-        thief_clothing: "",
-        thief_physical: "",
-        thief_complaint: false,
-        thief_arrested: false
-    });
+  const [error, set_error] = useState();
 
-    const [error, set_error] = useState();
+  const HandleChange = (name, value) =>
+    set_data({ ...data_state, [name]: value });
 
-    const HandleChange = (name, value) => set_data({ ...data_state, [name]: value })
+  const OnFoward = async () => {
+    set_error({});
 
-    const OnFoward = async () => {
+    const resp = await Validator(data_state, schema);
 
-        set_error({});
-
-        const resp = await Validator(data_state, schema)
-
-        if (resp.err) {
-            set_error(resp.data);
-        }
-
-        handleNext(resp.data)
+    if (resp.err) {
+      set_error(resp.data);
     }
 
-    const OnBackward = async () => {
-        set_error({});
+    handleNext(resp.data);
+  };
 
-        const resp = await Validator(data_state, schema);
+  const OnBackward = async () => {
+    set_error({});
 
-        if (resp.err) {
-            set_error(resp.data);
-        }
+    const resp = await Validator(data_state, schema);
 
-        handleBack(resp.data);
-    };
+    if (resp.err) {
+      set_error(resp.data);
+    }
 
-    return <Grid container direction='column' className="form-wrap" justify="center" alignItems="center">
-        <Grid item>
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.PROFILE}
-                //options={place_options}
-                value={data_state.thief_profile}
-                onChange={(e) => HandleChange("thief_profile", e.target.value)}
-                error={error?.thief_profile}
-                error_msg={error?.thief_profile?.msg}
-            />
-        </Grid>
+    handleBack(resp.data);
+  };
 
-        <Grid item>
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.AGE}
-                //options={age_options}
-                value={data_state.thief_age}
-                onChange={(e) => HandleChange("thief_age", e.target.value)}
-                error={error?.thief_age}
-                error_msg={error?.thief_age?.msg}
-            />
-        </Grid>
+  return (
+    <Grid
+      container
+      direction="column"
+      className="form-wrap"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid item>
+        <Input
+          xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
+          label={traslate.FORM.THEFTDETAILS.PROFILE}
+          //options={place_options}
+          value={data_state.thief_profile}
+          onChange={(e) => HandleChange("thief_profile", e.target.value)}
+          error={error?.thief_profile}
+          error_msg={error?.thief_profile?.msg}
+        />
+      </Grid>
 
+      <Grid item>
+        <Input
+          xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
+          label={traslate.FORM.THEFTDETAILS.AGE}
+          //options={age_options}
+          value={data_state.thief_age}
+          onChange={(e) => HandleChange("thief_age", e.target.value)}
+          error={error?.thief_age}
+          error_msg={error?.thief_age?.msg}
+        />
+      </Grid>
 
-        <Grid item>
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.GENDER}
-                //options={gender_options}
-                value={data_state.thief_gender}
-                onChange={(e) => HandleChange("thief_gender", e.target.value)}
-                error={error?.thief_gender}
-                error_msg={error?.thief_gender?.msg}
-            />
-        </Grid>
+      <Grid item>
+        <Input
+          xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
+          label={traslate.FORM.THEFTDETAILS.GENDER}
+          //options={gender_options}
+          value={data_state.thief_gender}
+          onChange={(e) => HandleChange("thief_gender", e.target.value)}
+          error={error?.thief_gender}
+          error_msg={error?.thief_gender?.msg}
+        />
+      </Grid>
 
-        <Grid item>
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.SKIN}
-                //options={skin_options}
-                value={data_state.thief_skin}
-                onChange={(e) => HandleChange("thief_skin", e.target.value)}
-                error={error?.thief_skin}
-                error_msg={error?.thief_skin?.msg}
-            />
-        </Grid>
-        <Grid item>
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.HEIGHT}
-                //options={height_options}
-                value={data_state.thief_height}
-                onChange={(e) => HandleChange("thief_height", e.target.value)}
-                error={error?.thief_height}
-                error_msg={error?.thief_height?.msg}
-            />
-        </Grid>
-        <Grid item>
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.CLOTHING}
-                //options={clothing_options}
-                value={data_state.thief_clothing}
-                onChange={(e) => HandleChange("thief_clothing", e.target.value)}
-                error={error?.thief_clothing}
-                error_msg={error?.thief_clothing?.msg}
-            />
-        </Grid>
-        <Grid item>
+      <Grid item>
+        <Input
+          xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
+          label={traslate.FORM.THEFTDETAILS.SKIN}
+          //options={skin_options}
+          value={data_state.thief_skin}
+          onChange={(e) => HandleChange("thief_skin", e.target.value)}
+          error={error?.thief_skin}
+          error_msg={error?.thief_skin?.msg}
+        />
+      </Grid>
+      <Grid item>
+        <Input
+          xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
+          label={traslate.FORM.THEFTDETAILS.HEIGHT}
+          //options={height_options}
+          value={data_state.thief_height}
+          onChange={(e) => HandleChange("thief_height", e.target.value)}
+          error={error?.thief_height}
+          error_msg={error?.thief_height?.msg}
+        />
+      </Grid>
+      <Grid item>
+        <Input
+          xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
+          label={traslate.FORM.THEFTDETAILS.CLOTHING}
+          //options={clothing_options}
+          value={data_state.thief_clothing}
+          onChange={(e) => HandleChange("thief_clothing", e.target.value)}
+          error={error?.thief_clothing}
+          error_msg={error?.thief_clothing?.msg}
+        />
+      </Grid>
+      <Grid item>
+        <Input
+          xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
+          label={traslate.FORM.THEFTDETAILS.PHYSICAL}
+          //options={physical_options}
+          value={data_state.thief_physical}
+          onChange={(e) => HandleChange("thief_physical", e.target.value)}
+          error={error?.thief_physical}
+          error_msg={error?.thief_physical?.msg}
+        />
+      </Grid>
+      <Grid item className="m-top-1 m-bottom-1">
+        <Input
+          xs={12}
+          color="light-gray"
+          label={traslate.FORM.THEFTDETAILS.COMPLAINT}
+          value={data_state.thief_complaint}
+          onChange={(e) => HandleChange("thief_complaint", e.target.value)}
+          error={error?.thief_complaint}
+          error_msg={error?.thief_complaint?.msg}
+        />
+      </Grid>
+      <Grid item className="m-top-1 m-bottom-1">
+        <Input
+          xs={12}
+          color="light-gray"
+          label={traslate.FORM.THEFTDETAILS.ARRESTED}
+          value={data_state.thief_arrested}
+          onChange={(e) => HandleChange("thief_arrested", e.target.value)}
+          error={error?.date}
+          error_msg={error?.date?.msg}
+        />
+      </Grid>
+      <Grid item className="m-top-1 m-bottom-2">
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className="m-right-3"
+          onClick={OnBackward}
+        >
+          {traslate.COMMON.BACK}
+        </Button>
 
-
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.PHYSICAL}
-                //options={physical_options}
-                value={data_state.thief_physical}
-                onChange={(e) => HandleChange("thief_physical", e.target.value)}
-                error={error?.thief_physical}
-                error_msg={error?.thief_physical?.msg}
-            />
-        </Grid>
-        <Grid item>
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.COMPLAINT}
-                value={data_state.thief_complaint}
-                onChange={(e) => HandleChange("thief_complaint", e.target.value)}
-                error={error?.thief_complaint}
-                error_msg={error?.thief_complaint?.msg}
-            />
-        </Grid>
-        <Grid item>
-            <Input
-                xs={12}
-                label={traslate.FORM.THEFTDETAILS.ARRESTED}
-                value={data_state.thief_arrested}
-                onChange={(e) => HandleChange("thief_arrested", e.target.value)}
-                error={error?.date}
-                error_msg={error?.date?.msg}
-            />
-        </Grid>
-        <Grid item className="m-top-1 m-bottom-2">
-            <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                className="m-right-3"
-                onClick={OnBackward}>
-                {traslate.COMMON.BACK}
-            </Button>
-
-            <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                className=" m-left-3"
-                onClick={OnFoward}>
-                {traslate.COMMON.NEXT}
-            </Button>
-        </Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className=" m-left-3"
+          onClick={OnFoward}
+        >
+          {traslate.COMMON.NEXT}
+        </Button>
+      </Grid>
     </Grid>
-}
+  );
+};
 
 export default PastCrimeStepTwo;

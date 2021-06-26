@@ -22,8 +22,8 @@ interface MapProps {
 const Map = ({
     label,
     position = {
-        lat: 0,
-        lng: 0
+        lat: -31.42384796597578,
+        lng: -64.18635948818674
     },
     onChange,
     error_msg,

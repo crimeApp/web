@@ -107,6 +107,8 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
       <Grid item>
         <Input
           xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
           label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
           value={data_state.stolen_cash}
           onChange={(e) => HandleChange("stolen_cash", e.target.value)}
@@ -117,6 +119,8 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
       <Grid item>
         <Input
           xs={12}
+          color="light-gray"
+          className="m-top-1 m-bottom-1"
           label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
           //options={items_options}
           value={data_state.stolen_items}
@@ -125,13 +129,14 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
           error_msg={error?.stolen_items?.msg}
         />
       </Grid>
-
+      
+      <Grid item>
       <Map
-          label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
-          xs={12}
+          label={traslate.FORM.THEFTINFO.LOCATION}
           position={data_state.position}
           onChange={(newValue) => HandleChange("position", newValue)}
         />
+      </Grid>
 
       <Grid item className="m-top-1 m-bottom-2">
         <Button

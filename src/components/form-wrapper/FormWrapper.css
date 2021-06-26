@@ -1,9 +1,19 @@
 @import "../../style/App.css";
 
+.form-wrap-background {
+  width: 450px;
+  height: 100%;
+  padding: 0;
+  margin-top: 1%;
+  min-height: fit-content;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-color: transparent;
+}
+
 .form-wrap {
-  width: 80%;
-  height: 70%;
-  max-width: 1000px;
+  width: 100%;
+  height: 100%;
   border-radius: var(--border-big);
   background-color: var(--card-background);
 }
@@ -12,38 +22,40 @@
   color: var(--black);
   white-space: pre-wrap;
   float: right;
-  font-size: var(--font-size-normal);
+  font-size: var(--font-size-large);
   font-weight: var(--weight-bold);
 }
 
 .form-wrap-subtitle {
   color: var(--gray);
-  font-size: var(--font-size-normal);
+  font-size: var(--font-size-large);
   font-weight: var(--weight-bold);
 }
 
 .form-wrap-progress{
-  width: 500px;
+  width: 300px;
   height: 100%;
   border-radius: var(--border-big);
 }
 
+@media (min-width: 1000px) {
+}
+
 @media (max-width: 750px) {
   .form-wrap {
-    max-width: 1000px;
-    overflow-y: hidden;
+    width: 100%;
     background-color: var(--card-background);
   }
 
   .form-wrap-title {
     color: var(--black);
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-large);
     font-weight: var(--weight-bold);
   }
 
   .form-wrap-subtitle {
     color: var(--gray);
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-normal);
     font-weight: var(--weight-bold);
   }
 

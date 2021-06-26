@@ -29,7 +29,7 @@
     z-index: 5;
     text-indent: 35px !important;
     color: var(--gray);
-    font-size: var(--font-size-small) !important;
+    font-size: var(--font-size-normal) !important;
     pointer-events: none;
     transition: 0.2s ease all !important;
     -moz-transition: 0.2s ease all !important;
