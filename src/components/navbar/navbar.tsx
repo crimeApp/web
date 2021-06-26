@@ -3,7 +3,6 @@ import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from '@material-ui/icons/Menu';
 import "./navbar.css";
-
 import {
     Grid,
     Toolbar,
@@ -48,7 +47,7 @@ export default function Navbar() {
                     variant="contained"
                     color="primary"
                     size="small"
-                    href="/currentcrimeform"
+                    href="/current-crime-form"
                 >
                     <p style={{ color: "white", fontSize: "small", fontWeight: "bold" }}>{traslate["MENU"]["CURRENTCRIME"]}</p>
                 </Button>
@@ -58,7 +57,7 @@ export default function Navbar() {
                     variant="outlined"
                     color="primary"
                     size="small"
-                    href="/pastcrimeform"
+                    href="/past-crime-form"
                 >
                     <p style={{ color: "var(--primaty-color)", fontSize: "small", fontWeight: "bold" }}>{traslate["MENU"]["PASTCRIME"]}</p>
                 </Button>

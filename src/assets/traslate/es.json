@@ -21,7 +21,7 @@
     "FORM": {
         "TITLE": "DenunciaYa",
         "TITLE-PASTCRIME": "Siniestros Antiguos",
-        "SUBTITLE": "Toda la informacion que se registre quedara completamente anonima. El objetivo es tener datos para analizar la delincuencia en Cordoba.",
+        "SUBTITLE": "Toda la informacion que se registre quedara completamente anonima. Toda la informacion que se registre quedara completamente anonima.",
 
         "THEFTINFO": {
             "THIEFINFO": "Información del Robo",
@@ -73,7 +73,9 @@
             "HEIGHT": "Altura",
             "HEIGHT-PLACEHOLDER": "Ingrese su altura.",
             "PHYSICAL": "Fisico",
-            "PHYSICAL-PLACEHOLDER": "Ingrese su tipo de fisico."
+            "PHYSICAL-PLACEHOLDER": "Ingrese su tipo de fisico.",
+            "COMPLAINT": "¿Se hizo una denuncia?",
+            "ARRESTED": "Fue arrestado?"
         }
 
     },

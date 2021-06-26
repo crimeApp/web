@@ -12,23 +12,18 @@ interface MapProps {
     onChange: (newValue: { lat: number, lng: number }) => void,
     error_msg?: string,
     msg?: string,
-    /** Material UI Breackpoints */
     xs?: GridSize,
-    /** Material UI Breackpoints */
     sm?: GridSize,
-    /** Material UI Breackpoints */
     md?: GridSize,
-    /** Material UI Breackpoints */
     lg?: GridSize,
-    /** Material UI Breackpoints */
     xl?: GridSize,
 }
 
 const Map = ({
     label,
     position = {
-        lat: -31.43087168213775,
-        lng: -64.21910252283733
+        lat: 0,
+        lng: 0
     },
     onChange,
     error_msg,

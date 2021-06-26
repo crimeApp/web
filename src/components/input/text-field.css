@@ -5,9 +5,10 @@
 
 .text-field-container .MuiInputBase-root {
     margin-top: 0px; /* Material UI MARGIN deleting*/
-    background-color: var(--black);
+    background-color: var(--gray);
     border-radius: 25px;
     padding: 2px !important;
+    
 }
 
 .text-field-icon-start {
