@@ -3,6 +3,7 @@ import { Box, Grid, Button } from "@material-ui/core";
 import traslate from "../../assets/traslate/es.json";
 import Scaffold from "../../components/scaffold/scaffold";
 import FormWrapper from "../../components/form-wrapper/FormWrapper";
+import "./PastCrimePage.css";
 
 import PastCrimepageOne from "./layout/step1";
 import PastCrimepageTwo from "./layout/step2";
@@ -12,6 +13,7 @@ import PastCrimeReview from "./PastCrimeReview";
 import PastCrimeSubmit from "./PastCrimeSubmit";
 
 const PastCrimePage = () => {
+  // no hacia falta todo eso jsjs esto lo validas independienteme en cada view
   const [form_data, set_form_data] = useState({
     type: "",
     hour: "",

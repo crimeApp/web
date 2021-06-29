@@ -41,15 +41,8 @@ const schema = yup.object({
   type: yup
     .string()
     .transform((e) => e.toLowerCase())
-    .oneOf([
-      "Robo",
-      "Asesinato",
-      "Abuso sexual",
-      "Secuestro",
-      "Asalto",
-      "Hurto",
-    ])
-    .required("Completar la casilla"),
+    .oneOf(type_options.map( e => e.toLowerCase() ))
+    .required("Completar la casilla"),/* 
   hour: yup
     .string()
     .transform((e) => e.toLowerCase())
@@ -83,7 +76,7 @@ const schema = yup.object({
       "solo/a, no gente alrededor",
       "acompañado, no gente alrededor",
     ])
-    .required("Completar la casilla"),
+    .required("Completar la casilla"), */
 });
 
 interface PastCrimeStepOneProps {
@@ -92,46 +85,40 @@ interface PastCrimeStepOneProps {
   handleBack: (data: any) => void;
 }
 
+type schemaType = yup.InferType<typeof schema>;
+
 const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProps) => {
-  const [data_state, set_data] = useState({
-    ...data,
+  const [data_state, set_data] = useState<schemaType>({
     type: "",
     hour: "",
     date: "",
     place_description: "",
     accompaniment: "",
-
     position: {
       lat: 0,
       lng: 0,
     },
+    ...data, // si existen variables valores preciamente lo logico es sobre escribirlas
   });
 
   const [error, set_error] = useState<any>();
 
-  const HandleChange = (name: string, value: any) => {
-    set_data({ ...data_state, [name]: value });
-  };
+  const HandleChange = (name: string, value: any) => set_data((prevState:any) => ({ ...prevState, [name]: value }));
 
   const OnFoward = async () => {
     set_error({});
 
     const resp = await Validator(data_state, schema);
 
-    if (resp.err) {
-      set_error(resp.data);
-    }
+    if (resp.err) return set_error(resp.data);
 
-    handleNext(resp.data);
-    console.log(resp.data);
-    return;
+    return handleNext(resp.data);
   };
 
   return (
     <Grid
       container
-      direction="column"
-      className="form-wrap"
+      className="p-3"
       justify="center"
       alignItems="center"
     >
@@ -149,7 +136,6 @@ EXAMPLE
     onChange={(event, newValue) => set_category(newValue)}
   />
 */}
-      <Grid item>
         <Selector
           xs={12}
           color='light-gray'
@@ -161,7 +147,6 @@ EXAMPLE
           error={error?.type?.error}
           error_msg={error?.type?.msg}
         />
-      </Grid>
 {/* 
       <Grid item>
         <Selector
