@@ -15,25 +15,26 @@ const place_options = ["Parque",
   "Otro"
 ];
 
-const accompaniment_options = [ "Solo/a, gente alrededor",
-     "Acompañado, gente alrededor",
+const accompaniment_options = ["Solo/a, gente alrededor",
+  "Acompañado, gente alrededor",
   "Solo/a, no gente",
-   "Acompañado, no gente alrededor",
+  "Acompañado, no gente alrededor",
 ];
 
 const type_options = [
-  "Abuso sexual",
-  "Asesinato",
   "Robo",
+  "Asesinato",
+  "Abuso sexual",
+  "Secuestro",
+  "Asalto",
   "Hurto",
-  "Asalto"
 ];
 
 const hour_options = [
   "Mañana",
-   "Mediodia",
-   "Tarde",
-   "Noche"
+  "Mediodia",
+  "Tarde",
+  "Noche"
 ];
 
 const schema = yup.object({
@@ -41,12 +42,12 @@ const schema = yup.object({
     .string()
     .transform((e) => e.toLowerCase())
     .oneOf([
-      "robo",
-      "asesinato",
-      "abuso sexual",
-      "secuestro",
-      "asalto",
-      "hurto",
+      "Robo",
+      "Asesinato",
+      "Abuso sexual",
+      "Secuestro",
+      "Asalto",
+      "Hurto",
     ])
     .required("Completar la casilla"),
   hour: yup
@@ -108,8 +109,9 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
 
   const [error, set_error] = useState<any>();
 
-  const HandleChange = (name: string, value: any) =>
+  const HandleChange = (name: string, value: any) => {
     set_data({ ...data_state, [name]: value });
+  };
 
   const OnFoward = async () => {
     set_error({});
@@ -121,6 +123,8 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
     }
 
     handleNext(resp.data);
+    console.log(resp.data);
+    return;
   };
 
   return (
@@ -131,20 +135,34 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
       justify="center"
       alignItems="center"
     >
+      {/*
+EXAMPLE
+  <Selector
+    label="Categoria"
+    icon={"fas fa-search"}
+    options={top100Films}
+    value={category}
+    className="m-top-3 m-bottom-3"
+    msg="La categoria te permitira ser conocido por la comunidad"
+    error={errors?.category.error}
+    error_msg={errors?.category?.msg}
+    onChange={(event, newValue) => set_category(newValue)}
+  />
+*/}
       <Grid item>
         <Selector
           xs={12}
           color='light-gray'
           className='m-top-1 m-bottom-1'
           label={traslate.FORM.THEFTINFO.THEFT}
+          onChange={(event, newValue) => HandleChange("type", newValue)}
           options={type_options}
           value={data_state.type}
-          onChange={(e) => HandleChange("type", e.target.value)}
-          error={error?.type}
+          error={error?.type?.error}
           error_msg={error?.type?.msg}
         />
       </Grid>
-
+{/* 
       <Grid item>
         <Selector
           xs={12}
@@ -152,9 +170,9 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
           className='m-top-1 m-bottom-1'
           label={traslate.FORM.THEFTINFO.TIMEFRACTION}
           value={data_state.hour}
+          onChange={(event, newValue) => HandleChange("type", newValue)}
           options={hour_options}
-          onChange={(e) => HandleChange("hour", e.target.value)}
-          error={error?.hour}
+          error={error?.hour?.error}
           error_msg={error?.hour?.msg}
         />
       </Grid>
@@ -164,11 +182,11 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
           xs={12}
           color='light-gray'
           className='m-top-1 m-bottom-1'
-          label={"Fecha"}
+          label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
           options={place_options}
           value={data_state.place_description}
-          onChange={(e) => HandleChange("place_description", e.target.value)}
-          error={error?.place_description}
+          error={error?.place_description?.error}
+          onChange={(event, newValue) => HandleChange("type", newValue)}
           error_msg={error?.place_description?.msg}
         />
       </Grid>
@@ -176,12 +194,12 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
       <Grid item>
         <Input
           xs={12}
+          type='date'
           color='light-gray'
           className='m-top-1 m-bottom-1'
-          label={traslate.FORM.THEFTINFO.DATE}
           value={data_state.date}
-          onChange={(e) => HandleChange("date", e.target.value)}
-          error={error?.date}
+          onChange={(newValue) => HandleChange("date", newValue)}
+          error={error?.date?.error}
           error_msg={error?.date?.msg}
         />
       </Grid>
@@ -194,11 +212,11 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
           label={traslate.FORM.THEFTINFO.COMPANY}
           options={accompaniment_options}
           value={data_state.accompaniment}
-          onChange={(e) => HandleChange("accompaniment", e.target.value)}
-          error={error?.accompaniment}
+          onChange={(event, newValue) => HandleChange("type", newValue)}
+          error={error?.accompaniment?.error}
           error_msg={error?.accompaniment?.msg}
         />
-      </Grid>
+      </Grid> */}
 
       <Grid item className="m-top-1 m-bottom-2">
         <Button

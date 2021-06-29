@@ -25,7 +25,7 @@
 
         "THEFTINFO": {
             "THIEFINFO": "Información del Robo",
-            "THEFT": "Tipo de robo, huerto, agresión.",
+            "THEFT": "Ingrese el tipo de siniestro",
             "TIMEFRACTION": "Ingrese franja horaria",
             "DATE": "Ingrese fecha",
             "DATE-PLACEHOLDER": "dd-mm-aa",

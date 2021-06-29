@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import traslate from "../../assets/traslate/es.json";
+// eslint-disable-next-line
 import axios from "axios";
 import {
   Grid,
@@ -42,9 +43,12 @@ const ReviewPastCrime = ({ data, handleNext, handleBack }) => {
     thief_physical,
   } = data;
 
+  // eslint-disable-next-line
   const url = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app"
 
+  // eslint-disable-next-line
   const [isLoading, setLoading] = useState(false);
+  // eslint-disable-next-line
   const [error, setError] = useState(false);
   const [expanded, setExpanded] = useState(false);
 

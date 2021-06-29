@@ -59,19 +59,20 @@ const PastCrimePage = () => {
         <Scaffold>
           <Box className="form-background m-top-4">
             <Grid
+              container
               className="form-wrap p-top-1"
               direction="column"
               justify="center"
               alignContent="center"
             >
-              <Grid item xs={12} className='m-left-3 m-right-3 m-top-1'>
+              <Grid item xs={8} className='m-top-1'>
                 <h2>{traslate["FORM"]["TITLE-PASTCRIME"]}</h2>
                 <p className="form-wrap-subtitle">
                   {traslate["FORM"]["SUBTITLE"]}
                 </p>
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <Button
                   variant="contained"
                   color="primary"
