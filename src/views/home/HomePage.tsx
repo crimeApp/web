@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import Scaffold from "../../components/scaffold/scaffold";
-import Selector from "../../components/selector/selector";
+import Selector from "../../components/selector/Selector";
 import { Menu } from "@material-ui/icons";
 import Input from "../../components/input/Input";
 

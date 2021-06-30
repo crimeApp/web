@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
-import Input from "../../../components/input/Input";
-import Selector from "../../../components/selector/selector";
+import Selector from "../../../components/selector/Selector";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
@@ -15,13 +14,14 @@ const place_options = ["Parque",
   "Otro"
 ];
 
-const accompaniment_options = ["Solo/a, gente alrededor",
+const accompaniment_options = [
+  "Solo/a, gente alrededor",
   "Acompañado, gente alrededor",
   "Solo/a, no gente",
   "Acompañado, no gente alrededor",
 ];
 
-const type_options = [
+const attack_type_options = [
   "Robo",
   "Asesinato",
   "Abuso sexual",
@@ -38,21 +38,21 @@ const hour_options = [
 ];
 
 const schema = yup.object({
-  type: yup
+  attack_type: yup
     .string()
     .transform((e) => e.toLowerCase())
-    .oneOf(type_options.map( e => e.toLowerCase() ))
-    .required("Completar la casilla"),/* 
+    .oneOf(attack_type_options.map(e => e.toLowerCase()))
+    .required("Completar la casilla"),
   hour: yup
     .string()
     .transform((e) => e.toLowerCase())
-    .oneOf(["mañana", "mediodia", "tarde", "noche"])
+    .oneOf(hour_options.map(e => e.toLowerCase()))
     .required("Completar la casilla"),
-  date: yup
+  /* date: yup
     .date()
     .min(new Date("01/01/2010"))
     .max(new Date())
-    .required("Ingresar una fecha valida"),
+    .required("Ingresar una fecha valida"), */
   place_description: yup
     .mixed()
     .transform((e) => e.toLowerCase())
@@ -76,7 +76,7 @@ const schema = yup.object({
       "solo/a, no gente alrededor",
       "acompañado, no gente alrededor",
     ])
-    .required("Completar la casilla"), */
+    .required("Completar la casilla")
 });
 
 interface PastCrimeStepOneProps {
@@ -89,21 +89,21 @@ type schemaType = yup.InferType<typeof schema>;
 
 const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProps) => {
   const [data_state, set_data] = useState<schemaType>({
-    type: "",
+    attack_type: "",
     hour: "",
-    date: "",
+    date: "2021-06-30T13:26:00.000Z",
     place_description: "",
     accompaniment: "",
     position: {
       lat: 0,
       lng: 0,
     },
-    ...data, // si existen variables valores preciamente lo logico es sobre escribirlas
+    ...data,
   });
 
   const [error, set_error] = useState<any>();
 
-  const HandleChange = (name: string, value: any) => set_data((prevState:any) => ({ ...prevState, [name]: value }));
+  const HandleChange = (name: string, value: any) => set_data((prevState: any) => ({ ...prevState, [name]: value }));
 
   const OnFoward = async () => {
     set_error({});
@@ -111,7 +111,7 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
     const resp = await Validator(data_state, schema);
 
     if (resp.err) return set_error(resp.data);
-
+    console.log(resp.data);
     return handleNext(resp.data);
   };
 
@@ -122,86 +122,54 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
       justify="center"
       alignItems="center"
     >
-      {/*
-EXAMPLE
-  <Selector
-    label="Categoria"
-    icon={"fas fa-search"}
-    options={top100Films}
-    value={category}
-    className="m-top-3 m-bottom-3"
-    msg="La categoria te permitira ser conocido por la comunidad"
-    error={errors?.category.error}
-    error_msg={errors?.category?.msg}
-    onChange={(event, newValue) => set_category(newValue)}
-  />
-*/}
-        <Selector
-          xs={12}
-          color='light-gray'
-          className='m-top-1 m-bottom-1'
-          label={traslate.FORM.THEFTINFO.THEFT}
-          onChange={(event, newValue) => HandleChange("type", newValue)}
-          options={type_options}
-          value={data_state.type}
-          error={error?.type?.error}
-          error_msg={error?.type?.msg}
-        />
-{/* 
-      <Grid item>
-        <Selector
-          xs={12}
-          color='light-gray'
-          className='m-top-1 m-bottom-1'
-          label={traslate.FORM.THEFTINFO.TIMEFRACTION}
-          value={data_state.hour}
-          onChange={(event, newValue) => HandleChange("type", newValue)}
-          options={hour_options}
-          error={error?.hour?.error}
-          error_msg={error?.hour?.msg}
-        />
-      </Grid>
 
-      <Grid item>
-        <Selector
-          xs={12}
-          color='light-gray'
-          className='m-top-1 m-bottom-1'
-          label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
-          options={place_options}
-          value={data_state.place_description}
-          error={error?.place_description?.error}
-          onChange={(event, newValue) => HandleChange("type", newValue)}
-          error_msg={error?.place_description?.msg}
-        />
-      </Grid>
+      <Selector
+        xs={12}
+        color='light-gray'
+        className='m-top-1 m-bottom-1'
+        label={traslate.FORM.THEFTINFO.THEFT}
+        value={data_state.attack_type}
+        onChange={(event, newValue) => HandleChange("attack_type", newValue)}
+        options={attack_type_options}
+        error={error?.attack_type?.error}
+        error_msg={error?.attack_type?.msg}
+      />
 
-      <Grid item>
-        <Input
-          xs={12}
-          type='date'
-          color='light-gray'
-          className='m-top-1 m-bottom-1'
-          value={data_state.date}
-          onChange={(newValue) => HandleChange("date", newValue)}
-          error={error?.date?.error}
-          error_msg={error?.date?.msg}
-        />
-      </Grid>
+      <Selector
+        xs={12}
+        color='light-gray'
+        className='m-top-1 m-bottom-1'
+        label={traslate.FORM.THEFTINFO.TIMEFRACTION}
+        value={data_state.hour}
+        onChange={(event, newValue) => HandleChange("hour", newValue)}
+        options={hour_options}
+        error={error?.hour?.error}
+        error_msg={error?.hour?.msg}
+      />
 
-      <Grid item>
-        <Selector
-          xs={12}
-          color='light-gray'
-          className='m-top-1 m-bottom-1'
-          label={traslate.FORM.THEFTINFO.COMPANY}
-          options={accompaniment_options}
-          value={data_state.accompaniment}
-          onChange={(event, newValue) => HandleChange("type", newValue)}
-          error={error?.accompaniment?.error}
-          error_msg={error?.accompaniment?.msg}
-        />
-      </Grid> */}
+      <Selector
+        xs={12}
+        color='light-gray'
+        className='m-top-1 m-bottom-1'
+        label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
+        options={place_options}
+        value={data_state.place_description}
+        error={error?.place_description?.error}
+        onChange={(event, newValue) => HandleChange("place_description", newValue)}
+        error_msg={error?.place_description?.msg}
+      />
+
+      <Selector
+        xs={12}
+        color='light-gray'
+        className='m-top-1 m-bottom-1'
+        label={traslate.FORM.THEFTINFO.COMPANY}
+        options={accompaniment_options}
+        value={data_state.accompaniment}
+        onChange={(event, newValue) => HandleChange("accompaniment", newValue)}
+        error={error?.accompaniment?.error}
+        error_msg={error?.accompaniment?.msg}
+      />
 
       <Grid item className="m-top-1 m-bottom-2">
         <Button

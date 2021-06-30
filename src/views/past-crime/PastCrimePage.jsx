@@ -13,34 +13,7 @@ import PastCrimeReview from "./PastCrimeReview";
 import PastCrimeSubmit from "./PastCrimeSubmit";
 
 const PastCrimePage = () => {
-  // no hacia falta todo eso jsjs esto lo validas independienteme en cada view
-  const [form_data, set_form_data] = useState({
-    type: "",
-    hour: "",
-    date: "",
-    place_description: "",
-    accompaniment: "",
-    stolen_cash: "",
-    stolen_items: "",
-    victim_name: "",
-    victim_dni: "",
-    victim_gender: "",
-    victim_age: "",
-    victim_skin: "",
-    victim_height: "",
-    victim_clothing: "",
-    victim_pyshical: "",
-    thief_profile: "",
-    thief_age: "",
-    thief_gender: "",
-    thief_skin: "",
-    thief_height: "",
-    thief_clothing: "",
-    thief_physical: "",
-    thief_complaint: false,
-    thief_arrested: false,
-    position: [-31.42384796597578, -64.18635948818674],
-  });
+  const [form_data, set_form_data] = useState({});
 
   const [step, set_step] = useState(0);
 

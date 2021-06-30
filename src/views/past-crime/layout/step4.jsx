@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Input from "../../../components/input/Input";
+//import Selector from "../../../components/selector/Selector";
 import RadioButtons from "../../../components/radio-buttons/RadioButtons";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
-const gender_options = [
-  { label: "Hombre", value: "hombre" },
-  { label: "Mujer", value: "mujer" },
-  { label: "Prefiero no decir", value: "indefinido" },
-];
+const sex_options = ["hombre", "mujer", "indefinido"];
 
 const schema = yup.object({
   victim_name: yup
@@ -22,7 +19,7 @@ const schema = yup.object({
     .min(100000)
     .max(99999999)
     .required("Completar la casilla"),
-  victim_gender: yup
+  victim_sex: yup
     .string()
     .transform((e) => e.toLowerCase())
     .oneOf(["hombre", "mujer", "indefinido"])
@@ -34,7 +31,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
     victim_name: "",
     victim_dni: "",
-    victim_gender: "",
+    victim_sex: "",
     victim_age: "",
     victim_skin: "",
     victim_height: "",
@@ -44,19 +41,16 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
   const [error, set_error] = useState();
 
-  const HandleChange = (name, value) =>
-    set_data({ ...data_state, [name]: value });
+  const HandleChange = (name, value) => set_data((prevState) => ({ ...prevState, [name]: value }));
 
   const OnFoward = async () => {
     set_error({});
 
     const resp = await Validator(data_state, schema);
 
-    if (resp.err) {
-      set_error(resp.data);
-    }
+    if (resp.err) return set_error(resp.data);
 
-    handleNext(resp.data);
+    return handleNext(resp.data);
   };
 
   const OnBackward = async () => {
@@ -64,18 +58,15 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
     const resp = await Validator(data_state, schema);
 
-    if (resp.err) {
-      set_error(resp.data);
-    }
+    if (resp.err) return set_error(resp.data);
 
-    handleBack(resp.data);
+    return handleBack(resp.data);
   };
 
   return (
     <Grid
       container
-      direction="column"
-      className="form-wrap"
+      className="p-3"
       justify="center"
       alignItems="center"
     >
@@ -85,10 +76,9 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
           color='light-gray'
           className='m-top-1 m-bottom-1'
           label={traslate.FORM.PERSONALINFO.NAME}
-          //options={place_options}
           value={data_state.victim_name}
           onChange={(e) => HandleChange("victim_name", e.target.value)}
-          error={error?.victim_name}
+          error={error?.victim_name?.error}
           error_msg={error?.victim_name?.msg}
         />
       </Grid>
@@ -101,7 +91,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
           //options={place_options}
           value={data_state.victim_dni}
           onChange={(e) => HandleChange("victim_dni", e.target.value)}
-          error={error?.victim_dni}
+          error={error?.victim_dni?.error}
           error_msg={error?.victim_dni?.msg}
         />
       </Grid>
@@ -109,13 +99,13 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
         <RadioButtons
           xs={12}
           color='light-gray'
-          options={gender_options}
+          options={sex_options}
           className='m-top-1 m-bottom-1'
-          label={traslate.FORM.PERSONALINFO.GENDER}
-          value={data_state.victim_gender}
-          onChange={(e) => HandleChange("victim_gender", e.target.value)}
-          error={error?.victim_gender}
-          error_msg={error?.victim_gender?.msg}
+          label={traslate.FORM.PERSONALINFO.SEX}
+          value={data_state.victim_sex}
+          onChange={(e) => HandleChange("victim_sex", e.target.value)}
+          error={error?.victim_sex?.error}
+          error_msg={error?.victim_sex?.msg}
         />
       </Grid>
       <Grid item>
@@ -126,7 +116,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
           label={traslate.FORM.PERSONALINFO.AGE}
           value={data_state.victim_age}
           onChange={(e) => HandleChange("victim_age", e.target.value)}
-          error={error?.victim_age}
+          error={error?.victim_age?.error}
           error_msg={error?.victim_age?.msg}
         />
       </Grid>
@@ -139,7 +129,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
           value={data_state.victim_height}
           //options={height_options}
           onChange={(e) => HandleChange("victim_height", e.target.value)}
-          error={error?.victim_height}
+          error={error?.victim_height?.error}
           error_msg={error?.victim_height?.msg}
         />
       </Grid>
@@ -152,7 +142,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
           //options={skin_options}
           value={data_state.victim_skin}
           onChange={(e) => HandleChange("victim_skin", e.target.value)}
-          error={error?.victim_skin}
+          error={error?.victim_skin?.error}
           error_msg={error?.victim_skin?.msg}
         />
       </Grid>
@@ -165,7 +155,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
           //options={clothing_options}
           value={data_state.victim_clothing}
           onChange={(e) => HandleChange("victim_clothing", e.target.value)}
-          error={error?.victim_clothing}
+          error={error?.victim_clothing?.error}
           error_msg={error?.victim_clothing?.msg}
         />
       </Grid>
@@ -179,7 +169,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
           //options={pyshic_options}
           value={data_state.victim_pyshical}
           onChange={(e) => HandleChange("victim_pyshical", e.target.value)}
-          error={error?.victim_pyshical}
+          error={error?.victim_pyshical?.error}
           error_msg={error?.victim_pyshical?.msg}
         />
       </Grid>

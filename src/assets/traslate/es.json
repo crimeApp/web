@@ -44,8 +44,8 @@
             "NAME-PLACEHOLDER": "Ingrese su nombre.",
             "DNI": "DNI",
             "DNI-PLACEHOLDER": "Ingrese su DNI.",
-            "GENDER": "Sexo",
-            "GENDER-PLACEHOLDER": "Ingrese su genero.",
+            "SEX": "Sexo",
+            "SEX-PLACEHOLDER": "Ingrese su sexo.",
             "SKIN": "Tonalidad de piel",
             "SKIN-PLACEHOLDER": "Ingrese su tono de piel.",
             "CLOTHING": "Vestimenta",
@@ -64,8 +64,8 @@
             "PROFILE-PLACEHOLDER": "Como lo trato el agresor",
             "AGE": "Edad aproximada",
             "AGE-PLACEHOLDER": "Ingrese su edad.",
-            "GENDER": "Genero",
-            "GENDER-PLACEHOLDER": "Ingrese su genero.",
+            "SEX": "Genero",
+            "SEX-PLACEHOLDER": "Ingrese su genero.",
             "SKIN": "Tonalidad de piel",
             "SKIN-PLACEHOLDER": "Ingrese su tono de piel.",
             "CLOTHING": "Vestimenta",
@@ -85,7 +85,7 @@
         "BUTTON-TEXT": "Volver a Inicio"
     },
 
-    "GENDER": {
+    "SEX": {
         "MAN": "hombre",
         "WOMAN": "mujer"
     },

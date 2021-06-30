@@ -3,19 +3,38 @@ import Map from "../../../components/map/Map";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Input from "../../../components/input/Input";
+import Selector from "../../../components/selector/Selector";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
-/* const items_options = [
-    {
-      label: "celular",
-      value: "celular",
-    },
-    {
-      label: "billetera",
-      value: "billetera",
-    },
-]; */
+const items_options = [
+  "celular",
+  "billetera",
+  "documentacion",
+  "dinero",
+  "auto",
+  "computadora",
+  "notebook",
+  "herramientas",
+  "mochila",
+  "cartera",
+  "llaves",
+  "motocicleta",
+  "ropa",
+  "objetos recien comprados",
+  "alimento",
+  "accesorios",
+  "tarjetas debito/credito",
+  "electrodomesticos",
+  "muebles",
+  "dolares",
+  "joyeria",
+  "objetos de valor personal",
+  "reliquias",
+  "maquinaria",
+  "mascotas",
+  "otros",
+];
 
 const schema = yup.object({
   stolen_items: yup
@@ -70,18 +89,16 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
   const [error, set_error] = useState();
 
   const HandleChange = (name, value) =>
-    set_data({ ...data_state, [name]: value });
+    set_data((prevState) => ({ ...prevState, [name]: value }));
 
   const OnFoward = async () => {
     set_error({});
 
     const resp = await Validator(data_state, schema);
 
-    if (resp.err) {
-      set_error(resp.data);
-    }
+    if (resp.err) return set_error(resp.data);
 
-    handleNext(resp.data);
+    return handleNext(resp.data);
   };
 
   const OnBackward = async () => {
@@ -89,54 +106,41 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
 
     const resp = await Validator(data_state, schema);
 
-    if (resp.err) {
-      set_error(resp.data);
-    }
+    if (resp.err) return set_error(resp.data);
 
-    handleBack(resp.data);
+    return handleBack(resp.data);
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      className="form-wrap"
-      justify="center"
-      alignItems="center"
-    >
-      <Grid item>
-        <Input
-          xs={12}
-          color="light-gray"
-          className="m-top-1 m-bottom-1"
-          label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
-          value={data_state.stolen_cash}
-          onChange={(e) => HandleChange("stolen_cash", e.target.value)}
-          error={error?.stolen_cash}
-          error_msg={error?.stolen_cash?.msg}
-        />
-      </Grid>
-      <Grid item>
-        <Input
-          xs={12}
-          color="light-gray"
-          className="m-top-1 m-bottom-1"
-          label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
-          //options={items_options}
-          value={data_state.stolen_items}
-          onChange={(e) => HandleChange("stolen_items", e.target.value)}
-          error={error?.stolen_items}
-          error_msg={error?.stolen_items?.msg}
-        />
-      </Grid>
-      
-      <Grid item>
+    <Grid container className="p-3" justify="center" alignItems="center">
+      <Input
+        xs={12}
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
+        label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
+        value={data_state.stolen_cash}
+        onChange={(event, newValue) => HandleChange("stolen_cash", newValue)}
+        error={error?.stolen_cash}
+        error_msg={error?.stolen_cash?.msg}
+      />
+
+      <Selector
+        xs={12}
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
+        label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
+        options={items_options}
+        value={data_state.stolen_items}
+        onChange={(event, newValue) => HandleChange("stolen_items", newValue)}
+        error={error?.stolen_items}
+        error_msg={error?.stolen_items?.msg}
+      />
+
       <Map
-          label={traslate.FORM.THEFTINFO.LOCATION}
-          position={data_state.position}
-          onChange={(newValue) => HandleChange("position", newValue)}
-        />
-      </Grid>
+        label={traslate.FORM.THEFTINFO.LOCATION}
+        position={data_state.position}
+        onChange={(newValue) => HandleChange("position", newValue)}
+      />
 
       <Grid item className="m-top-1 m-bottom-2">
         <Button
