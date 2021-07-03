@@ -4,11 +4,11 @@ yup.setLocale({
     mixed: {
         required: ({ path } : any) => ({
             path,
-            msg: `Es un campo obligatorio`
+            msg: `Por favor, complete el campo obligatorio.`
         }),
         oneOf: ({ path, values }: any) => ({
             path,
-            msg: `Deberia de ser alguno de los opciones`
+            msg: `Por favor, elija una de las opciones disponibles. `
         })
     },
     number: {
@@ -24,7 +24,7 @@ yup.setLocale({
     string: {
         email: ({ path }: any) => ({
             path,
-            msg: `El campo no es valido`
+            msg: `El campo no es válido.`
         })
     }
 })

@@ -9,7 +9,7 @@ export default function FormWrapper({
   loading,
 }) {
   return (
-    <Box className="form-wrap-background">
+    <Box className="form-wrap-background p-top-4">
       <Grid
         container
         direction="column"

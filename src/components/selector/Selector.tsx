@@ -11,7 +11,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { BorderCA, ColorCA } from "../../style/type-style";
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
-
 interface SelectProps {
     id?: string;
     label?: string;
@@ -77,7 +76,7 @@ const Selector = ({
             xl={xl}
             className={`m-top-3 m-bottom-3 ${className}`} >
             <Autocomplete
-                className={`text-field-container`}
+                className={`text-field-container text-field-group`}
                 options={options}
                 disableClearable
                 freeSolo={freeSolo}

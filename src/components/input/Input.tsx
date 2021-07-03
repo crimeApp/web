@@ -79,7 +79,7 @@ const Input = ({
             md={md}
             lg={lg}
             xl={xl}
-            className={`input-container m-top-2 m-bottom-2 ${className}`}
+            className={`m-top-2 m-bottom-2 ${className}`}
         >
             <TextField
                 label={label}

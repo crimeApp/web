@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import Selector from "../../../components/selector/Selector";
+import DateTimeInput from "../../../components/date-picker/date-input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
-const place_options = ["Parque",
+//import getCurrentDate from "../../../utils/getCurrentDate";
+
+const place_options = [
+  "Parque",
   "Calle",
   "Parada de colectivo",
-  "centro comercial", "propiedad privada",
+  "centro comercial",
+  "propiedad privada",
   "supermercado",
   "Estacionamiento",
-  "Otro"
+  "Otro",
 ];
 
 const accompaniment_options = [
@@ -30,53 +35,32 @@ const attack_type_options = [
   "Hurto",
 ];
 
-const hour_options = [
-  "Mañana",
-  "Mediodia",
-  "Tarde",
-  "Noche"
-];
+const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 
 const schema = yup.object({
   attack_type: yup
-    .string()
+    .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(attack_type_options.map(e => e.toLowerCase()))
+    .oneOf(attack_type_options.map((e) => e.toLowerCase()))
     .required("Completar la casilla"),
   hour: yup
-    .string()
+    .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(hour_options.map(e => e.toLowerCase()))
+    .oneOf(hour_options.map((e) => e.toLowerCase()))
     .required("Completar la casilla"),
-  /* date: yup
-    .date()
-    .min(new Date("01/01/2010"))
-    .max(new Date())
-    .required("Ingresar una fecha valida"), */
+  date: yup
+    .string()
+    .required("Ingresar una fecha valida"),
   place_description: yup
     .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf([
-      "otro",
-      "en el estacionamiento",
-      "parada de colectivo",
-      "supermercado",
-      "propiedad privada",
-      "calle",
-      "centro comercial",
-      "parque",
-    ])
+    .oneOf(place_options.map((e) => e.toLowerCase()))
     .required("Completar la casilla"),
   accompaniment: yup
     .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf([
-      "solo/a, gente alrededor",
-      "acompañado, gente alrededor",
-      "solo/a, no gente alrededor",
-      "acompañado, no gente alrededor",
-    ])
-    .required("Completar la casilla")
+    .oneOf(accompaniment_options.map((e) => e.toLowerCase()))
+    .required("Completar la casilla"),
 });
 
 interface PastCrimeStepOneProps {
@@ -87,11 +71,16 @@ interface PastCrimeStepOneProps {
 
 type schemaType = yup.InferType<typeof schema>;
 
-const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProps) => {
+const PastCrimeStepOne = ({
+  data,
+  handleNext,
+  handleBack,
+}: PastCrimeStepOneProps) => {
+
   const [data_state, set_data] = useState<schemaType>({
     attack_type: "",
     hour: "",
-    date: "2021-06-30T13:26:00.000Z",
+    date: "",
     place_description: "",
     accompaniment: "",
     position: {
@@ -103,7 +92,8 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
 
   const [error, set_error] = useState<any>();
 
-  const HandleChange = (name: string, value: any) => set_data((prevState: any) => ({ ...prevState, [name]: value }));
+  const HandleChange = (name: string, value: any) =>
+    set_data((prevState: any) => ({ ...prevState, [name]: value }));
 
   const OnFoward = async () => {
     set_error({});
@@ -116,17 +106,11 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
   };
 
   return (
-    <Grid
-      container
-      className="p-3"
-      justify="center"
-      alignItems="center"
-    >
-
+    <Grid container className="p-3" justify="center" alignItems="center">
       <Selector
         xs={12}
-        color='light-gray'
-        className='m-top-1 m-bottom-1'
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO.THEFT}
         value={data_state.attack_type}
         onChange={(event, newValue) => HandleChange("attack_type", newValue)}
@@ -135,10 +119,18 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
         error_msg={error?.attack_type?.msg}
       />
 
+      <DateTimeInput 
+        xs={12}
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
+        label={traslate.FORM.THEFTINFO.DATE}
+        error={error?.date?.error}
+        error_msg={error?.date?.msg}/>
+
       <Selector
         xs={12}
-        color='light-gray'
-        className='m-top-1 m-bottom-1'
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
         value={data_state.hour}
         onChange={(event, newValue) => HandleChange("hour", newValue)}
@@ -149,20 +141,22 @@ const PastCrimeStepOne = ({ data, handleNext, handleBack }: PastCrimeStepOneProp
 
       <Selector
         xs={12}
-        color='light-gray'
-        className='m-top-1 m-bottom-1'
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
         value={data_state.place_description}
         error={error?.place_description?.error}
-        onChange={(event, newValue) => HandleChange("place_description", newValue)}
+        onChange={(event, newValue) =>
+          HandleChange("place_description", newValue)
+        }
         error_msg={error?.place_description?.msg}
       />
 
       <Selector
         xs={12}
-        color='light-gray'
-        className='m-top-1 m-bottom-1'
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO.COMPANY}
         options={accompaniment_options}
         value={data_state.accompaniment}

@@ -32,30 +32,29 @@ const PastCrimePage = () => {
     case 0:
       return (
         <Scaffold>
-          <Box className="form-background m-top-4">
+           <Box className="past-crime-page form-background p-top-4">
             <Grid
               container
-              className="form-wrap p-top-1"
-              direction="column"
+              className="past-crime-page form-wrap"
               justify="center"
-              alignContent="center"
+              alignItems="center"
             >
-              <Grid item xs={8} className='m-top-1'>
+              <Grid item xs={10}>
                 <h2>{traslate["FORM"]["TITLE-PASTCRIME"]}</h2>
-                <p className="form-wrap-subtitle">
+                <p className="form-subtitle">
                   {traslate["FORM"]["SUBTITLE"]}
                 </p>
               </Grid>
 
-              <Grid item xs={8}>
+              <Grid item xs={10}>
                 <Button
                   variant="contained"
                   color="primary"
                   type="submit"
-                  className="m-bottom-3 m-top-3 m-left-3"
+                  className="m-bottom-3 m-top-1"
                   onClick={HandleNext}
                 >
-                  Completar formulario
+                  {traslate["FORM"]["INIT-FORM"]}
                 </Button>
               </Grid>
             </Grid>

@@ -47,50 +47,32 @@ const age_options = [
 const schema = yup.object({
   thief_profile: yup
     .mixed()
-    .oneOf([
-      "violento",
-      "amable",
-      "tranquilo",
-      "cauteloso",
-      "desconfiado",
-      "indiferente",
-      "visiblemente intoxicado",
-      "carismaticos",
-      "no recuerdo",
-    ])
+    .transform((e) => e.toLowerCase())
+    .oneOf(profile_options.map(e => e.toLowerCase()))
     .required("Elija una de las opciones"),
   thief_age: yup
     .mixed()
-    .oneOf([
-      "menor de edad",
-      "18-25",
-      "25-35",
-      "35-45",
-      "mas de 50",
-      "No recuerdo",
-    ])
+    .oneOf(age_options.map(e => e.toLowerCase()))
     .required("Elija una de las opciones"),
-  thief_height: yup.mixed().oneOf(["alto", "mediano", "bajo", "no recuerdo"]),
+  thief_height: yup
+    .mixed()
+    .oneOf(height_options.map(e => e.toLowerCase()))
+    .required("Elija una opcion"),
   thief_sex: yup
-    .string()
+    .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(["hombre", "mujer", "indefinido"])
+    .oneOf(sex_options.map(e => e.toLowerCase()))
     .required("Elija una opcion"),
   thief_clothing: yup
     .mixed()
-    .oneOf([
-      "formal",
-      "casual",
-      "deportivo",
-      "trabajo",
-      "semiformal",
-      "escolar",
-      "arreglado",
-      "desalineado",
-    ]),
+    .transform((e) => e.toLowerCase())
+    .oneOf(clothing_options.map(e => e.toLowerCase()))
+    .required("Elija una opcion"),
   thief_physical: yup
     .mixed()
-    .oneOf(["delgado", "casual", "corpulento", "obeso", "atletico"]),
+    .transform((e) => e.toLowerCase())
+    .oneOf(physical_options.map(e => e.toLowerCase()))
+    .required("Elija una opcion"),
   complaint: yup.boolean().optional(),
   arrested: yup.boolean().optional(),
 });
@@ -99,7 +81,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
     thief_profile: "",
     thief_age: "",
-    thief_SEX: "",
+    thief_sex: "",
     thief_skin: "",
     thief_height: "",
     thief_clothing: "",
@@ -112,8 +94,6 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
 
   const HandleChange = (name, value) => set_data((prevState) => ({ ...prevState, [name]: value }));
 
-  const HandleToggle = (name, newValue) => { set_data({[name]: newValue })};
-
   const OnFoward = async () => {
     set_error({});
 
@@ -121,17 +101,13 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
 
     if (resp.err) return set_error(resp.data);
 
+    console.log(resp.data);
+
     return handleNext(resp.data);
   };
 
-  const OnBackward = async () => {
-    set_error({});
-
-    const resp = await Validator(data_state, schema);
-
-    if (resp.err) return set_error(resp.data);
-
-    return handleBack(resp.data);
+  const OnBackward = () => {
+    handleBack(data);
   };
 
   return (
@@ -189,6 +165,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
           error_msg={error?.thief_skin?.msg}
         />
       </Grid> */}
+
       <Selector
         xs={12}
         color="light-gray"
@@ -212,6 +189,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         error={error?.thief_clothing?.error}
         error_msg={error?.thief_clothing?.msg}
       />
+      
       <Selector
         xs={12}
         color="light-gray"
@@ -226,26 +204,24 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
 
       <Switches
         xs={12}
-        className="m-top-1 m-bottom-1"
+        className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.COMPLAINT}
-        checked={data_state.thief_complaint}
-        name='thief_complaint'
-        onChange={(event, newValue) => HandleToggle("thief_complaint", newValue)}
+        value={data_state.thief_complaint}
+        onChange={(event, newValue) => HandleChange("thief_complaint", newValue)}
         error={error?.thief_complaint?.error}
         error_msg={error?.thief_complaint?.msg}
       />
 
       <Switches
         xs={12}
-        className="m-top-1 m-bottom-1"
+        className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.ARRESTED}
         value={data_state.thief_arrested}
-        name='thief_arrested'
-        onChange={(event, newValue) => HandleToggle("thief_arrested", newValue)}
+        onChange={(event, newValue) => HandleChange("thief_arrested", newValue)}
         error={error?.thief_arrested?.error}
         error_msg={error?.thief_arrested?.msg}
       />
-      
+
       <Grid item className="m-top-1 m-bottom-2">
         <Button
           variant="contained"

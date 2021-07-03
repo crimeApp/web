@@ -14,14 +14,12 @@
         "LOADING": "Cargando los datos...",
         "ERROR": "Uf! Parece que hubo un error. Intente de nuevo."
     },
-    "SELECT": {
-        "PLACEHOLDER": "Seleccione una de las opciones."
-    },
-
+    
     "FORM": {
         "TITLE": "DenunciaYa",
         "TITLE-PASTCRIME": "Siniestros Antiguos",
         "SUBTITLE": "Toda la informacion que se registre quedara completamente anonima. Toda la informacion que se registre quedara completamente anonima.",
+        "INIT-FORM": "Completar formulario",
 
         "THEFTINFO": {
             "THIEFINFO": "Información del Robo",
@@ -64,8 +62,8 @@
             "PROFILE-PLACEHOLDER": "Como lo trato el agresor",
             "AGE": "Edad aproximada",
             "AGE-PLACEHOLDER": "Ingrese su edad.",
-            "SEX": "Genero",
-            "SEX-PLACEHOLDER": "Ingrese su genero.",
+            "SEX": "Sexo",
+            "SEX-PLACEHOLDER": "Ingrese su sexo.",
             "SKIN": "Tonalidad de piel",
             "SKIN-PLACEHOLDER": "Ingrese su tono de piel.",
             "CLOTHING": "Vestimenta",
