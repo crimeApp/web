@@ -4,9 +4,11 @@
         "REPORTS": "Ver reportes.",
         "MAP": "Ver mapa",
         "CURRENTCRIME": "DenunciaYa",
-        "PASTCRIME": "Siniestros Antiguos"
+        "PASTCRIME": "Siniestros Antiguos",
+        "US": "Sobre nosotros"
     },
     "COMMON": {
+        "START": "Comenzar",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "NEXT": "Siguiente",
@@ -16,10 +18,15 @@
     },
     
     "FORM": {
+        "INFO": "¿De qué se trata este proyecto?", 
         "TITLE": "DenunciaYa",
         "TITLE-PASTCRIME": "Siniestros Antiguos",
         "SUBTITLE": "Toda la informacion que se registre quedara completamente anonima. Toda la informacion que se registre quedara completamente anonima.",
         "INIT-FORM": "Completar formulario",
+        "INSTRUCTIONS": "Instrucciones de uso",
+        "CURRENT-INTRO": "¿Acabas de ser vÍctima de un siniestro? Podés contarnos lo que pasó aquí.",
+        "PAST-INTRO": "¿Querés reportar un siniestro pasado? Podés contarnos lo que pasó aquí.",
+        "EXPLANATION": "Ayudanos a generar una base de datos para analizar las tendencias criminales en la ciudad.",
 
         "THEFTINFO": {
             "THIEFINFO": "Información del Robo",

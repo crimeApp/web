@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from '@material-ui/icons/Menu';
+import { ErrorOutline, Error, HelpOutline } from '@material-ui/icons';
 import "./navbar.css";
 import {
     Grid,
@@ -9,7 +10,13 @@ import {
     AppBar,
     Button,
     IconButton,
-    Drawer
+    Drawer,
+    MenuList,
+    MenuItem,
+    ListItemIcon,
+    ListItemText,
+    Divider
+
 } from "@material-ui/core";
 import traslate from "../../assets/traslate/es.json";
 import useWindowSize from "../../hooks/useWindows";
@@ -40,16 +47,55 @@ export default function Navbar() {
 
     const { md } = useWindowSize();
 
-    const FlashAccess = () => (
+    const MobileAccess = () => (
+        <Fragment>
+            <MenuList>
+                <MenuItem>
+                    <Button href="/current-crime-form">
+                        <ListItemIcon>
+                            <ErrorOutline fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>{traslate.MENU.CURRENTCRIME}</ListItemText>
+                    </Button>
+
+                </MenuItem>
+
+                <Divider />
+
+                <MenuItem>
+                    <Button href="/past-crime-form">
+                        <ListItemIcon>
+                            <Error fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText >{traslate.MENU.PASTCRIME}</ListItemText>
+                    </Button>
+                </MenuItem>
+
+                <Divider />
+
+                <MenuItem>
+                    <Button href="/current-crime-form">
+                        <ListItemIcon>
+                            <HelpOutline fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>{traslate.MENU.US}</ListItemText>
+                    </Button>
+                </MenuItem>
+            </MenuList>
+        </Fragment>
+    );
+
+    const DesktopAccess = () => (
         <Fragment>
             <Grid item xs={8} md={4}>
                 <Button
                     variant="contained"
                     color="primary"
                     size="small"
-                    href="/current-crime-form"
-                >
-                    <p style={{ color: "white", fontSize: "small", fontWeight: "bold" }}>{traslate["MENU"]["CURRENTCRIME"]}</p>
+                    href="/current-crime-form">
+                    <p style={{ color: "white", fontSize: "small", fontWeight: "bold" }}>
+                        {traslate.MENU.CURRENTCRIME}
+                    </p>
                 </Button>
             </Grid>
             <Grid item xs={8} md={6}>
@@ -57,9 +103,10 @@ export default function Navbar() {
                     variant="outlined"
                     color="primary"
                     size="small"
-                    href="/past-crime-form"
-                >
-                    <p style={{ color: "var(--primaty-color)", fontSize: "small", fontWeight: "bold" }}>{traslate["MENU"]["PASTCRIME"]}</p>
+                    href="/past-crime-form">
+                    <p style={{ color: "var(--primaty-color)", fontSize: "small", fontWeight: "bold" }}>
+                        {traslate.MENU.PASTCRIME}
+                    </p>
                 </Button>
             </Grid>
         </Fragment>
@@ -70,15 +117,17 @@ export default function Navbar() {
             <Toolbar>
                 <Grid item xs={12} container alignContent="center" alignItems="center">
                     <Grid item xs={8}>
-                        <img
-                            alt="CrimeApp"
-                            className="menu-logo"
-                            src={process.env.PUBLIC_URL + "/assets/logos/CrimeApp.png"}
-                        />
+                        <Button href="/" >
+                            <img
+                                alt="CrimeApp"
+                                className="menu-logo"
+                                src={process.env.PUBLIC_URL + "/assets/logos/CrimeApp.png"}
+                            />
+                        </Button>
                     </Grid>
                     {!md ?
                         <Grid item xs={4} container justify="flex-end">
-                            <FlashAccess />
+                            <DesktopAccess />
                         </Grid> :
                         <Fragment>
                             <Grid item xs container justify="flex-end">
@@ -86,7 +135,7 @@ export default function Navbar() {
                             </Grid>
                             <Drawer anchor="left" open={anchor} onClose={() => set_anchor(!anchor)}>
                                 <Grid item xs container direction="column" className="p-top-3 p-left-2">
-                                    <FlashAccess />
+                                    <MobileAccess />
                                 </Grid>
                             </Drawer>
                         </Fragment>}

@@ -37,9 +37,6 @@
   border-radius: var(--border-big);
 }
 
-@media (min-width: 1000px) {
-}
-
 @media (max-width: 750px) {
   .form-wrap {
     width: 100%;
