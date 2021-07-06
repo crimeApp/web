@@ -9,6 +9,7 @@ interface MapProps {
         lat: number,
         lng: number
     },
+    className?: string,
     onChange: (newValue: { lat: number, lng: number }) => void,
     error_msg?: string,
     msg?: string,
@@ -25,6 +26,7 @@ const Map = ({
         lat: -31.42384796597578,
         lng: -64.18635948818674
     },
+    className,
     onChange,
     error_msg,
     msg,
@@ -35,14 +37,14 @@ const Map = ({
     xl,
 }: MapProps) => {
     return (
-        <Grid item container xs={xs} sm={sm} md={md} lg={lg} xl={xl} className="map-container" >
+        <Grid container xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`}>
             <Grid item>
                 <label className={`map-label ${error_msg ? `map-error-color` : ``}`}>
                     {label}
                 </label>
             </Grid>
             <Grid item>
-                <MapContainer center={position} zoom={13} scrollWheelZoom={true}
+                <MapContainer center={position} zoom={12} scrollWheelZoom={true}
                     //@ts-ignore
                     whenReady={(map) => {
                         map.target.on(

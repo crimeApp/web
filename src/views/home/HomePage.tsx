@@ -1,37 +1,84 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import {
   Grid,
   Button,
   Card,
-  CardActions,
   CardContent,
   Avatar,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Link,
 } from "@material-ui/core";
 import traslate from "../../assets/traslate/es.json";
+//import unitData from "../../assets/judicial-units.json";
+import Map from "../../components/map/Map";
 import Scaffold from "../../components/scaffold/scaffold";
 import useWindowSize from "../../hooks/useWindows";
 import "./HomePage.css";
 
+const explanation = (
+  <Fragment>
+    <h4>{traslate.INSTRUCTIONS.INTRO}</h4>
+    {[
+      `${traslate.INSTRUCTIONS[1]}`,
+      `${traslate.INSTRUCTIONS[2]}`,
+      `${traslate.INSTRUCTIONS[3]}`,
+      `${traslate.INSTRUCTIONS[4]}`,
+    ].map((text, index) => {
+      const labelId = `checkbox-list-label-${index}`;
+
+      return (
+        <ListItem key={index} role={undefined} dense>
+          <ListItemAvatar>
+            <Avatar>
+              <Avatar>{index + 1}</Avatar>
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText id={labelId}>
+            {index === 0 ? (
+              <div>
+                {text}
+                <Link
+                  underline="none"
+                  color="primary"
+                  href="http://www.mpfcordoba.gob.ar/como-hacer-una-denuncia/"
+                >
+                  Ministerio Público Fiscal.
+                </Link>
+              </div>
+            ) : (
+              text
+            )}
+          </ListItemText>
+        </ListItem>
+      );
+    })}
+  </Fragment>
+);
+
 const card = (
   <CardContent>
-    <Grid container alignContent="center">
+    <Grid
+      container
+      direction="row"
+      justify="space-between"
+      alignContent="flex-start"
+    >
       <Grid item>
         <h3>{traslate.FORM.INFO}</h3>
         <p className="home-page home-subtitle">{traslate.FORM.EXPLANATION}</p>
-        <CardActions>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            className=""
-            href="/current-crime-form"
-          >
-            {traslate.COMMON.START}
-          </Button>
-        </CardActions>
+        {explanation}
+
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className="m-top-3 m-left-3"
+          href="/current-crime-form"
+        >
+          {traslate.COMMON.START}
+        </Button>
       </Grid>
       <Grid item>
         <img
@@ -40,27 +87,6 @@ const card = (
         />
       </Grid>
     </Grid>
-  </CardContent>
-);
-
-const explanation = (
-  <CardContent>
-    <h3>{traslate.FORM.INSTRUCTIONS}</h3>
-
-    {[1, 2, 3, 4, 5, 6].map((value) => {
-      const labelId = `checkbox-list-label-${value}`;
-
-      return (
-        <ListItem key={value} role={undefined} dense>
-          <ListItemAvatar>
-            <Avatar>
-              <Avatar>{value}</Avatar>
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-        </ListItem>
-      );
-    })}
   </CardContent>
 );
 
@@ -118,36 +144,58 @@ const FlashAccess = () => (
 
 function HomePage() {
   const { md } = useWindowSize();
+  const [user_position, set_position] = useState({
+    lat: 45.4,
+    lng: -75.7,
+  });
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      set_position({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+    });
+  }
 
   return (
     <Scaffold>
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        spacing={2}
-        className="p-2"
-      >
-        {!md ? (
-          <>
-            <Grid item xs={10}>
-              <Card variant="elevation">{card}</Card>
-            </Grid>
-            <Grid item xs={10}>
-              <Card variant="elevation">{explanation}</Card>
-            </Grid>
-          </>
-        ) : (
-          <Fragment>
-            <Grid item>
-              <FlashAccess />
-            </Grid>
-            <Grid item xs={12}>
-              <Card>{explanation}</Card>
-            </Grid>
-          </Fragment>
-        )}
-      </Grid>
+      {!md ? (
+        <Grid
+          container
+          className="p-2"
+          justify="center"
+          alignItems="center"
+          alignContent="center"
+          spacing={3}
+        >
+          <Grid item xs={12}>
+            <Card variant="elevation">{card}</Card>
+          </Grid>
+          <Map
+            xs={12}
+            label={"Encontrá las unidades más cercanas acá."}
+            position={user_position}
+            onChange={(newValue) => set_position(newValue)}
+          />
+        </Grid>
+      ) : (
+        <Grid container justify="center" alignItems="center" spacing={2}>
+          <Grid item xs={10}>
+            <FlashAccess />
+          </Grid>
+          <Grid item xs={10}>
+            {explanation}
+          </Grid>
+          <Map
+            xs={12}
+            className="p-1"
+            label={"Encontrá las unidades más cercanas acá."}
+            position={user_position}
+            onChange={(newValue) => set_position(newValue)}
+          />
+        </Grid>
+      )}
     </Scaffold>
   );
 }

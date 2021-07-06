@@ -1,0 +1,28 @@
+{
+  "units": [
+    {
+      "type": "Unit",
+      "properties": {
+        "UNIT_ID": 960,
+        "NAME": "Unidad Judicial Nº 1 – Bº Centro",
+        "DESCRIPTION": "Balcarce 251, 1er Piso, Bª Centro. Tel. 4332647/8 – 4481016 Int. 34001"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-75.3372987731628, 45.383321536272049]
+      }
+    },
+    {
+      "type": "Unit",
+      "properties": {
+        "UNIT_ID": 2,
+        "NAME": "Unidad Judicial Nº 2 – Bº Alberdi",
+        "DESCRIPTION": "Santa Rosa nª 1345, Bª Alberdi Te. 4332649/50 – 4481016 Int. 34361"
+    },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-75.546518086577947, 45.467134581917357]
+      }
+    }
+  ]
+}

@@ -16,6 +16,14 @@
         "LOADING": "Cargando los datos...",
         "ERROR": "Uf! Parece que hubo un error. Intente de nuevo."
     },
+
+    "INSTRUCTIONS": {
+        "INTRO": "Instrucciones de uso",
+        "1": "Ingrese a la página del ",
+        "2": "Ingrese sus datos personales.",
+        "3": "Concurrir a una unidad jurídica.",
+        "4": "Recibir la constancia del siniestro para presentarla"
+    },
     
     "FORM": {
         "INFO": "¿De qué se trata este proyecto?", 
@@ -23,7 +31,6 @@
         "TITLE-PASTCRIME": "Siniestros Antiguos",
         "SUBTITLE": "Toda la informacion que se registre quedara completamente anonima. Toda la informacion que se registre quedara completamente anonima.",
         "INIT-FORM": "Completar formulario",
-        "INSTRUCTIONS": "Instrucciones de uso",
         "CURRENT-INTRO": "¿Acabas de ser vÍctima de un siniestro? Podés contarnos lo que pasó aquí.",
         "PAST-INTRO": "¿Querés reportar un siniestro pasado? Podés contarnos lo que pasó aquí.",
         "EXPLANATION": "Ayudanos a generar una base de datos para analizar las tendencias criminales en la ciudad.",
