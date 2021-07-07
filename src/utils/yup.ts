@@ -32,6 +32,10 @@ yup.setLocale({
             path,
             msg: `Por favor, complete el campo obligatorio.`
         }),
+        max: ({ path, max }: any) => ({
+            path,
+            msg: `La fecha debe ser anterior a ${max}`,
+        })
     }
 })
 

@@ -12,6 +12,7 @@ interface InputProps {
     id?: string;
     label?: string;
     msg?: string;
+    defaultValue?: string;
     iconLeft?: React.ReactNode;
     iconRight?: React.ReactNode;
     error?: boolean;
@@ -23,7 +24,7 @@ interface InputProps {
     rowsMax?: string | number;
     placeholder?: string;
     className?: string;
-    type?: "number" | "text" | "password" | "email" | "date";
+    type?: "number" | "text" | "password" | "email" | "date" | "datetime-local";
     color?: ColorCA;
     colorFont?: ColorCA;
     onChange?: React.EventHandler<any>;
@@ -53,6 +54,7 @@ const Input = ({
     iconRight,
     inputProps,
     inputLabelProps,
+    defaultValue,
     color = "white",
     colorFont = "black",
     maxLenght = 20,

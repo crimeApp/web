@@ -36,6 +36,8 @@ const attack_type_options = [
 
 const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 
+const today = new Date();
+
 const schema = yup.object({
   attack_type: yup
     .mixed()
@@ -49,6 +51,7 @@ const schema = yup.object({
     .required("Completar la casilla"),
   date: yup
     .date()
+    .max(today)
     .required("Ingresar una fecha valida"),
   place_description: yup
     .mixed()
