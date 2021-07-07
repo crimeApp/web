@@ -26,6 +26,12 @@ yup.setLocale({
             path,
             msg: `El campo no es válido.`
         })
+    },
+    date: {
+        required: ({ path } : any) => ({
+            path,
+            msg: `Por favor, complete el campo obligatorio.`
+        }),
     }
 })
 

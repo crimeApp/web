@@ -5,7 +5,13 @@ import {
     GridSize,
     GridWrap,
     InputAdornment,
-    TextField
+    TextField,
+    /*InputLabel,
+    FormControl,
+    FormHelperText,
+    MenuItem,
+    Select
+     */
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { BorderCA, ColorCA } from "../../style/type-style";
@@ -81,7 +87,9 @@ const Selector = ({
                 disableClearable
                 freeSolo={freeSolo}
                 fullWidth
+                disablePortal
                 disabled={disabled}
+                autoSelect
                 value={value}
                 onChange={onChange}
                 onInputChange={onChange}
@@ -126,6 +134,33 @@ const Selector = ({
                 )}
             />
 
+            {/* <FormControl
+                variant="outlined"
+                error={error}
+                className={`text-field-container `}
+            >
+                <InputLabel id="demo-simple-select-label">{label}</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={value}
+                    autoWidth
+                    onChange={onChange}
+                >
+                    {options?.map((item, index) => {
+                        return (
+                            <MenuItem key={index} value={item}>
+                                {item}
+                            </MenuItem>
+                        );
+                    })}
+                </Select>
+                {error ? (
+                    <FormHelperText>{error_msg}</FormHelperText>
+                ) : (
+                        <FormHelperText>{msg}</FormHelperText>
+                    )}
+            </FormControl> */}
         </Grid>
     );
 };

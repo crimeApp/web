@@ -17,7 +17,7 @@ interface InputProps {
     error?: boolean;
     error_msg?: string;
     name?: string | undefined;
-    value?: string | number | undefined;
+    value?: Date | string | number | undefined;
     multiline?: boolean;
     rows?: string | number;
     rowsMax?: string | number;
@@ -102,7 +102,7 @@ const Input = ({
                 placeholder={placeholder}
                 onChange={onChange}
                 focused={placeholder ? true : false}
-                className={"text-field-container text-field-group "}
+                className={"text-field-container text-field-group"}
                 autoComplete="off"
                 InputLabelProps={{ ...inputLabelProps }}
                 InputProps={{

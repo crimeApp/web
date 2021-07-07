@@ -1,0 +1,26 @@
+.select-label {
+  color: var(--black);
+  font-size: var(--font-size-normal);
+  font-weight: var(--weight-bold);
+}
+
+.select-content {
+  height: fit-content;
+  width: 90%;
+  max-width: 550px;
+  border-radius: var(--border-normal);
+  outline: 0px;
+  border: none;
+  text-justify: inter-word;
+  text-align: justify;
+  color: var(--white);
+  background: var(--grey);
+}
+
+.error {
+  border: red 1px solid;
+}
+
+.error-message {
+  color: red;
+}

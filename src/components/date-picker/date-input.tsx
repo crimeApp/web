@@ -1,14 +1,17 @@
-import React from "react";
+import React from "react";/* 
 import ptES from "dayjs/locale/es";
-import "dayjs/locale/es";
-import DayJsUtils from "@date-io/dayjs";
+import "dayjs/locale/es"; */
 import { Grid, GridSize } from "@material-ui/core";
-
 import { BorderCA, ColorCA } from "../../style/type-style";
+/*
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import DateFnsUtils from '@date-io/date-fns';
+import es from 'date-fns/locale/es'
+ */
+
 
 interface DateTimeInputProps {
   id?: string;
@@ -20,16 +23,11 @@ interface DateTimeInputProps {
   error_msg?: string;
   name?: string | undefined;
   value?: Date | number | null;
-  multiline?: boolean;
-  rows?: string | number;
-  rowsMax?: string | number;
   placeholder?: string;
   className?: string;
-  type?: "number" | "text" | "password" | "email" | "date";
   color?: ColorCA;
   colorFont?: ColorCA;
   onChange?: React.EventHandler<any>;
-  register?: any;
   maxLenght?: number;
   styleHelperText?: React.CSSProperties;
   xs?: undefined | GridSize;
@@ -46,22 +44,18 @@ const DateTimeInput = ({
   id,
   label,
   className,
+  value,
   placeholder,
   error,
   error_msg,
   msg,
-  type,
-  inputProps,
-  inputLabelProps,
   color = "white",
   colorFont = "black",
-  maxLenght = 20,
-  styleHelperText,
   onChange,
-  multiline,
-  rowsMax,
-  rows,
   name,
+  inputProps,
+  inputLabelProps,
+  maxLenght = 20,
   border = "big",
   xs,
   sm,
@@ -69,7 +63,6 @@ const DateTimeInput = ({
   lg,
   xl,
 }: DateTimeInputProps) => {
-  const [value, setValue] = React.useState<Date | null>(null);
 
   return (
     <Grid
@@ -82,43 +75,40 @@ const DateTimeInput = ({
       xl={xl}
       className={`m-top-2 m-bottom-2 ${className}`}
     >
-      <MuiPickersUtilsProvider locale={ptES} utils={DayJsUtils}>
+      {/* <MuiPickersUtilsProvider utils={DateFnsUtils}  locale={es}>
         <KeyboardDatePicker
-          clearable
-          label={label}
           disableFuture
+          id="date-picker-dialog"
+          label={label}
+          format="dd/MM/yyyy"
           value={value}
-          placeholder="10/10/2018"
-          onChange={(date: any) => setValue(date)}
-          className={"text-field-container text-field-group"}
-          minDate={new Date()}
-          format="dd/mm/yyyy"
-          error={error}
+          onChange={onChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
           helperText={error ? error_msg : msg}
           FormHelperTextProps={{
             style: {
-              color: error ? `var(--red)` : `var(--${colorFont})`,
-              marginLeft: "15px",
-              marginRight: "15px",
-              ...styleHelperText,
-            },
+              color: error ? "var(--red)" : `var(--${colorFont})`,
+              paddingLeft: "20px"
+            }
           }}
-          autoOk
-          variant="inline"
-          inputVariant="filled"
-          InputAdornmentProps={{ position: "end" }}
+          className={"text-field-container text-field-group"}
+          InputLabelProps={{ ...inputLabelProps }}
           InputProps={{
             name: name,
             disableUnderline: true,
             autoComplete: "off",
+            maxLenght: maxLenght,
             style: {
               border: `var(--border-${border})`,
               backgroundColor: `var(--${color})`,
-              color: `var(--${colorFont})`,
+              color: `var(--${colorFont})`
             },
+            ...inputProps,
           }}
         />
-      </MuiPickersUtilsProvider>
+      </MuiPickersUtilsProvider> */}
     </Grid>
   );
 };

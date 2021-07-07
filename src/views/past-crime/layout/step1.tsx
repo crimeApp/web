@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import Selector from "../../../components/selector/Selector";
-import DateTimeInput from "../../../components/date-picker/date-input";
+//import DateTimeInput from "../../../components/date-picker/date-input";
+import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
-
-//import getCurrentDate from "../../../utils/getCurrentDate";
 
 const place_options = [
   "Parque",
@@ -49,7 +48,7 @@ const schema = yup.object({
     .oneOf(hour_options.map((e) => e.toLowerCase()))
     .required("Completar la casilla"),
   date: yup
-    .string()
+    .date()
     .required("Ingresar una fecha valida"),
   place_description: yup
     .mixed()
@@ -76,6 +75,14 @@ const PastCrimeStepOne = ({
   handleNext,
   handleBack,
 }: PastCrimeStepOneProps) => {
+
+  /* const [selectedDate, setSelectedDate] = React.useState<Date | null>(
+    new Date(),
+  );
+
+  function handleDateChange(date: Date | null) {
+    setSelectedDate(date);
+  } */
 
   const [data_state, set_data] = useState<schemaType>({
     attack_type: "",
@@ -119,13 +126,26 @@ const PastCrimeStepOne = ({
         error_msg={error?.attack_type?.msg}
       />
 
-      <DateTimeInput 
+      {/* <DateTimeInput 
         xs={12}
+        value={selectedDate}
+        onChange={handleDateChange}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO.DATE}
         error={error?.date?.error}
-        error_msg={error?.date?.msg}/>
+        error_msg={error?.date?.msg}/> */}
+
+      <Input
+        xs={12}
+        type='date'
+        value={data_state.date}
+        onChange={(newValue) => HandleChange("date", newValue)}
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
+        label={traslate.FORM.THEFTINFO.DATE}
+        error={error?.date?.error}
+        error_msg={error?.date?.msg} />
 
       <Selector
         xs={12}
