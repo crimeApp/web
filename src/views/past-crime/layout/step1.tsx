@@ -140,7 +140,7 @@ const PastCrimeStepOne = ({
         xs={12}
         type='date'
         value={data_state.date}
-        onChange={(newValue) => HandleChange("date", newValue)}
+        onChange={(e) => HandleChange("date", e.target.value)}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO.DATE}
