@@ -35,7 +35,12 @@ yup.setLocale({
         max: ({ path, max }: any) => ({
             path,
             msg: `La fecha debe ser anterior a ${max}`,
+        }),
+        min: ({ path, min }: any) => ({
+            path,
+            msg: `La fecha debe ser posterior a ${min}`,
         })
+
     }
 })
 

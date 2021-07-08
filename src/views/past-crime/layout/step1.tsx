@@ -36,7 +36,9 @@ const attack_type_options = [
 
 const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 
-const today = new Date();
+const today =  new Date();
+
+const min_date = new Date('March 1, 2000 00:00:00');
 
 const schema = yup.object({
   attack_type: yup
@@ -52,6 +54,7 @@ const schema = yup.object({
   date: yup
     .date()
     .max(today)
+    .min(min_date)
     .required("Ingresar una fecha valida"),
   place_description: yup
     .mixed()
@@ -120,7 +123,7 @@ const PastCrimeStepOne = ({
       <Selector
         xs={12}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1 "
         label={traslate.FORM.THEFTINFO.THEFT}
         value={data_state.attack_type}
         onChange={(event, newValue) => HandleChange("attack_type", newValue)}
@@ -143,10 +146,11 @@ const PastCrimeStepOne = ({
         xs={12}
         type='date'
         value={data_state.date}
+        label={data_state.date ? traslate.FORM.THEFTINFO.DATE : ''}
+        defaultValue={data_state.date}
         onChange={(e) => HandleChange("date", e.target.value)}
         color="light-gray"
         className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTINFO.DATE}
         error={error?.date?.error}
         error_msg={error?.date?.msg} />
 

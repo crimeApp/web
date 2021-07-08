@@ -12,7 +12,7 @@ interface InputProps {
     id?: string;
     label?: string;
     msg?: string;
-    defaultValue?: string;
+    defaultValue?: string | Date;
     iconLeft?: React.ReactNode;
     iconRight?: React.ReactNode;
     error?: boolean;
@@ -87,6 +87,7 @@ const Input = ({
                 label={label}
                 value={value}
                 multiline={multiline}
+                defaultValue={defaultValue}
                 rowsMax={rowsMax}
                 rows={rows}
                 type={type}
@@ -104,8 +105,7 @@ const Input = ({
                 placeholder={placeholder}
                 onChange={onChange}
                 focused={placeholder ? true : false}
-                className={"text-field-container text-field-group"}
-                autoComplete="off"
+                className={`text-field-container text-field-group` }
                 InputLabelProps={{ ...inputLabelProps }}
                 InputProps={{
                     name: name,
