@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import Selector from "../../../components/selector/Selector";
-//import DateTimeInput from "../../../components/date-picker/date-input";
 import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
@@ -82,14 +81,6 @@ const PastCrimeStepOne = ({
   handleBack,
 }: PastCrimeStepOneProps) => {
 
-  /* const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date(),
-  );
-
-  function handleDateChange(date: Date | null) {
-    setSelectedDate(date);
-  } */
-
   const [data_state, set_data] = useState<schemaType>({
     attack_type: "",
     hour: "",
@@ -131,16 +122,6 @@ const PastCrimeStepOne = ({
         error={error?.attack_type?.error}
         error_msg={error?.attack_type?.msg}
       />
-
-      {/* <DateTimeInput 
-        xs={12}
-        value={selectedDate}
-        onChange={handleDateChange}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTINFO.DATE}
-        error={error?.date?.error}
-        error_msg={error?.date?.msg}/> */}
 
       <Input
         xs={12}

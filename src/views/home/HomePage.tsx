@@ -1,8 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Grid,
   Button,
-  Card,
+  Card as CardMUI,
   CardContent,
   Avatar,
   ListItem,
@@ -19,7 +19,6 @@ import "./HomePage.css";
 
 const explanation = (
   <Fragment>
-    <h4>{traslate.INSTRUCTIONS.INTRO}</h4>
     {[
       `${traslate.INSTRUCTIONS[1]}`,
       `${traslate.INSTRUCTIONS[2]}`,
@@ -57,46 +56,30 @@ const explanation = (
   </Fragment>
 );
 
-const card = (
-  <CardContent>
-    <Grid
-      container
-      direction="row"
-      justify="space-between"
-      alignContent="flex-start"
-    >
-      <Grid item>
-        <h3>{traslate.FORM.INFO}</h3>
-        <p className="home-page home-subtitle">{traslate.FORM.EXPLANATION}</p>
-        {explanation}
-
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          className="m-top-3 m-left-3"
-          href="/current-crime-form"
-        >
-          {traslate.COMMON.START}
-        </Button>
+const Card = ({ children }: any) => (
+  <CardMUI variant="elevation">
+    <CardContent>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignContent="flex-start"
+      >
+        {children}
       </Grid>
-      <Grid item>
-        <img
-          alt="CardPhoto"
-          src={process.env.PUBLIC_URL + "/assets/home_page.png"}
-        />
-      </Grid>
-    </Grid>
-  </CardContent>
+    </CardContent>
+  </CardMUI>
 );
 
 const FlashAccess = () => (
   <>
     <Grid
       container
-      className="home-page home-wrap m-top-1"
+      item xs={10}
+      className="home-wrap m-top-1"
       justify="center"
       alignItems="center"
+      alignContent="center"
     >
       <Grid item xs={10}>
         <h3>{traslate.MENU.CURRENTCRIME}</h3>
@@ -118,13 +101,15 @@ const FlashAccess = () => (
 
     <Grid
       container
-      className="home-page home-wrap m-top-2"
+      item xs={10}
+      className="home-wrap m-top-3"
       justify="center"
       alignItems="center"
+      alignContent="center"
     >
       <Grid item xs={10}>
         <h3>{traslate.MENU.PASTCRIME}</h3>
-        <p className="">{traslate["FORM"]["PAST-INTRO"]}</p>
+        <p className="home-subtitle">{traslate["FORM"]["PAST-INTRO"]}</p>
       </Grid>
 
       <Grid item xs={10}>
@@ -132,7 +117,7 @@ const FlashAccess = () => (
           variant="contained"
           color="primary"
           type="submit"
-          className="m-bottom-3 m-top-1"
+          className="m-bottom-2 m-top-1"
           href="/past-crime-form"
         >
           {traslate.COMMON.START}
@@ -149,38 +134,73 @@ function HomePage() {
     lng: -75.7,
   });
 
-  if ("geolocation" in navigator) {
+  useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       set_position({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
     });
-  }
+  }, []);
 
   return (
     <Scaffold>
       {!md ? (
         <Grid
+          item
+          xs={12}
           container
           className="p-2"
-          justify="center"
-          alignItems="center"
+          justify="flex-end"
+          alignItems="flex-end"
           alignContent="center"
-          spacing={3}
         >
           <Grid item xs={12}>
-            <Card variant="elevation">{card}</Card>
+            <Card>
+              <Grid item xs={6}>
+                <h3>{traslate.FORM.INFO}</h3>
+                <p className="home-subtitle">
+                  {traslate.FORM.EXPLANATION}
+                </p>
+
+                <img
+                  alt="CardPhoto"
+                  src={process.env.PUBLIC_URL + "/assets/home_page.png"}
+                />
+              </Grid>
+              <Grid item xs={6} className='m-top-3'>
+                <FlashAccess/>
+              </Grid>
+            </Card>
+
+            <Grid item xs={12} className='p-top-2'>
+              <Card>
+                <Grid item xs={6}>
+                  <h4>{traslate.INSTRUCTIONS.INTRO}</h4>
+                  {explanation}
+                </Grid>
+                <Grid item xs={6}>
+                  <Map
+                    xs={12}
+                    label={"Encontrá las unidades más cercanas acá."}
+                    position={user_position}
+                    onChange={(newValue) => set_position(newValue)}
+                  />
+                </Grid>
+              </Card>
+            </Grid>
+            
           </Grid>
-          <Map
-            xs={12}
-            label={"Encontrá las unidades más cercanas acá."}
-            position={user_position}
-            onChange={(newValue) => set_position(newValue)}
-          />
         </Grid>
       ) : (
-        <Grid container justify="center" alignItems="center" spacing={2}>
+        <Grid
+          item
+          xs={12}
+          container
+          justify="center"
+          alignItems="center"
+          spacing={2}
+        >
           <Grid item xs={10}>
             <FlashAccess />
           </Grid>

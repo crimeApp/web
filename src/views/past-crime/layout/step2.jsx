@@ -107,7 +107,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   };
 
   const OnBackward = () => {
-    handleBack(data);
+    handleBack(data_state);
   };
 
   return (

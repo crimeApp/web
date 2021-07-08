@@ -85,33 +85,6 @@ export default function Navbar() {
         </Fragment>
     );
 
-    const DesktopAccess = () => (
-        <Fragment>
-            <Grid item xs={8} md={4}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    href="/current-crime-form">
-                    <p style={{ color: "white", fontSize: "small", fontWeight: "bold" }}>
-                        {traslate.MENU.CURRENTCRIME}
-                    </p>
-                </Button>
-            </Grid>
-            <Grid item xs={8} md={6}>
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    size="small"
-                    href="/past-crime-form">
-                    <p style={{ color: "var(--primaty-color)", fontSize: "small", fontWeight: "bold" }}>
-                        {traslate.MENU.PASTCRIME}
-                    </p>
-                </Button>
-            </Grid>
-        </Fragment>
-    );
-
     return (
         <AppBar position="fixed" className={classes.appbar}>
             <Toolbar>
@@ -126,9 +99,7 @@ export default function Navbar() {
                         </Button>
                     </Grid>
                     {!md ?
-                        <Grid item xs={4} container justify="flex-end">
-                            <DesktopAccess />
-                        </Grid> :
+                       null :
                         <Fragment>
                             <Grid item xs container justify="flex-end">
                                 <IconButton onClick={() => set_anchor(!anchor)}><MenuIcon /></IconButton>

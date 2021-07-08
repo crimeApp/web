@@ -149,9 +149,9 @@ const Selector = ({
                 >
                     {options?.map((item, index) => {
                         return (
-                            <MenuItem key={index} value={item}>
+                            <option key={index} value={item}>
                                 {item}
-                            </MenuItem>
+                            </option>
                         );
                     })}
                 </Select>
