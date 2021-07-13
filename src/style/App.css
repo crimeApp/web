@@ -225,3 +225,94 @@ h6 {
 .p-top-4 {
   padding-top: 48px !important;
 }
+
+.color-white {
+  color: var(--white) !important;
+}
+
+.color-background-color {
+  color: var(--background-color) !important;
+}
+
+.color-light-gray {
+  color: var(--gray) !important;
+}
+
+.color-card-background {
+  color: var(--card-background) !important;
+}
+
+.color-grey {
+  color: var(--grey) !important;
+}
+
+.color-green {
+  color: var(--green) !important;
+}
+
+.color-cyan {
+  color: var(--cyan) !important;
+}
+
+.color-violet {
+  color: var(--violet) !important;
+}
+
+.color-gray {
+  color: var(--gray) !important;
+}
+
+.color-black {
+  color: var(--black) !important;
+}
+
+.color-red{
+  color: var(--red) !important;
+}
+
+.background-color-white{
+  background-color: var(--white) !important;
+}
+.background-color-background-color{
+  background-color: var(--background-color) !important;
+}
+.background-color-light-gray{
+  background-color: var(--light-gray) !important;
+}
+.background-color-card-background{
+  background-color: var(--card-background) !important;
+}
+.background-color-grey{
+  background-color: var(--grey) !important;
+}
+.background-color-green{
+  background-color: var(--green) !important;
+}
+.background-color-cyan{
+  background-color: var(--cyan) !important;
+}
+.background-color-violet{
+  background-color: var(--violet) !important;
+}
+.background-color-gray{
+  background-color: var(--gray) !important;
+}
+.background-color-black{
+  background-color: var(--black) !important;
+}
+.background-color-red {
+  background-color: var(--red) !important;
+}
+
+.border-small {
+    border-radius: var(--border-small) !important;
+}
+.border-normal {
+  border-radius: var(--border-normal) !important;
+}
+.border-big {
+  border-radius: var(--border-big) !important;
+}
+.border-circle {
+  border-radius: var(--border-circle) !important;
+}

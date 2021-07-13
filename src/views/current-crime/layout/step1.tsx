@@ -5,6 +5,7 @@ import DateTimeInput from "../../../components/date-picker/date-input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
+import Select from "../../../components/select/Select";
 
 const place_options = [
   "Parque",
@@ -105,13 +106,13 @@ const CurrentCrimeStepOne = ({
 
   return (
     <Grid container className="p-3" justify="center" alignItems="center">
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO.THEFT}
         value={data_state.attack_type}
-        onChange={(event, newValue) => HandleChange("attack_type", newValue)}
+        onChange={(event) => HandleChange("attack_type", event.target.value)}
         options={attack_type_options}
         error={error?.attack_type?.error}
         error_msg={error?.attack_type?.msg}
