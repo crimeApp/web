@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Switches from "../../../components/switch/Switch";
-import Selector from "../../../components/selector/Selector";
+import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
@@ -117,87 +117,85 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       justify="center"
       alignItems="center"
     >
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.PROFILE}
         options={profile_options}
         value={data_state.thief_profile}
-        onChange={(event, newValue) => HandleChange("thief_profile", newValue)}
+        onChange={(event) => HandleChange("thief_profile", event.target.value)}
         error={error?.thief_profile?.error}
         error_msg={error?.thief_profile?.msg}
       />
 
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.AGE}
         options={age_options}
         value={data_state.thief_age}
-        onChange={(event, newValue) => HandleChange("thief_age", newValue)}
+        onChange={(event) => HandleChange("thief_age", event.target.value)}
         error={error?.thief_age?.error}
         error_msg={error?.thief_age?.msg}
       />
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.SEX}
         options={sex_options}
         value={data_state.thief_sex}
-        onChange={(event, newValue) => HandleChange("thief_sex", newValue)}
+        onChange={(event) => HandleChange("thief_sex", event.target.value)}
         error={error?.thief_sex?.error}
         error_msg={error?.thief_sex?.msg}
       />
 
-      {/* <Grid item>
-        <Selector
+      {/*  <Select
           xs={12}
           color="light-gray"
           className="m-top-1 m-bottom-1"
           label={traslate.FORM.THEFTDETAILS.SKIN}
           //options={skin_options}
           value={data_state.thief_skin}
-          onChange={(event, newValue) => HandleChange("thief_skin", newValue)}
+          onChange={(event) => HandleChange("thief_skin", event.target.value)}
           error={error?.thief_skin?.error}
           error_msg={error?.thief_skin?.msg}
-        />
-      </Grid> */}
+        /> */}
 
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.HEIGHT}
         options={height_options}
         value={data_state.thief_height}
-        onChange={(event, newValue) => HandleChange("thief_height", newValue)}
+        onChange={(event) => HandleChange("thief_height", event.target.value)}
         error={error?.thief_height?.error}
         error_msg={error?.thief_height?.msg}
       />
 
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.CLOTHING}
         options={clothing_options}
         value={data_state.thief_clothing}
-        onChange={(event, newValue) => HandleChange("thief_clothing", newValue)}
+        onChange={(event) => HandleChange("thief_clothing", event.target.value)}
         error={error?.thief_clothing?.error}
         error_msg={error?.thief_clothing?.msg}
       />
       
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.PHYSICAL}
         options={physical_options}
         value={data_state.thief_physical}
-        onChange={(event, newValue) => HandleChange("thief_physical", newValue)}
+        onChange={(event) => HandleChange("thief_physical", event.target.value)}
         error={error?.thief_physical?.error}
         error_msg={error?.thief_physical?.msg}
       />

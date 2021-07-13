@@ -62,8 +62,8 @@ const Card = ({ children }: any) => (
       <Grid
         container
         direction="row"
-        justify="space-between"
-        alignContent="flex-start"
+        justify="center"
+        alignContent="center"
       >
         {children}
       </Grid>
@@ -76,7 +76,7 @@ const FlashAccess = () => (
     <Grid
       container
       item xs={10}
-      className="home-wrap m-top-1"
+      className="home-wrap "
       justify="center"
       alignItems="center"
       alignContent="center"
@@ -102,7 +102,7 @@ const FlashAccess = () => (
     <Grid
       container
       item xs={10}
-      className="home-wrap m-top-3"
+      className="home-wrap m-top-3 p-top-2 p-bottom-2"
       justify="center"
       alignItems="center"
       alignContent="center"
@@ -151,13 +151,13 @@ function HomePage() {
           xs={12}
           container
           className="p-2"
-          justify="flex-end"
-          alignItems="flex-end"
+          justify="center"
+          alignItems="center"
           alignContent="center"
         >
-          <Grid item xs={12}>
+          <Grid item xs={10} className='p-left-4 p-right-4'>
             <Card>
-              <Grid item xs={6}>
+              <Grid item xs={6} className='p-left-4 p-right-4'>
                 <h3>{traslate.FORM.INFO}</h3>
                 <p className="home-subtitle">
                   {traslate.FORM.EXPLANATION}
@@ -168,18 +168,18 @@ function HomePage() {
                   src={process.env.PUBLIC_URL + "/assets/home_page.png"}
                 />
               </Grid>
-              <Grid item xs={6} className='m-top-3'>
+              <Grid item xs={6} className='m-top-3  p-right-4 p-left-4'>
                 <FlashAccess/>
               </Grid>
             </Card>
 
-            <Grid item xs={12} className='p-top-2'>
+            <Grid item xs={12} className='p-top-2 p-bottom-2'>
               <Card>
-                <Grid item xs={6}>
+                <Grid item xs={6} className='p-left-3'>
                   <h4>{traslate.INSTRUCTIONS.INTRO}</h4>
                   {explanation}
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} className='p-right-3'>
                   <Map
                     xs={12}
                     label={"Encontrá las unidades más cercanas acá."}
@@ -201,10 +201,10 @@ function HomePage() {
           alignItems="center"
           spacing={2}
         >
-          <Grid item xs={10}>
+          <Grid item xs={12} >
             <FlashAccess />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             {explanation}
           </Grid>
           <Map

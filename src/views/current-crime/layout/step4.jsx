@@ -3,7 +3,7 @@ import Map from "../../../components/map/Map";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Input from "../../../components/input/Input";
-import Selector from "../../../components/selector/Selector";
+import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
@@ -97,14 +97,14 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
         error_msg={error?.stolen_cash?.msg}
       />
 
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="p-top-1 p-bottom-1"
         label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
         options={items_options}
         value={data_state.stolen_items}
-        onChange={(event, newValue) => HandleChange("stolen_items", newValue)}
+        onChange={(event) => HandleChange("stolen_items", event.target.value)}
         error={error?.stolen_items?.error}
         error_msg={error?.stolen_items?.msg}
       />

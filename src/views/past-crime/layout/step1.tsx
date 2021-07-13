@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
-import Selector from "../../../components/selector/Selector";
+import Select from "../../../components/select/Select";
 import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
 const place_options = [
-  "Parque",
-  "Calle",
-  "Parada de colectivo",
+  "parque",
+  "calle",
+  "parada de colectivo",
   "centro comercial",
   "propiedad privada",
   "supermercado",
-  "Estacionamiento",
-  "Otro",
+  "estacionamiento",
+  "otro",
 ];
 
 const accompaniment_options = [
-  "Solo/a, gente alrededor",
-  "Acompañado, gente alrededor",
-  "Solo/a, no gente",
-  "Acompañado, no gente alrededor",
+  "solo/a, gente alrededor",
+  "acompañado, gente alrededor",
+  "solo/a, no gente",
+  "acompañado, no gente alrededor",
 ];
 
 const attack_type_options = [
-  "Robo",
-  "Asesinato",
-  "Abuso sexual",
-  "Secuestro",
-  "Asalto",
-  "Hurto",
+  "robo",
+  "asesinato",
+  "abuso sexual",
+  "secuestro",
+  "asalto",
+  "hurto",
 ];
 
 const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
@@ -105,19 +105,19 @@ const PastCrimeStepOne = ({
     const resp = await Validator(data_state, schema);
 
     if (resp.err) return set_error(resp.data);
-    console.log(resp.data);
+    
     return handleNext(resp.data);
   };
 
   return (
     <Grid container className="p-3" justify="center" alignItems="center">
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 "
         label={traslate.FORM.THEFTINFO.THEFT}
         value={data_state.attack_type}
-        onChange={(event, newValue) => HandleChange("attack_type", newValue)}
+        onChange={(event) => HandleChange("attack_type", event.target.value)}
         options={attack_type_options}
         error={error?.attack_type?.error}
         error_msg={error?.attack_type?.msg}
@@ -135,19 +135,19 @@ const PastCrimeStepOne = ({
         error={error?.date?.error}
         error_msg={error?.date?.msg} />
 
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
         value={data_state.hour}
-        onChange={(event, newValue) => HandleChange("hour", newValue)}
+        onChange={(event) => HandleChange("hour", event.target.value)}
         options={hour_options}
         error={error?.hour?.error}
         error_msg={error?.hour?.msg}
       />
 
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
@@ -155,20 +155,18 @@ const PastCrimeStepOne = ({
         options={place_options}
         value={data_state.place_description}
         error={error?.place_description?.error}
-        onChange={(event, newValue) =>
-          HandleChange("place_description", newValue)
-        }
+        onChange={(event) => HandleChange("place_description", event.target.value)}
         error_msg={error?.place_description?.msg}
       />
 
-      <Selector
+      <Select
         xs={12}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTINFO.COMPANY}
         options={accompaniment_options}
         value={data_state.accompaniment}
-        onChange={(event, newValue) => HandleChange("accompaniment", newValue)}
+        onChange={(event) => HandleChange("accompaniment", event.target.value)}
         error={error?.accompaniment?.error}
         error_msg={error?.accompaniment?.msg}
       />

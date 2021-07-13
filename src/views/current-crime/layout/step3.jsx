@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Input from "../../../components/input/Input";
-import Selector from "../../../components/selector/Selector";
+import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
@@ -121,14 +121,14 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         error_msg={error?.victim_dni?.msg}
       />
 
-      <Selector
+      <Select
         xs={10}
         color='light-gray'
         options={sex_options}
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.SEX}
         value={data_state.victim_sex}
-        onChange={(event, newValue) => HandleChange("victim_sex", newValue)}
+        onChange={(event) => HandleChange("victim_sex", event.target.value)}
         error={error?.victim_sex?.error}
         error_msg={error?.victim_sex?.msg}
       />
@@ -139,19 +139,20 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.AGE}
         value={data_state.victim_age}
-        onChange={(event, newValue) => HandleChange("victim_age", newValue)}
+        onChange={(event) => HandleChange("victim_age", event.target.value)}
         error={error?.victim_age?.error}
         error_msg={error?.victim_age?.msg}
       />
 
-      <Selector
+      <Select
         xs={10}
         color='light-gray'
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.HEIGHT}
         value={data_state.victim_height}
         options={height_options}
-        onChange={(event, newValue) => HandleChange("victim_height", newValue)}
+        onChange={(event) => HandleChange("victim_height", event.target.value)}
+
         error={error?.victim_height?.error}
         error_msg={error?.victim_height?.msg}
       />
@@ -163,31 +164,31 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         label={traslate.FORM.PERSONALINFO.SKIN}
         //options={skin_options}
         value={data_state.victim_skin}
-        onChange={(event, newValue) => HandleChange("victim_skin", newValue)}
+        onChange={(event) => HandleChange("victim_skin", event.target.value)}
         error={error?.victim_skin?.error}
         error_msg={error?.victim_skin?.msg}
       />
 
-      <Selector
+      <Select
         xs={10}
         color='light-gray'
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.CLOTHING}
         options={clothing_options}
         value={data_state.victim_clothing}
-        onChange={(event, newValue) => HandleChange("victim_clothing", newValue)}
+        onChange={(event) => HandleChange("victim_clothing", event.target.value)}
         error={error?.victim_clothing?.error}
         error_msg={error?.victim_clothing?.msg}
       />
 
-      <Selector
+      <Select
         xs={10}
         color='light-gray'
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.PHYSICAL}
         options={physical_options}
         value={data_state.victim_physical}
-        onChange={(event, newValue) => HandleChange("victim_physical", newValue)}
+        onChange={(event) => HandleChange("victim_physical", event.target.value)}        
         error={error?.victim_physical?.error}
         error_msg={error?.victim_physical?.msg}
       />

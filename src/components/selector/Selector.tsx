@@ -5,13 +5,7 @@ import {
     GridSize,
     GridWrap,
     InputAdornment,
-    TextField,
-    /*InputLabel,
-    FormControl,
-    FormHelperText,
-    MenuItem,
-    Select
-     */
+    TextField
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { BorderCA, ColorCA } from "../../style/type-style";
@@ -133,51 +127,8 @@ const Selector = ({
                     />
                 )}
             />
-
-            {/* <FormControl
-                variant="outlined"
-                error={error}
-                className={`text-field-container `}
-            >
-                <InputLabel id="demo-simple-select-label">{label}</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={value}
-                    autoWidth
-                    onChange={onChange}
-                >
-                    {options?.map((item, index) => {
-                        return (
-                            <option key={index} value={item}>
-                                {item}
-                            </option>
-                        );
-                    })}
-                </Select>
-                {error ? (
-                    <FormHelperText>{error_msg}</FormHelperText>
-                ) : (
-                        <FormHelperText>{msg}</FormHelperText>
-                    )}
-            </FormControl> */}
         </Grid>
     );
 };
 
 export default Selector;
-
-/*
-EXAMPLE
-  <Selector
-    label="Categoria"
-    icon={"fas fa-search"}
-    options={top100Films}
-    value={category}
-    className="m-top-3 m-bottom-3"
-    msg="La categoria te permitira ser conocido por la comunidad"
-    error={errors?.category.error}
-    error_msg={errors?.category?.msg}
-    onChange={(event, newValue) => set_category(newValue)}
-  />
-*/
