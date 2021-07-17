@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
-import Selector from "../../../components/selector/Selector";
-import DateTimeInput from "../../../components/date-picker/date-input";
+import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
@@ -107,9 +106,9 @@ const CurrentCrimeStepOne = ({
   return (
     <Grid container className="p-3" justify="center" alignItems="center">
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTINFO.THEFT}
         value={data_state.attack_type}
         onChange={(event) => HandleChange("attack_type", event.target.value)}
@@ -118,18 +117,23 @@ const CurrentCrimeStepOne = ({
         error_msg={error?.attack_type?.msg}
       />
 
-      <DateTimeInput 
-        xs={12}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTINFO.DATE}
-        error={error?.date?.error}
-        error_msg={error?.date?.msg}/>
 
-      <Selector
-        xs={12}
+      <Input
+        xs={10}
+        type='date'
+        value={data_state.date}
+        label={traslate.FORM.THEFTINFO.DATE}
+        defaultValue={data_state.date}
+        onChange={(e) => HandleChange("date", e.target.value)}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
+        error={error?.date?.error}
+        error_msg={error?.date?.msg} />
+
+      <Select
+        xs={10}
+        color="light-gray"
+        className="m-top-1"
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
         value={data_state.hour}
         onChange={(event, newValue) => HandleChange("hour", newValue)}
@@ -138,10 +142,10 @@ const CurrentCrimeStepOne = ({
         error_msg={error?.hour?.msg}
       />
 
-      <Selector
-        xs={12}
+      <Select
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
         value={data_state.place_description}
@@ -152,10 +156,10 @@ const CurrentCrimeStepOne = ({
         error_msg={error?.place_description?.msg}
       />
 
-      <Selector
-        xs={12}
+      <Select
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTINFO.COMPANY}
         options={accompaniment_options}
         value={data_state.accompaniment}

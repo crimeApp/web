@@ -38,14 +38,14 @@ const Select = ({
     helper?: string,
 }) => {
 
-    return <Grid item className={`select ${className} m-bottom-2`} xs={xs} md={md} sm={sm} lg={lg} xl={xl} >
+    return <Grid item className={`select ${className} m-bottom-1`} xs={xs} md={md} sm={sm} lg={lg} xl={xl} >
         <InputLabel>
             <p className="first-letter-cap color-black w800">{label}</p>
         </InputLabel>
         <SelectMUI
             style={{
                 width: "100%",
-                marginTop: "7px",
+                marginTop: "5px",
                 height: "var(--height-normal-size)"
             }}
             disableUnderline={true}

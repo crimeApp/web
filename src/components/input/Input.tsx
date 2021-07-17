@@ -3,6 +3,7 @@ import {
     GridSize,
     InputAdornment,
     TextField,
+    InputLabel,
 } from "@material-ui/core";
 import React from "react";
 import { BorderCA, ColorCA } from "../../style/type-style";
@@ -81,10 +82,13 @@ const Input = ({
             md={md}
             lg={lg}
             xl={xl}
-            className={`m-top-2 m-bottom-2 ${className}`}
+            className={`p-top-1 p-bottom-1 ${className}`}
         >
+            <InputLabel>
+                <p className="first-letter-cap color-black w800">{label}</p>
+            </InputLabel>
+
             <TextField
-                label={label}
                 value={value}
                 multiline={multiline}
                 defaultValue={defaultValue}
@@ -105,7 +109,9 @@ const Input = ({
                 placeholder={placeholder}
                 onChange={onChange}
                 focused={placeholder ? true : false}
-                className={`text-field-container text-field-group` }
+                className={`text-field-container text-field-group`}
+                required
+                variant="standard"
                 InputLabelProps={{ ...inputLabelProps }}
                 InputProps={{
                     name: name,

@@ -113,14 +113,14 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   return (
     <Grid
       container
-      className="p-3"
+      className="p-1"
       justify="center"
       alignItems="center"
     >
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTDETAILS.PROFILE}
         options={profile_options}
         value={data_state.thief_profile}
@@ -130,9 +130,9 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       />
 
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTDETAILS.AGE}
         options={age_options}
         value={data_state.thief_age}
@@ -141,9 +141,9 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         error_msg={error?.thief_age?.msg}
       />
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTDETAILS.SEX}
         options={sex_options}
         value={data_state.thief_sex}
@@ -152,24 +152,22 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         error_msg={error?.thief_sex?.msg}
       />
 
-      {/* <Grid item>
-        <Select
-          xs={12}
-          color="light-gray"
-          className="m-top-1 m-bottom-1"
-          label={traslate.FORM.THEFTDETAILS.SKIN}
-          //options={skin_options}
-          value={data_state.thief_skin}
-          onChange={(event) => HandleChange("thief_skin", event.target.value)}
-          error={error?.thief_skin?.error}
-          error_msg={error?.thief_skin?.msg}
-        />
-      </Grid> */}
+      <Select
+        xs={10}
+        color="light-gray"
+        className="m-top-1"
+        label={traslate.FORM.THEFTDETAILS.SKIN}
+        //options={skin_options}
+        value={data_state.thief_skin}
+        onChange={(event) => HandleChange("thief_skin", event.target.value)}
+        error={error?.thief_skin?.error}
+        error_msg={error?.thief_skin?.msg}
+      />
 
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTDETAILS.HEIGHT}
         options={height_options}
         value={data_state.thief_height}
@@ -179,9 +177,9 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       />
 
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTDETAILS.CLOTHING}
         options={clothing_options}
         value={data_state.thief_clothing}
@@ -189,11 +187,11 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         error={error?.thief_clothing?.error}
         error_msg={error?.thief_clothing?.msg}
       />
-      
+
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTDETAILS.PHYSICAL}
         options={physical_options}
         value={data_state.thief_physical}
@@ -203,7 +201,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       />
 
       <Switches
-        xs={12}
+        xs={10}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.COMPLAINT}
         value={data_state.thief_complaint}
@@ -213,7 +211,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       />
 
       <Switches
-        xs={12}
+        xs={10}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.ARRESTED}
         value={data_state.thief_arrested}

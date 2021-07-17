@@ -22,53 +22,6 @@
     pointer-events: none;
 }
 
-.text-field-group label {
-    position: absolute;
-    left: 10px;
-    top: 9px;
-    z-index: 5;
-    text-indent: 35px !important;
-    color: var(--gray);
-    font-size: var(--font-size-normal) !important;
-    pointer-events: none;
-    transition: 0.2s ease all !important;
-    -moz-transition: 0.2s ease all !important;
-    -webkit-transition: 0.2s ease all !important;
-}
-
-.MuiFormLabel-root.Mui-focused {
-    /* focused input, move label */
-    top: -22px;
-    left: -15px;
-    z-index: 5;
-    color: var(--black) !important;
-    font-weight: var(--weight-bold) !important;
-}
-
-.MuiInputLabel-shrink {
-    /* trasalate animation */
-    transform: translate(0, 1.5px) !important;
-}
-
-.MuiFormLabel-filled {
-    /* when there are data in the input */
-    top: -22px !important;
-    left: -15px !important;
-    z-index: 5;
-    color: var(--secondary-color) !important;
-    font-weight: var(--weight-bold) !important;
-}
-
-.MuiInputBase-root.Mui-disabled {
-    background-color: var(--light-gray);
-}
-
-.MuiInputBase-inputMultiline {
-    padding-top: 8px !important;
-    font-family: "Poppins", sans-serif !important;
-    font-size: small !important;
-}
-
 .text-field-helper-group {
     position: relative;
     font-size: small;

@@ -45,8 +45,8 @@
             "STOLEN-CAPITAL-PLACEHOLDER": "Ingrese cantidad aproximada",
             "STOLEN-OBJECTS": "Objetos robados",
             "STOLEN-OBJECTS-PLACEHOLDER": "Seleccione los objetos robados",
-            "PLACE-DESCRIPTION": "Descripcion del lugar",
-            "COMPANY": "Con quien te encontrabas?",
+            "PLACE-DESCRIPTION": "Descripción del lugar",
+            "COMPANY": "¿Con quién te encontrabas?",
             "LOCATION": "Ubicación"
         },
 
@@ -87,40 +87,13 @@
             "PHYSICAL": "Fisico",
             "PHYSICAL-PLACEHOLDER": "Ingrese su tipo de fisico.",
             "COMPLAINT": "¿Se hizo una denuncia?",
-            "ARRESTED": "Fue arrestado?"
+            "ARRESTED": "¿Fue arrestado?"
         }
 
     },
     "CONFIRMATION-DIALOG": {
-        "TITLE": "Gracias por completar el formulario!",
+        "TITLE": "¡Gracias por completar el formulario!",
         "TEXT": "Todos los datos ya han sido guardados por requerimientos legales si quiere que la denuncia sea tratada legalmente.",
         "BUTTON-TEXT": "Volver a Inicio"
-    },
-
-    "SEX": {
-        "MAN": "hombre",
-        "WOMAN": "mujer"
-    },
-    "HEIGHT": {
-        "HIGH": "alto",
-        "MEDIUM": "mediano",
-        "SMALL": "bajo"
-    },
-    "CLOTHING": {
-        "FORMAL": "formal",
-        "CASUAL": "casual",
-        "SPORTY": "deportivo",
-        "WORK": "de trabajo",
-        "SEMIFORMAL": "semiformal",
-        "SCHOLAR": "escolar",
-        "TIDY": "arreglado",
-        "UNTIDY": "desprolija"
-    },
-    "PHYSICAL_BUILD": {
-        "THIN": "delgado",
-        "NORMAL": "normal",
-        "STRONG": "corpulento",
-        "OBESE": "obeso",
-        "ATHELTIC": "atletico"
     }
 }

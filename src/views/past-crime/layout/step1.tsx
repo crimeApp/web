@@ -110,9 +110,9 @@ const PastCrimeStepOne = ({
   };
 
   return (
-    <Grid container className="p-3" justify="center" alignItems="center">
+    <Grid container className="p-1" justify="center" alignItems="center">
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
         className="m-top-1 "
         label={traslate.FORM.THEFTINFO.THEFT}
@@ -124,21 +124,21 @@ const PastCrimeStepOne = ({
       />
 
       <Input
-        xs={12}
+        xs={10}
         type='date'
         value={data_state.date}
-        label={data_state.date ? traslate.FORM.THEFTINFO.DATE : ''}
+        label={traslate.FORM.THEFTINFO.DATE}
         defaultValue={data_state.date}
         onChange={(e) => HandleChange("date", e.target.value)}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         error={error?.date?.error}
         error_msg={error?.date?.msg} />
 
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
         value={data_state.hour}
         onChange={(event) => HandleChange("hour", event.target.value)}
@@ -148,9 +148,9 @@ const PastCrimeStepOne = ({
       />
 
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1 "
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
         value={data_state.place_description}
@@ -160,9 +160,9 @@ const PastCrimeStepOne = ({
       />
 
       <Select
-        xs={12}
+        xs={10}
         color="light-gray"
-        className="m-top-1 m-bottom-1"
+        className="m-top-1"
         label={traslate.FORM.THEFTINFO.COMPANY}
         options={accompaniment_options}
         value={data_state.accompaniment}
