@@ -171,7 +171,7 @@ const PastCrimeStepOne = ({
         error_msg={error?.accompaniment?.msg}
       />
 
-      <Grid item className="m-top-1 m-bottom-2">
+      <Grid item className="m-top-3 m-bottom-2">
         <Button
           variant="contained"
           color="primary"

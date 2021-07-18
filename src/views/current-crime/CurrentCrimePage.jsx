@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Box, Grid, Button } from "@material-ui/core";
+import { Container, Grid, Button } from "@material-ui/core";
 import Scaffold from "../../components/scaffold/scaffold";
 import traslate from "../../assets/traslate/es.json";
 import FormWrapper from "../../components/form-wrapper/FormWrapper";
@@ -33,21 +33,26 @@ const CurrentCrimeStep = () => {
         case 0:
             return (
                 <Scaffold>
-                    <Box className="current-crime-page form-background p-top-4">
+                    <Container maxWidth="md" className="p-4" >
                         <Grid
                             container
-                            className="current-crime-page form-wrap"
+                            item
+                            xs={10}
+                            className="form-wrap"
                             justify="center"
                             alignItems="center"
                         >
                             <Grid item xs={10}>
                                 <h2>{traslate["FORM"]["TITLE"]}</h2>
-                                <p className="form-subtitle">
-                                    {traslate["FORM"]["SUBTITLE"]}
+                                <p className="w500">
+                                Toda la información solicitada permanece completamente anónima para otros. 
                                 </p>
+                                <p className="w500">El propósito de este formulario es registrar ciertas tendencias criminales en Córdoba 
+                                    y contribuir a la seguridad ciudadana.</p>
+                                <p className="w800">¡Agradecemos tu contribución!</p>
                             </Grid>
 
-                            <Grid item xs={10}>
+                            <Grid item xs={4}>
                                 <Button
                                     variant="contained"
                                     color="primary"
@@ -59,7 +64,7 @@ const CurrentCrimeStep = () => {
                                 </Button>
                             </Grid>
                         </Grid>
-                    </Box>
+                    </Container>
                 </Scaffold>
             );
         case 1:

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Grid, Button } from "@material-ui/core";
+import { Container, Grid, Button } from "@material-ui/core";
 import traslate from "../../assets/traslate/es.json";
 import Scaffold from "../../components/scaffold/scaffold";
 import FormWrapper from "../../components/form-wrapper/FormWrapper";
@@ -32,21 +32,26 @@ const PastCrimePage = () => {
     case 0:
       return (
         <Scaffold>
-           <Box className="past-crime-page form-background p-top-4">
+           <Container maxWidth="md"  className="p-3">
             <Grid
               container
-              className="past-crime-page form-wrap"
+              item
+              xs={10}
+              className="form-wrap"
               justify="center"
               alignItems="center"
             >
               <Grid item xs={10}>
                 <h2>{traslate["FORM"]["TITLE-PASTCRIME"]}</h2>
-                <p className="form-subtitle">
-                  {traslate["FORM"]["SUBTITLE"]}
-                </p>
+                <p className="w500">
+                                Toda la información solicitada permanece completamente anónima para otros. 
+                                </p>
+                                <p className="w500">El propósito de este formulario es registrar ciertas tendencias criminales en Córdoba 
+                                    y contribuir a la seguridad ciudadana.</p>
+                                <p className="w800">¡Agradecemos tu contribución!</p>
               </Grid>
 
-              <Grid item xs={10}>
+              <Grid item xs={4}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -58,7 +63,7 @@ const PastCrimePage = () => {
                 </Button>
               </Grid>
             </Grid>
-          </Box>
+          </Container>
         </Scaffold>
       );
     case 1:

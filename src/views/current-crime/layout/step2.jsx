@@ -21,7 +21,7 @@ const sex_options = ["hombre", "mujer", "indefinido"];
 
 const height_options = ["alto", "mediano", "bajo", "no recuerdo"];
 
-const physical_options = ["delgado", "corpulento", "corpulento", "obeso", "atletico"];
+const physical_options = ["delgado", "corpulento", "obeso", "atlético"];
 
 const profile_options = [
   "violento",
@@ -31,8 +31,9 @@ const profile_options = [
   "desconfiado",
   "indiferente",
   "visiblemente intoxicado",
-  "carismaticos",
+  "carismático",
   "no recuerdo",
+  "no lo sé"
 ];
 
 const age_options = [
@@ -40,38 +41,34 @@ const age_options = [
   "18-25",
   "25-35",
   "35-45",
-  "mas de 50",
+  "más de 50",
   "No recuerdo"
 ];
 
 const schema = yup.object({
   thief_profile: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(profile_options.map(e => e.toLowerCase()))
+    .oneOf(profile_options)
     .required("Elija una de las opciones"),
   thief_age: yup
     .mixed()
-    .oneOf(age_options.map(e => e.toLowerCase()))
+    .oneOf(age_options)
     .required("Elija una de las opciones"),
   thief_height: yup
     .mixed()
-    .oneOf(height_options.map(e => e.toLowerCase()))
+    .oneOf(height_options)
     .required("Elija una opcion"),
   thief_sex: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(sex_options.map(e => e.toLowerCase()))
+    .oneOf(sex_options)
     .required("Elija una opcion"),
   thief_clothing: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(clothing_options.map(e => e.toLowerCase()))
+    .oneOf(clothing_options)
     .required("Elija una opcion"),
   thief_physical: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(physical_options.map(e => e.toLowerCase()))
+    .oneOf(physical_options)
     .required("Elija una opcion"),
   complaint: yup.boolean().optional(),
   arrested: yup.boolean().optional(),
@@ -92,9 +89,11 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
 
   const [error, set_error] = useState();
 
-  const HandleChange = (name, value) => set_data((prevState) => ({ ...prevState, [name]: value }));
-
-  const OnFoward = async () => {
+  
+  const HandleChange = (name, value) =>
+    set_data((prevState) => ({ ...prevState, [name]: value }));
+  
+    const OnFoward = async () => {
     set_error({});
 
     const resp = await Validator(data_state, schema);

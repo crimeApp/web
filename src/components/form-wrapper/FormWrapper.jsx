@@ -9,7 +9,7 @@ export default function FormWrapper({
   loading,
 }) {
   return (
-    <Box className="form-wrap-background p-top-4">
+    <Box className="form-wrap-background p-top-2">
       <Grid
         container
         direction="column"
@@ -17,11 +17,11 @@ export default function FormWrapper({
         justify="center"
         alignItems="center"
       >
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <h3 className="form-wrap-subtitle">{steptitle}</h3>
         </Grid>
 
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           {hide_progress ? (
             <></>
           ) : (
@@ -29,7 +29,7 @@ export default function FormWrapper({
             )}
         </Grid>
 
-        <Grid item xs={12} className="m-top-2">
+        <Grid item xs={12} className="m-top-1">
           {children}
         </Grid>
       </Grid>

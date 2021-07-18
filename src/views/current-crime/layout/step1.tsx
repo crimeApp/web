@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
+import Select from "../../../components/select/Select";
 import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
-import Select from "../../../components/select/Select";
 
 const place_options = [
   "Parque",
   "Calle",
   "Parada de colectivo",
-  "centro comercial",
-  "propiedad privada",
-  "supermercado",
+  "Centro comercial",
+  "Propiedad privada",
+  "Supermercado",
   "Estacionamiento",
   "Otro",
 ];
@@ -35,29 +35,28 @@ const attack_type_options = [
 
 const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 
+const today =  new Date();
+
 const schema = yup.object({
   attack_type: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(attack_type_options.map((e) => e.toLowerCase()))
+    .oneOf(attack_type_options)
     .required("Completar la casilla"),
   hour: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(hour_options.map((e) => e.toLowerCase()))
+    .oneOf(hour_options)
     .required("Completar la casilla"),
   date: yup
-    .string()
+    .date()
+    .max(today)
     .required("Ingresar una fecha valida"),
   place_description: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(place_options.map((e) => e.toLowerCase()))
+    .oneOf(place_options)
     .required("Completar la casilla"),
   accompaniment: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(accompaniment_options.map((e) => e.toLowerCase()))
+    .oneOf(accompaniment_options)
     .required("Completar la casilla"),
 });
 
@@ -99,16 +98,16 @@ const CurrentCrimeStepOne = ({
     const resp = await Validator(data_state, schema);
 
     if (resp.err) return set_error(resp.data);
-    console.log(resp.data);
+    
     return handleNext(resp.data);
   };
 
   return (
-    <Grid container className="p-3" justify="center" alignItems="center">
+    <Grid container item xs={12} className="p-1" justify="center" alignItems="center">
       <Select
         xs={10}
         color="light-gray"
-        className="m-top-1"
+        className="m-top-1 "
         label={traslate.FORM.THEFTINFO.THEFT}
         value={data_state.attack_type}
         onChange={(event) => HandleChange("attack_type", event.target.value)}
@@ -117,13 +116,11 @@ const CurrentCrimeStepOne = ({
         error_msg={error?.attack_type?.msg}
       />
 
-
       <Input
         xs={10}
         type='date'
         value={data_state.date}
         label={traslate.FORM.THEFTINFO.DATE}
-        defaultValue={data_state.date}
         onChange={(e) => HandleChange("date", e.target.value)}
         color="light-gray"
         className="m-top-1"
@@ -136,7 +133,7 @@ const CurrentCrimeStepOne = ({
         className="m-top-1"
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
         value={data_state.hour}
-        onChange={(event, newValue) => HandleChange("hour", newValue)}
+        onChange={(event) => HandleChange("hour", event.target.value)}
         options={hour_options}
         error={error?.hour?.error}
         error_msg={error?.hour?.msg}
@@ -145,14 +142,12 @@ const CurrentCrimeStepOne = ({
       <Select
         xs={10}
         color="light-gray"
-        className="m-top-1"
+        className="m-top-1 "
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
         value={data_state.place_description}
         error={error?.place_description?.error}
-        onChange={(event, newValue) =>
-          HandleChange("place_description", newValue)
-        }
+        onChange={(event) => HandleChange("place_description", event.target.value)}
         error_msg={error?.place_description?.msg}
       />
 
@@ -163,12 +158,12 @@ const CurrentCrimeStepOne = ({
         label={traslate.FORM.THEFTINFO.COMPANY}
         options={accompaniment_options}
         value={data_state.accompaniment}
-        onChange={(event, newValue) => HandleChange("accompaniment", newValue)}
+        onChange={(event) => HandleChange("accompaniment", event.target.value)}
         error={error?.accompaniment?.error}
         error_msg={error?.accompaniment?.msg}
       />
 
-      <Grid item className="m-top-1 m-bottom-2">
+      <Grid item className="m-top-3 m-bottom-2">
         <Button
           variant="contained"
           color="primary"
@@ -183,7 +178,7 @@ const CurrentCrimeStepOne = ({
           variant="contained"
           color="primary"
           type="submit"
-          className=" m-left-3"
+          className="m-left-3"
           onClick={OnFoward}
         >
           {traslate.COMMON.NEXT}
