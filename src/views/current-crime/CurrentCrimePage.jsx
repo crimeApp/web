@@ -87,7 +87,7 @@ const CurrentCrimeStep = () => {
                 <Scaffold>
                     <FormWrapper
                         hide_progress={false}
-                        steptitle={traslate["FORM"]["THEFTDETAILS"]["THIEFINFO"]}
+                        steptitle={traslate["FORM"]["THEFTINFO"]["THIEFINFO"]}
                         loading={40}
                     >
                         <CurrentCrimeStepTwo
@@ -103,7 +103,7 @@ const CurrentCrimeStep = () => {
                 <Scaffold>
                     <FormWrapper
                         hide_progress={false}
-                        steptitle={traslate["FORM"]["THEFTINFO"]["THIEFINFO"]}
+                        steptitle={traslate["FORM"]["PERSONALINFO"]["PERSONALINFO"]}
                         loading={60}
                     >
                         <CurrentCrimeStepThree
@@ -119,7 +119,7 @@ const CurrentCrimeStep = () => {
                 <Scaffold>
                     <FormWrapper
                         hide_progress={false}
-                        steptitle={traslate["FORM"]["PERSONALINFO"]["PERSONALINFO"]}
+                        steptitle={traslate["FORM"]["THEFTDETAILS"]["THIEFINFO"]}
                         loading={80}
                     >
                         <CurrentCrimeStepFour

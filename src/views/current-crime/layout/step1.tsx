@@ -33,23 +33,43 @@ const attack_type_options = [
   "Hurto",
 ];
 
-const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
+const items_options = [
+  "celular",
+  "billetera",
+  "documentacion",
+  "dinero",
+  "auto",
+  "computadora",
+  "notebook",
+  "herramientas",
+  "mochila",
+  "cartera",
+  "llaves",
+  "motocicleta",
+  "ropa",
+  "objetos recien comprados",
+  "alimento",
+  "accesorios",
+  "tarjetas debito/credito",
+  "electrodomesticos",
+  "muebles",
+  "dolares",
+  "joyeria",
+  "objetos de valor personal",
+  "reliquias",
+  "maquinaria",
+  "mascotas",
+  "otros",
+];
 
-const today =  new Date();
+const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 
 const schema = yup.object({
   attack_type: yup
     .mixed()
     .oneOf(attack_type_options)
     .required("Completar la casilla"),
-  hour: yup
-    .mixed()
-    .oneOf(hour_options)
-    .required("Completar la casilla"),
-  date: yup
-    .date()
-    .max(today)
-    .required("Ingresar una fecha valida"),
+  hour: yup.mixed().oneOf(hour_options).required("Completar la casilla"),
   place_description: yup
     .mixed()
     .oneOf(place_options)
@@ -57,6 +77,16 @@ const schema = yup.object({
   accompaniment: yup
     .mixed()
     .oneOf(accompaniment_options)
+    .required("Completar la casilla"),
+  stolen_items: yup
+    .mixed()
+    .transform((e) => e.toLowerCase())
+    .oneOf(items_options.map((e) => e.toLowerCase()))
+    .required("Completar la casilla"),
+  stolen_cash: yup
+    .number()
+    .min(1)
+    .max(99999999)
     .required("Completar la casilla"),
 });
 
@@ -73,17 +103,14 @@ const CurrentCrimeStepOne = ({
   handleNext,
   handleBack,
 }: CurrentCrimeStepOneProps) => {
-
   const [data_state, set_data] = useState<schemaType>({
     attack_type: "",
     hour: "",
-    date: "",
+    date: new Date(),
     place_description: "",
     accompaniment: "",
-    position: {
-      lat: 0,
-      lng: 0,
-    },
+    stolen_cash: "",
+    stolen_items: "",
     ...data,
   });
 
@@ -98,12 +125,19 @@ const CurrentCrimeStepOne = ({
     const resp = await Validator(data_state, schema);
 
     if (resp.err) return set_error(resp.data);
-    
+
     return handleNext(resp.data);
   };
 
   return (
-    <Grid container item xs={12} className="p-1" justify="center" alignItems="center">
+    <Grid
+      container
+      item
+      xs={12}
+      className="p-1"
+      justify="center"
+      alignItems="center"
+    >
       <Select
         xs={10}
         color="light-gray"
@@ -115,17 +149,6 @@ const CurrentCrimeStepOne = ({
         error={error?.attack_type?.error}
         error_msg={error?.attack_type?.msg}
       />
-
-      <Input
-        xs={10}
-        type='date'
-        value={data_state.date}
-        label={traslate.FORM.THEFTINFO.DATE}
-        onChange={(e) => HandleChange("date", e.target.value)}
-        color="light-gray"
-        className="m-top-1"
-        error={error?.date?.error}
-        error_msg={error?.date?.msg} />
 
       <Select
         xs={10}
@@ -147,7 +170,9 @@ const CurrentCrimeStepOne = ({
         options={place_options}
         value={data_state.place_description}
         error={error?.place_description?.error}
-        onChange={(event) => HandleChange("place_description", event.target.value)}
+        onChange={(event) =>
+          HandleChange("place_description", event.target.value)
+        }
         error_msg={error?.place_description?.msg}
       />
 
@@ -161,6 +186,30 @@ const CurrentCrimeStepOne = ({
         onChange={(event) => HandleChange("accompaniment", event.target.value)}
         error={error?.accompaniment?.error}
         error_msg={error?.accompaniment?.msg}
+      />
+
+      <Select
+        xs={10}
+        color="light-gray"
+        className="p-top-1"
+        label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
+        options={items_options}
+        value={data_state.stolen_items}
+        onChange={(event) => HandleChange("stolen_items", event.target.value)}
+        error={error?.stolen_items?.error}
+        error_msg={error?.stolen_items?.msg}
+      />
+
+      <Input
+        xs={10}
+        color="light-gray"
+        type="number"
+        className="p-top-1"
+        label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
+        value={data_state.stolen_cash}
+        onChange={(e) => HandleChange("stolen_cash", e.target.value)}
+        error={error?.stolen_cash?.error}
+        error_msg={error?.stolen_cash?.msg}
       />
 
       <Grid item className="m-top-3 m-bottom-2">

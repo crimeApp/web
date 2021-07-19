@@ -131,7 +131,7 @@ function HomePage() {
   const { md } = useWindowSize();
   const [user_position, set_position] = useState({
     lat:  -31.42182659888641,
-    lng: -64.18388759242008,
+    lng: -64.18388759242008
   });
 
   useEffect(() => {

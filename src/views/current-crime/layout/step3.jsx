@@ -21,7 +21,7 @@ const sex_options = ["hombre", "mujer", "indefinido"];
 
 const height_options = ["alto", "mediano", "bajo", "no recuerdo"];
 
-const physical_options = ["delgado", "corpulento", "corpulento", "obeso", "atletico"];
+const physical_options = ["delgado", "corpulento", "obeso", "atletico"];
 
 const schema = yup.object({
   victim_name: yup
@@ -66,7 +66,6 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
     victim_dni: "",
     victim_sex: "",
     victim_age: "",
-    victim_skin: "",
     victim_height: "",
     victim_clothing: "",
     victim_physical: "",
@@ -87,8 +86,15 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
     return handleNext(resp.data);
   };
 
-  const OnBackward = () => {
-    handleBack(data_state);
+  const OnBackward =  async () => {
+    set_error({});
+
+    const resp = await Validator(data_state, schema);
+
+    if (resp.err) return set_error(resp.data);
+
+    return handleBack(resp.data);
+    
   };
 
 
@@ -155,18 +161,6 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
 
         error={error?.victim_height?.error}
         error_msg={error?.victim_height?.msg}
-      />
-
-      <Input
-        xs={10}
-        color='light-gray'
-        className='m-top-1 m-bottom-1'
-        label={traslate.FORM.PERSONALINFO.SKIN}
-        //options={skin_options}
-        value={data_state.victim_skin}
-        onChange={(event) => HandleChange("victim_skin", event.target.value)}
-        error={error?.victim_skin?.error}
-        error_msg={error?.victim_skin?.msg}
       />
 
       <Select

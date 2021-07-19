@@ -27,6 +27,12 @@ yup.setLocale({
             msg: `El campo no es válido.`
         })
     },
+    object: {
+        required: ({ path } : any) => ({
+            path,
+            msg: `Ingrese la ubicacion del siniestro.`
+        }),
+    },
     date: {
         required: ({ path } : any) => ({
             path,

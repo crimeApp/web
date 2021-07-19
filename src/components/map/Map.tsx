@@ -39,12 +39,12 @@ const Map = ({
     return (
         <Grid container xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`}>
             <Grid item>
-                <label className={`map-label ${error_msg ? `map-error-color` : ``}`}>
+                <label className={`map-label`}>
                     {label}
                 </label>
             </Grid>
             <Grid item>
-                <MapContainer center={position} zoom={12} scrollWheelZoom={true}
+                <MapContainer center={position} zoom={13} scrollWheelZoom={true}
                     //@ts-ignore
                     whenReady={(map) => {
                         map.target.on(
