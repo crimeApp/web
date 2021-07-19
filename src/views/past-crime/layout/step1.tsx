@@ -7,63 +7,92 @@ import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
 const place_options = [
-  "parque",
-  "calle",
-  "parada de colectivo",
-  "centro comercial",
-  "propiedad privada",
-  "supermercado",
-  "estacionamiento",
-  "otro",
+  "Parque",
+  "Calle",
+  "Parada de colectivo",
+  "Centro comercial",
+  "Propiedad privada",
+  "Supermercado",
+  "Estacionamiento",
+  "Otro",
 ];
 
 const accompaniment_options = [
-  "solo/a, gente alrededor",
-  "acompañado, gente alrededor",
-  "solo/a, no gente",
-  "acompañado, no gente alrededor",
+  "Solo/a, gente alrededor",
+  "Acompañado, gente alrededor",
+  "Solo/a, no gente",
+  "Acompañado, no gente alrededor",
 ];
 
 const attack_type_options = [
-  "robo",
-  "asesinato",
-  "abuso sexual",
-  "secuestro",
-  "asalto",
-  "hurto",
+  "Robo",
+  "Asesinato",
+  "Abuso sexual",
+  "Secuestro",
+  "Asalto",
+  "Hurto",
 ];
 
-const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
+const items_options = [
+  "celular",
+  "billetera",
+  "documentacion",
+  "dinero",
+  "auto",
+  "computadora",
+  "notebook",
+  "herramientas",
+  "mochila",
+  "cartera",
+  "llaves",
+  "motocicleta",
+  "ropa",
+  "objetos recien comprados",
+  "alimento",
+  "accesorios",
+  "tarjetas debito/credito",
+  "electrodomesticos",
+  "muebles",
+  "dolares",
+  "joyeria",
+  "objetos de valor personal",
+  "reliquias",
+  "maquinaria",
+  "mascotas",
+  "otros",
+];
 
-const today =  new Date();
-
-const min_date = new Date('March 1, 2000 00:00:00');
+const hour_options = ["añana", "Mediodia", "Tarde", "Noche"];
 
 const schema = yup.object({
   attack_type: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(attack_type_options.map((e) => e.toLowerCase()))
+    .oneOf(attack_type_options)
     .required("Completar la casilla"),
   hour: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(hour_options.map((e) => e.toLowerCase()))
+    .oneOf(hour_options)
     .required("Completar la casilla"),
   date: yup
     .date()
-    .max(today)
-    .min(min_date)
+    .max(new Date())
     .required("Ingresar una fecha valida"),
   place_description: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(place_options.map((e) => e.toLowerCase()))
+    .oneOf(place_options)
     .required("Completar la casilla"),
   accompaniment: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(accompaniment_options.map((e) => e.toLowerCase()))
+    .oneOf(accompaniment_options)
+    .required("Completar la casilla"),
+  stolen_items: yup
+    .mixed()
+    .oneOf(items_options)
+    .required("Completar la casilla"),
+  stolen_cash: yup
+    .number()
+    .min(1)
+    .max(99999999)
     .required("Completar la casilla"),
 });
 
@@ -84,13 +113,11 @@ const PastCrimeStepOne = ({
   const [data_state, set_data] = useState<schemaType>({
     attack_type: "",
     hour: "",
-    date: "",
+    date: new Date(),
     place_description: "",
     accompaniment: "",
-    position: {
-      lat: 0,
-      lng: 0,
-    },
+    stolen_cash: "",
+    stolen_items: "",
     ...data,
   });
 
@@ -105,12 +132,40 @@ const PastCrimeStepOne = ({
     const resp = await Validator(data_state, schema);
 
     if (resp.err) return set_error(resp.data);
-    
+
     return handleNext(resp.data);
   };
 
+  /*
+    const [loading, setLoading] = useState(false);
+    const [someData, setSomeData] = useState({});
+    // ...
+    useEffect(() => {
+        setLoading(true);
+        someResponse = await doVeryLongRequest(); // it needs some time
+        // When request is finished:
+        setSomeData(someResponse.data); // (1) write data to state
+        setLoading(false); // (2) write some value to state
+    }, []);
+
+    return (
+        <div className={loading ? "loading" : ""}>
+            {someData}
+            <a href="SOME_LOCAL_LINK">Go away from here!</a>
+        </div>
+    );
+}
+  */
+
   return (
-    <Grid container className="p-1" justify="center" alignItems="center">
+    <Grid 
+      item
+      xs={12} 
+      container 
+      className="p-1" 
+      justify="center" 
+      alignItems="center">
+
       <Select
         xs={10}
         color="light-gray"
@@ -128,7 +183,6 @@ const PastCrimeStepOne = ({
         type='date'
         value={data_state.date}
         label={traslate.FORM.THEFTINFO.DATE}
-        defaultValue={data_state.date}
         onChange={(e) => HandleChange("date", e.target.value)}
         color="light-gray"
         className="m-top-1"
@@ -169,6 +223,30 @@ const PastCrimeStepOne = ({
         onChange={(event) => HandleChange("accompaniment", event.target.value)}
         error={error?.accompaniment?.error}
         error_msg={error?.accompaniment?.msg}
+      />
+
+      <Select
+        xs={10}
+        color="light-gray"
+        className="p-top-1"
+        label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
+        options={items_options}
+        value={data_state.stolen_items}
+        onChange={(event) => HandleChange("stolen_items", event.target.value)}
+        error={error?.stolen_items?.error}
+        error_msg={error?.stolen_items?.msg}
+      />
+
+      <Input
+        xs={10}
+        color="light-gray"
+        type="number"
+        className="p-top-1"
+        label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
+        value={data_state.stolen_cash}
+        onChange={(e) => HandleChange("stolen_cash", e.target.value)}
+        error={error?.stolen_cash?.error}
+        error_msg={error?.stolen_cash?.msg}
       />
 
       <Grid item className="m-top-3 m-bottom-2">

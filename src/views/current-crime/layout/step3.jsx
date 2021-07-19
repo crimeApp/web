@@ -7,21 +7,21 @@ import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
 const clothing_options = [
-  "formal",
-  "casual",
-  "deportivo",
-  "trabajo",
-  "semiformal",
-  "escolar",
-  "arreglado",
-  "desalineado",
+  "Formal",
+  "Casual",
+  "Deportivo",
+  "Trabajo",
+  "Semiformal",
+  "Escolar",
+  "Arreglado",
+  "Desalineado"
 ];
 
-const sex_options = ["hombre", "mujer", "indefinido"];
+const sex_options = ["Hombre", "Mujer", "Indefinido"];
 
-const height_options = ["alto", "mediano", "bajo", "no recuerdo"];
+const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 
-const physical_options = ["delgado", "corpulento", "obeso", "atletico"];
+const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
   victim_name: yup
@@ -40,22 +40,22 @@ const schema = yup.object({
     .required("Completar la casilla"),
   victim_height: yup
     .mixed()
-    .oneOf(height_options.map(e => e.toLowerCase()))
+    .oneOf(height_options)
     .required("Elija una opcion"),
   victim_sex: yup
     .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(sex_options.map(e => e.toLowerCase()))
+    .oneOf(sex_options)
     .required("Elija una opcion"),
   victim_clothing: yup
     .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(clothing_options.map(e => e.toLowerCase()))
+    .oneOf(clothing_options)
     .required("Elija una opcion"),
   victim_physical: yup
     .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(physical_options.map(e => e.toLowerCase()))
+    .oneOf(physical_options)
     .required("Elija una opcion"),
 });
 
@@ -86,17 +86,9 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
     return handleNext(resp.data);
   };
 
-  const OnBackward =  async () => {
-    set_error({});
-
-    const resp = await Validator(data_state, schema);
-
-    if (resp.err) return set_error(resp.data);
-
-    return handleBack(resp.data);
-    
+  const OnBackward = () => {
+    return handleBack(data_state);
   };
-
 
   return (
     <Grid
@@ -111,7 +103,7 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.NAME}
         value={data_state.victim_name}
-        onChange={(event, newValue) => HandleChange("victim_name", newValue)}
+        onChange={(newValue) => HandleChange("victim_name", newValue)}
         error={error?.victim_name?.error}
         error_msg={error?.victim_name?.msg}
       />
@@ -122,7 +114,7 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.DNI}
         value={data_state.victim_dni}
-        onChange={(event, newValue) => HandleChange("victim_dni", newValue)}
+        onChange={(newValue) => HandleChange("victim_dni", newValue)}
         error={error?.victim_dni?.error}
         error_msg={error?.victim_dni?.msg}
       />

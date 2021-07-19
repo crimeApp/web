@@ -7,21 +7,21 @@ import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
 const clothing_options = [
-  "formal",
-  "casual",
-  "deportivo",
-  "trabajo",
-  "semiformal",
-  "escolar",
-  "arreglado",
-  "desalineado",
+  "Formal",
+  "Casual",
+  "Deportivo",
+  "Trabajo",
+  "Semiformal",
+  "Escolar",
+  "Arreglado",
+  "Desalineado"
 ];
 
-const sex_options = ["hombre", "mujer", "indefinido"];
+const sex_options = ["Hombre", "Mujer", "Indefinido"];
 
-const height_options = ["alto", "mediano", "bajo", "no recuerdo"];
+const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 
-const physical_options = ["delgado", "corpulento", "corpulento", "obeso", "atletico"];
+const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
   victim_name: yup
@@ -40,22 +40,22 @@ const schema = yup.object({
     .required("Completar la casilla"),
   victim_height: yup
     .mixed()
-    .oneOf(height_options.map(e => e.toLowerCase()))
+    .oneOf(height_options)
     .required("Elija una opcion"),
   victim_sex: yup
     .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(sex_options.map(e => e.toLowerCase()))
+    .oneOf(sex_options)
     .required("Elija una opcion"),
   victim_clothing: yup
     .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(clothing_options.map(e => e.toLowerCase()))
+    .oneOf(clothing_options)
     .required("Elija una opcion"),
   victim_physical: yup
     .mixed()
     .transform((e) => e.toLowerCase())
-    .oneOf(physical_options.map(e => e.toLowerCase()))
+    .oneOf(physical_options)
     .required("Elija una opcion"),
 });
 
@@ -66,7 +66,6 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
     victim_dni: "",
     victim_sex: "",
     victim_age: "",
-    victim_skin: "",
     victim_height: "",
     victim_clothing: "",
     victim_physical: "",
@@ -88,9 +87,8 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
   };
 
   const OnBackward = () => {
-    handleBack(data);
+    return handleBack(data_state);
   };
-
 
   return (
     <Grid
@@ -105,7 +103,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.NAME}
         value={data_state.victim_name}
-        onChange={(event, newValue) => HandleChange("victim_name", newValue)}
+        onChange={(newValue) => HandleChange("victim_name", newValue)}
         error={error?.victim_name?.error}
         error_msg={error?.victim_name?.msg}
       />
@@ -116,7 +114,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
         className='m-top-1 m-bottom-1'
         label={traslate.FORM.PERSONALINFO.DNI}
         value={data_state.victim_dni}
-        onChange={(event, newValue) => HandleChange("victim_dni", newValue)}
+        onChange={(newValue) => HandleChange("victim_dni", newValue)}
         error={error?.victim_dni?.error}
         error_msg={error?.victim_dni?.msg}
       />
@@ -152,20 +150,9 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
         value={data_state.victim_height}
         options={height_options}
         onChange={(event) => HandleChange("victim_height", event.target.value)}
+
         error={error?.victim_height?.error}
         error_msg={error?.victim_height?.msg}
-      />
-
-      <Input
-        xs={10}
-        color='light-gray'
-        className='m-top-1 m-bottom-1'
-        label={traslate.FORM.PERSONALINFO.SKIN}
-        //options={skin_options}
-        value={data_state.victim_skin}
-        onChange={(event) => HandleChange("victim_skin", event.target.value)}
-        error={error?.victim_skin?.error}
-        error_msg={error?.victim_skin?.msg}
       />
 
       <Select
@@ -187,7 +174,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
         label={traslate.FORM.PERSONALINFO.PHYSICAL}
         options={physical_options}
         value={data_state.victim_physical}
-        onChange={(event) => HandleChange("victim_physical", event.target.value)}
+        onChange={(event) => HandleChange("victim_physical", event.target.value)}        
         error={error?.victim_physical?.error}
         error_msg={error?.victim_physical?.msg}
       />

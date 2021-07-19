@@ -12,6 +12,7 @@ interface MapProps {
     className?: string,
     onChange: (newValue: { lat: number, lng: number }) => void,
     error_msg?: string,
+    error?: boolean,
     msg?: string,
     xs?: GridSize,
     sm?: GridSize,
@@ -28,6 +29,7 @@ const Map = ({
     },
     className,
     onChange,
+    error,
     error_msg,
     msg,
     xs,
@@ -37,11 +39,9 @@ const Map = ({
     xl,
 }: MapProps) => {
     return (
-        <Grid container xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`}>
+        <Grid container item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`}>
             <Grid item>
-                <label className={`map-label`}>
-                    {label}
-                </label>
+                <p className={"first-letter-cap  color-black w800 " + (error ? "color-red" : "")}>{label}</p>
             </Grid>
             <Grid item>
                 <MapContainer center={position} zoom={13} scrollWheelZoom={true}

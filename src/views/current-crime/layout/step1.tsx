@@ -69,7 +69,10 @@ const schema = yup.object({
     .mixed()
     .oneOf(attack_type_options)
     .required("Completar la casilla"),
-  hour: yup.mixed().oneOf(hour_options).required("Completar la casilla"),
+  hour: yup
+    .mixed()
+    .oneOf(hour_options)
+    .required("Completar la casilla"),
   place_description: yup
     .mixed()
     .oneOf(place_options)
@@ -80,8 +83,7 @@ const schema = yup.object({
     .required("Completar la casilla"),
   stolen_items: yup
     .mixed()
-    .transform((e) => e.toLowerCase())
-    .oneOf(items_options.map((e) => e.toLowerCase()))
+    .oneOf(items_options)
     .required("Completar la casilla"),
   stolen_cash: yup
     .number()

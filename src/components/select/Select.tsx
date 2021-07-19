@@ -5,25 +5,28 @@ const Select = ({
     options,
     label,
     value,
-    onChange,
-    className,
     color = "white",
     colorFont = "black",
+    onChange,
+    className,
+    error,
+    error_msg,
+    msg,
     xs,
     sm,
     md,
     lg,
-    xl,
-    error,
-    error_msg,
-    helper,
+    xl
 }: {
-    value: string,
+    value?: string,
     options?: string[],
+    error?: boolean,
+    error_msg?: string,
+    msg?: string,
     label: string,
+    className?: string,
     color?: string,
     colorFont?: string,
-    className?: string,
     onChange?: ((event: React.ChangeEvent<{
         name?: string | undefined;
         value: unknown;
@@ -33,14 +36,11 @@ const Select = ({
     md?: GridSize,
     lg?: GridSize,
     xl?: GridSize,
-    error?: boolean,
-    error_msg?: string,
-    helper?: string,
 }) => {
 
-    return <Grid item className={`select ${className} m-bottom-1`} xs={xs} md={md} sm={sm} lg={lg} xl={xl} >
+    return <Grid item className={`select m-bottom-2 ${className}`} xs={xs} md={md} sm={sm} lg={lg} xl={xl} >
         <InputLabel>
-            <p className="first-letter-cap color-black w800">{label}</p>
+            <p className={"first-letter-cap  color-black w800 " + (error ? "color-red" : "")}>{label}</p>
         </InputLabel>
         <SelectMUI
             style={{
@@ -52,7 +52,7 @@ const Select = ({
             className={ `color-${colorFont} background-color-${color} border-normal`}
             value={value}
             onChange={onChange}
-            MenuProps={{
+           MenuProps={{
                 PaperProps: {
                     style: {
                         backgroundColor: `var(--color-${color})`
@@ -70,38 +70,10 @@ const Select = ({
                 </MenuItem>)
             }
         </SelectMUI>
-        {
-            helper || error ? <FormHelperText>
-                {error ? <p style={{
-                    fontSize: "var(--font-size-small)",
-                    paddingLeft: "10px",
-                    color: "var(--red)",
-                    margin: "0px"
-                }}>{error_msg}</p> :
-                    <p style={{
-                        fontSize: "var(--font-size-small)",
-                        paddingLeft: "10px",
-                        margin: "0px"
-                    }}>{helper}</p>}
-            </FormHelperText>
-                : null
-        }
+        <FormHelperText className={"p-left-1 font-size-little " + (error_msg ? "color-red" : "color-gray")}>
+            {error_msg ?? msg}
+        </FormHelperText>
     </Grid>
 }
 
 export default Select;
-
-/*
-<Select
-        xs={12}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTINFO.THEFT}
-        value={data_state.attack_type}
-        onChange={(event) => HandleChange("attack_type", event.target.value)}
-        options={attack_type_options}
-        helper="halooo"
-        error={error?.attack_type?.error}
-        error_msg={error?.attack_type?.msg}
-      />
-*/

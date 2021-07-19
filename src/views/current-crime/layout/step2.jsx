@@ -45,15 +45,8 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
     return handleNext(resp.data);
   };
 
-  const OnBackward =  async () => {
-    set_error({});
-
-    const resp = await Validator(data_state, schema);
-
-    if (resp.err) return set_error(resp.data);
-
-    return handleBack(resp.data);
-    
+  const OnBackward = () => {
+    return handleBack(data_state);
   };
 
   return (

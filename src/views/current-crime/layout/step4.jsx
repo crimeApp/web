@@ -7,43 +7,43 @@ import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
 const profile_options = [
-  "violento",
-  "amable",
-  "tranquilo",
-  "cauteloso",
-  "desconfiado",
-  "indiferente",
-  "visiblemente intoxicado",
-  "carismático",
-  "no recuerdo",
-  "no lo sé"
+  "Violento",
+  "Amable",
+  "Tranquilo",
+  "Cauteloso",
+  "Desconfiado",
+  "Indiferente",
+  "Visiblemente intoxicado",
+  "Carismático",
+  "No recuerdo",
+  "No lo sé"
 ]
 
 const age_options = [
-  "menor de edad",
+  "Menor de edad",
   "18-25",
   "25-35",
   "35-45",
-  "más de 50",
+  "Más de 50",
   "No recuerdo"
 ];
 
+const sex_options = ["Hombre", "Mujer", "Indefinido"];
+
 const clothing_options = [
-  "formal",
-  "casual",
-  "deportivo",
-  "trabajo",
-  "semiformal",
-  "escolar",
-  "arreglado",
-  "desalineado",
+  "Formal",
+  "Casual",
+  "Deportivo",
+  "Trabajo",
+  "Semiformal",
+  "Escolar",
+  "Arreglado",
+  "Desalineado"
 ];
 
-const sex_options = ["hombre", "mujer", "indefinido"];
+const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 
-const height_options = ["alto", "mediano", "bajo", "no recuerdo"];
-
-const physical_options = ["delgado", "corpulento", "obeso", "atlético"];
+const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
   thief_profile: yup
@@ -102,15 +102,8 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
     return handleNext(resp.data);
   };
 
-  const OnBackward =  async () => {
-    set_error({});
-
-    const resp = await Validator(data_state, schema);
-
-    if (resp.err) return set_error(resp.data);
-
-    return handleBack(resp.data);
-    
+  const OnBackward = () => {
+    return handleBack(data_state);
   };
 
   return (

@@ -13,7 +13,6 @@ interface InputProps {
     id?: string;
     label?: string;
     msg?: string;
-    defaultValue?: string | Date;
     iconLeft?: React.ReactNode;
     iconRight?: React.ReactNode;
     error?: boolean;
@@ -25,12 +24,12 @@ interface InputProps {
     rowsMax?: string | number;
     placeholder?: string;
     className?: string;
-    type?: "number" | "text" | "password" | "email" | "date" | "datetime-local";
+    type?: "number" | "text" | "password" | "email" | "date";
     color?: ColorCA;
     colorFont?: ColorCA;
     onChange?: React.EventHandler<any>;
     register?: any;
-    maxLenght?: number;
+    maxlenght?: number;
     styleHelperText?: React.CSSProperties;
     xs?: undefined | GridSize;
     sm?: undefined | GridSize;
@@ -55,10 +54,9 @@ const Input = ({
     iconRight,
     inputProps,
     inputLabelProps,
-    defaultValue,
     color = "white",
     colorFont = "black",
-    maxLenght = 20,
+    maxlenght = 20,
     styleHelperText,
     onChange,
     value,
@@ -85,13 +83,12 @@ const Input = ({
             className={`p-top-1 p-bottom-1 ${className}`}
         >
             <InputLabel>
-                <p className="first-letter-cap color-black w800">{label}</p>
+                <p className={"first-letter-cap  color-black w800 " + (error ? "color-red" : "")}>{label}</p>
             </InputLabel>
 
             <TextField
                 value={value}
                 multiline={multiline}
-                defaultValue={defaultValue}
                 rowsMax={rowsMax}
                 rows={rows}
                 type={type}
@@ -100,7 +97,7 @@ const Input = ({
                 error={error}
                 FormHelperTextProps={{
                     style: {
-                        color: error ? `var(--red)` : `var(--${colorFont})`,
+                        color: error ? `color-red` : `var(--${colorFont})`,
                         marginLeft: "15px",
                         marginRight: "15px",
                         ...styleHelperText
@@ -117,7 +114,7 @@ const Input = ({
                     name: name,
                     disableUnderline: true,
                     autoComplete: "off",
-                    maxLenght: maxLenght,
+                    maxlenght: maxlenght,
                     style: {
                         border: `var(--border-${border})`,
                         backgroundColor: `var(--${color})`,

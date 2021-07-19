@@ -1,7 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Switch, FormControlLabel } from "@material-ui/core";
-
 import "./switch.css";
 
 const IOSSwitch = withStyles((theme) => ({
@@ -50,7 +49,7 @@ const IOSSwitch = withStyles((theme) => ({
         switchBase: classes.switchBase,
         thumb: classes.thumb,
         track: classes.track,
-        checked: classes.checked,
+        checked: classes.checked
       }}
       {...props}
     />
@@ -87,22 +86,10 @@ const Switches = ({
           <IOSSwitch checked={value} onChange={onChange} />
         }
         label={label}
+        
       />
-      <span className={`${error ? "var(--red)" : `var(--${colorFont})`}`}>
-        {error ? error_msg : msg}
-      </span>
     </Grid>
   );
 };
 
 export default Switches;
-/*
-ToggleSwitch.propTypes = {
-    id: PropTypes.string.isRequired,
-    checked: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired,
-    name: PropTypes.string,
-    optionLabels: PropTypes.array,
-    small: PropTypes.bool,
-    disabled: PropTypes.bool
-  }; */
