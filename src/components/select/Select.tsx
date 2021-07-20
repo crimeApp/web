@@ -40,7 +40,7 @@ const Select = ({
 
     return <Grid item className={`select m-bottom-2 ${className}`} xs={xs} md={md} sm={sm} lg={lg} xl={xl} >
         <InputLabel>
-            <p className={"first-letter-cap  color-black w800 " + (error ? "color-red" : "")}>{label}</p>
+            <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>{label}</p>
         </InputLabel>
         <SelectMUI
             style={{
@@ -49,10 +49,10 @@ const Select = ({
                 height: "var(--height-normal-size)"
             }}
             disableUnderline={true}
-            className={ `color-${colorFont} background-color-${color} border-normal`}
+            className={`color-${colorFont} background-color-${color} border-normal`}
             value={value}
             onChange={onChange}
-           MenuProps={{
+            MenuProps={{
                 PaperProps: {
                     style: {
                         backgroundColor: `var(--color-${color})`
@@ -66,7 +66,7 @@ const Select = ({
                     value={opt}
                     className={`background-color-${color}`}
                 >
-                    <p className={`p-left-3 color-${colorFont}`}>{opt}</p>
+                    <p className={`p-left-3 color-${colorFont} first-letter-cap`}>{opt}</p>
                 </MenuItem>)
             }
         </SelectMUI>

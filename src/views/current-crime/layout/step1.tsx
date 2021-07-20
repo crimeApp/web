@@ -76,7 +76,8 @@ const schema = yup.object({
   place_description: yup
     .mixed()
     .oneOf(place_options)
-    .required("Completar la casilla"),
+    .required("Completar la casilla")
+    .default(""),
   accompaniment: yup
     .mixed()
     .oneOf(accompaniment_options)
@@ -111,7 +112,7 @@ const CurrentCrimeStepOne = ({
     date: new Date(),
     place_description: "",
     accompaniment: "",
-    stolen_cash: "",
+    stolen_cash: 0,
     stolen_items: "",
     ...data,
   });

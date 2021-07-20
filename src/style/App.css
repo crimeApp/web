@@ -226,6 +226,10 @@ h6 {
   padding-top: 48px !important;
 }
 
+.first-letter-cap::first-letter {
+  text-transform: uppercase;
+}
+
 .color-white {
   color: var(--white) !important;
 }
@@ -345,3 +349,27 @@ h6 {
   .w800{
     font-weight: 800 !important;
   }
+
+
+/* Font-Size */
+.font-size-little {
+  font-size: var(--font-size-little) !important;
+}
+.font-size-small {
+  font-size: var(--font-size-small) !important;
+}
+.font-size-normal {
+  font-size: var(--font-size-normal) !important;
+}
+.font-size-large {
+  font-size: var(--font-size-large) !important;
+}
+.font-size-extra-large {
+  font-size: var(--font-size-extra-large) !important;
+}
+.font-size-big {
+  font-size: var(--font-size-big) !important;
+}
+.font-size-extra-big {
+  font-size: var(--font-size-extra-big) !important;
+}

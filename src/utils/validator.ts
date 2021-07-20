@@ -13,6 +13,7 @@ const Validator = async (values: any, schema: any): Promise<{ err: boolean, data
                 ...object,
                 [value.path]: {
                     msg: value.msg,
+                    type: value.type,
                     error: true
                 }
             }

@@ -57,7 +57,8 @@ const CurrentCrimeReview = ({ data, handleNext, handleBack }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post(url + "/old-sinister", data );
+      console.log(data)
+      const response = await axios.post(url + "/new-sinister", data );
       console.log("Returned data:", response);
       setTimeout(setLoading(false), 3000);
     } catch (e) {

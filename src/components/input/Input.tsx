@@ -83,7 +83,7 @@ const Input = ({
             className={`p-top-1 p-bottom-1 ${className}`}
         >
             <InputLabel>
-                <p className={"first-letter-cap  color-black w800 " + (error ? "color-red" : "")}>{label}</p>
+                <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>{label}</p>
             </InputLabel>
 
             <TextField
@@ -100,6 +100,7 @@ const Input = ({
                         color: error ? `color-red` : `var(--${colorFont})`,
                         marginLeft: "15px",
                         marginRight: "15px",
+                        fontSize: "var(--font-size-little)",
                         ...styleHelperText
                     }
                 }}
