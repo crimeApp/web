@@ -6,26 +6,30 @@ import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
 const schema = yup.object({
-  position: yup
-    .object()
-    .required(),
+  geopoint: yup.object({
+    lat: yup.number().min(-90).max(90).required(),
+    lng: yup.number().min(-180).max(180).required()
+}).required(),
 });
 
 const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
-    position: {
+    geopoint: {
       lat:  -31.42182659888641,
       lng: -64.18388759242008
-    }
+    },
+    ...data
   });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      set_data({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+    if (!data.position){
+      navigator.geolocation.getPastPosition(function (position) {
+        set_data({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
       });
-    });
+    }
   }, []);
 
   const [error, set_error] = useState();
@@ -60,7 +64,6 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
     >
       <Map
         xs={12}
-        className=""
         label={traslate.FORM.THEFTINFO.LOCATION}
         position={data_state.position}
         onChange={(newValue) => HandleChange("position", newValue)}

@@ -43,6 +43,7 @@ const Select = ({
             <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>{label}</p>
         </InputLabel>
         <SelectMUI
+            required
             style={{
                 width: "100%",
                 marginTop: "5px",

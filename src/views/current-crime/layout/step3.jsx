@@ -2,27 +2,13 @@ import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Input from "../../../components/input/Input";
+import Switches from "../../../components/switch/Switch";
 import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 import { dniExp } from "../../../utils/reg-exp";
 
-const clothing_options = [
-  "Formal",
-  "Casual",
-  "Deportivo",
-  "Trabajo",
-  "Semiformal",
-  "Escolar",
-  "Arreglado",
-  "Desalineado",
-];
-
 const sex_options = ["Hombre", "Mujer", "Indefinido"];
-
-const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
-
-const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
   victim_name: yup
@@ -31,10 +17,7 @@ const schema = yup.object({
     .optional(),
   victim_dni: yup.string().matches(dniExp),
   victim_age: yup.number().max(100).min(12).required().default(0),
-  victim_height: yup.mixed().oneOf(height_options).required(),
   victim_sex: yup.mixed().oneOf(sex_options).required(),
-  victim_clothing: yup.mixed().oneOf(clothing_options).required(),
-  victim_physical: yup.mixed().oneOf(physical_options).required(),
 });
 
 const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
@@ -43,9 +26,7 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
     victim_dni: "",
     victim_sex: "",
     victim_age: 12,
-    victim_height: "",
-    victim_clothing: "",
-    victim_physical: "",
+    victim_help: false,
     ...data
   });
 
@@ -74,7 +55,6 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
   return (
     <Grid container className="p-3" justify="center" alignItems="center">
       <Input
-       
         xs={12}
         md={10}
         color="light-gray"
@@ -87,7 +67,6 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
       />
 
       <Input
-       
         xs={12}
         md={10}
         color="light-gray"
@@ -98,13 +77,12 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         error={error?.victim_dni?.error}
         error_msg={
           error?.victim_dni?.type === "matches"
-            ? "El dni ingresado es incorrecto"
+            ? "El DNI ingresado es incorrecto"
             : error?.victim_dni?.msg
         }
       />
 
       <Select
-       
         xs={12}
         md={10}
         color="light-gray"
@@ -118,7 +96,6 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
       />
 
       <Input
-       
         xs={12}
         md={10}
         color="light-gray"
@@ -131,46 +108,14 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         error_msg={error?.victim_age?.msg}
       />
 
-      <Select
-       
+      <Switches
         xs={12}
         md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.PERSONALINFO.HEIGHT}
-        value={data_state.victim_height}
-        options={height_options}
-        onChange={(event) => HandleChange("victim_height", event.target.value)}
-        error={error?.victim_height?.error}
-        error_msg={error?.victim_height?.msg}
-      />
-
-      <Select
-       
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.PERSONALINFO.CLOTHING}
-        options={clothing_options}
-        value={data_state.victim_clothing}
-        onChange={(event) => HandleChange("victim_clothing", event.target.value)}
-        error={error?.victim_clothing?.error}
-        error_msg={error?.victim_clothing?.msg}
-      />
-
-      <Select
-       
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.PERSONALINFO.PHYSICAL}
-        options={physical_options}
-        value={data_state.victim_physical}
-        onChange={(event) => HandleChange("victim_physical", event.target.value)}
-        error={error?.victim_physical?.error}
-        error_msg={error?.victim_physical?.msg}
+        name={'complaint'}
+        className="p-top-1 p-bottom-1 p-left-4"
+        label={"¿Necesita asistencia médica?"}
+        value={data_state.victim_help}
+        onChange={(event) => HandleChange("victim_help", event.target.checked)}
       />
 
       <Grid item className="m-top-1 m-bottom-2">

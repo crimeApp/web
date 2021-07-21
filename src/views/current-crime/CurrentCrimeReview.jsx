@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import traslate from "../../assets/traslate/es.json";
-import axios from "axios";
 import {
   Grid,
   Button,
@@ -9,17 +8,12 @@ import {
   TableRow,
   TableBody,
 } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 function createData(name, value) {
   return { name, value };
 }
 
-const CurrentCrimeReview = ({ data, handleNext, handleBack }) => {
+const CurrentCrimeReview = ({ data, isLoading, error, handleSubmit, handleBack }) => {
   const first_row = [
     createData("Tipo de siniestro", data.attack_type),
     createData("Franja horaria", data.hour),
@@ -54,41 +48,13 @@ const CurrentCrimeReview = ({ data, handleNext, handleBack }) => {
     createData("Arrestado", data.thief_arrested),
   ];
 
-  console.log(data.thief_arrested);
-
-  const url = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app";
-
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const OnSubmit = () =>{
+    return handleSubmit(data);
+  }
 
   const OnBackward = () => {
     return handleBack(data);
   };
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setLoading(true);
-
-    try {
-      console.log(data);
-      const response = await axios.post(url + "/new-sinister", data.toJSON());
-      console.log("Returned data:", response);
-      setTimeout(setLoading(false), 3000);
-    } catch (e) {
-      console.log(`Axios request failed:  ${e}`);
-
-      setTimeout(() => {
-        setError(true);
-        setLoading(false);
-      }, 3000);
-    }
-  }
-
-  const loadingMessage = <Alert>{traslate["COMMON"]["LOADING"]}</Alert>;
-
-  const errorMessage = (
-    <Alert severity="error">{traslate["COMMON"]["ERROR"]}</Alert>
-  );
 
   return (
     <Grid container justify="center" alignItems="flex-start">
@@ -139,7 +105,7 @@ const CurrentCrimeReview = ({ data, handleNext, handleBack }) => {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                {row.value !== true || false ? (
+                {typeof row.value !==  'boolean'? (
                   <TableCell align="right">{row.value}</TableCell>
                 ) : (
                     <TableCell align="right">{row.value? 'Si' : 'No'}</TableCell>
@@ -148,11 +114,6 @@ const CurrentCrimeReview = ({ data, handleNext, handleBack }) => {
             ))}
           </TableBody>
         </Table>
-      </Grid>
-
-      <Grid item  xs={12} md={4} className="m-top-2 m-bottom-1">
-        {isLoading ? loadingMessage : null}
-        {error ? errorMessage : null}
       </Grid>
 
       <Grid item  xs={8} md={4} className="m-top-1 m-bottom-2">
@@ -171,7 +132,7 @@ const CurrentCrimeReview = ({ data, handleNext, handleBack }) => {
           color="primary"
           type="submit"
           className=" m-left-3"
-          onClick={handleSubmit}
+          onClick={OnSubmit}
         >
           {traslate.COMMON.NEXT}
         </Button>

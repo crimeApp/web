@@ -30,6 +30,9 @@ const age_options = [
 
 const sex_options = ["Hombre", "Mujer", "Indefinido"];
 
+const skin_options = ["no lo sé/no contesta", "piel muy clara", "piel clara",
+  "piel morena clara", "piel morena oscura", "piel oscura", "piel muy oscura"];
+
 const clothing_options = [
   "Formal",
   "Casual",
@@ -48,30 +51,23 @@ const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 const schema = yup.object({
   thief_profile: yup
     .mixed()
-    .oneOf(profile_options)
-    .required("Elija una de las opciones"),
+    .required(),
   thief_age: yup
     .mixed()
-    .oneOf(age_options)
-    .required("Elija una de las opciones"),
+    .required(),
   thief_height: yup
     .mixed()
-    .oneOf(height_options)
-    .required("Elija una opcion"),
-  thief_sex: yup
+    .required(),
+  thief_skin: yup
     .mixed()
-    .oneOf(sex_options)
-    .required("Elija una opcion"),
+    .required(),
   thief_clothing: yup
     .mixed()
-    .oneOf(clothing_options)
-    .required("Elija una opcion"),
+    .required(),
   thief_physical: yup
-    .mixed()
-    .oneOf(physical_options)
-    .required("Elija una opcion"),
-  complaint: yup.boolean().optional(),
-  arrested: yup.boolean().optional(),
+    .mixed(),
+  complaint: yup.boolean(),
+  arrested: yup.boolean(),
 });
 
 const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
@@ -83,8 +79,8 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
     thief_height: "",
     thief_clothing: "",
     thief_physical: "",
-    thief_complaint: false,
-    thief_arrested: false,
+    complaint: false,
+    arrested: false,
   });
 
   const [error, set_error] = useState();
@@ -138,7 +134,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
         error={error?.thief_age?.error}
         error_msg={error?.thief_age?.msg}
       />
-      
+
       <Select
         xs={12}
         md={10}
@@ -177,7 +173,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
         error={error?.thief_clothing?.error}
         error_msg={error?.thief_clothing?.msg}
       />
-      
+
       <Select
         xs={12}
         md={10}
@@ -191,15 +187,28 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
         error_msg={error?.thief_physical?.msg}
       />
 
+      <Select
+        xs={12}
+        md={10}
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
+        label={traslate.FORM.THEFTDETAILS.PHYSICAL}
+        options={skin_options}
+        value={data_state.thief_skin}
+        onChange={(event) => HandleChange("thief_skin", event.target.value)}
+        error={error?.thief_skin?.error}
+        error_msg={error?.thief_skin?.msg}
+      />
+
       <Switches
         xs={12}
         md={10}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.COMPLAINT}
-        value={data_state.thief_complaint}
-        onChange={(event, newValue) => HandleChange("thief_complaint", newValue)}
-        error={error?.thief_complaint?.error}
-        error_msg={error?.thief_complaint?.msg}
+        value={data_state.complaint}
+        onChange={(event) => HandleChange("complaint", event.target.checked)}
+        error={error?.complaint?.error}
+        error_msg={error?.complaint?.msg}
       />
 
       <Switches
@@ -207,10 +216,10 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
         md={10}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.ARRESTED}
-        value={data_state.thief_arrested}
-        onChange={(event, newValue) => HandleChange("thief_arrested", newValue)}
-        error={error?.thief_arrested?.error}
-        error_msg={error?.thief_arrested?.msg}
+        value={data_state.arrested}
+        onChange={(event) => HandleChange("arrested", event.target.checked)}
+        error={error?.arrested?.error}
+        error_msg={error?.arrested?.msg}
       />
 
       <Grid item className="m-top-1 m-bottom-2">

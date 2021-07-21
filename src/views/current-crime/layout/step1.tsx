@@ -17,13 +17,6 @@ const place_options = [
   "Otro",
 ];
 
-const accompaniment_options = [
-  "Solo/a, gente alrededor",
-  "Acompañado, gente alrededor",
-  "Solo/a, no gente",
-  "Acompañado, no gente alrededor",
-];
-
 const attack_type_options = [
   "Robo",
   "Asesinato",
@@ -33,69 +26,26 @@ const attack_type_options = [
   "Hurto",
 ];
 
-const items_options = [
-  "celular",
-  "billetera",
-  "documentacion",
-  "dinero",
-  "auto",
-  "computadora",
-  "notebook",
-  "herramientas",
-  "mochila",
-  "cartera",
-  "llaves",
-  "motocicleta",
-  "ropa",
-  "objetos recien comprados",
-  "alimento",
-  "accesorios",
-  "tarjetas debito/credito",
-  "electrodomesticos",
-  "muebles",
-  "dolares",
-  "joyeria",
-  "objetos de valor personal",
-  "reliquias",
-  "maquinaria",
-  "mascotas",
-  "otros",
-];
-
 const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 
 const schema = yup.object({
   attack_type: yup
     .mixed()
-    .oneOf(attack_type_options)
-    .required()
-    .default(""),
+    .required(),
   hour: yup
     .mixed()
-    .oneOf(hour_options)
-    .required()
-    .default(""),
+    .required(),
+  date: yup
+    .date()
+    .min(new Date('01/01/2010')),
   place_description: yup
-    .mixed()
-    .oneOf(place_options)
-    .required()
-    .default(""),
-  accompaniment: yup
-    .mixed()
-    .oneOf(accompaniment_options)
-    .required()
-    .default(""),
-  stolen_items: yup
-    .mixed()
-    .oneOf(items_options)
-    .required()
-    .default(""),
-  stolen_cash: yup
-    .number()
-    .min(1)
-    .max(99999999)
-    .required()
-    .default(0),
+    .mixed(),
+    street_1: yup
+    .string()
+    .required(),
+    street_2: yup
+    .string()
+    .required(),
 });
 
 interface CurrentCrimeStepOneProps {
@@ -116,11 +66,11 @@ const CurrentCrimeStepOne = ({
     hour: "",
     date: new Date(),
     place_description: "",
-    accompaniment: "",
-    stolen_cash: 0,
-    stolen_items: "",
+    street_1: "",
+    street_2: "",
     ...data,
   });
+
 
   const [error, set_error] = useState<any>();
 
@@ -160,7 +110,6 @@ const CurrentCrimeStepOne = ({
       />
 
       <Select
-        
         xs={12}
         md={10}
         color="light-gray"
@@ -174,7 +123,6 @@ const CurrentCrimeStepOne = ({
       />
 
       <Select
-        
         xs={12}
         md={10}
         color="light-gray"
@@ -187,46 +135,30 @@ const CurrentCrimeStepOne = ({
         error_msg={error?.place_description?.msg}
       />
 
-      <Select
-        
+      <Input
         xs={12}
         md={10}
         color="light-gray"
-        className="m-top-1"
-        label={traslate.FORM.THEFTINFO.COMPANY}
-        options={accompaniment_options}
-        value={data_state.accompaniment}
-        onChange={(event) => HandleChange("accompaniment", event.target.value)}
-        error={error?.accompaniment?.error}
-        error_msg={error?.accompaniment?.msg}
-      />
-
-      <Select
-        
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="p-top-1"
-        label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
-        options={items_options}
-        value={data_state.stolen_items}
-        onChange={(event) => HandleChange("stolen_items", event.target.value)}
-        error={error?.stolen_items?.error}
-        error_msg={error?.stolen_items?.msg}
+        type={'text'}
+        className="m-top-1 m-bottom-1"
+        label={"Escriba el nombre de la primera calle"}
+        value={data_state.street_1}
+        onChange={(event) => HandleChange("street_1", event.target.value)}
+        error={error?.street_1?.error}
+        error_msg={error?.street_1?.msg}
       />
 
       <Input
-        
         xs={12}
         md={10}
         color="light-gray"
-        type="number"
-        className="p-top-1"
-        label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
-        value={data_state.stolen_cash}
-        onChange={(e) => HandleChange("stolen_cash", e.target.value)}
-        error={error?.stolen_cash?.error}
-        error_msg={error?.stolen_cash?.msg}
+        type={'text'}
+        className="m-top-1 m-bottom-1"
+        label={"Escriba el nombre de la segunda calle"}
+        value={data_state.street_2}
+        onChange={(event) => HandleChange("street_2", event.target.value)}
+        error={error?.street_2?.error}
+        error_msg={error?.street_2?.msg}
       />
 
       <Grid item className="m-top-3 m-bottom-2">

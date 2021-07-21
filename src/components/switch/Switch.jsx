@@ -59,12 +59,9 @@ const IOSSwitch = withStyles((theme) => ({
 const Switches = ({
   label,
   value,
+  name,
   onChange,
   className,
-  colorFont = "black",
-  error,
-  error_msg,
-  msg,
   xs,
   sm,
   md,
@@ -82,11 +79,8 @@ const Switches = ({
       className={`${className}`}
     >
       <FormControlLabel
-        control={
-          <IOSSwitch checked={value} onChange={onChange} />
-        }
+        control={<IOSSwitch checked={value} onChange={onChange} name={name} />}
         label={label}
-        
       />
     </Grid>
   );

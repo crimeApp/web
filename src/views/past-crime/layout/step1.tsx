@@ -67,34 +67,30 @@ const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 const schema = yup.object({
   attack_type: yup
     .mixed()
-    .oneOf(attack_type_options)
     .required(),
   hour: yup
     .mixed()
-    .oneOf(hour_options)
     .required(),
   date: yup
     .date()
-    .max(new Date())
-    .required(),
+    .min(new Date('01/01/2010')),
   place_description: yup
-    .mixed()
-    .oneOf(place_options)
-    .required(),
+    .mixed(),
   accompaniment: yup
-    .mixed()
-    .oneOf(accompaniment_options)
-    .required(),
+    .mixed(),
   stolen_items: yup
     .mixed()
-    .oneOf(items_options)
     .required(),
   stolen_cash: yup
     .number()
-    .min(1)
-    .max(99999999)
     .required(),
 });
+
+/*
+yup.object().shape({ 
+    comment: yup.string(),
+})
+ */
 
 interface PastCrimeStepOneProps {
   data: any;
@@ -137,12 +133,12 @@ const PastCrimeStepOne = ({
   };
 
   return (
-    <Grid 
+    <Grid
       item
-      xs={12} 
-      container 
-      className="p-1" 
-      justify="center" 
+      xs={12}
+      container
+      className="p-1"
+      justify="center"
       alignItems="center">
 
       <Select

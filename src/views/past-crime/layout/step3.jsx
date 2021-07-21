@@ -25,16 +25,26 @@ const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
-  victim_name: yup
-    .string()
-    .transform((e) => e.toLowerCase())
-    .optional(),
-  victim_dni: yup.string().matches(dniExp),
-  victim_age: yup.number().max(100).min(12).required().default(0),
-  victim_height: yup.mixed().oneOf(height_options).required(),
-  victim_sex: yup.mixed().oneOf(sex_options).required(),
-  victim_clothing: yup.mixed().oneOf(clothing_options).required(),
-  victim_physical: yup.mixed().oneOf(physical_options).required(),
+  victim_gender: yup
+        .mixed()
+        .optional(),
+    victim_dni: yup
+        .string()
+        .required(),
+    victim_age: yup
+        .number()
+        .max(100)
+        .min(1),
+    victim_height: yup
+        .mixed()
+        .required(),
+    victim_skin: yup
+        .mixed()
+        .optional(),
+    victim_clothing: yup
+        .mixed(),
+    victim_physical: yup
+        .mixed(),
 });
 
 const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {

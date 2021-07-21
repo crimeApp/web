@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Map from "../../../components/map/Map";
@@ -14,19 +14,22 @@ const schema = yup.object({
 const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
     position: {
-      lat:  -31.42182659888641,
+      lat: -31.42182659888641,
       lng: -64.18388759242008
     },
+    street_description: "",
     ...data
   });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      set_data({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+    if (!data.position) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        set_data({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
       });
-    });
+    }
   }, []);
 
   const [error, set_error] = useState();

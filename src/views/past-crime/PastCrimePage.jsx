@@ -1,21 +1,24 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Container, Grid, Button } from "@material-ui/core";
-import traslate from "../../assets/traslate/es.json";
 import Scaffold from "../../components/scaffold/scaffold";
+import traslate from "../../assets/traslate/es.json";
 import FormWrapper from "../../components/form-wrapper/FormWrapper";
-import "./PastCrimePage.css";
-
-import PastCrimepageOne from "./layout/step1";
-import PastCrimepageTwo from "./layout/step2";
-import PastCrimepageThree from "./layout/step3";
-import PastCrimepageFour from "./layout/step4";
+import MuiAlert from "@material-ui/lab/Alert";
+import PastCrimeStepOne from "./layout/step1";
+import PastCrimeStepTwo from "./layout/step2";
+import PastCrimeStepThree from "./layout/step3";
+import PastCrimeStepFour from "./layout/step4";
 import PastCrimeReview from "./PastCrimeReview";
 import PastCrimeSubmit from "./PastCrimeSubmit";
+import "./PastCrimePage.css";
 
-const PastCrimePage = () => {
+
+const PastCrimeStep = () => {
   const [form_data, set_form_data] = useState({});
-
   const [step, set_step] = useState(0);
+
+  console.log(form_data);
 
   // Internal Functions with UpperCase
   const HandleNext = (data) => {
@@ -27,6 +30,37 @@ const PastCrimePage = () => {
     set_form_data({ ...form_data, ...data });
     set_step(step - 1);
   };
+
+  const url = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app";
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  async function HandleSubmit(event) {
+    setLoading(true);
+
+    try {
+      console.log(form_data);
+      const response = await axios.post(url + "/old-sinister", form_data);
+      console.log("Returned data:", response);
+      setTimeout(setLoading(false), 3000);
+    } catch (e) {
+      console.log(e);
+      console.log(e.response.data);
+      setTimeout(() => {
+        setError(true);
+        setLoading(false);
+      }, 3000);
+    }
+  }
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  const loadingMessage = <Alert>{traslate["COMMON"]["LOADING"]}</Alert>;
+
+  const errorMessage = (
+    <Alert severity="error">{traslate["COMMON"]["ERROR"]}</Alert>
+  );
 
   switch (step) {
     case 0:
@@ -43,9 +77,7 @@ const PastCrimePage = () => {
               alignContent="center"
             >
               <Grid item xs={10}>
-                <h2 className="m-bottom-1">
-                  {traslate["FORM"]["TITLE-PASTCRIME"]}
-                </h2>
+                <h2 className="m-bottom-1">{traslate["FORM"]["TITLE-PASTCRIME"]}</h2>
               </Grid>
 
               <Grid item xs={10}>
@@ -67,7 +99,7 @@ const PastCrimePage = () => {
                   color="primary"
                   type="submit"
                   className="m-bottom-3 m-top-1"
-                  onClick={HandleNext}
+                  onClick={() => set_step(step + 1)}
                 >
                   {traslate["FORM"]["INIT-FORM"]}
                 </Button>
@@ -84,7 +116,7 @@ const PastCrimePage = () => {
             steptitle={traslate["FORM"]["THEFTINFO"]["THIEFINFO"]}
             loading={20}
           >
-            <PastCrimepageOne
+            <PastCrimeStepOne
               data={form_data}
               handleBack={HandleBack}
               handleNext={HandleNext}
@@ -100,7 +132,7 @@ const PastCrimePage = () => {
             steptitle={traslate["FORM"]["THEFTINFO"]["THIEFINFO"]}
             loading={40}
           >
-            <PastCrimepageTwo
+            <PastCrimeStepTwo
               data={form_data}
               handleNext={HandleNext}
               handleBack={HandleBack}
@@ -116,7 +148,7 @@ const PastCrimePage = () => {
             steptitle={traslate["FORM"]["PERSONALINFO"]["PERSONALINFO"]}
             loading={60}
           >
-            <PastCrimepageThree
+            <PastCrimeStepThree
               data={form_data}
               handleNext={HandleNext}
               handleBack={HandleBack}
@@ -132,7 +164,7 @@ const PastCrimePage = () => {
             steptitle={traslate["FORM"]["THEFTDETAILS"]["THIEFINFO"]}
             loading={80}
           >
-            <PastCrimepageFour
+            <PastCrimeStepFour
               data={form_data}
               handleNext={HandleNext}
               handleBack={HandleBack}
@@ -143,28 +175,37 @@ const PastCrimePage = () => {
     case 5:
       return (
         <Scaffold>
-            <Container
-              className="m-top-2 background-color-card-background"
-              maxWidth="lg"
+          <Container
+            className="m-top-2 background-color-card-background"
+            maxWidth="lg"
+          >
+            <Grid
+              container
+              justify="center"
+              alignItems="flex-start"
+              alignContent="center"
             >
-              <Grid
-                container
-                justify="center"
-                alignItems="flex-start"
-                alignContent="center"
-              >
-                <Grid item xs={6}>
-                  <h3 className="m-bottom-1 m-top-1 color-gray">Revise sus datos</h3>
-                </Grid>
-                <Grid item xs={12}>
-                <PastCrimeReview
-              data={form_data}
-              handleNext={HandleNext}
-              handleBack={HandleBack}
-            />
-                </Grid>
+              <Grid item xs={6}>
+                <h3 className="m-bottom-1 m-top-1 color-gray">Revise sus datos</h3>
               </Grid>
-            </Container>
+
+              <Grid item xs={12}>
+                <PastCrimeReview
+                  data={form_data}
+                  error={error}
+                  isLoading={isLoading}
+                  handleSubmit={HandleSubmit}
+                  handleBack={HandleBack}
+                />
+              </Grid>
+
+              <Grid item xs={12} md={4} className="m-top-2 m-bottom-1">
+                {isLoading ? loadingMessage : null}
+                {error ? errorMessage : null}
+              </Grid>
+              
+            </Grid>
+          </Container>
         </Scaffold>
       );
     case 6:
@@ -185,4 +226,4 @@ const PastCrimePage = () => {
   }
 };
 
-export default PastCrimePage;
+export default PastCrimeStep;

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Switches from "../../../components/switch/Switch";
-import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
@@ -57,21 +56,21 @@ const schema = yup.object({
   thief_height: yup
     .mixed()
     .oneOf(height_options)
-    .required("Elija una opcion"),
+    .required(),
   thief_sex: yup
     .mixed()
     .oneOf(sex_options)
-    .required("Elija una opcion"),
+    .required(),
   thief_clothing: yup
     .mixed()
     .oneOf(clothing_options)
-    .required("Elija una opcion"),
+    .required(),
   thief_physical: yup
     .mixed()
     .oneOf(physical_options)
-    .required("Elija una opcion"),
-  thief_complaint: yup.boolean().optional(),
-  thief_arrested: yup.boolean().optional(),
+    .required(),
+  thief_complaint: yup.boolean().optional().default(false),
+  thief_arrested: yup.boolean().optional().default(false),
 });
 
 const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
@@ -114,109 +113,14 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
       justify="center"
       alignItems="center">
 
-      <Select
-
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTDETAILS.PROFILE}
-        options={profile_options}
-        value={data_state.thief_profile}
-        onChange={(event) => HandleChange("thief_profile", event.target.value)}
-        error={error?.thief_profile?.error}
-        error_msg={error?.thief_profile?.msg}
-      />
-
-      <Select
-
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTDETAILS.AGE}
-        options={age_options}
-        value={data_state.thief_age}
-        onChange={(event) => HandleChange("thief_age", event.target.value)}
-        error={error?.thief_age?.error}
-        error_msg={error?.thief_age?.msg}
-      />
-
-      <Select
-
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTDETAILS.SEX}
-        options={sex_options}
-        value={data_state.thief_sex}
-        onChange={(event) => HandleChange("thief_sex", event.target.value)}
-        error={error?.thief_sex?.error}
-        error_msg={error?.thief_sex?.msg}
-      />
-
-      <Select
-
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTDETAILS.HEIGHT}
-        options={height_options}
-        value={data_state.thief_height}
-        onChange={(event) => HandleChange("thief_height", event.target.value)}
-        error={error?.thief_height?.error}
-        error_msg={error?.thief_height?.msg}
-      />
-
-      <Select
-
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTDETAILS.CLOTHING}
-        options={clothing_options}
-        value={data_state.thief_clothing}
-        onChange={(event) => HandleChange("thief_clothing", event.target.value)}
-        error={error?.thief_clothing?.error}
-        error_msg={error?.thief_clothing?.msg}
-      />
-
-      <Select
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTDETAILS.PHYSICAL}
-        options={physical_options}
-        value={data_state.thief_physical}
-        onChange={(event) => HandleChange("thief_physical", event.target.value)}
-        error={error?.thief_physical?.error}
-        error_msg={error?.thief_physical?.msg}
-      />
-
       <Switches
         xs={12}
         md={10}
+        name={'complaint'}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.COMPLAINT}
         value={data_state.thief_complaint}
-        onChange={(newValue) => HandleChange("thief_complaint", newValue)}
-        error={error?.thief_complaint?.error}
-        error_msg={error?.thief_complaint?.msg}
-      />
-
-      <Switches
-        xs={12}
-        md={10}
-        className="p-top-1 p-bottom-1 p-left-4"
-        label={traslate.FORM.THEFTDETAILS.ARRESTED}
-        value={data_state.thief_arrested}
-        onChange={(newValue) => HandleChange("thief_arrested", newValue)}
-        error={error?.thief_arrested?.error}
-        error_msg={error?.thief_arrested?.msg}
+        onChange={(event) => HandleChange("thief_complaint", event.target.checked)}
       />
 
       <Grid item className="m-top-1 m-bottom-2">
