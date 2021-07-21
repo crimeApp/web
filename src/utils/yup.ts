@@ -9,7 +9,7 @@ yup.setLocale({
         }),
         oneOf: ({ path, values }: any) => ({
             path,
-            msg: `Por favor, elija una de las opciones disponibles. `,
+            msg: `Por favor, elija una de las opciones disponibles.`,
             type: "oneOf"
         })
     },

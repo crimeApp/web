@@ -70,8 +70,8 @@ const schema = yup.object({
     .mixed()
     .oneOf(physical_options)
     .required("Elija una opcion"),
-  complaint: yup.boolean().optional(),
-  arrested: yup.boolean().optional(),
+  thief_complaint: yup.boolean().optional(),
+  thief_arrested: yup.boolean().optional(),
 });
 
 const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
@@ -85,6 +85,7 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
     thief_physical: "",
     thief_complaint: false,
     thief_arrested: false,
+    ...data
   });
 
   const [error, set_error] = useState();
@@ -114,7 +115,9 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
       alignItems="center">
 
       <Select
+
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.PROFILE}
@@ -126,7 +129,9 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
       />
 
       <Select
+
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.AGE}
@@ -136,9 +141,11 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
         error={error?.thief_age?.error}
         error_msg={error?.thief_age?.msg}
       />
-      
+
       <Select
+
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.SEX}
@@ -150,7 +157,9 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
       />
 
       <Select
+
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.HEIGHT}
@@ -162,7 +171,9 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
       />
 
       <Select
+
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.CLOTHING}
@@ -172,9 +183,10 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
         error={error?.thief_clothing?.error}
         error_msg={error?.thief_clothing?.msg}
       />
-      
+
       <Select
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.PHYSICAL}
@@ -187,20 +199,22 @@ const CurrentCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
       <Switches
         xs={12}
+        md={10}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.COMPLAINT}
         value={data_state.thief_complaint}
-        onChange={(event, newValue) => HandleChange("thief_complaint", newValue)}
+        onChange={(newValue) => HandleChange("thief_complaint", newValue)}
         error={error?.thief_complaint?.error}
         error_msg={error?.thief_complaint?.msg}
       />
 
       <Switches
         xs={12}
+        md={10}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.ARRESTED}
         value={data_state.thief_arrested}
-        onChange={(event, newValue) => HandleChange("thief_arrested", newValue)}
+        onChange={(newValue) => HandleChange("thief_arrested", newValue)}
         error={error?.thief_arrested?.error}
         error_msg={error?.thief_arrested?.msg}
       />

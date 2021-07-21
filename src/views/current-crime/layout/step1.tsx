@@ -68,29 +68,34 @@ const schema = yup.object({
   attack_type: yup
     .mixed()
     .oneOf(attack_type_options)
-    .required("Completar la casilla"),
+    .required()
+    .default(""),
   hour: yup
     .mixed()
     .oneOf(hour_options)
-    .required("Completar la casilla"),
+    .required()
+    .default(""),
   place_description: yup
     .mixed()
     .oneOf(place_options)
-    .required("Completar la casilla")
+    .required()
     .default(""),
   accompaniment: yup
     .mixed()
     .oneOf(accompaniment_options)
-    .required("Completar la casilla"),
+    .required()
+    .default(""),
   stolen_items: yup
     .mixed()
     .oneOf(items_options)
-    .required("Completar la casilla"),
+    .required()
+    .default(""),
   stolen_cash: yup
     .number()
     .min(1)
     .max(99999999)
-    .required("Completar la casilla"),
+    .required()
+    .default(0),
 });
 
 interface CurrentCrimeStepOneProps {
@@ -142,7 +147,8 @@ const CurrentCrimeStepOne = ({
       alignItems="center"
     >
       <Select
-        xs={10}
+        xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 "
         label={traslate.FORM.THEFTINFO.THEFT}
@@ -154,7 +160,9 @@ const CurrentCrimeStepOne = ({
       />
 
       <Select
-        xs={10}
+        
+        xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1"
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
@@ -166,21 +174,23 @@ const CurrentCrimeStepOne = ({
       />
 
       <Select
-        xs={10}
+        
+        xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 "
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
         value={data_state.place_description}
         error={error?.place_description?.error}
-        onChange={(event) =>
-          HandleChange("place_description", event.target.value)
-        }
+        onChange={(event) => HandleChange("place_description", event.target.value)}
         error_msg={error?.place_description?.msg}
       />
 
       <Select
-        xs={10}
+        
+        xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1"
         label={traslate.FORM.THEFTINFO.COMPANY}
@@ -192,7 +202,9 @@ const CurrentCrimeStepOne = ({
       />
 
       <Select
-        xs={10}
+        
+        xs={12}
+        md={10}
         color="light-gray"
         className="p-top-1"
         label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
@@ -204,7 +216,9 @@ const CurrentCrimeStepOne = ({
       />
 
       <Input
-        xs={10}
+        
+        xs={12}
+        md={10}
         color="light-gray"
         type="number"
         className="p-top-1"

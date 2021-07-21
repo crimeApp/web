@@ -115,6 +115,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
       <Select
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.PROFILE}
@@ -127,6 +128,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
       <Select
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.AGE}
@@ -139,6 +141,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       
       <Select
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.SEX}
@@ -151,6 +154,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
       <Select
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.HEIGHT}
@@ -163,6 +167,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
       <Select
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.CLOTHING}
@@ -175,6 +180,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       
       <Select
         xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.PHYSICAL}
@@ -187,6 +193,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
       <Switches
         xs={12}
+        md={10}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.COMPLAINT}
         value={data_state.thief_complaint}
@@ -197,6 +204,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
       <Switches
         xs={12}
+        md={10}
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.ARRESTED}
         value={data_state.thief_arrested}

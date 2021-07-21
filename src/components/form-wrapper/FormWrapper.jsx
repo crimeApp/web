@@ -29,7 +29,7 @@ export default function FormWrapper({
             )}
         </Grid>
 
-        <Grid item xs={12} className="m-top-1">
+        <Grid item xs={10}>
           {children}
         </Grid>
       </Grid>

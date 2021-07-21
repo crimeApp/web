@@ -16,7 +16,8 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
     position: {
       lat:  -31.42182659888641,
       lng: -64.18388759242008
-    }
+    },
+    ...data
   });
 
   useEffect(() => {
@@ -60,7 +61,6 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
     >
       <Map
         xs={12}
-        className=""
         label={traslate.FORM.THEFTINFO.LOCATION}
         position={data_state.position}
         onChange={(newValue) => HandleChange("position", newValue)}

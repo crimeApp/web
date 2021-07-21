@@ -1,263 +1,180 @@
 import React, { useState } from "react";
 import traslate from "../../assets/traslate/es.json";
-// eslint-disable-next-line
 import axios from "axios";
 import {
   Grid,
   Button,
-  Divider,
-  Accordion,
-  List,
-  ListItem,
-  ListItemText,
-  AccordionSummary,
-  AccordionDetails,
+  Table,
+  TableCell,
+  TableRow,
+  TableBody,
 } from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
-//import MuiAlert from "@material-ui/lab/Alert";
+import MuiAlert from "@material-ui/lab/Alert";
 
-/* function Alert(props) {
+function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
-} */
+}
 
-const ReviewPastCrime = ({ data, handleNext, handleBack }) => {
-  const {
-    type,
-    hour,
-    date,
-    place_description,
-    accompaniment,
-    stolen_cash,
-    stolen_items,
-    victim_height,
-    victim_clothing,
-    victim_pyshical,
-    victim_name,
-    victim_dni,
-    victim_gender,
-    victim_age,
-    thief_profile,
-    thief_age,
-    thief_height,
-    thief_clothing,
-    thief_physical,
-  } = data;
+function createData(name, value) {
+  return { name, value };
+}
 
-  // eslint-disable-next-line
-  const url = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app"
+const PastCrimeReview = ({ data, handleNext, handleBack }) => {
+  const first_row = [
+    createData("Tipo de siniestro", data.attack_type),
+    createData("Franja horaria", data.hour),
+    createData("Fecha", `${data.date.getDay()}/${data.date.getMonth()}/${data.date.getYear()}`),
+    createData("Lugar del hecho", data.place_description),
+    createData("Acompañamiento", data.accompaniment),
+    createData("Objetos robados", data.stolen_items),
+    createData("Dinero robado", data.stolen_cash),
+  ];
 
-  // eslint-disable-next-line
+  const second_row = [
+    createData("Nombre", data.victim_name),
+    createData("DNI", data.victim_dni),
+    createData("Edad", data.victim_age),
+    createData("Sexo", data.victim_sex),
+    createData("Altura", data.victim_height),
+    createData("Vestimenta", data.victim_clothing),
+    createData("Contextura fisíca", data.victim_physical),
+  ];
+
+  const third_row = [
+    createData("Perfil del agresor", data.thief_profile),
+    createData("Edad", data.thief_age),
+    createData("Sexo", data.thief_sex),
+    createData("Altura", data.thief_height),
+    createData("Vestimenta", data.thief_clothing),
+    createData("Contextura fisíca", data.thief_physical),
+    createData("Denuncia", data.thief_complaint),
+    createData("Arrestado", data.thief_arrested),
+  ];
+
+  console.log(data.thief_arrested);
+
+  const url = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app";
+
   const [isLoading, setLoading] = useState(false);
-  // eslint-disable-next-line
   const [error, setError] = useState(false);
-  const [expanded, setExpanded] = useState(false);
 
-  const handleChange = (panel) => (isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const OnBackward = () => {
+    return handleBack(data);
   };
 
   async function handleSubmit(event) {
     event.preventDefault();
     setLoading(true);
 
-    /* try {
-      const response = await axios.post(url + "/old-sinister", data );
+    try {
+      console.log(data);
+      const response = await axios.post(url + "/old-sinister", data);
       console.log("Returned data:", response);
       setTimeout(setLoading(false), 3000);
     } catch (e) {
-      console.log(`Axios request failed: ${e}`);
+      console.log(`Axios request failed:  ${e}`);
 
       setTimeout(() => {
         setError(true);
         setLoading(false);
       }, 3000);
-    } */
+    }
   }
 
-  /* const loadingMessage = <Alert>{traslate["COMMON"]["LOADING"]}</Alert>;
+  const loadingMessage = <Alert>{traslate["COMMON"]["LOADING"]}</Alert>;
 
   const errorMessage = (
     <Alert severity="error">{traslate["COMMON"]["ERROR"]}</Alert>
-  ); */
+  );
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-      className="review-content"
-    >
-      <Grid item>
-        <Divider />
-      </Grid>
-      <Grid item className="review-content">
-        <Accordion
-          className="review-item"
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMore />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <ListItem button className="list-item m-top-1">
-              <h3>{traslate["FORM"]["THEFTINFO"]["THIEFINFO"]}</h3>
-            </ListItem>
-          </AccordionSummary>
-          <AccordionDetails>
-            <List>
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Tipo de siniestro: ${type}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Franja horaria: ${hour}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Fecha: ${date}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Lugar del hecho: ${place_description}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Acompañamiento: ${accompaniment}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Dinero robado: ${stolen_cash}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Objetos robados: ${stolen_items}`} />
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          className="review-item"
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMore />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-          >
-            <ListItem button className="list-ite">
-              <h3>{traslate["FORM"]["PERSONALINFO"]["PERSONALINFO"]}</h3>
-            </ListItem>
-          </AccordionSummary>
-          <AccordionDetails>
-            <List>
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Altura: ${victim_height}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Vestimenta: ${victim_clothing}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Género: ${victim_gender}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Nombre: ${victim_name}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Contextura física: ${victim_pyshical}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`DNI: ${victim_dni}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Edad: ${victim_age}`} />
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChange("panel3")}
-          className="review-item"
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMore />}
-            aria-controls="panel3a-content"
-            id="panel3a-header"
-          >
-            <ListItem button className="list-ite">
-              <h3>{traslate["FORM"]["THEFTDETAILS"]["THIEFINFO"]}</h3>
-            </ListItem>
-          </AccordionSummary>
-          <AccordionDetails>
-            <List>
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Perfil del agresor: ${thief_profile}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Edad aproximada: ${thief_age}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Altura: ${thief_height}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Vestimenta: ${thief_clothing}`} />
-              </ListItem>
-
-              <ListItem button className="list-item m-top-1">
-                <ListItemText primary={`Fisico: ${thief_physical}`} />
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
+    <Grid container justify="center" alignItems="flex-start">
+      <Grid item xs={12} md={4} className="p-1">
+        <p className="w500 color-black m-top-1">
+          {traslate["FORM"]["PERSONALINFO"]["PERSONALINFO"]}
+        </p>
+        <Table size="small">
+          <TableBody>
+            {second_row.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.value}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Grid>
 
-      {/* <Grid item className="m-top-2">
+      <Grid item xs={12} md={4} className="p-1">
+        <p className="w500 color-black m-top-1">
+          {traslate["FORM"]["THEFTINFO"]["THIEFINFO"]}
+        </p>
+        <Table size="small">
+          <TableBody>
+            {first_row.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.value}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Grid>
+
+      <Grid item  xs={12} md={4} className="p-1 ">
+      <p className="w500 color-black m-top-1">
+          {traslate["FORM"]["THEFTDETAILS"]["THIEFINFO"]}
+        </p>
+        <Table size="small">
+          <TableBody>
+            {third_row.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                {row.value !== true || false ? (
+                  <TableCell align="right">{row.value}</TableCell>
+                ) : (
+                    <TableCell align="right">{row.value? 'Si' : 'No'}</TableCell>
+                  )}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Grid>
+
+      <Grid item  xs={12} md={4} className="m-top-2 m-bottom-1">
         {isLoading ? loadingMessage : null}
         {error ? errorMessage : null}
-      </Grid> */}
+      </Grid>
 
-      <Grid item className="m-top-3">
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          spacing={4}
+      <Grid item  xs={8} md={4} className="m-top-1 m-bottom-2">
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className="m-right-3"
+          onClick={OnBackward}
         >
-          <Grid item>
-            <Button variant="contained" color="primary" onClick={handleBack}>
-              {traslate["COMMON"]["BACK"]}
-            </Button>
-          </Grid>
+          {traslate.COMMON.BACK}
+        </Button>
 
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              {traslate.COMMON.NEXT}
-            </Button>
-          </Grid>
-        </Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          className=" m-left-3"
+          onClick={handleSubmit}
+        >
+          {traslate.COMMON.NEXT}
+        </Button>
       </Grid>
     </Grid>
   );
 };
 
-export default ReviewPastCrime;
+export default PastCrimeReview;

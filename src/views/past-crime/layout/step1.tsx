@@ -62,38 +62,38 @@ const items_options = [
   "otros",
 ];
 
-const hour_options = ["añana", "Mediodia", "Tarde", "Noche"];
+const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 
 const schema = yup.object({
   attack_type: yup
     .mixed()
     .oneOf(attack_type_options)
-    .required("Completar la casilla"),
+    .required(),
   hour: yup
     .mixed()
     .oneOf(hour_options)
-    .required("Completar la casilla"),
+    .required(),
   date: yup
     .date()
     .max(new Date())
-    .required("Ingresar una fecha valida"),
+    .required(),
   place_description: yup
     .mixed()
     .oneOf(place_options)
-    .required("Completar la casilla"),
+    .required(),
   accompaniment: yup
     .mixed()
     .oneOf(accompaniment_options)
-    .required("Completar la casilla"),
+    .required(),
   stolen_items: yup
     .mixed()
     .oneOf(items_options)
-    .required("Completar la casilla"),
+    .required(),
   stolen_cash: yup
     .number()
     .min(1)
     .max(99999999)
-    .required("Completar la casilla"),
+    .required(),
 });
 
 interface PastCrimeStepOneProps {
@@ -136,27 +136,6 @@ const PastCrimeStepOne = ({
     return handleNext(resp.data);
   };
 
-  /*
-    const [loading, setLoading] = useState(false);
-    const [someData, setSomeData] = useState({});
-    // ...
-    useEffect(() => {
-        setLoading(true);
-        someResponse = await doVeryLongRequest(); // it needs some time
-        // When request is finished:
-        setSomeData(someResponse.data); // (1) write data to state
-        setLoading(false); // (2) write some value to state
-    }, []);
-
-    return (
-        <div className={loading ? "loading" : ""}>
-            {someData}
-            <a href="SOME_LOCAL_LINK">Go away from here!</a>
-        </div>
-    );
-}
-  */
-
   return (
     <Grid 
       item
@@ -167,7 +146,8 @@ const PastCrimeStepOne = ({
       alignItems="center">
 
       <Select
-        xs={10}
+        xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 "
         label={traslate.FORM.THEFTINFO.THEFT}
@@ -179,7 +159,8 @@ const PastCrimeStepOne = ({
       />
 
       <Input
-        xs={10}
+        xs={12}
+        md={10}
         type='date'
         value={data_state.date}
         label={traslate.FORM.THEFTINFO.DATE}
@@ -190,7 +171,8 @@ const PastCrimeStepOne = ({
         error_msg={error?.date?.msg} />
 
       <Select
-        xs={10}
+        xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1"
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
@@ -202,7 +184,8 @@ const PastCrimeStepOne = ({
       />
 
       <Select
-        xs={10}
+        xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1 "
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
@@ -214,7 +197,8 @@ const PastCrimeStepOne = ({
       />
 
       <Select
-        xs={10}
+        xs={12}
+        md={10}
         color="light-gray"
         className="m-top-1"
         label={traslate.FORM.THEFTINFO.COMPANY}
@@ -226,7 +210,8 @@ const PastCrimeStepOne = ({
       />
 
       <Select
-        xs={10}
+        xs={12}
+        md={10}
         color="light-gray"
         className="p-top-1"
         label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
@@ -238,7 +223,8 @@ const PastCrimeStepOne = ({
       />
 
       <Input
-        xs={10}
+        xs={12}
+        md={10}
         color="light-gray"
         type="number"
         className="p-top-1"

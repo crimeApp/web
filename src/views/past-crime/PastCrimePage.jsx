@@ -32,26 +32,36 @@ const PastCrimePage = () => {
     case 0:
       return (
         <Scaffold>
-           <Container maxWidth="md"  className="p-3">
+          <Container className="p-2 m-top-2" maxWidth="sm">
             <Grid
               container
               item
-              xs={10}
+              xs={12}
               className="form-wrap"
               justify="center"
               alignItems="center"
+              alignContent="center"
             >
               <Grid item xs={10}>
-                <h2>{traslate["FORM"]["TITLE-PASTCRIME"]}</h2>
-                <p className="w500">
-                                Toda la información solicitada permanece completamente anónima para otros. 
-                                </p>
-                                <p className="w500">El propósito de este formulario es registrar ciertas tendencias criminales en Córdoba 
-                                    y contribuir a la seguridad ciudadana.</p>
-                                <p className="w800">¡Agradecemos tu contribución!</p>
+                <h2 className="m-bottom-1">
+                  {traslate["FORM"]["TITLE-PASTCRIME"]}
+                </h2>
               </Grid>
 
-              <Grid item xs={4}>
+              <Grid item xs={10}>
+                <p className="w500">
+                  Toda la información solicitada permanece completamente anónima
+                  para otros.
+                </p>
+                <p className="w500">
+                  El propósito de este formulario es registrar ciertas
+                  tendencias criminales en Córdoba y contribuir a la seguridad
+                  ciudadana.
+                </p>
+                <p className="w800">¡Agradecemos tu contribución!</p>
+              </Grid>
+
+              <Grid item xs={5}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -74,10 +84,11 @@ const PastCrimePage = () => {
             steptitle={traslate["FORM"]["THEFTINFO"]["THIEFINFO"]}
             loading={20}
           >
-            <PastCrimepageOne 
-                data={form_data} 
-                handleBack={HandleBack}
-                handleNext={HandleNext} />
+            <PastCrimepageOne
+              data={form_data}
+              handleBack={HandleBack}
+              handleNext={HandleNext}
+            />
           </FormWrapper>
         </Scaffold>
       );
@@ -132,17 +143,28 @@ const PastCrimePage = () => {
     case 5:
       return (
         <Scaffold>
-          <FormWrapper
-            steptitle={"Revise si los datos son correctos."}
-            hide_progress={false}
-            loading={100}
-          >
-            <PastCrimeReview
+            <Container
+              className="m-top-2 background-color-card-background"
+              maxWidth="lg"
+            >
+              <Grid
+                container
+                justify="center"
+                alignItems="flex-start"
+                alignContent="center"
+              >
+                <Grid item xs={6}>
+                  <h3 className="m-bottom-1 m-top-1 color-gray">Revise sus datos</h3>
+                </Grid>
+                <Grid item xs={12}>
+                <PastCrimeReview
               data={form_data}
               handleNext={HandleNext}
               handleBack={HandleBack}
             />
-          </FormWrapper>
+                </Grid>
+              </Grid>
+            </Container>
         </Scaffold>
       );
     case 6:
