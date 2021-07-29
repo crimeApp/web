@@ -30,7 +30,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         });
       });
     }
-  }, []);
+  }, [data.position]);
 
   const [error, set_error] = useState();
 

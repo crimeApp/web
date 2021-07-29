@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Button, GridSize } from "@material-ui/core";
 import Select from "../../../components/select/Select";
-import MultipleSelect from "../../../components/selector/Selector";
+import MultipleSelect from "../../../components/multiple-select/multipleSelect";
 import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
@@ -69,22 +69,32 @@ const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 const schema = yup.object({
   attack_type: yup
     .mixed()
+    .oneOf(attack_type_options)
     .required(),
   hour: yup
     .mixed()
+    .oneOf(hour_options)
     .required(),
   date: yup
     .date()
-    .min(new Date('01/01/2010')),
+    .max(new Date())
+    .min(new Date('01/01/2010'))
+    .required(),
   place_description: yup
-    .mixed(),
+    .mixed()
+    .oneOf(place_options)
+    .required(),
   accompaniment: yup
-    .mixed(),
+    .mixed()
+    .oneOf(accompaniment_options) 
+    .required(),
   stolen_items: yup
     .mixed()
     .required(),
   stolen_cash: yup
     .number()
+    .min(1)
+    .max(99999999)
     .required(),
 });
 
@@ -123,8 +133,6 @@ const PastCrimeStepOne = ({
 
   const HandleChange = (name: string, value: any) => set_data((prevState: any) => ({ ...prevState, [name]: value }));
 
-
-
   const OnFoward = async () => {
     set_error({});
 
@@ -155,7 +163,8 @@ const PastCrimeStepOne = ({
       container
       className="p-1"
       justify="center"
-      alignItems="center" >
+      alignItems="center">
+
       <Select
         {...InputConstructor("attack_type")}
         required
@@ -168,41 +177,37 @@ const PastCrimeStepOne = ({
         label={traslate.FORM.THEFTINFO.DATE}
         {...InputConstructor("date")}
       />
+
       <Select
         {...InputConstructor("hour")}
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
         options={hour_options}
       />
       <Select
-        {...InputConstructor("place_options")}
+        {...InputConstructor("place_description")}
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
       />
+
       <Select
         {...InputConstructor("accompaniment")}
         label={traslate.FORM.THEFTINFO.COMPANY}
         options={accompaniment_options}
       />
 
-      <MultipleSelect
-        options={items_options}
-        xs={12}
-        md={10}
-        onChange={(event) => HandleChange("stolen_items", event.target.value)}
-        placeholder={'Ingrese los items robados'}
-        color="light-gray"
-        className="p-top-1"
+     <MultipleSelect
+        {...InputConstructor("stolen_items")}
         label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
-        value={data_state.stolen_items}
-        error={error?.stolen_items?.error}
-        error_msg={error?.stolen_items?.msg}
+        options={items_options}
       />
+
       <Input
         {...InputConstructor("stolen_cash")}
         type="number"
         required
         label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
       />
+
       <Grid item className="m-top-3 m-bottom-2">
         <Button
           variant="contained"
@@ -213,6 +218,7 @@ const PastCrimeStepOne = ({
         >
           {traslate.COMMON.BACK}
         </Button>
+
         <Button
           variant="contained"
           color="primary"
@@ -223,7 +229,7 @@ const PastCrimeStepOne = ({
           {traslate.COMMON.NEXT}
         </Button>
       </Grid>
-    </Grid >
+    </Grid>
   );
 };
 
