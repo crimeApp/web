@@ -31,6 +31,8 @@ const PastCrimeStep = () => {
     set_step(step - 1);
   };
 
+  
+
   const url = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app";
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);

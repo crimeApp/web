@@ -25,6 +25,7 @@ const Select = ({
     msg?: string,
     label: string,
     className?: string,
+    multiple?: boolean,
     color?: string,
     colorFont?: string,
     onChange?: ((event: React.ChangeEvent<{

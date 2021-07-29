@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import Select from "../../../components/select/Select";
+import MultipleSelect from "../../../components/selector/Selector";
 import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
@@ -113,7 +114,7 @@ const PastCrimeStepOne = ({
     place_description: "",
     accompaniment: "",
     stolen_cash: "",
-    stolen_items: "",
+    stolen_items: [],
     ...data,
   });
 
@@ -121,6 +122,8 @@ const PastCrimeStepOne = ({
 
   const HandleChange = (name: string, value: any) =>
     set_data((prevState: any) => ({ ...prevState, [name]: value }));
+
+
 
   const OnFoward = async () => {
     set_error({});
@@ -205,15 +208,16 @@ const PastCrimeStepOne = ({
         error_msg={error?.accompaniment?.msg}
       />
 
-      <Select
+      <MultipleSelect
+        options={items_options}
         xs={12}
         md={10}
+        onChange={(event) => HandleChange("stolen_items", event.target.value)}
+        placeholder={'Ingrese los items robados'}
         color="light-gray"
         className="p-top-1"
         label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
-        options={items_options}
         value={data_state.stolen_items}
-        onChange={(event) => HandleChange("stolen_items", event.target.value)}
         error={error?.stolen_items?.error}
         error_msg={error?.stolen_items?.msg}
       />

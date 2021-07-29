@@ -1,134 +1,176 @@
 import React from "react";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import {
-    Grid,
-    GridJustification,
-    GridSize,
-    GridWrap,
-    InputAdornment,
-    TextField
+  FormHelperText,
+  MenuItem,
+  Chip,
+  Select,
+  Grid,
+  Input,
+  GridSize,
+  InputLabel,
 } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { BorderCA, ColorCA } from "../../style/type-style";
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
-interface SelectProps {
-    id?: string;
-    label?: string;
-    msg?: string;
-    icon?: React.ReactNode;
-    error?: boolean;
-    error_msg?: string;
-    value?: string | undefined;
-    options: Array<string | undefined>;
-    disabled?: boolean;
-    placeholder?: string;
-    className?: string;
-    colorFont?: ColorCA;
-    color?: ColorCA;
-    onChange?: (event: any, newValue: string | null) => void;
-    freeSolo?: boolean;
-    xs?: undefined | GridSize;
-    sm?: undefined | GridSize;
-    md?: undefined | GridSize;
-    lg?: undefined | GridSize;
-    xl?: undefined | GridSize;
-    border?: BorderCA | undefined;
-    justify?: GridJustification;
-    wrap?: GridWrap;
+interface MultipleSelectProps {
+  id?: string;
+  label?: string;
+  options?: string[] | any;
+  msg?: string;
+  iconLeft?: React.ReactNode;
+  iconRight?: React.ReactNode;
+  error?: boolean;
+  error_msg?: string;
+  name?: string | undefined;
+  value?: string[];
+  multiline?: boolean;
+  rows?: string | number;
+  rowsMax?: string | number;
+  placeholder?: string;
+  className?: string;
+  color?: ColorCA;
+  colorFont?: ColorCA;
+  onChange?: React.EventHandler<any>;
+  register?: any;
+  maxlenght?: number;
+  styleHelperText?: React.CSSProperties;
+  xs?: undefined | GridSize;
+  sm?: undefined | GridSize;
+  md?: undefined | GridSize;
+  lg?: undefined | GridSize;
+  xl?: undefined | GridSize;
+  border?: BorderCA | undefined;
+  inputProps?: any;
+  inputLabelProps?: any;
+  multiple?: boolean;
+  /* onChange?: ((event: React.ChangeEvent<{
+    name?: string | Array<string> | undefined;
+    value: unknown;
+  }>, child: React.ReactNode) => void) */
 }
 
-const Selector = ({
-    id,
-    label,
-    className,
-    placeholder,
-    error,
-    error_msg,
-    msg,
-    icon,
-    options,
-    onChange,
-    disabled,
-    color = "white",
-    colorFont = "black",
-    value,
-    wrap,
-    justify = "center",
-    border = "big",
-    freeSolo,
-    xs,
-    sm,
-    md,
-    lg,
-    xl
-}: SelectProps) => {
-    return (
-        <Grid
-            item
-            container
-            id={id}
-            wrap={wrap}
-            justify={justify}
-            xs={xs}
-            sm={sm}
-            md={md}
-            lg={lg}
-            xl={xl}
-            className={`m-top-3 m-bottom-3 ${className}`} >
-            <Autocomplete
-                className={`text-field-container text-field-group`}
-                options={options}
-                disableClearable
-                freeSolo={freeSolo}
-                fullWidth
-                disablePortal
-                disabled={disabled}
-                autoSelect
-                value={value}
-                onChange={onChange}
-                onInputChange={onChange}
-                renderInput={(params) => (
-                    <TextField
-                        label={label}
-                        placeholder={placeholder}
-                        helperText={error ? error_msg : msg}
-                        FormHelperTextProps={{
-                            style: {
-                                color: error ? "var(--red)" : `var(--${colorFont})`,
-                                paddingLeft: "20px"
-                            }
-                        }}
-                        className={`text-field-group`}
-                        {...params}
-                        InputProps={{
-                            ...params.InputProps,
-                            disableUnderline: true,
-                            className: `border-${border}`,
-                            style: {
-                                border: `var(--border-${border})`,
-                                backgroundColor: `var(--${color})`,
-                                color: `var(--${colorFont})`
-                            },
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <div className="text-field-icon-start">
-                                        {icon}
-                                    </div>
-                                </InputAdornment>
-                            ),
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <div className="text-field-icon-end">
-                                        <ArrowDropDownIcon />
-                                    </div>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                )}
-            />
-        </Grid>
-    );
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    chips: {
+      display: "flex",
+      flexWrap: "wrap",
+    },
+    chip: {
+      margin: 2,
+    },
+  })
+);
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
 };
 
-export default Selector;
+const MultipleSelect = ({
+  id,
+  value,
+  label,
+  options,
+  className,
+  placeholder,
+  error,
+  color,
+  error_msg,
+  msg,
+  colorFont = "black",
+  onChange,
+  xs,
+  sm,
+  md,
+  lg,
+  xl,
+}: MultipleSelectProps) => {
+  const classes = useStyles();
+  
+  /* const HandleChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const { options } = event.target as HTMLSelectElement;
+    const value: string[] = [];
+      for (let i = 0, l = options.length; i < l; i += 1) {
+        if (options[i].selected) {
+          value.push(options[i].value);
+        }
+      }
+      setPersonName(value);
+    }; */
+
+  return (
+    <Grid
+      item
+      className={`select m-bottom-2 ${className}`}
+      xs={xs}
+      md={md}
+      sm={sm}
+      lg={lg}
+      xl={xl}
+    >
+      <InputLabel>
+        <p
+          className={
+            "first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " +
+            (error ? "color-red" : "color-black")
+          }
+        >
+          {label}
+        </p>
+      </InputLabel>
+      <Select
+        multiple
+        value={value ? value : []}
+        onChange={onChange}
+        style={{
+          width: "100%",
+          marginTop: "5px",
+          height: "var(--height-medium)",
+        }}
+        disableUnderline={true}
+        className={`color-${colorFont} background-color-${color} border-normal`}
+        input={<Input id="select-multiple-chip" />}
+        renderValue={(selected) => (
+          <div className={classes.chips}>
+            {(selected as string[]).map((value) => (
+              <Chip
+                key={value}
+                label={value}
+                className={classes.chip}
+                color="primary"
+                variant="outlined"
+              />
+            ))}
+          </div>
+        )}
+        MenuProps={MenuProps}
+      >
+        <MenuItem disabled value="">
+          <em>{placeholder}</em>
+        </MenuItem>
+        {options.map((option: any) => (
+          <MenuItem key={option} value={option}>
+            {option}
+          </MenuItem>
+        ))}
+      </Select>
+
+      <FormHelperText
+        className={
+          "p-left-1 font-size-little " +
+          (error_msg ? "color-red" : "color-gray")
+        }
+      >
+        {error_msg ?? msg}
+      </FormHelperText>
+    </Grid>
+  );
+};
+
+export default MultipleSelect;

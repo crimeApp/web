@@ -41,7 +41,7 @@
             "TIMEFRACTION": "Ingrese franja horaria",
             "DATE": "Ingrese fecha",
             "DATE-PLACEHOLDER": "dd-mm-aa",
-            "STOLEN-CAPITAL": "Valor estimado del objeto",
+            "STOLEN-CAPITAL": "Valor estimado total del robo",
             "STOLEN-CAPITAL-PLACEHOLDER": "Ingrese cantidad aproximada",
             "STOLEN-OBJECTS": "Objetos robados",
             "STOLEN-OBJECTS-PLACEHOLDER": "Seleccione los objetos robados",
