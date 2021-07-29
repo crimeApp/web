@@ -95,5 +95,26 @@
         "TITLE": "¡Gracias por completar el formulario!",
         "TEXT": "Todos los datos ya han sido guardados por requerimientos legales si quiere que la denuncia sea tratada legalmente.",
         "BUTTON-TEXT": "Volver a Inicio"
+    },
+    "OK": {
+        "SAVE": "Datos guardados correctamente"
+    },
+    "ERRORS": {
+        "INTERNAL_SERVER_ERROR": "Estamos teniendo problemas, intente mas tarde",
+        "BAD_REQUEST": "Los datos enviados son incorrectos",
+        "UNAUTH": "El usuario no esta autorizado",
+        "cuit": "El cuit debe ser sin guiones ni espacios",
+        "password": "La contrasenia debe contener mayusculas, minusculas y numeros",
+        "USER_NOT_FOUND": "Usuiario y/o contrasenia incorrectos"
+    },
+    "ROUTES": {
+        "PUBLIC": {
+            "HOME": "/"
+        },
+        "ADMIN": {
+            "HOME": "/admin/home",
+            "LOGIN": "/admin/login",
+            "SIGNUP": "/admin/signup"
+        }
     }
 }
