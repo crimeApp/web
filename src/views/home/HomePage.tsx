@@ -16,6 +16,83 @@ import Map from "../../components/map/Map";
 import Scaffold from "../../components/scaffold/scaffold";
 import useWindowSize from "../../hooks/useWindows";
 import "./HomePage.css";
+import MapMarkers from "../../components/map/MapMarkers";
+
+function HomePage() {
+
+  const [user_position, set_position] = useState({
+    lat: -31.42182659888641,
+    lng: -64.18388759242008
+  });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      set_position({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+    });
+  }, []);
+
+  return (
+    <Scaffold>
+      <Grid
+        item
+        xs={12}
+        container
+        className="p-1"
+        justify="center"
+        alignItems="center"
+        alignContent="center"
+      >
+        <Grid item xs={12} md={10} className='p-1'>
+          <Card>
+            <Grid item xs={12} sm={6} className='p-left-1 p-right-1'>
+              <h3>{traslate.FORM.INFO}</h3>
+              <p className="home-subtitle">
+                {traslate.FORM.EXPLANATION}
+              </p>
+              <img
+                alt="CardPhoto"
+                style={{
+                  objectPosition: "center"
+                }}
+                src={process.env.PUBLIC_URL + "/assets/home_page.png"}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} className='m-top-3' container justify="center" alignContent="center">
+              <FlashAccess />
+            </Grid>
+          </Card>
+          <Grid item xs={12} className='p-top-2 p-bottom-2'>
+            <Card>
+              <Grid item xs={12} sm={6} className='p-left-3'>
+                <h4>{traslate.INSTRUCTIONS.INTRO}</h4>
+                {explanation}
+              </Grid>
+              <Grid item xs={12} sm={6} className='p-right-3'>
+                <MapMarkers
+                  xs={12}
+                  label={"Encontrá las unidades más cercanas acá."}
+                  positionCenter={user_position}
+                  positions={
+                    [
+                      { lat: -31.382232224204365, lng: -64.18447639101693, name: "casa de juan" },
+                      { lat: -31.40385792696248, lng: -64.21283551834296, name: "casa de juan" },
+                      { lat: -31.38536, lng: -64.17993, name: "casa de juan" },
+                    ]
+                  }
+                />
+              </Grid>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Scaffold>
+  );
+}
+
+export default HomePage;
 
 const explanation = (
   <Fragment>
@@ -73,151 +150,40 @@ const Card = ({ children }: any) => (
 
 const FlashAccess = () => (
   <>
-    <Grid
-      container
-      item xs={10}
-      className="home-wrap "
-      justify="center"
-      alignItems="center"
-      alignContent="center"
-    >
-      <Grid item xs={10}>
-        <h3>{traslate.MENU.CURRENTCRIME}</h3>
-        <p className="home-subtitle">{traslate["FORM"]["CURRENT-INTRO"]}</p>
-      </Grid>
 
-      <Grid item xs={10}>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          className="m-bottom-2 m-top-1"
-          href="/current-crime-form"
-        >
-          {traslate.COMMON.START}
-        </Button>
-      </Grid>
-    </Grid>
-
-    <Grid
-      container
-      item xs={10}
-      className="home-wrap m-top-3 p-top-2 p-bottom-2"
-      justify="center"
-      alignItems="center"
-      alignContent="center"
-    >
-      <Grid item xs={10}>
-        <h3>{traslate.MENU.PASTCRIME}</h3>
-        <p className="home-subtitle">{traslate["FORM"]["PAST-INTRO"]}</p>
-      </Grid>
-
-      <Grid item xs={10}>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          className="m-bottom-2 m-top-1"
-          href="/past-crime-form"
-        >
-          {traslate.COMMON.START}
-        </Button>
-      </Grid>
-    </Grid>
+    {
+      [
+        {
+          title: traslate.MENU.CURRENTCRIME,
+          description: traslate["FORM"]["CURRENT-INTRO"],
+          href: "/current-crime-form"
+        },
+        {
+          title: traslate.MENU.PASTCRIME,
+          description: traslate["FORM"]["PAST-INTRO"],
+          href: "/past-crime-form"
+        }
+      ].map(card => <Grid key={card.title}
+        item xs={12}
+        className="home-wrap p-top-2 p-bottom-2 m-top-2"
+        container
+        justify="center"
+      >
+        <Grid item xs={10}>
+          <h3 className="m-0 m-top-1">{card.title}</h3>
+          <p className="home-subtitle m-0">{card.description}</p>
+        </Grid>
+        <Grid item xs={10} container justify="center" className="m-top-2">
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            href={card.href}
+          >
+            {traslate.COMMON.START}
+          </Button>
+        </Grid>
+      </Grid>)
+    }
   </>
 );
-
-function HomePage() {
-  const { md } = useWindowSize();
-  const [user_position, set_position] = useState({
-    lat:  -31.42182659888641,
-    lng: -64.18388759242008
-  });
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      set_position({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-    });
-  }, []);
-
-  return (
-    <Scaffold>
-      {!md ? (
-        <Grid
-          item
-          xs={12}
-          container
-          className="p-2"
-          justify="center"
-          alignItems="center"
-          alignContent="center"
-        >
-          <Grid item xs={10} className='p-left-4 p-right-4'>
-            <Card>
-              <Grid item xs={6} className='p-left-4 p-right-4'>
-                <h3>{traslate.FORM.INFO}</h3>
-                <p className="home-subtitle">
-                  {traslate.FORM.EXPLANATION}
-                </p>
-
-                <img
-                  alt="CardPhoto"
-                  src={process.env.PUBLIC_URL + "/assets/home_page.png"}
-                />
-              </Grid>
-              <Grid item xs={6} className='m-top-3  p-right-4 p-left-4'>
-                <FlashAccess/>
-              </Grid>
-            </Card>
-
-            <Grid item xs={12} className='p-top-2 p-bottom-2'>
-              <Card>
-                <Grid item xs={6} className='p-left-3'>
-                  <h4>{traslate.INSTRUCTIONS.INTRO}</h4>
-                  {explanation}
-                </Grid>
-                <Grid item xs={6} className='p-right-3'>
-                  <Map
-                    xs={12}
-                    label={"Encontrá las unidades más cercanas acá."}
-                    position={user_position}
-                    onChange={(newValue) => set_position(newValue)}
-                  />
-                </Grid>
-              </Card>
-            </Grid>
-            
-          </Grid>
-        </Grid>
-      ) : (
-        <Grid
-          item
-          xs={12}
-          container
-          justify="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item xs={12} >
-            <FlashAccess />
-          </Grid>
-          <Grid item xs={12}>
-            {explanation}
-          </Grid>
-          <Map
-            xs={12}
-            className="p-1"
-            label={"Encontrá las unidades más cercanas acá."}
-            position={user_position}
-            onChange={(newValue) => set_position(newValue)}
-          />
-        </Grid>
-      )}
-    </Scaffold>
-  );
-}
-
-export default HomePage;

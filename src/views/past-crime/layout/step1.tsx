@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, GridSize } from "@material-ui/core";
 import Select from "../../../components/select/Select";
 import MultipleSelect from "../../../components/selector/Selector";
 import Input from "../../../components/input/Input";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
+import { ColorCA } from "../../../style/type-style";
 
 const place_options = [
   "Parque",
@@ -120,8 +121,7 @@ const PastCrimeStepOne = ({
 
   const [error, set_error] = useState<any>();
 
-  const HandleChange = (name: string, value: any) =>
-    set_data((prevState: any) => ({ ...prevState, [name]: value }));
+  const HandleChange = (name: string, value: any) => set_data((prevState: any) => ({ ...prevState, [name]: value }));
 
 
 
@@ -135,6 +135,19 @@ const PastCrimeStepOne = ({
     return handleNext(resp.data);
   };
 
+  const InputConstructor = (name: string) => ({
+    name,
+    xs: 12 as GridSize,
+    md: 10 as GridSize,
+    //@ts-ignore
+    value: data_state[name],
+    color: "light-gray" as ColorCA,
+    className: "m-top-1",
+    onChange: (event: any) => HandleChange(name, event.target.value),
+    error: error?.[name]?.error,
+    error_msg: error?.[name]?.msg
+  })
+
   return (
     <Grid
       item
@@ -142,70 +155,33 @@ const PastCrimeStepOne = ({
       container
       className="p-1"
       justify="center"
-      alignItems="center">
-
+      alignItems="center" >
       <Select
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 "
+        {...InputConstructor("attack_type")}
+        required
         label={traslate.FORM.THEFTINFO.THEFT}
-        value={data_state.attack_type}
-        onChange={(event) => HandleChange("attack_type", event.target.value)}
         options={attack_type_options}
-        error={error?.attack_type?.error}
-        error_msg={error?.attack_type?.msg}
       />
-
       <Input
-        xs={12}
-        md={10}
         type='date'
-        value={data_state.date}
+        required
         label={traslate.FORM.THEFTINFO.DATE}
-        onChange={(e) => HandleChange("date", e.target.value)}
-        color="light-gray"
-        className="m-top-1"
-        error={error?.date?.error}
-        error_msg={error?.date?.msg} />
-
-      <Select
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1"
-        label={traslate.FORM.THEFTINFO.TIMEFRACTION}
-        value={data_state.hour}
-        onChange={(event) => HandleChange("hour", event.target.value)}
-        options={hour_options}
-        error={error?.hour?.error}
-        error_msg={error?.hour?.msg}
+        {...InputConstructor("date")}
       />
-
       <Select
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 "
+        {...InputConstructor("hour")}
+        label={traslate.FORM.THEFTINFO.TIMEFRACTION}
+        options={hour_options}
+      />
+      <Select
+        {...InputConstructor("place_options")}
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
-        value={data_state.place_description}
-        error={error?.place_description?.error}
-        onChange={(event) => HandleChange("place_description", event.target.value)}
-        error_msg={error?.place_description?.msg}
       />
-
       <Select
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1"
+        {...InputConstructor("accompaniment")}
         label={traslate.FORM.THEFTINFO.COMPANY}
         options={accompaniment_options}
-        value={data_state.accompaniment}
-        onChange={(event) => HandleChange("accompaniment", event.target.value)}
-        error={error?.accompaniment?.error}
-        error_msg={error?.accompaniment?.msg}
       />
 
       <MultipleSelect
@@ -221,20 +197,12 @@ const PastCrimeStepOne = ({
         error={error?.stolen_items?.error}
         error_msg={error?.stolen_items?.msg}
       />
-
       <Input
-        xs={12}
-        md={10}
-        color="light-gray"
+        {...InputConstructor("stolen_cash")}
         type="number"
-        className="p-top-1"
+        required
         label={traslate.FORM.THEFTINFO["STOLEN-CAPITAL"]}
-        value={data_state.stolen_cash}
-        onChange={(e) => HandleChange("stolen_cash", e.target.value)}
-        error={error?.stolen_cash?.error}
-        error_msg={error?.stolen_cash?.msg}
       />
-
       <Grid item className="m-top-3 m-bottom-2">
         <Button
           variant="contained"
@@ -245,7 +213,6 @@ const PastCrimeStepOne = ({
         >
           {traslate.COMMON.BACK}
         </Button>
-
         <Button
           variant="contained"
           color="primary"
@@ -256,7 +223,7 @@ const PastCrimeStepOne = ({
           {traslate.COMMON.NEXT}
         </Button>
       </Grid>
-    </Grid>
+    </Grid >
   );
 };
 

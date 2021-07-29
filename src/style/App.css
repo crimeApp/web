@@ -102,6 +102,9 @@ h6 {
 }
 
 /* Margin */
+.m-0 {
+  margin: 0px !important;
+}
 .m-1 {
   margin: 6px !important;
 }
@@ -372,4 +375,8 @@ h6 {
 }
 .font-size-extra-big {
   font-size: var(--font-size-extra-big) !important;
+}
+
+.hover:hover {
+  cursor: pointer;
 }
