@@ -7,6 +7,7 @@ const Select = ({
     value,
     color = "white",
     colorFont = "black",
+    required,
     onChange,
     className,
     error,
@@ -24,6 +25,7 @@ const Select = ({
     error_msg?: string,
     msg?: string,
     label: string,
+    required?: boolean,
     className?: string,
     color?: string,
     colorFont?: string,
@@ -40,7 +42,9 @@ const Select = ({
 
     return <Grid item className={`select m-bottom-2 ${className}`} xs={xs} md={md} sm={sm} lg={lg} xl={xl} >
         <InputLabel>
-            <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>{label}</p>
+            <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>
+                {label} {required ? "*" : ""}
+            </p>
         </InputLabel>
         <SelectMUI
             required

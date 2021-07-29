@@ -14,6 +14,7 @@ interface InputProps {
     label?: string;
     msg?: string;
     iconLeft?: React.ReactNode;
+    required?: boolean;
     iconRight?: React.ReactNode;
     error?: boolean;
     error_msg?: string;
@@ -50,6 +51,7 @@ const Input = ({
     error_msg,
     msg,
     type,
+    required,
     iconLeft,
     iconRight,
     inputProps,
@@ -83,7 +85,9 @@ const Input = ({
             className={`p-top-1 p-bottom-1 ${className}`}
         >
             <InputLabel>
-                <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>{label}</p>
+                <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>
+                    {label} {required ? "*" : ""}
+                </p>
             </InputLabel>
 
             <TextField

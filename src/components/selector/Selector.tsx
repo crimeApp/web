@@ -23,6 +23,7 @@ interface SelectProps {
     disabled?: boolean;
     placeholder?: string;
     className?: string;
+    required?: boolean;
     colorFont?: ColorCA;
     color?: ColorCA;
     onChange?: (event: any, newValue: string | null) => void;
@@ -51,6 +52,7 @@ const Selector = ({
     disabled,
     color = "white",
     colorFont = "black",
+    required,
     value,
     wrap,
     justify = "center",
@@ -89,7 +91,7 @@ const Selector = ({
                 onInputChange={onChange}
                 renderInput={(params) => (
                     <TextField
-                        label={label}
+                        label={`${label}${required ? "*" : "" }`}
                         placeholder={placeholder}
                         helperText={error ? error_msg : msg}
                         FormHelperTextProps={{
