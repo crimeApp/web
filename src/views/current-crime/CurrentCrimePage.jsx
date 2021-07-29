@@ -8,7 +8,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 import CurrentCrimeStepOne from "./layout/step1";
 import CurrentCrimeStepTwo from "./layout/step2";
 import CurrentCrimeStepThree from "./layout/step3";
-import CurrentCrimeStepFour from "./layout/step4";
 import CurrentCrimeReview from "./CurrentCrimeReview";
 import CurrentCrimeSubmit from "./CurrentCrimeSubmit";
 import "./CurrentCrimePage.css";
@@ -159,22 +158,6 @@ const CurrentCrimeStep = () => {
     case 4:
       return (
         <Scaffold>
-          <FormWrapper
-            hide_progress={false}
-            steptitle={traslate["FORM"]["THEFTDETAILS"]["THIEFINFO"]}
-            loading={80}
-          >
-            <CurrentCrimeStepFour
-              data={form_data}
-              handleNext={HandleNext}
-              handleBack={HandleBack}
-            />
-          </FormWrapper>
-        </Scaffold>
-      );
-    case 5:
-      return (
-        <Scaffold>
           <Container
             className="m-top-2 background-color-card-background"
             maxWidth="lg"
@@ -208,7 +191,7 @@ const CurrentCrimeStep = () => {
           </Container>
         </Scaffold>
       );
-    case 6:
+    case 5:
       return (
         <Scaffold>
           <FormWrapper

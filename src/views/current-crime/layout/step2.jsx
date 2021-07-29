@@ -6,10 +6,12 @@ import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
 const schema = yup.object({
-  position: yup
-    .object()
-    .required(),
+  geopoint: yup.object({
+    lat: yup.number().min(-90).max(90).required(),
+    lng: yup.number().min(-180).max(180).required()
+  }).required(),
 });
+
 
 const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
@@ -30,6 +32,7 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         });
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [error, set_error] = useState();

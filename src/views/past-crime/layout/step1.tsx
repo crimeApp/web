@@ -98,12 +98,6 @@ const schema = yup.object({
     .required(),
 });
 
-/*
-yup.object().shape({ 
-    comment: yup.string(),
-})
- */
-
 interface PastCrimeStepOneProps {
   data: any;
   handleNext: (data: any) => void;

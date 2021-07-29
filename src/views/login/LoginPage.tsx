@@ -40,7 +40,7 @@ const LoginPage = () => {
             className: "m-top-1",
             onChange: (event: any) => set_form(prev => ({ ...prev, [name]: event.target.value })),
             error: errors?.[name]?.error,
-            error_msg: errors?.[name]?.type == "matches" ?
+            error_msg: errors?.[name]?.type === "matches" ?
                 // @ts-ignore
                 traslate.ERRORS[name] : errors?.[name]?.msg
         })

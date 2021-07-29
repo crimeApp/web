@@ -51,23 +51,30 @@ const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 const schema = yup.object({
   thief_profile: yup
     .mixed()
+    .oneOf(profile_options)
     .required(),
   thief_age: yup
     .mixed()
+    .oneOf(age_options)
     .required(),
   thief_height: yup
     .mixed()
+    .oneOf(height_options)
     .required(),
   thief_skin: yup
     .mixed()
+    .oneOf(skin_options)
     .required(),
   thief_clothing: yup
     .mixed()
+    .oneOf(clothing_options)
     .required(),
   thief_physical: yup
-    .mixed(),
-  complaint: yup.boolean(),
-  arrested: yup.boolean(),
+    .mixed()
+    .oneOf(physical_options)
+    .required(),
+  thief_complaint: yup.boolean().optional().default(false),
+  thief_arrested: yup.boolean().optional().default(false),
 });
 
 const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
@@ -79,8 +86,8 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
     thief_height: "",
     thief_clothing: "",
     thief_physical: "",
-    complaint: false,
-    arrested: false,
+    thief_complaint: false,
+    thief_arrested: false,
   });
 
   const [error, set_error] = useState();

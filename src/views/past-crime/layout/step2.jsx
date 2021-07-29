@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Map from "../../../components/map/Map";
@@ -9,20 +9,20 @@ const schema = yup.object({
   geopoint: yup.object({
     lat: yup.number().min(-90).max(90).required(),
     lng: yup.number().min(-180).max(180).required()
-}).required(),
+  }).required(),
 });
 
 const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
     geopoint: {
-      lat:  -31.42182659888641,
+      lat: -31.42182659888641,
       lng: -64.18388759242008
     },
     ...data
   });
 
   useEffect(() => {
-    if (!data.position){
+    if (!data.position) {
       navigator.geolocation.getPastPosition(function (position) {
         set_data({
           lat: position.coords.latitude,
@@ -30,7 +30,8 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         });
       });
     }
-  }, [data.position]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [error, set_error] = useState();
 

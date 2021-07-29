@@ -12,9 +12,7 @@ import {
 } from "@material-ui/core";
 import traslate from "../../assets/traslate/es.json";
 //import unitData from "../../assets/judicial-units.json";
-import Map from "../../components/map/Map";
 import Scaffold from "../../components/scaffold/scaffold";
-import useWindowSize from "../../hooks/useWindows";
 import "./HomePage.css";
 import MapMarkers from "../../components/map/MapMarkers";
 

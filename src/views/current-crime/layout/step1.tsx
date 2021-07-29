@@ -31,19 +31,25 @@ const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
 const schema = yup.object({
   attack_type: yup
     .mixed()
+    .oneOf(attack_type_options)
     .required(),
   hour: yup
     .mixed()
+    .oneOf(hour_options)
     .required(),
   date: yup
     .date()
-    .min(new Date('01/01/2010')),
+    .max(new Date())
+    .min(new Date('01/01/2010'))
+    .required(),
   place_description: yup
-    .mixed(),
-    street_1: yup
+    .mixed()
+    .oneOf(place_options)
+    .required(),
+  street_1: yup
     .string()
     .required(),
-    street_2: yup
+  street_2: yup
     .string()
     .required(),
 });
