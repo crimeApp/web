@@ -7,7 +7,7 @@ import HandlePetitions from "../../components/handle-peticion/HandlePetions";
 import Input from "../../components/input/Input";
 import Scaffold from "../../components/scaffold/scaffold";
 import useHandlePage from "../../hooks/useHandlePage";
-import { HandlePageModel } from "../../models/HandlePageModel";
+//import { HandlePageModel } from "../../models/HandlePageModel";
 import { ColorCA } from "../../style/type-style";
 import { HandleAPI } from "../../utils/handle-api";
 import { cuitExp, passwordExp } from "../../utils/reg-exp";

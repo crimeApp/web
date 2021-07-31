@@ -89,7 +89,7 @@ const schema = yup.object({
     .oneOf(accompaniment_options) 
     .required(),
   stolen_items: yup
-    .mixed()
+    .array()
     .required(),
   stolen_cash: yup
     .number()
@@ -118,8 +118,8 @@ const PastCrimeStepOne = ({
     date: new Date(),
     place_description: "",
     accompaniment: "",
-    stolen_cash: "",
-    stolen_items: [],
+    stolen_cash: 0,
+    stolen_items: undefined,
     ...data,
   });
 
@@ -176,23 +176,27 @@ const PastCrimeStepOne = ({
         {...InputConstructor("hour")}
         label={traslate.FORM.THEFTINFO.TIMEFRACTION}
         options={hour_options}
+        required
       />
       <Select
         {...InputConstructor("place_description")}
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
+        required
       />
 
       <Select
         {...InputConstructor("accompaniment")}
         label={traslate.FORM.THEFTINFO.COMPANY}
         options={accompaniment_options}
+        required
       />
 
      <MultipleSelect
         {...InputConstructor("stolen_items")}
         label={traslate.FORM.THEFTINFO["STOLEN-OBJECTS"]}
         options={items_options}
+        required
       />
 
       <Input

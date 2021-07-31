@@ -24,7 +24,7 @@ const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 
 const skin_options = ["no lo sé/no contesta", "piel muy clara", "piel clara",
   "piel morena clara", "piel morena oscura", "piel oscura", "piel muy oscura"];
-  
+
 const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
@@ -42,7 +42,7 @@ const schema = yup.object({
   victim_age: yup
     .number()
     .max(100)
-    .min(1),
+    .min(12),
   victim_height: yup
     .mixed()
     .oneOf(height_options)
@@ -110,6 +110,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
       <Input
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.PERSONALINFO.DNI}
@@ -126,6 +127,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         options={sex_options}
         className="m-top-1 m-bottom-1"
@@ -139,6 +141,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
       <Input
         xs={12}
         md={10}
+        required
         color="light-gray"
         type={'number'}
         className="m-top-1 m-bottom-1"
@@ -152,6 +155,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.PERSONALINFO.HEIGHT}
@@ -165,6 +169,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.PERSONALINFO.CLOTHING}
@@ -175,9 +180,24 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
         error_msg={error?.victim_clothing?.msg}
       />
 
+
       <Select
         xs={12}
         md={10}
+        color="light-gray"
+        className="m-top-1 m-bottom-1"
+        label={traslate.FORM.PERSONALINFO.SKIN}
+        options={skin_options}
+        value={data_state.victim_skin}
+        onChange={(event) => HandleChange("victim_skin", event.target.value)}
+        error={error?.victim_skin?.error}
+        error_msg={error?.victim_skin?.msg}
+      />
+
+      <Select
+        xs={12}
+        md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.PERSONALINFO.PHYSICAL}

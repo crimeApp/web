@@ -20,6 +20,7 @@ interface MultipleSelectProps {
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
   error?: boolean;
+  required?: boolean;
   error_msg?: string;
   name?: string | undefined;
   value?: string[];
@@ -76,6 +77,7 @@ const MultipleSelect = ({
   id,
   value,
   label,
+  required,
   options,
   className,
   placeholder,
@@ -102,16 +104,12 @@ const MultipleSelect = ({
       lg={lg}
       xl={xl}
     >
-      <InputLabel>
-        <p
-          className={
-            "first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " +
-            (error ? "color-red" : "color-black")
-          }
-        >
-          {label}
-        </p>
-      </InputLabel>
+       <InputLabel>
+            <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>
+                {label} {required ? "*" : ""}
+            </p>
+        </InputLabel>
+
       <Select
         multiple
         value={value ? value : []}

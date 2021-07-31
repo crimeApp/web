@@ -44,8 +44,8 @@ const PastCrimeReview = ({ data, handleSubmit, handleBack }) => {
     createData("Altura", data.thief_height),
     createData("Vestimenta", data.thief_clothing),
     createData("Contextura fisíca", data.thief_physical),
-    createData("Denuncia", data.complaint),
-    createData("Arrestado", data.arrested),
+    createData("Denuncia", data.thief_complaint),
+    createData("Arrestado", data.thief_arrested),
   ];
 
   const OnSubmit = () =>{

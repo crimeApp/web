@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Map from "../../../components/map/Map";
+import Input from "../../../components/input/Input";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
@@ -10,16 +11,25 @@ const schema = yup.object({
     lat: yup.number().min(-90).max(90).required(),
     lng: yup.number().min(-180).max(180).required()
   }).required(),
+  street_1: yup
+  .string()
+  .transform((e) => e.toLowerCase())
+  .optional(),
+  street_2: yup
+  .string()
+  .transform((e) => e.toLowerCase())
+  .optional()
 });
 
 
 const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
-    position: {
+    geopoint: {
       lat: -31.42182659888641,
       lng: -64.18388759242008
     },
-    street_description: "",
+    street_1: "",
+    street_2: "",
     ...data
   });
 
@@ -32,7 +42,7 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         });
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [error, set_error] = useState();
@@ -68,10 +78,30 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       <Map
         xs={12}
         label={traslate.FORM.THEFTINFO.LOCATION}
-        position={data_state.position}
-        onChange={(newValue) => HandleChange("position", newValue)}
-        error={error?.position?.error}
-        error_msg={error?.position?.msg}
+        position={data_state.geopoint}
+        onChange={(newValue) => HandleChange("geopoint", newValue)}
+        error={error?.geopoint?.error}
+        error_msg={error?.geopoint?.msg}
+      />
+
+      <Input
+        xs={12}
+        md={10}
+        color="light-gray"
+        className="m-top-1"
+        label={"Entre calle:"}
+        value={data_state.street_1}
+        onChange={(event) => HandleChange("street_1", event.target.value)}
+      />
+
+      <Input
+        xs={12}
+        md={10}
+        color="light-gray"
+        className="m-bottom-1"
+        label={"y calle:"}
+        value={data_state.street_2}
+        onChange={(event) => HandleChange("street_2", event.target.value)}
       />
 
       <Grid item className="m-top-2 m-bottom-2">

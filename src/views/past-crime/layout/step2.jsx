@@ -23,7 +23,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
 
   useEffect(() => {
     if (!data.position) {
-      navigator.geolocation.getPastPosition(function (position) {
+      navigator.geolocation.getCurrentPosition(function (position) {
         set_data({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
@@ -66,10 +66,10 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       <Map
         xs={12}
         label={traslate.FORM.THEFTINFO.LOCATION}
-        position={data_state.position}
-        onChange={(newValue) => HandleChange("position", newValue)}
-        error={error?.position?.error}
-        error_msg={error?.position?.msg}
+        position={data_state.geopoint}
+        onChange={(newValue) => HandleChange("geopoint", newValue)}
+        error={error?.geopoint?.error}
+        error_msg={error?.geopoint?.msg}
       />
 
       <Grid item className="m-top-2 m-bottom-2">

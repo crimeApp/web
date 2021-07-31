@@ -6,7 +6,7 @@ import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 
-const profile_options = [
+const perfil_options = [
   "Violento",
   "Amable",
   "Tranquilo",
@@ -49,9 +49,9 @@ const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
-  thief_profile: yup
+  thief_perfil: yup
     .mixed()
-    .oneOf(profile_options)
+    .oneOf(perfil_options)
     .required(),
   thief_age: yup
     .mixed()
@@ -79,7 +79,7 @@ const schema = yup.object({
 
 const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
-    thief_profile: "",
+    thief_perfil: "",
     thief_age: "",
     thief_sex: "",
     thief_skin: "",
@@ -119,19 +119,21 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.PROFILE}
-        options={profile_options}
-        value={data_state.thief_profile}
-        onChange={(event) => HandleChange("thief_profile", event.target.value)}
-        error={error?.thief_profile?.error}
-        error_msg={error?.thief_profile?.msg}
+        options={perfil_options}
+        value={data_state.thief_perfil}
+        onChange={(event) => HandleChange("thief_perfil", event.target.value)}
+        error={error?.thief_perfil?.error}
+        error_msg={error?.thief_perfil?.msg}
       />
 
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.AGE}
@@ -145,6 +147,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.SEX}
@@ -158,6 +161,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.HEIGHT}
@@ -171,6 +175,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.CLOTHING}
@@ -184,6 +189,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.THEFTDETAILS.PHYSICAL}
@@ -197,9 +203,10 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Select
         xs={12}
         md={10}
+        required
         color="light-gray"
         className="m-top-1 m-bottom-1"
-        label={traslate.FORM.THEFTDETAILS.PHYSICAL}
+        label={traslate.FORM.THEFTDETAILS.SKIN}
         options={skin_options}
         value={data_state.thief_skin}
         onChange={(event) => HandleChange("thief_skin", event.target.value)}
@@ -210,10 +217,11 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Switches
         xs={12}
         md={10}
+        required
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.COMPLAINT}
         value={data_state.complaint}
-        onChange={(event) => HandleChange("complaint", event.target.checked)}
+        onChange={(event) => HandleChange("thief_complaint", event.target.checked)}
         error={error?.complaint?.error}
         error_msg={error?.complaint?.msg}
       />
@@ -221,10 +229,11 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Switches
         xs={12}
         md={10}
+        required
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.ARRESTED}
         value={data_state.arrested}
-        onChange={(event) => HandleChange("arrested", event.target.checked)}
+        onChange={(event) => HandleChange("thief_arrested", event.target.checked)}
         error={error?.arrested?.error}
         error_msg={error?.arrested?.msg}
       />
