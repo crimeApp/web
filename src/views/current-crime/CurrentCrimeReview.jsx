@@ -17,7 +17,6 @@ const CurrentCrimeReview = ({ data, handleSubmit, handleBack }) => {
   const first_row = [
     createData("Tipo de siniestro", data.attack_type),
     createData("Franja horaria", data.hour),
-    createData("Fecha",`${data.date.getDay()}/${data.date.getMonth()}/${data.date.getYear()}`),
     createData("Lugar del hecho", data.place_description),
     createData("Entre calle", data.street_1),
     createData("Y calle", data.street_2),

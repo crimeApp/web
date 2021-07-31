@@ -12,13 +12,15 @@ const schema = yup.object({
     lng: yup.number().min(-180).max(180).required()
   }).required(),
   street_1: yup
-  .string()
-  .transform((e) => e.toLowerCase())
-  .optional(),
+    .string()
+    .transform((e) => e.toLowerCase())
+    .max(500)
+    .optional(),
   street_2: yup
-  .string()
-  .transform((e) => e.toLowerCase())
-  .optional()
+    .string()
+    .transform((e) => e.toLowerCase())
+    .max(500)
+    .optional(),
 });
 
 

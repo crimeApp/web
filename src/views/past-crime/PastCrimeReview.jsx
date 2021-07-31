@@ -28,7 +28,6 @@ const PastCrimeReview = ({ data, handleSubmit, handleBack }) => {
   ];
 
   const second_row = [
-    createData("Nombre", data.victim_name),
     createData("DNI", data.victim_dni),
     createData("Edad", data.victim_age),
     createData("Sexo", data.victim_sex),
@@ -44,8 +43,8 @@ const PastCrimeReview = ({ data, handleSubmit, handleBack }) => {
     createData("Altura", data.thief_height),
     createData("Vestimenta", data.thief_clothing),
     createData("Contextura fisíca", data.thief_physical),
-    createData("Denuncia", data.thief_complaint),
-    createData("Arrestado", data.thief_arrested),
+    createData("Denuncia", data.complaint),
+    createData("Arrestado", data.arrested),
   ];
 
   const OnSubmit = () =>{

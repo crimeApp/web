@@ -28,13 +28,10 @@ const skin_options = ["no lo sé/no contesta", "piel muy clara", "piel clara",
 const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
-  victim_name: yup
-    .string()
-    .optional(),
   victim_sex: yup
     .mixed()
     .oneOf(sex_options)
-    .optional(),
+    .required(),
   victim_dni: yup
     .string()
     .matches(dniExp)
@@ -46,22 +43,23 @@ const schema = yup.object({
   victim_height: yup
     .mixed()
     .oneOf(height_options)
-    .required(),
+    .optional(),
   victim_skin: yup
     .mixed()
     .oneOf(skin_options)
     .optional(),
   victim_clothing: yup
     .mixed()
+    .optional()
     .oneOf(clothing_options),
   victim_physical: yup
     .mixed()
+    .optional()
     .oneOf(physical_options),
 });
 
 const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
-    victim_name: "",
     victim_dni: "",
     victim_sex: "",
     victim_age: 12,
@@ -95,18 +93,6 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
 
   return (
     <Grid container className="p-3" justify="center" alignItems="center">
-      <Input
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
-        label={traslate.FORM.PERSONALINFO.NAME}
-        value={data_state.victim_name}
-        onChange={(event) => HandleChange("victim_name", event.target.value)}
-        error={error?.victim_name?.error}
-        error_msg={error?.victim_name?.msg}
-      />
-
       <Input
         xs={12}
         md={10}

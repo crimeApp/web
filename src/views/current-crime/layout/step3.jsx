@@ -11,20 +11,20 @@ import { dniExp } from "../../../utils/reg-exp";
 const sex_options = ["Hombre", "Mujer", "Indefinido"];
 
 const schema = yup.object({
-  full_name: yup
+  victim_victim_full_name: yup
     .string()
     .transform((e) => e.toLowerCase())
     .optional(),
-  dni: yup.string().matches(dniExp),
+  victim_dni: yup.string().matches(dniExp),
   victim_age: yup.number().max(100).min(12).required().default(0),
   victim_sex: yup.mixed().oneOf(sex_options).required(),
-  victim_help: yup.mixed().optional().default(false),
+  victim_help: yup.boolean().optional().default(false),
 });
 
 const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
-    full_name: "",
-    dni: "",
+    victim_full_name: "",
+    victim_dni: "",
     victim_sex: "",
     victim_age: 12,
     victim_help: false,
@@ -61,10 +61,10 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.PERSONALINFO.NAME}
-        value={data_state.full_name}
-        onChange={(event) => HandleChange("full_name", event.target.value)}
-        error={error?.full_name?.error}
-        error_msg={error?.full_name?.msg}
+        value={data_state.victim_full_name}
+        onChange={(event) => HandleChange("victim_full_name", event.target.value)}
+        error={error?.victim_full_name?.error}
+        error_msg={error?.victim_full_name?.msg}
       />
 
       <Input
@@ -74,13 +74,13 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         color="light-gray"
         className="m-top-1 m-bottom-1"
         label={traslate.FORM.PERSONALINFO.DNI}
-        value={data_state.dni}
-        onChange={(event) => HandleChange("dni", event.target.value)}
-        error={error?.dni?.error}
+        value={data_state.victim_dni}
+        onChange={(event) => HandleChange("victim_dni", event.target.value)}
+        error={error?.victim_dni?.error}
         error_msg={
-          error?.dni?.type === "matches"
+          error?.victim_dni?.type === "matches"
             ? "El DNI ingresado es incorrecto"
-            : error?.dni?.msg
+            : error?.victim_dni?.msg
         }
       />
 
