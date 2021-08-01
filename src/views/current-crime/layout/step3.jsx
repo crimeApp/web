@@ -15,7 +15,7 @@ const schema = yup.object({
     .string()
     .transform((e) => e.toLowerCase())
     .optional(),
-  victim_dni: yup.string().matches(dniExp),
+  victim_dni: yup.string().matches(dniExp).required(),
   victim_age: yup.number().max(100).min(12).required().default(0),
   victim_sex: yup.mixed().oneOf(sex_options).required(),
   victim_help: yup.boolean().optional().default(false),

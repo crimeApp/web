@@ -14,12 +14,12 @@ const schema = yup.object({
   street_1: yup
     .string()
     .transform((e) => e.toLowerCase())
-    .max(500)
+    .max(100)
     .optional(),
   street_2: yup
     .string()
     .transform((e) => e.toLowerCase())
-    .max(500)
+    .max(100)
     .optional(),
 });
 
