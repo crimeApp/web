@@ -91,6 +91,18 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
     return handleBack(data_state);
   };
 
+  const InputConstructor = (name) => ({
+    name,
+    xs: 12,
+    md: 10,
+    value: data_state[name],
+    color: "light-gray",
+    className: "m-top-1",
+    onChange: (event) => HandleChange(name, event.target.value),
+    error: error?.[name]?.error,
+    error_msg: error?.[name]?.msg
+  })
+
   return (
     <Grid container className="p-3" justify="center" alignItems="center">
       <Input
@@ -110,88 +122,46 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
         }
       />
 
-      <Select
-        xs={12}
-        md={10}
+    <Select
         required
-        color="light-gray"
-        options={sex_options}
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("victim_sex")}
         label={traslate.FORM.PERSONALINFO.SEX}
-        value={data_state.victim_sex}
-        onChange={(event) => HandleChange("victim_sex", event.target.value)}
-        error={error?.victim_sex?.error}
-        error_msg={error?.victim_sex?.msg}
+        options={sex_options}
       />
 
       <Input
-        xs={12}
-        md={10}
         required
-        color="light-gray"
         type={'number'}
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("victim_age")}
         label={traslate.FORM.PERSONALINFO.AGE}
-        value={data_state.victim_age}
-        onChange={(event) => HandleChange("victim_age", event.target.value)}
-        error={error?.victim_age?.error}
-        error_msg={error?.victim_age?.msg}
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("victim_height")}
         label={traslate.FORM.PERSONALINFO.HEIGHT}
-        value={data_state.victim_height}
         options={height_options}
-        onChange={(event) => HandleChange("victim_height", event.target.value)}
-        error={error?.victim_height?.error}
-        error_msg={error?.victim_height?.msg}
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("victim_clothing")}
         label={traslate.FORM.PERSONALINFO.CLOTHING}
         options={clothing_options}
-        value={data_state.victim_clothing}
-        onChange={(event) => HandleChange("victim_clothing", event.target.value)}
-        error={error?.victim_clothing?.error}
-        error_msg={error?.victim_clothing?.msg}
       />
 
-
       <Select
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        required
+         {...InputConstructor("victim_skin")}
         label={traslate.FORM.PERSONALINFO.SKIN}
         options={skin_options}
-        value={data_state.victim_skin}
-        onChange={(event) => HandleChange("victim_skin", event.target.value)}
-        error={error?.victim_skin?.error}
-        error_msg={error?.victim_skin?.msg}
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("victim_physical")}
         label={traslate.FORM.PERSONALINFO.PHYSICAL}
         options={physical_options}
-        value={data_state.victim_physical}
-        onChange={(event) => HandleChange("victim_physical", event.target.value)}
-        error={error?.victim_physical?.error}
-        error_msg={error?.victim_physical?.msg}
       />
 
       <Grid item className="m-top-1 m-bottom-2">

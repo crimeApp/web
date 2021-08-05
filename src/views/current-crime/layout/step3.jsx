@@ -16,7 +16,7 @@ const schema = yup.object({
     .transform((e) => e.toLowerCase())
     .optional(),
   victim_dni: yup.string().matches(dniExp).required(),
-  victim_age: yup.number().max(100).min(12).required().default(0),
+  victim_age: yup.number().max(100).min(12).required(),
   victim_sex: yup.mixed().oneOf(sex_options).required(),
   victim_help: yup.boolean().optional().default(false),
 });
@@ -26,7 +26,7 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
     victim_full_name: "",
     victim_dni: "",
     victim_sex: "",
-    victim_age: 12,
+    victim_age: 11,
     victim_help: false,
     ...data
   });
@@ -53,18 +53,23 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
     return handleBack(data_state);
   };
 
+  const InputConstructor = (name) => ({
+    name,
+    xs: 12,
+    md: 10,
+    value: data_state[name],
+    color: "light-gray",
+    className: "m-top-1",
+    onChange: (event) => HandleChange(name, event.target.value),
+    error: error?.[name]?.error,
+    error_msg: error?.[name]?.msg
+  })
+
   return (
     <Grid container className="p-3" justify="center" alignItems="center">
       <Input
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
         label={traslate.FORM.PERSONALINFO.NAME}
-        value={data_state.victim_full_name}
-        onChange={(event) => HandleChange("victim_full_name", event.target.value)}
-        error={error?.victim_full_name?.error}
-        error_msg={error?.victim_full_name?.msg}
+        {...InputConstructor("victim_full_name")}
       />
 
       <Input
@@ -79,37 +84,22 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
         error={error?.victim_dni?.error}
         error_msg={
           error?.victim_dni?.type === "matches"
-            ? "El DNI ingresado es incorrecto"
+            ? "El dni ingresado es incorrecto"
             : error?.victim_dni?.msg
         }
       />
 
       <Select
-        xs={12}
-        md={10}
-        required
-        color="light-gray"
-        options={sex_options}
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("victim_sex")}
         label={traslate.FORM.PERSONALINFO.SEX}
-        value={data_state.victim_sex}
-        onChange={(event) => HandleChange("victim_sex", event.target.value)}
-        error={error?.victim_sex?.error}
-        error_msg={error?.victim_sex?.msg}
+        options={sex_options}
+        required
       />
 
       <Input
-        xs={12}
-        md={10}
-        color="light-gray"
-        type={'number'}
         required
-        className="m-top-1 m-bottom-1"
         label={traslate.FORM.PERSONALINFO.AGE}
-        value={data_state.victim_age}
-        onChange={(event) => HandleChange("victim_age", event.target.value)}
-        error={error?.victim_age?.error}
-        error_msg={error?.victim_age?.msg}
+        {...InputConstructor("victim_age")}
       />
 
       <Switches

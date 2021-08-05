@@ -64,6 +64,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       alignItems="center"
     >
       <Map
+        required
         xs={12}
         label={traslate.FORM.THEFTINFO.LOCATION}
         position={data_state.geopoint}

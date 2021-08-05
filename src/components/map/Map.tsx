@@ -1,7 +1,7 @@
 import React from "react";
 import "./Map.css";
 import { TileLayer, MapContainer, Marker } from "react-leaflet";
-import { Grid, GridSize } from "@material-ui/core";
+import { Grid, GridSize, InputLabel } from "@material-ui/core";
 
 interface MapProps {
     label: string,
@@ -9,6 +9,7 @@ interface MapProps {
         lat: number,
         lng: number
     },
+    required?: boolean,
     className?: string,
     onChange: (newValue: { lat: number, lng: number }) => void,
     error_msg?: string,
@@ -27,6 +28,7 @@ const Map = ({
         lat: -31.42384796597578,
         lng: -64.18635948818674
     },
+    required,
     className,
     onChange,
     error,
@@ -40,9 +42,11 @@ const Map = ({
 }: MapProps) => {
     return (
         <Grid container item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`}>
-            <Grid item>
-                <p className={"first-letter-cap  color-black w800 " + (error ? "color-red" : "")}>{label}</p>
-            </Grid>
+            <InputLabel>
+                <p className={"first-letter-cap p-left-2 m-top-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>
+                    {label} {required ? "*" : ""}
+                </p>
+            </InputLabel>
             <Grid item>
                 <MapContainer center={position} zoom={13} scrollWheelZoom={true}
                     //@ts-ignore
@@ -69,8 +73,8 @@ const Map = ({
                 {error_msg ? (
                     <p className="map-msg map-error-color">{error_msg}</p>
                 ) : (
-                    msg && <p className="map-msg">{msg}</p>
-                )}
+                        msg && <p className="map-msg">{msg}</p>
+                    )}
             </Grid>
         </Grid>
     );

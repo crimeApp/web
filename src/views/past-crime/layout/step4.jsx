@@ -86,7 +86,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
     thief_height: "",
     thief_clothing: "",
     thief_physical: "",
-   complaint: false,
+    complaint: false,
     arrested: false,
   });
 
@@ -109,115 +109,77 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
     return handleBack(data_state);
   };
 
+  const InputConstructor = (name) => ({
+    name,
+    xs: 12,
+    md: 10,
+    value: data_state[name],
+    color: "light-gray",
+    className: "m-top-1",
+    onChange: (event) => HandleChange(name, event.target.value),
+    error: error?.[name]?.error,
+    error_msg: error?.[name]?.msg
+  })
+
   return (
     <Grid
       container
       className="p-3"
       justify="center"
       alignItems="center">
-
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("thief_profile")}
         label={traslate.FORM.THEFTDETAILS.PROFILE}
         options={perfil_options}
-        value={data_state.thief_profile}
-        onChange={(event) => HandleChange("thief_profile", event.target.value)}
-        error={error?.thief_profile?.error}
-        error_msg={error?.thief_profile?.msg}
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("thief_age")}
         label={traslate.FORM.THEFTDETAILS.AGE}
         options={age_options}
-        value={data_state.thief_age}
-        onChange={(event) => HandleChange("thief_age", event.target.value)}
-        error={error?.thief_age?.error}
-        error_msg={error?.thief_age?.msg}
+        
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("thief_sex")}
         label={traslate.FORM.THEFTDETAILS.SEX}
         options={sex_options}
-        value={data_state.thief_sex}
-        onChange={(event) => HandleChange("thief_sex", event.target.value)}
-        error={error?.thief_sex?.error}
-        error_msg={error?.thief_sex?.msg}
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("thief_height")}
         label={traslate.FORM.THEFTDETAILS.HEIGHT}
         options={height_options}
-        value={data_state.thief_height}
-        onChange={(event) => HandleChange("thief_height", event.target.value)}
-        error={error?.thief_height?.error}
-        error_msg={error?.thief_height?.msg}
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("thief_clothing")}
         label={traslate.FORM.THEFTDETAILS.CLOTHING}
         options={clothing_options}
-        value={data_state.thief_clothing}
-        onChange={(event) => HandleChange("thief_clothing", event.target.value)}
-        error={error?.thief_clothing?.error}
-        error_msg={error?.thief_clothing?.msg}
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+        {...InputConstructor("thief_physical")}
         label={traslate.FORM.THEFTDETAILS.PHYSICAL}
         options={physical_options}
-        value={data_state.thief_physical}
-        onChange={(event) => HandleChange("thief_physical", event.target.value)}
-        error={error?.thief_physical?.error}
-        error_msg={error?.thief_physical?.msg}
       />
 
       <Select
-        xs={12}
-        md={10}
         required
-        color="light-gray"
-        className="m-top-1 m-bottom-1"
+       {...InputConstructor("thief_skin")}
         label={traslate.FORM.THEFTDETAILS.SKIN}
         options={skin_options}
-        value={data_state.thief_skin}
-        onChange={(event) => HandleChange("thief_skin", event.target.value)}
-        error={error?.thief_skin?.error}
-        error_msg={error?.thief_skin?.msg}
       />
 
       <Switches
         xs={12}
         md={10}
-        required
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.COMPLAINT}
         value={data_state.complaint}
@@ -229,7 +191,6 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
       <Switches
         xs={12}
         md={10}
-        required
         className="p-top-1 p-bottom-1 p-left-4"
         label={traslate.FORM.THEFTDETAILS.ARRESTED}
         value={data_state.arrested}

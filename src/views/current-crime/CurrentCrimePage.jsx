@@ -9,8 +9,7 @@ import CurrentCrimeStepOne from "./layout/step1";
 import CurrentCrimeStepTwo from "./layout/step2";
 import CurrentCrimeStepThree from "./layout/step3";
 import CurrentCrimeReview from "./CurrentCrimeReview";
-import CurrentCrimeSubmit from "./CurrentCrimeSubmit";
-import "./CurrentCrimePage.css";
+import SubmitStep from "../SubmitStepPage";
 
 
 const CurrentCrimeStep = () => {
@@ -38,13 +37,12 @@ const CurrentCrimeStep = () => {
     setLoading(true);
 
     try {
-      console.log(form_data);
       const response = await axios.post(url + "/new-sinister", form_data);
-      console.log("Returned data:", response);
-      setTimeout(setLoading(false), 3000);
+      if(response){
+        set_step(step + 1);
+        setLoading(false);
+      }
     } catch (e) {
-      console.log(e);
-      console.log(e.response.data);
       setTimeout(() => {
         setError(true);
         setLoading(false);
@@ -55,11 +53,10 @@ const CurrentCrimeStep = () => {
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
+
   const loadingMessage = <Alert>{traslate["COMMON"]["LOADING"]}</Alert>;
 
-  const errorMessage = (
-    <Alert severity="error">{traslate["COMMON"]["ERROR"]}</Alert>
-  );
+  const errorMessage = <Alert severity="error">{traslate["COMMON"]["ERROR"]}</Alert>;
 
   switch (step) {
     case 0:
@@ -164,27 +161,27 @@ const CurrentCrimeStep = () => {
           >
             <Grid
               container
+              item 
+              xs={10}
               justify="center"
               alignItems="flex-start"
               alignContent="center"
             >
-              <Grid item xs={6}>
+              <Grid item xs={10}>
                 <h3 className="m-bottom-1 m-top-1 color-gray">Revise sus datos</h3>
               </Grid>
 
-              <Grid item xs={12}>
-                <CurrentCrimeReview
+              <CurrentCrimeReview
                   data={form_data}
                   error={error}
                   isLoading={isLoading}
+                  handleNext={HandleNext} 
                   handleSubmit={HandleSubmit}
                   handleBack={HandleBack}
                 />
-              </Grid>
 
               <Grid item xs={12} md={4} className="m-top-2 m-bottom-1">
-                {isLoading ? loadingMessage : null}
-                {error ? errorMessage : null}
+                {isLoading ? loadingMessage : (error ? errorMessage : null)}
               </Grid>
               
             </Grid>
@@ -194,14 +191,9 @@ const CurrentCrimeStep = () => {
     case 5:
       return (
         <Scaffold>
-          <FormWrapper
-            title={traslate["CONFIRMATION-DIALOG"]["TITLE"]}
-            subtitle={traslate["CONFIRMATION-DIALOG"]["TEXT"]}
-            hide_progress={true}
-            hide_subtitle={true}
-          >
-            <CurrentCrimeSubmit />
-          </FormWrapper>
+         <Container className="p-2 m-top-2 background-color-card-background" maxWidth="sm">
+            <SubmitStep/>
+          </Container>
         </Scaffold>
       );
     default:

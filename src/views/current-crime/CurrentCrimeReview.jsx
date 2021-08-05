@@ -13,7 +13,7 @@ function createData(name, value) {
   return { name, value };
 }
 
-const CurrentCrimeReview = ({ data, handleSubmit, handleBack }) => {
+const CurrentCrimeReview = ({ data, handleSubmit, handleBack, handleNext }) => {
   const first_row = [
     createData("Tipo de siniestro", data.attack_type),
     createData("Franja horaria", data.hour),
@@ -25,17 +25,21 @@ const CurrentCrimeReview = ({ data, handleSubmit, handleBack }) => {
   ];
 
 
-  const OnSubmit = () =>{
+ /*  const OnSubmit = () =>{
     return handleSubmit(data);
-  }
+  } */
 
   const OnBackward = () => {
     return handleBack(data);
   };
 
+  const OnFoward = () => {
+    return handleNext(data);
+  };
+
   return (
-    <Grid container justify="center" alignItems="flex-start">
-      <Grid item xs={12} md={4} className="p-1">
+    <Grid container item xs={12} md={10} justify="center" alignContent="center" alignItems="center">
+      <Grid item xs={10} className="p-1">
         <Table size="small">
           <TableBody>
             {first_row.map((row) => (
@@ -54,7 +58,7 @@ const CurrentCrimeReview = ({ data, handleSubmit, handleBack }) => {
         </Table>
       </Grid>
 
-      <Grid item  xs={8} md={4} className="m-top-1 m-bottom-2">
+      <Grid item  xs={10} md={4} className="m-top-1 m-bottom-2">
         <Button
           variant="contained"
           color="primary"
@@ -70,7 +74,7 @@ const CurrentCrimeReview = ({ data, handleSubmit, handleBack }) => {
           color="primary"
           type="submit"
           className=" m-left-3"
-          onClick={OnSubmit}
+          onClick={OnFoward}
         >
           {traslate.COMMON.NEXT}
         </Button>

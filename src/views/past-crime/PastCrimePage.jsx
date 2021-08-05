@@ -10,9 +10,7 @@ import PastCrimeStepTwo from "./layout/step2";
 import PastCrimeStepThree from "./layout/step3";
 import PastCrimeStepFour from "./layout/step4";
 import PastCrimeReview from "./PastCrimeReview";
-import PastCrimeSubmit from "./PastCrimeSubmit";
-import "./PastCrimePage.css";
-
+import SubmitStep from "../SubmitStepPage";
 
 const PastCrimeStep = () => {
   const [form_data, set_form_data] = useState({});
@@ -31,8 +29,6 @@ const PastCrimeStep = () => {
     set_step(step - 1);
   };
 
-  
-
   const url = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app";
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -41,18 +37,17 @@ const PastCrimeStep = () => {
     setLoading(true);
 
     try {
-      console.log(form_data);
       const response = await axios.post(url + "/old-sinister", form_data);
-      console.log("Returned data:", response);
-      setTimeout(setLoading(false), 3000);
+      if(response){
+        set_step(step + 1);
+        setLoading(false);
+      }
     } catch (e) {
-      console.log(e);
-      console.log(e.response.data);
       setTimeout(() => {
         setError(true);
         setLoading(false);
       }, 3000);
-    }
+    } 
   }
 
   function Alert(props) {
@@ -198,12 +193,12 @@ const PastCrimeStep = () => {
                   isLoading={isLoading}
                   handleSubmit={HandleSubmit}
                   handleBack={HandleBack}
+                  handleNext={HandleNext}
                 />
               </Grid>
 
               <Grid item xs={12} md={4} className="m-top-2 m-bottom-1">
-                {isLoading ? loadingMessage : null}
-                {error ? errorMessage : null}
+                {isLoading ? loadingMessage : (error ? errorMessage : null)}
               </Grid>
               
             </Grid>
@@ -213,14 +208,9 @@ const PastCrimeStep = () => {
     case 6:
       return (
         <Scaffold>
-          <FormWrapper
-            title={traslate["CONFIRMATION-DIALOG"]["TITLE"]}
-            subtitle={traslate["CONFIRMATION-DIALOG"]["TEXT"]}
-            hide_progress={true}
-            hide_subtitle={true}
-          >
-            <PastCrimeSubmit />
-          </FormWrapper>
+          <Container className="p-2 m-top-3 background-color-card-background" maxWidth="sm">
+            <SubmitStep/>
+          </Container>
         </Scaffold>
       );
     default:

@@ -17,6 +17,7 @@ ReactDOM.render(
         <Route path="/past-crime-form" exact={true} component={PastCrimePage} />
         <Route path="/current-crime-form" exact={true} component={CurrentCrimePage} />
         <Route path="/login" exact={true} component={LoginPage} />
+        <Route path="/review-past" exact={true} component={LoginPage} />
       </Switch>
     </Router>
   </React.StrictMode>,

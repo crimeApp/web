@@ -15,12 +15,12 @@ const schema = yup.object({
     .string()
     .transform((e) => e.toLowerCase())
     .max(100)
-    .optional(),
+    .required(),
   street_2: yup
     .string()
     .transform((e) => e.toLowerCase())
     .max(100)
-    .optional(),
+    .required(),
 });
 
 
@@ -68,6 +68,18 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
     return handleBack(data_state);
   };
 
+  const InputConstructor = (name) => ({
+    name,
+    xs: 12,
+    md: 10,
+    value: data_state[name],
+    color: "light-gray",
+    className: "m-top-1",
+    onChange: (event) => HandleChange(name, event.target.value),
+    error: error?.[name]?.error,
+    error_msg: error?.[name]?.msg
+  })
+
   return (
     <Grid
       container
@@ -79,6 +91,7 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
     >
       <Map
         xs={12}
+        required
         label={traslate.FORM.THEFTINFO.LOCATION}
         position={data_state.geopoint}
         onChange={(newValue) => HandleChange("geopoint", newValue)}
@@ -87,23 +100,15 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
       />
 
       <Input
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-top-1"
+        required
         label={"Entre calle:"}
-        value={data_state.street_1}
-        onChange={(event) => HandleChange("street_1", event.target.value)}
+        {...InputConstructor("street_1")}
       />
 
       <Input
-        xs={12}
-        md={10}
-        color="light-gray"
-        className="m-bottom-1"
-        label={"y calle:"}
-        value={data_state.street_2}
-        onChange={(event) => HandleChange("street_2", event.target.value)}
+        required
+        label={"Entre calle:"}
+        {...InputConstructor("street_2")}
       />
 
       <Grid item className="m-top-2 m-bottom-2">

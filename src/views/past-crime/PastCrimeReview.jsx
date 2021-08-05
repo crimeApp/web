@@ -13,7 +13,7 @@ function createData(name, value) {
   return { name, value };
 }
 
-const PastCrimeReview = ({ data, handleSubmit, handleBack }) => {
+const PastCrimeReview = ({ data, handleSubmit, handleBack, handleNext }) => {
   const first_row = [
     createData("Tipo de siniestro", data.attack_type),
     createData("Franja horaria", data.hour),

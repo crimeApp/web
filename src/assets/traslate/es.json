@@ -31,7 +31,7 @@
         "TITLE-PASTCRIME": "Siniestros Antiguos",
         "SUBTITLE": "Toda la información solicitada permanece completamente anónima para otros. El propósito de este formulario es registrar tendencias criminales en Córdoba y contribuir a la seguridad ciudadana. ¡Agradecemos tu contribución!",
         "INIT-FORM": "Completar formulario",
-        "CURRENT-INTRO": "¿Acabas de ser vÍctima de un siniestro? Podés contarnos lo que pasó aquí.",
+        "CURRENT-INTRO": "¿Acabas de ser víctima de un siniestro? Podés contarnos lo que pasó aquí.",
         "PAST-INTRO": "¿Querés reportar un siniestro pasado? Podés contarnos lo que pasó aquí.",
         "EXPLANATION": "Ayudanos a generar una base de datos para analizar las tendencias criminales en la ciudad.",
 
@@ -42,9 +42,7 @@
             "DATE": "Ingrese fecha",
             "DATE-PLACEHOLDER": "dd-mm-aa",
             "STOLEN-CAPITAL": "Valor estimado total del robo",
-            "STOLEN-CAPITAL-PLACEHOLDER": "Ingrese cantidad aproximada",
             "STOLEN-OBJECTS": "Objetos robados",
-            "STOLEN-OBJECTS-PLACEHOLDER": "Seleccione los objetos robados",
             "PLACE-DESCRIPTION": "Descripción del lugar",
             "COMPANY": "¿Con quién te encontrabas?",
             "LOCATION": "Ubicación"
@@ -53,39 +51,25 @@
         "PERSONALINFO": {
             "PERSONALINFO": "Información Personal",
             "NAME": "Nombre",
-            "NAME-PLACEHOLDER": "Ingrese su nombre.",
             "DNI": "DNI",
-            "DNI-PLACEHOLDER": "Ingrese su DNI.",
             "SEX": "Sexo",
-            "SEX-PLACEHOLDER": "Ingrese su sexo.",
             "SKIN": "Tonalidad de piel",
-            "SKIN-PLACEHOLDER": "Ingrese su tono de piel.",
             "CLOTHING": "Vestimenta",
-            "CLOTHING-PLACEHOLDER": "Ingrese su vestimenta.",
             "AGE": "Edad",
             "AGE-PLACEHOLDER": "Ingrese su edad.",
             "HEIGHT": "Altura",
-            "HEIGHT-PLACEHOLDER": "Ingrese su altura.",
-            "PHYSICAL": "Contextura física",
-            "PHYSICAL-PLACEHOLDER": "Ingrese su tipo de fisico."
+            "PHYSICAL": "Contextura física"
         },
 
         "THEFTDETAILS": {
             "THIEFINFO": "Información del Agresor",
             "PROFILE": "Perfil del agresor",
-            "PROFILE-PLACEHOLDER": "Como lo trato el agresor",
             "AGE": "Edad aproximada",
-            "AGE-PLACEHOLDER": "Ingrese su edad.",
             "SEX": "Sexo",
-            "SEX-PLACEHOLDER": "Ingrese su sexo.",
             "SKIN": "Tonalidad de piel",
-            "SKIN-PLACEHOLDER": "Ingrese su tono de piel.",
             "CLOTHING": "Vestimenta",
-            "CLOTHING-PLACEHOLDER": "Ingrese su vestimenta.",
             "HEIGHT": "Altura",
-            "HEIGHT-PLACEHOLDER": "Ingrese su altura.",
             "PHYSICAL": "Contextura física",
-            "PHYSICAL-PLACEHOLDER": "Ingrese su tipo de fisico.",
             "COMPLAINT": "¿Se hizo una denuncia?",
             "ARRESTED": "¿Fue arrestado?"
         }
@@ -93,7 +77,6 @@
     },
     "CONFIRMATION-DIALOG": {
         "TITLE": "¡Gracias por completar el formulario!",
-        "TEXT": "Todos los datos ya han sido guardados por requerimientos legales si quiere que la denuncia sea tratada legalmente.",
         "BUTTON-TEXT": "Volver a Inicio"
     },
     "OK": {
