@@ -8,9 +8,9 @@ import HomePage from './views/home/HomePage';
 import PastCrimePage from './views/past-crime/PastCrimePage';
 import CurrentCrimePage from './views/current-crime/CurrentCrimePage';
 import LoginPage from './views/login/LoginPage';
+import CrimeMapPage from './views/crime-map/CrimeMapPage';
 
 ReactDOM.render(
-  <React.StrictMode>
     <Router>
       <Switch>
         <Route path="/" exact={true} component={HomePage} />
@@ -18,9 +18,9 @@ ReactDOM.render(
         <Route path="/current-crime-form" exact={true} component={CurrentCrimePage} />
         <Route path="/login" exact={true} component={LoginPage} />
         <Route path="/review-past" exact={true} component={LoginPage} />
+        <Route path="/crime-map" exact={true} component={CrimeMapPage} />
       </Switch>
-    </Router>
-  </React.StrictMode>,
+    </Router>,
   document.getElementById('root')
 );
 

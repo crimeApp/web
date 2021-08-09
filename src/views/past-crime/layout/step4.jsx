@@ -5,74 +5,24 @@ import Switches from "../../../components/switch/Switch";
 import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
-
-const perfil_options = [
-  "Violento",
-  "Amable",
-  "Tranquilo",
-  "Cauteloso",
-  "Desconfiado",
-  "Indiferente",
-  "Visiblemente intoxicado",
-  "Carismático",
-  "No recuerdo",
-  "No lo sé"
-]
-
-const age_options = [
-  "Menor de edad",
-  "18-25",
-  "25-35",
-  "35-45",
-  "Más de 50",
-  "No recuerdo"
-];
-
-const sex_options = ["Hombre", "Mujer", "Indefinido"];
-
-const skin_options = ["no lo sé/no contesta", "piel muy clara", "piel clara",
-  "piel morena clara", "piel morena oscura", "piel oscura", "piel muy oscura"];
-
-const clothing_options = [
-  "Formal",
-  "Casual",
-  "Deportivo",
-  "Trabajo",
-  "Semiformal",
-  "Escolar",
-  "Arreglado",
-  "Desalineado"
-];
-
-const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
-
-const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
+import {
+  perfil_options,
+  age_options,
+  sex_options,
+  skin_options,
+  height_options,
+  clothing_options,
+  physical_options,
+} from "../../../assets/options";
 
 const schema = yup.object({
-  thief_profile: yup
-    .mixed()
-    .oneOf(perfil_options)
-    .required(),
-  thief_age: yup
-    .mixed()
-    .oneOf(age_options)
-    .required(),
-  thief_height: yup
-    .mixed()
-    .oneOf(height_options)
-    .optional(),
-  thief_skin: yup
-    .mixed()
-    .oneOf(skin_options)
-    .optional(),
-  thief_clothing: yup
-    .mixed()
-    .oneOf(clothing_options)
-    .optional(),
-  thief_physical: yup
-    .mixed()
-    .oneOf(physical_options)
-    .optional(),
+  thief_profile: yup.mixed().oneOf(perfil_options).required(),
+  thief_age: yup.mixed().oneOf(age_options).required(),
+  thief_height: yup.mixed().oneOf(height_options).optional(),
+  thief_sex: yup.mixed().oneOf(sex_options).required(),
+  thief_skin: yup.mixed().oneOf(skin_options).optional(),
+  thief_clothing: yup.mixed().oneOf(clothing_options).optional(),
+  thief_physical: yup.mixed().oneOf(physical_options).optional(),
   complaint: yup.boolean().optional().default(false),
   arrested: yup.boolean().optional().default(false),
 });
@@ -118,15 +68,11 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
     className: "m-top-1",
     onChange: (event) => HandleChange(name, event.target.value),
     error: error?.[name]?.error,
-    error_msg: error?.[name]?.msg
-  })
+    error_msg: error?.[name]?.msg,
+  });
 
   return (
-    <Grid
-      container
-      className="p-3"
-      justify="center"
-      alignItems="center">
+    <Grid container className="p-3" justify="center" alignItems="center">
       <Select
         required
         {...InputConstructor("thief_profile")}
@@ -139,7 +85,6 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
         {...InputConstructor("thief_age")}
         label={traslate.FORM.THEFTDETAILS.AGE}
         options={age_options}
-        
       />
 
       <Select
@@ -172,7 +117,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 
       <Select
         required
-       {...InputConstructor("thief_skin")}
+        {...InputConstructor("thief_skin")}
         label={traslate.FORM.THEFTDETAILS.SKIN}
         options={skin_options}
       />
@@ -225,6 +170,3 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
 };
 
 export default PastCrimeStepFour;
-
-
-

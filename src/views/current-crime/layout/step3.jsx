@@ -7,8 +7,7 @@ import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 import { dniExp } from "../../../utils/reg-exp";
-
-const sex_options = ["Hombre", "Mujer", "Indefinido"];
+import { sex_options } from "../../../assets/options";
 
 const schema = yup.object({
   victim_victim_full_name: yup
@@ -28,7 +27,7 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
     victim_sex: "",
     victim_age: 11,
     victim_help: false,
-    ...data
+    ...data,
   });
 
   const [error, set_error] = useState();
@@ -62,8 +61,8 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
     className: "m-top-1",
     onChange: (event) => HandleChange(name, event.target.value),
     error: error?.[name]?.error,
-    error_msg: error?.[name]?.msg
-  })
+    error_msg: error?.[name]?.msg,
+  });
 
   return (
     <Grid container className="p-3" justify="center" alignItems="center">
@@ -105,7 +104,7 @@ const CurrentCrimeStepThree = ({ data, handleNext, handleBack }) => {
       <Switches
         xs={12}
         md={10}
-        name={'complaint'}
+        name={"complaint"}
         className="p-top-1 p-bottom-1 p-left-4"
         label={"¿Necesita asistencia médica?"}
         value={data_state.victim_help}

@@ -76,7 +76,7 @@ const Select = ({
                 </MenuItem>)
             }
         </SelectMUI>
-        <FormHelperText className={"p-left-1 font-size-little " + (error_msg ? "color-red" : "color-gray")}>
+        <FormHelperText className={"p-left-1 font-size-normal" + (error_msg ? "color-red" : "color-gray")}>
             {error_msg ?? msg}
         </FormHelperText>
     </Grid>

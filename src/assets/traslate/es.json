@@ -7,6 +7,7 @@
         "PASTCRIME": "Siniestros Antiguos",
         "US": "Sobre nosotros"
     },
+
     "COMMON": {
         "START": "Comenzar",
         "CONFIRM": "Confirmar",
@@ -41,7 +42,10 @@
             "TIMEFRACTION": "Ingrese franja horaria",
             "DATE": "Ingrese fecha",
             "DATE-PLACEHOLDER": "dd-mm-aa",
-            "STOLEN-CAPITAL": "Valor estimado total del robo",
+            "EMOTIONAL-DAMAGE": "¿Qué tanto te afectó emocionalmente?",
+            "EMOTIONAL-EXPLANATION": "1: Indiferente. 5: Muy traumático.",
+            "PHYSICAL-DAMAGE": "¿Qué tan grave quedaste físicamente?",
+            "PHYSICAL-EXPLANATION": "1: Ninguna lesión. 5: Hospitalizado/a.",
             "STOLEN-OBJECTS": "Objetos robados",
             "PLACE-DESCRIPTION": "Descripción del lugar",
             "COMPANY": "¿Con quién te encontrabas?",
@@ -73,12 +77,18 @@
             "COMPLAINT": "¿Se hizo una denuncia?",
             "ARRESTED": "¿Fue arrestado?"
         }
-
     },
+
+    "CRIME-MAP": {
+        "TITLE": "Consulta de siniestros por zona",
+        "DESCRIPTION": "En este mapa vas a poder ver los útlimos siniestros ocurridos cerca de tu ubicación."
+    },
+
     "CONFIRMATION-DIALOG": {
         "TITLE": "¡Gracias por completar el formulario!",
         "BUTTON-TEXT": "Volver a Inicio"
     },
+
     "OK": {
         "SAVE": "Datos guardados correctamente"
     },

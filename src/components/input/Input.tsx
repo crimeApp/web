@@ -104,7 +104,7 @@ const Input = ({
                         color: error ? `color-red` : `var(--${colorFont})`,
                         marginLeft: "15px",
                         marginRight: "15px",
-                        fontSize: "var(--font-size-little)",
+                        fontSize: "var(--font-size-normal)",
                         ...styleHelperText
                     }
                 }}

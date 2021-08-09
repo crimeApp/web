@@ -6,26 +6,14 @@ import Select from "../../../components/select/Select";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 import { dniExp } from "../../../utils/reg-exp";
+import {
+  sex_options,
+  height_options,
+  skin_options,
+  clothing_options,
+  physical_options,
+} from "../../../assets/options";
 
-const clothing_options = [
-  "Formal",
-  "Casual",
-  "Deportivo",
-  "Trabajo",
-  "Semiformal",
-  "Escolar",
-  "Arreglado",
-  "Desalineado",
-];
-
-const sex_options = ["Hombre", "Mujer", "Indefinido"];
-
-const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
-
-const skin_options = ["no lo sé/no contesta", "piel muy clara", "piel clara",
-  "piel morena clara", "piel morena oscura", "piel oscura", "piel muy oscura"];
-
-const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
 
 const schema = yup.object({
   victim_sex: yup

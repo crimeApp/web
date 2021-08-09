@@ -4,44 +4,20 @@ import Select from "../../../components/select/Select";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
+import DiscreteSlider from "../../../components/slider/Slider";
 import { ColorCA } from "../../../style/type-style";
-
-const place_options = [
-  "Parque",
-  "Calle",
-  "Parada de colectivo",
-  "Centro comercial",
-  "Propiedad privada",
-  "Supermercado",
-  "Estacionamiento",
-  "Otro",
-];
-
-const attack_type_options = [
-  "Robo",
-  "Asesinato",
-  "Abuso sexual",
-  "Secuestro",
-  "Asalto",
-  "Hurto",
-];
-
-
-const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
+import {
+  attack_type_options,
+  hour_options,
+  place_options,
+} from "../../../assets/options";
 
 const schema = yup.object({
-  attack_type: yup
-    .mixed()
-    .oneOf(attack_type_options)
-    .required(),
-  hour: yup
-    .mixed()
-    .oneOf(hour_options)
-    .required(),
-  place_description: yup
-    .mixed()
-    .oneOf(place_options)
-    .required(),
+  attack_type: yup.mixed().oneOf(attack_type_options).required(),
+  hour: yup.mixed().oneOf(hour_options).required(),
+  place_description: yup.mixed().oneOf(place_options).required(),
+  physical_damage: yup.number().max(5).optional(),
+  emotional_damage: yup.number().max(5).optional(),
 });
 
 interface CurrentCrimeStepOneProps {
@@ -57,17 +33,19 @@ const CurrentCrimeStepOne = ({
   handleNext,
   handleBack,
 }: CurrentCrimeStepOneProps) => {
-
   const [data_state, set_data] = useState<schemaType>({
     attack_type: "",
     hour: "",
     place_description: "",
+    physical_damage: 1,
+    emotional_damage: 1,
     ...data,
   });
 
   const [error, set_error] = useState<any>();
 
-  const HandleChange = (name: string, value: any) => set_data((prevState: any) => ({ ...prevState, [name]: value }));
+  const HandleChange = (name: string, value: any) =>
+    set_data((prevState: any) => ({ ...prevState, [name]: value }));
 
   const OnFoward = async () => {
     set_error({});
@@ -89,8 +67,8 @@ const CurrentCrimeStepOne = ({
     className: "m-top-1",
     onChange: (event: any) => HandleChange(name, event.target.value),
     error: error?.[name]?.error,
-    error_msg: error?.[name]?.msg
-  })
+    error_msg: error?.[name]?.msg,
+  });
 
   return (
     <Grid
@@ -99,13 +77,15 @@ const CurrentCrimeStepOne = ({
       container
       className="p-1"
       justify="center"
-      alignItems="center">
-
+      alignItems="center"
+    >
       <Select
         {...InputConstructor("attack_type")}
         required
         label={traslate.FORM.THEFTINFO.THEFT}
         options={attack_type_options}
+        msg='Robo: apropiación violenta de un bien ajeno. 
+        Hurto: apropiación NO violenta.'
       />
 
       <Select
@@ -114,12 +94,32 @@ const CurrentCrimeStepOne = ({
         options={hour_options}
         required
       />
-      
+
       <Select
         {...InputConstructor("place_description")}
         label={traslate.FORM.THEFTINFO["PLACE-DESCRIPTION"]}
         options={place_options}
         required
+      />
+
+      <DiscreteSlider
+        required
+        value={data_state.physical_damage}
+        onChange={(event, newValue) =>
+          HandleChange("physical_damage", newValue)
+        }
+        label={traslate.FORM.THEFTINFO["PHYSICAL-DAMAGE"]}
+        msg={traslate.FORM.THEFTINFO["PHYSICAL-EXPLANATION"]}
+      />
+
+      <DiscreteSlider
+        required
+        value={data_state.emotional_damage}
+        label={traslate.FORM.THEFTINFO["EMOTIONAL-DAMAGE"]}
+        msg={traslate.FORM.THEFTINFO["EMOTIONAL-EXPLANATION"]}
+        onChange={(event, newValue) =>
+          HandleChange("emotional_damage", newValue)
+        }
       />
 
       <Grid item className="m-top-3 m-bottom-2">

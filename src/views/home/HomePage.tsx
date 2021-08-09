@@ -9,6 +9,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Link,
+  Chip
 } from "@material-ui/core";
 import traslate from "../../assets/traslate/es.json";
 //import unitData from "../../assets/judicial-units.json";
@@ -52,6 +53,7 @@ function HomePage() {
               </p>
               <img
                 alt="CardPhoto"
+                className="img-desktop"
                 style={{
                   objectPosition: "center"
                 }}
@@ -122,8 +124,8 @@ const explanation = (
                 </Link>
               </div>
             ) : (
-              text
-            )}
+                text
+              )}
           </ListItemText>
         </ListItem>
       );
@@ -154,7 +156,7 @@ const FlashAccess = () => (
         {
           title: traslate.MENU.CURRENTCRIME,
           description: traslate["FORM"]["CURRENT-INTRO"],
-          href: "/current-crime-form"
+          href: ""
         },
         {
           title: traslate.MENU.PASTCRIME,
@@ -168,9 +170,18 @@ const FlashAccess = () => (
         justify="center"
       >
         <Grid item xs={10}>
-          <h3 className="m-0 m-top-1">{card.title}</h3>
-          <p className="home-subtitle m-0">{card.description}</p>
+          <h3 className="m-0 m-top-1">{card.title} {card.title === traslate.MENU.CURRENTCRIME ?
+            <Chip
+              className='p-1 m-left-1'
+              variant="outlined"
+              color='primary'
+              size="small"
+              label="Próximamente"
+            /> : null}</h3>
+          
+             <p className="home-subtitle m-0">{card.description}</p>
         </Grid>
+  
         <Grid item xs={10} container justify="center" className="m-top-2">
           <Button
             variant="contained"

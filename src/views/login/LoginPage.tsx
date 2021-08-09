@@ -105,29 +105,32 @@ const LoginPage = () => {
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
-        <Grid item xs={12} md={5} className="m-top-3 p-2 border-small background-color-card-background" container justify="center">
+        <Grid item 
+            xs={12} md={5} 
+            className="m-top-3 p-2 border-small background-color-card-background" 
+            container justify="center">
             <Grid item xs={12}>
                 <h3 style={{ textAlign: "center" }}>Ingresar</h3>
             </Grid>
             <Input
                 {...InputConstructor("cuit")}
-                label="Cuit"
+                label="CUIT"
             />
             <Input
                 type="password"
-                label="Contrasenia"
+                label="Contraseña"
                 {...InputConstructor("password")}
             />
             <Button
-                xs={12}
+                xs={8}
                 md={10}
                 className="m-top-2"
                 label="Ingresar"
                 onClick={onSummit}
             />
             <Button
-                xs={12}
-                md={10}
+                xs={8}
+                md={3}
                 className="m-top-2"
                 label="Volver"
                 color="white"

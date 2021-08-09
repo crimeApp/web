@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Map from "../../../components/map/Map";
@@ -9,7 +9,8 @@ const schema = yup.object({
   geopoint: yup.object({
     lat: yup.number().min(-90).max(90).required(),
     lng: yup.number().min(-180).max(180).required()
-  }).required(),
+  })
+  .required(),
 });
 
 const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
@@ -20,18 +21,6 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
     },
     ...data
   });
-
-  useEffect(() => {
-    if (!data.position) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        set_data({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const [error, set_error] = useState();
 
@@ -69,7 +58,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         label={traslate.FORM.THEFTINFO.LOCATION}
         position={data_state.geopoint}
         onChange={(newValue) => HandleChange("geopoint", newValue)}
-        error={error?.geopoint?.error}
+        error={data_state.geopoint}
         error_msg={error?.geopoint?.msg}
       />
 
