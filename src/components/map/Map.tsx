@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from "react";
+import React from "react";
 import "./Map.css";
 import { TileLayer, MapContainer, Marker } from "react-leaflet";
 import { Grid, GridSize, InputLabel } from "@material-ui/core";
@@ -40,20 +40,7 @@ const Map = ({
     lg,
     xl,
 }: MapProps) => {
-    const [userPosition, setPosition]= useState(position);
-
-    useEffect(() => {
-        if (!userPosition) {
-          navigator.geolocation.getCurrentPosition(function (position) {
-            setPosition({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-          });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
-
+    
     return (
         <Grid container item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`}>
             <InputLabel>
@@ -80,7 +67,7 @@ const Map = ({
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    <Marker position={[userPosition.lat, userPosition.lng]} />
+                    <Marker position={[position.lat, position.lng]} />
                 </MapContainer>
             </Grid>
             <Grid>

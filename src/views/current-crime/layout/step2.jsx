@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Button } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Map from "../../../components/map/Map";
@@ -56,6 +56,18 @@ const CurrentCrimeStepTwo = ({ data, handleNext, handleBack }) => {
   const OnBackward = () => {
     return handleBack(data_state);
   };
+
+  useEffect(() => {
+    if (!data.position) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        set_data({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const InputConstructor = (name) => ({
     name,

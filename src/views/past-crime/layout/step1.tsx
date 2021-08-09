@@ -136,7 +136,7 @@ const PastCrimeStepOne = ({
         xs={12}
         md={10}
         value={data_state.physical_damage}
-        onChange={(newValue) =>
+        onChange={(event, newValue) =>
           HandleChange("physical_damage", newValue)
         }
         label={traslate.FORM.THEFTINFO["PHYSICAL-DAMAGE"]}
@@ -150,7 +150,7 @@ const PastCrimeStepOne = ({
         value={data_state.emotional_damage}
         label={traslate.FORM.THEFTINFO["EMOTIONAL-DAMAGE"]}
         msg={traslate.FORM.THEFTINFO["EMOTIONAL-EXPLANATION"]}
-        onChange={(newValue) =>
+        onChange={(event, newValue) =>
           HandleChange("emotional_damage", newValue)
         }
       />
