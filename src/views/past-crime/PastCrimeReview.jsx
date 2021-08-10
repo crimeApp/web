@@ -19,12 +19,13 @@ const PastCrimeReview = ({ data, handleSubmit, handleBack, handleNext }) => {
     createData("Franja horaria", data.hour),
     createData(
       "Fecha",
-      `${data.date.getDay()}/${data.date.getMonth()}/${data.date.getYear()}`
+      `${data.date.toLocaleDateString()}`
     ),
     createData("Lugar del hecho", data.place_description),
     createData("Acompañamiento", data.accompaniment),
     createData("Objetos robados", data.stolen_items),
-    createData("Dinero robado", data.stolen_cash),
+    createData("Daño emocional", `${data.emotional_damage}/5`),
+    createData("Daño físico", `${data.physical_damage}/5`),
   ];
 
   const second_row = [
@@ -115,7 +116,7 @@ const PastCrimeReview = ({ data, handleSubmit, handleBack, handleNext }) => {
         </Table>
       </Grid>
 
-      <Grid item  xs={8} md={4} className="m-top-1 m-bottom-2">
+      <Grid item  xs={10} md={4} className="m-top-1 m-bottom-2">
         <Button
           variant="contained"
           color="primary"

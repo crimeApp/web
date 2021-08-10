@@ -74,11 +74,11 @@ export default function Navbar() {
                 <Divider />
 
                 <MenuItem>
-                    <Button href="/current-crime-form">
+                    <Button href="/crime-map">
                         <ListItemIcon>
                             <HelpOutline fontSize="small" />
                         </ListItemIcon>
-                        <ListItemText>{traslate.MENU.US}</ListItemText>
+                        <ListItemText>{traslate.MENU["CRIME-MAP"]}</ListItemText>
                     </Button>
                 </MenuItem>
             </MenuList>

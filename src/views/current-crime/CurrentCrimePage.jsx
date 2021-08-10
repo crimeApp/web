@@ -95,7 +95,7 @@ const CurrentCrimeStep = () => {
                   color="primary"
                   type="submit"
                   className="m-bottom-3 m-top-1"
-                  onClick={() => set_step(step + 1)}
+                  onClick={''}
                 >
                   {traslate["FORM"]["INIT-FORM"]}
                 </Button>

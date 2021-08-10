@@ -2,7 +2,7 @@
     "MENU": {
         "COMMENTS": "Dejar un comentario",
         "REPORTS": "Ver reportes.",
-        "MAP": "Ver mapa",
+        "CRIME-MAP": "Ver mapa y reportes",
         "CURRENTCRIME": "DenunciaYa",
         "PASTCRIME": "Siniestros Antiguos",
         "US": "Sobre nosotros"
@@ -34,7 +34,7 @@
         "INIT-FORM": "Completar formulario",
         "CURRENT-INTRO": "¿Acabas de ser víctima de un siniestro? Podés contarnos lo que pasó aquí.",
         "PAST-INTRO": "¿Querés reportar un siniestro pasado? Podés contarnos lo que pasó aquí.",
-        "EXPLANATION": "Ayudanos a generar una base de datos para analizar las tendencias criminales en la ciudad.",
+        "EXPLANATION": "A continuación, te dejamos los formularios disponibles para rellenar:",
 
         "THEFTINFO": {
             "THIEFINFO": "Información del Robo",

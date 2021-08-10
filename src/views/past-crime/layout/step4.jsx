@@ -38,6 +38,7 @@ const PastCrimeStepFour = ({ data, handleNext, handleBack }) => {
     thief_physical: "",
     complaint: false,
     arrested: false,
+    ...data
   });
 
   const [error, set_error] = useState();

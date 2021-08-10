@@ -44,10 +44,24 @@ function HomePage() {
         alignItems="center"
         alignContent="center"
       >
-        <Grid item xs={12} md={10} className='p-1'>
+        <Grid item xs={12} md={10} className='m-bottom-2'>
+          <Card>
+            <h3>¿Quiénes somos y de qué se trata el proyecto?</h3>
+            <p className="home-subtitle">
+              Somos estudiantes de ingeniería de la UCC que busca crear un
+              espacio de comunicación sobre siniestros
+              ocurridos en la ciudad de Córdoba.
+            </p>
+            <p>
+                <b>Te invitamos a
+               compartir información clave sobre algún robo o hurto del que hayas sido víctima
+               para crear un mapa de crímenes util para todos.</b>
+              </p>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={10}>
           <Card>
             <Grid item xs={12} sm={6} className='p-left-1 p-right-1'>
-              <h3>{traslate.FORM.INFO}</h3>
               <p className="home-subtitle">
                 {traslate.FORM.EXPLANATION}
               </p>
@@ -60,7 +74,7 @@ function HomePage() {
                 src={process.env.PUBLIC_URL + "/assets/home_page.png"}
               />
             </Grid>
-            <Grid item xs={12} sm={6} className='m-top-3' container justify="center" alignContent="center">
+            <Grid item xs={12} sm={6} container justify="center" alignContent="center">
               <FlashAccess />
             </Grid>
           </Card>
@@ -70,7 +84,7 @@ function HomePage() {
                 <h4>{traslate.INSTRUCTIONS.INTRO}</h4>
                 {explanation}
               </Grid>
-              <Grid item xs={12} sm={6} className='p-right-3'>
+              <Grid item xs={12} sm={6}>
                 <MapMarkers
                   xs={12}
                   label={"Encontrá las unidades más cercanas acá."}
@@ -156,7 +170,7 @@ const FlashAccess = () => (
         {
           title: traslate.MENU.CURRENTCRIME,
           description: traslate["FORM"]["CURRENT-INTRO"],
-          href: ""
+          href: "/"
         },
         {
           title: traslate.MENU.PASTCRIME,
@@ -178,10 +192,10 @@ const FlashAccess = () => (
               size="small"
               label="Próximamente"
             /> : null}</h3>
-          
-             <p className="home-subtitle m-0">{card.description}</p>
+
+          <p className="home-subtitle m-0">{card.description}</p>
         </Grid>
-  
+
         <Grid item xs={10} container justify="center" className="m-top-2">
           <Button
             variant="contained"

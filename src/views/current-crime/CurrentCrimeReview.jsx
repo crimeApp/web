@@ -13,7 +13,7 @@ function createData(name, value) {
   return { name, value };
 }
 
-const CurrentCrimeReview = ({ data, handleSubmit, handleBack, handleNext }) => {
+const CurrentCrimeReview = ({ data, handleSubmit, handleBack }) => {
   const first_row = [
     createData("Tipo de siniestro", data.attack_type),
     createData("Franja horaria", data.hour),
@@ -21,20 +21,18 @@ const CurrentCrimeReview = ({ data, handleSubmit, handleBack, handleNext }) => {
     createData("Entre calle", data.street_1),
     createData("Y calle", data.street_2),
     createData("Asistencia medica", data.victim_help),
+    createData("Daño emocional", `${data.emotional_damage}/5`),
+    createData("Daño físico", `${data.physical_damage}/5`)
 
   ];
 
 
- /*  const OnSubmit = () =>{
+  const OnSubmit = () =>{
     return handleSubmit(data);
-  } */
+  } 
 
   const OnBackward = () => {
     return handleBack(data);
-  };
-
-  const OnFoward = () => {
-    return handleNext(data);
   };
 
   return (
@@ -74,7 +72,7 @@ const CurrentCrimeReview = ({ data, handleSubmit, handleBack, handleNext }) => {
           color="primary"
           type="submit"
           className=" m-left-3"
-          onClick={OnFoward}
+          onClick={OnSubmit}
         >
           {traslate.COMMON.NEXT}
         </Button>

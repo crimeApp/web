@@ -149,7 +149,7 @@ const MultipleSelect = ({
 
       <FormHelperText
         className={
-          "p-left-1 font-size-little " +
+          "p-left-1 font-size-small " +
           (error_msg ? "color-red" : "color-gray")
         }
       >

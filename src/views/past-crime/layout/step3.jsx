@@ -30,20 +30,16 @@ const schema = yup.object({
     .min(12),
   victim_height: yup
     .mixed()
-    .oneOf(height_options)
     .optional(),
   victim_skin: yup
     .mixed()
-    .oneOf(skin_options)
     .optional(),
   victim_clothing: yup
     .mixed()
-    .optional()
-    .oneOf(clothing_options),
+    .optional(),
   victim_physical: yup
     .mixed()
-    .optional()
-    .oneOf(physical_options),
+    .optional(),
 });
 
 const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
@@ -54,6 +50,7 @@ const PastCrimeStepThree = ({ data, handleNext, handleBack }) => {
     victim_height: "",
     victim_clothing: "",
     victim_physical: "",
+    victim_skin: "",
     ...data
   });
 

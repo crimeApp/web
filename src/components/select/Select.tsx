@@ -43,7 +43,8 @@ const Select = ({
 
     return <Grid item className={`select m-bottom-2 ${className}`} xs={xs} md={md} sm={sm} lg={lg} xl={xl} >
         <InputLabel>
-            <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " + (error ? "color-red" : "color-black")}>
+            <p className={"first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w400 " 
+            + (error ? "color-red" : "color-black")}>
                 {label} {required ? "*" : ""}
             </p>
         </InputLabel>
@@ -76,9 +77,14 @@ const Select = ({
                 </MenuItem>)
             }
         </SelectMUI>
-        <FormHelperText className={"p-left-1 font-size-normal" + (error_msg ? "color-red" : "color-gray")}>
-            {error_msg ?? msg}
-        </FormHelperText>
+        <FormHelperText
+        className={
+          "p-left-1 font-size-small " +
+          (error_msg ? "color-red" : "color-gray")
+        }
+      >
+        {error_msg ?? msg}
+      </FormHelperText>
     </Grid>
 }
 

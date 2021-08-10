@@ -3,7 +3,6 @@ import Scaffold from "../../components/scaffold/scaffold";
 import { Grid } from "@material-ui/core";
 import MapMarkers from "../../components/map/MapMarkers";
 import traslate from "../../assets/traslate/es.json";
-import DiscreteSlider from "../../components/slider/Slider";
 
 const CrimeMapPage = () => {
   const [user_position, set_position] = useState({
@@ -56,12 +55,7 @@ const CrimeMapPage = () => {
           ]}
         />
       </Grid>
-      <DiscreteSlider
-        sm={8}
-        md={10}
-        label={traslate.FORM.THEFTINFO["PHYSICAL-DAMAGE"]}
-        msg={traslate.FORM.THEFTINFO["PHYSICAL-EXPLANATION"]}
-        required />
+      
     </Scaffold>
   );
 };

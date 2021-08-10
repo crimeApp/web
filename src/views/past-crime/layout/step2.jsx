@@ -70,7 +70,7 @@ const PastCrimeStepTwo = ({ data, handleNext, handleBack }) => {
         label={traslate.FORM.THEFTINFO.LOCATION}
         position={data_state.geopoint}
         onChange={(newValue) => HandleChange("geopoint", newValue)}
-        error={data_state.geopoint}
+        error={error?.geopoint?.error}
         error_msg={error?.geopoint?.msg}
       />
 
