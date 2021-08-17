@@ -28,12 +28,15 @@ const CrimeMapPage = () => {
         xs={12}
         md={10}
         justify="center"
-        className="m-top-3 p-2 border-normal background-color-card-background"
+        className="p-1 border-normal background-color-card-background"
       >
         <Grid item xs={12} md={10}>
           <h3>{traslate["CRIME-MAP"]["TITLE"]}</h3>
           <p className="home-subtitle">
             {traslate["CRIME-MAP"]["DESCRIPTION"]}
+            <b>Te invitamos a
+            compartir información clave sobre algún robo o hurto del que hayas sido víctima
+               para crear un mapa de crímenes util para todos.</b>
           </p>
         </Grid>
         <MapMarkers

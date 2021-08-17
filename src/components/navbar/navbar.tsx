@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from '@material-ui/icons/Menu';
 import { ErrorOutline, Error, HelpOutline } from '@material-ui/icons';
@@ -18,9 +17,8 @@ import {
     Divider
 
 } from "@material-ui/core";
-import traslate from "../../assets/traslate/es.json";
-import useWindowSize from "../../hooks/useWindows";
 
+import useWindowSize from "../../hooks/useWindows";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,24 +49,13 @@ export default function Navbar() {
         <Fragment>
             <MenuList>
                 <MenuItem>
-                    <Button href="/current-crime-form">
+                    <Button href="/crime-form">
                         <ListItemIcon>
                             <ErrorOutline fontSize="small" />
                         </ListItemIcon>
-                        <ListItemText>{traslate.MENU.CURRENTCRIME}</ListItemText>
+                        <ListItemText>Completar formulario</ListItemText>
                     </Button>
 
-                </MenuItem>
-
-                <Divider />
-
-                <MenuItem>
-                    <Button href="/past-crime-form">
-                        <ListItemIcon>
-                            <Error fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText >{traslate.MENU.PASTCRIME}</ListItemText>
-                    </Button>
                 </MenuItem>
 
                 <Divider />
@@ -76,9 +63,20 @@ export default function Navbar() {
                 <MenuItem>
                     <Button href="/crime-map">
                         <ListItemIcon>
+                            <Error fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>Ver mapa y reportes</ListItemText>
+                    </Button>
+                </MenuItem>
+
+                <Divider />
+
+                <MenuItem>
+                    <Button href="/contact">
+                        <ListItemIcon>
                             <HelpOutline fontSize="small" />
                         </ListItemIcon>
-                        <ListItemText>{traslate.MENU["CRIME-MAP"]}</ListItemText>
+                        <ListItemText>Sobre nosotros</ListItemText>
                     </Button>
                 </MenuItem>
             </MenuList>
@@ -99,7 +97,7 @@ export default function Navbar() {
                         </Button>
                     </Grid>
                     {!md ?
-                       null :
+                        null :
                         <Fragment>
                             <Grid item xs container justify="flex-end">
                                 <IconButton onClick={() => set_anchor(!anchor)}><MenuIcon /></IconButton>

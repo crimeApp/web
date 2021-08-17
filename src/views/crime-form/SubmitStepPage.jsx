@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
-import traslate from "../assets/traslate/es.json";
+import traslate from "../../assets/traslate/es.json";
 
 const SubmitStep = () => {
     return (

@@ -53,9 +53,7 @@ export const items_options = [
     "otros",
 ];
 
-export const hour_options = ["Mañana", "Mediodia", "Tarde", "Noche"];
-
-export const clothing_options = [
+export const hair_options = [
     "Formal",
     "Casual",
     "Deportivo",
@@ -73,21 +71,6 @@ export const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 export const skin_options = ["no lo sé/no contesta", "piel muy clara", "piel clara",
     "piel morena clara", "piel morena oscura", "piel oscura", "piel muy oscura"];
 
-export const physical_options = ["Delgado", "Corpulento", "Obeso", "Atlético"];
-
-export const perfil_options = [
-    "Violento",
-    "Amable",
-    "Tranquilo",
-    "Cauteloso",
-    "Desconfiado",
-    "Indiferente",
-    "Visiblemente intoxicado",
-    "Carismático",
-    "No recuerdo",
-    "No lo sé"
-  ]
-  
 export const age_options = [
     "Menor de edad",
     "18-25",
@@ -95,4 +78,4 @@ export const age_options = [
     "35-45",
     "Más de 50",
     "No recuerdo"
-  ];
+];

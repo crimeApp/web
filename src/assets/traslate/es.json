@@ -1,13 +1,4 @@
 {
-    "MENU": {
-        "COMMENTS": "Dejar un comentario",
-        "REPORTS": "Ver reportes.",
-        "CRIME-MAP": "Ver mapa y reportes",
-        "CURRENTCRIME": "DenunciaYa",
-        "PASTCRIME": "Siniestros Antiguos",
-        "US": "Sobre nosotros"
-    },
-
     "COMMON": {
         "START": "Comenzar",
         "CONFIRM": "Confirmar",
@@ -18,8 +9,14 @@
         "ERROR": "Uf! Parece que hubo un error. Intente de nuevo."
     },
 
+    "TITLES": {
+        "MAP": "Ver mapa y reportes",
+        "FORM": "Completar formulario",
+        "US": "Sobre nosotros"
+    },
+    
     "INSTRUCTIONS": {
-        "INTRO": "Instrucciones de uso",
+        "INTRO": "Como hacer tu denuncia?",
         "1": "Ingrese a la página del ",
         "2": "Ingrese sus datos personales.",
         "3": "Concurrir a una unidad jurídica.",
@@ -29,11 +26,8 @@
     "FORM": {
         "INFO": "¿De qué se trata este proyecto?", 
         "TITLE": "DenunciaYa",
-        "TITLE-PASTCRIME": "Siniestros Antiguos",
         "SUBTITLE": "Toda la información solicitada permanece completamente anónima para otros. El propósito de este formulario es registrar tendencias criminales en Córdoba y contribuir a la seguridad ciudadana. ¡Agradecemos tu contribución!",
-        "INIT-FORM": "Completar formulario",
-        "CURRENT-INTRO": "¿Acabas de ser víctima de un siniestro? Podés contarnos lo que pasó aquí.",
-        "PAST-INTRO": "¿Querés reportar un siniestro pasado? Podés contarnos lo que pasó aquí.",
+        "INTRO": "",
         "EXPLANATION": "A continuación, te dejamos los formularios disponibles para rellenar:",
 
         "THEFTINFO": {
@@ -92,6 +86,7 @@
     "OK": {
         "SAVE": "Datos guardados correctamente"
     },
+
     "ERRORS": {
         "INTERNAL_SERVER_ERROR": "Estamos teniendo problemas, intente mas tarde",
         "BAD_REQUEST": "Los datos enviados son incorrectos",
@@ -100,6 +95,7 @@
         "password": "La contrasenia debe contener mayusculas, minusculas y numeros",
         "USER_NOT_FOUND": "Usuiario y/o contrasenia incorrectos"
     },
+
     "ROUTES": {
         "PUBLIC": {
             "HOME": "/"

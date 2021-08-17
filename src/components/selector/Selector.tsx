@@ -19,6 +19,7 @@ interface SelectProps {
     error?: boolean;
     error_msg?: string;
     value?: string | undefined;
+    inputValue?: string;
     options: Array<string | undefined>;
     disabled?: boolean;
     placeholder?: string;
@@ -26,6 +27,11 @@ interface SelectProps {
     required?: boolean;
     colorFont?: ColorCA;
     color?: ColorCA;
+    onInputChange?: (
+        event: React.ChangeEvent<{}>,
+        value: string,
+        reason: any
+    ) => void;
     onChange?: (event: any, newValue: string | null) => void;
     freeSolo?: boolean;
     xs?: undefined | GridSize;
@@ -49,11 +55,13 @@ const Selector = ({
     icon,
     options,
     onChange,
+    onInputChange,
     disabled,
-    color = "white",
+    color = "light-gray",
     colorFont = "black",
     required,
     value,
+    inputValue,
     wrap,
     justify = "center",
     border = "big",
@@ -62,7 +70,7 @@ const Selector = ({
     sm,
     md,
     lg,
-    xl
+    xl,
 }: SelectProps) => {
     return (
         <Grid
@@ -76,31 +84,29 @@ const Selector = ({
             md={md}
             lg={lg}
             xl={xl}
-            className={`m-top-3 m-bottom-3 ${className}`} >
+            className={`m-top-3 ${className}`}>
             <Autocomplete
                 className={`text-field-container text-field-group`}
                 options={options}
                 disableClearable
                 freeSolo={freeSolo}
                 fullWidth
-                disablePortal
                 disabled={disabled}
-                autoSelect
+                inputValue={inputValue}
+                autoComplete
                 value={value}
                 onChange={onChange}
-                onInputChange={onChange}
+                onInputChange={onInputChange}
                 renderInput={(params) => (
                     <TextField
-                        label={`${label}${required ? "*" : "" }`}
+                        label={`${label}${required ? "*" : ""}`}
+                        hiddenLabel
                         placeholder={placeholder}
                         helperText={error ? error_msg : msg}
                         FormHelperTextProps={{
-                            style: {
-                                color: error ? "var(--red)" : `var(--${colorFont})`,
-                                paddingLeft: "20px"
-                            }
+                            className: (error ? "color-red" : `color-${colorFont}`) + " font-size-normal p-left-1",
                         }}
-                        className={`text-field-group`}
+                        className={`text-field-container`}
                         {...params}
                         InputProps={{
                             ...params.InputProps,
@@ -129,8 +135,10 @@ const Selector = ({
                     />
                 )}
             />
+
         </Grid>
     );
 };
 
 export default Selector;
+

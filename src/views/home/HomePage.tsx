@@ -1,15 +1,12 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Button,
-  Card as CardMUI,
-  CardContent,
   Avatar,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Link,
-  Chip
+  Link
 } from "@material-ui/core";
 import traslate from "../../assets/traslate/es.json";
 //import unitData from "../../assets/judicial-units.json";
@@ -18,10 +15,9 @@ import "./HomePage.css";
 import MapMarkers from "../../components/map/MapMarkers";
 
 function HomePage() {
-
   const [user_position, set_position] = useState({
     lat: -31.42182659888641,
-    lng: -64.18388759242008
+    lng: -64.18388759242008,
   });
 
   useEffect(() => {
@@ -36,70 +32,60 @@ function HomePage() {
   return (
     <Scaffold>
       <Grid
-        item
-        xs={12}
         container
-        className="p-1"
         justify="center"
         alignItems="center"
         alignContent="center"
+        className="background-color-card-background m-top-2"
       >
-        <Grid item xs={12} md={10} className='m-bottom-2'>
-          <Card>
-            <h3>¿Quiénes somos y de qué se trata el proyecto?</h3>
-            <p className="home-subtitle">
-              Somos estudiantes de ingeniería de la UCC que busca crear un
-              espacio de comunicación sobre siniestros
-              ocurridos en la ciudad de Córdoba.
-            </p>
-            <p>
-                <b>Te invitamos a
-               compartir información clave sobre algún robo o hurto del que hayas sido víctima
-               para crear un mapa de crímenes util para todos.</b>
-              </p>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={10}>
-          <Card>
-            <Grid item xs={12} sm={6} className='p-left-1 p-right-1'>
+        <Grid item xs={12} sm={6} className='p-2 m-2 home-wrap'>
+          <Grid container direction='column' alignItems='center' >
+            <Grid item>
+              <h1 className="m-top-1">¿Querés reportar un siniestro?</h1>
+            </Grid>
+            <Grid item>
               <p className="home-subtitle">
-                {traslate.FORM.EXPLANATION}
+                ¿Querés reportar un siniestro? Podés contarnos lo que pasó aquí.
               </p>
-              <img
-                alt="CardPhoto"
-                className="img-desktop"
-                style={{
-                  objectPosition: "center"
-                }}
-                src={process.env.PUBLIC_URL + "/assets/home_page.png"}
-              />
             </Grid>
-            <Grid item xs={12} sm={6} container justify="center" alignContent="center">
-              <FlashAccess />
+            <Grid item>
+              <Button
+                variant="contained"
+                className='m-top-1'
+                color="primary"
+                type="submit"
+                href={"/crime-form"}
+              >
+                {traslate.COMMON.START}
+              </Button>
             </Grid>
-          </Card>
-          <Grid item xs={12} className='p-top-2 p-bottom-2'>
-            <Card>
-              <Grid item xs={12} sm={6} className='p-left-3'>
-                <h4>{traslate.INSTRUCTIONS.INTRO}</h4>
-                {explanation}
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <MapMarkers
-                  xs={12}
-                  label={"Encontrá las unidades más cercanas acá."}
-                  positionCenter={user_position}
-                  positions={
-                    [
-                      { lat: -31.382232224204365, lng: -64.18447639101693, name: "casa de juan" },
-                      { lat: -31.40385792696248, lng: -64.21283551834296, name: "casa de juan" },
-                      { lat: -31.38536, lng: -64.17993, name: "casa de juan" },
-                    ]
-                  }
-                />
-              </Grid>
-            </Card>
           </Grid>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          {explanation}
+        </Grid>
+        <Grid item xs={12}>
+          <MapMarkers
+            xs={12}
+            md={12}
+            className='p-1'
+            label={"Encontrá las unidades judiciales más cercanas acá."}
+            positionCenter={user_position}
+            positions={[
+              {
+                lat: -31.382232224204365,
+                lng: -64.18447639101693,
+                name: "casa de juan",
+              },
+              {
+                lat: -31.40385792696248,
+                lng: -64.21283551834296,
+                name: "casa de juan",
+              },
+              { lat: -31.38536, lng: -64.17993, name: "casa de juan" },
+            ]}
+          />
         </Grid>
       </Grid>
     </Scaffold>
@@ -109,7 +95,8 @@ function HomePage() {
 export default HomePage;
 
 const explanation = (
-  <Fragment>
+  <Grid item xs={12} md={8} className="p-1 m-left-3">
+    <h3>{traslate.INSTRUCTIONS.INTRO}</h3>
     {[
       `${traslate.INSTRUCTIONS[1]}`,
       `${traslate.INSTRUCTIONS[2]}`,
@@ -119,13 +106,13 @@ const explanation = (
       const labelId = `checkbox-list-label-${index}`;
 
       return (
-        <ListItem key={index} role={undefined} dense>
+        <ListItem key={index} role={undefined} dense >
           <ListItemAvatar>
             <Avatar>
               <Avatar>{index + 1}</Avatar>
             </Avatar>
           </ListItemAvatar>
-          <ListItemText id={labelId}>
+          <ListItemText id={labelId} >
             {index === 0 ? (
               <div>
                 {text}
@@ -144,69 +131,6 @@ const explanation = (
         </ListItem>
       );
     })}
-  </Fragment>
+  </Grid>
 );
 
-const Card = ({ children }: any) => (
-  <CardMUI variant="elevation">
-    <CardContent>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignContent="center"
-      >
-        {children}
-      </Grid>
-    </CardContent>
-  </CardMUI>
-);
-
-const FlashAccess = () => (
-  <>
-
-    {
-      [
-        {
-          title: traslate.MENU.CURRENTCRIME,
-          description: traslate["FORM"]["CURRENT-INTRO"],
-          href: "/"
-        },
-        {
-          title: traslate.MENU.PASTCRIME,
-          description: traslate["FORM"]["PAST-INTRO"],
-          href: "/past-crime-form"
-        }
-      ].map(card => <Grid key={card.title}
-        item xs={12}
-        className="home-wrap p-top-2 p-bottom-2 m-top-2"
-        container
-        justify="center"
-      >
-        <Grid item xs={10}>
-          <h3 className="m-0 m-top-1">{card.title} {card.title === traslate.MENU.CURRENTCRIME ?
-            <Chip
-              className='p-1 m-left-1'
-              variant="outlined"
-              color='primary'
-              size="small"
-              label="Próximamente"
-            /> : null}</h3>
-
-          <p className="home-subtitle m-0">{card.description}</p>
-        </Grid>
-
-        <Grid item xs={10} container justify="center" className="m-top-2">
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            href={card.href}
-          >
-            {traslate.COMMON.START}
-          </Button>
-        </Grid>
-      </Grid>)
-    }
-  </>
-);
