@@ -19,6 +19,7 @@ interface MapProps {
     lng: number;
   };
   showSearch?: boolean;
+  location?: string;
   required?: boolean;
   size?: "normal" | "big";
   justify?: "center" | "flex-start" | "flex-end";
@@ -52,6 +53,7 @@ const Map = ({
   position,
   onChange = () => null,
   error,
+  location,
   required,
   justify,
   error_msg,
@@ -87,6 +89,8 @@ const Map = ({
 
   return (
     <Grid
+      container
+      item
       xs={xs}
       sm={sm}
       md={md}
@@ -94,32 +98,22 @@ const Map = ({
       xl={xl}
       id={id}
       justify={justify}
-      className={`map-container ${size} ${className}`}
-      container
-    >
-       {label && !showSearch && <Grid item>
-        <p
-          className={`map-label first-letter-cap
-              ${error_msg ? `map-error-color` : ``}`}
-        >
-          {label + (required ? "*" : "")}
-        </p>
-      </Grid>}
+      alignItems={'center'}
+      className={`map-container ${size} ${className}`}>
 
       {
         showSearch &&
         <Selector
           label={label}
-          xs={12}
-          md={8}
+          xs={10}
+          md={10}
           value={value}
           className="m-0 m-bottom-2"
           options={opt.map(o => o.label)}
           onInputChange={(_, v, __) => set_value(v)}
         />
       }
-      
-      <Grid item xs={12} md={10}>
+
         <MapContainer
           center={position}
           zoom={zoom}
@@ -145,19 +139,20 @@ const Map = ({
                 showSearch
                   ? [pos.lat, pos.lng]
                   : position?.lat
-                  ? [position.lat, position.lng]
-                  : [TEMP_POSITION.lat, TEMP_POSITION.lng]
+                    ? [position.lat, position.lng]
+                    : [TEMP_POSITION.lat, TEMP_POSITION.lng]
               }
             />
           }
         </MapContainer>
-      </Grid>
-      <Grid>
+
+
+      <Grid item>
         {error_msg ? (
-          <p className="map-msg map-error-color">{error_msg}</p>
+          <p className="map-msg map-error-color font-size-small">{error_msg}</p>
         ) : (
-          msg && <p className="map-msg">{msg}</p>
-        )}
+            msg && <p className="map-msg">{msg}</p>
+          )}
       </Grid>
     </Grid>
   );

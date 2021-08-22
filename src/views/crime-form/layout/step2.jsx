@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import Button from "../../../components/button/Button";
 import yup from "../../../utils/yup";
+import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 import Input from "../../../components/input/Input";
 import Switches from "../../../components/switch/Switch";
 import Select from "../../../components/select/Select";
-import traslate from "../../../assets/traslate/es.json";
 import DiscreteSlider from "../../../components/slider/Slider";
 import {
   age_options,
@@ -60,26 +60,28 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
     name,
     xs: 10,
     md: 8,
+    //@ts-ignore
     value: data_state[name],
+    className: "p-3",
     color: "light-gray",
-    className: "p-1",
-    onChange: (event) => HandleChange(name, event.target.value),
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
+    onChange: (event) => HandleChange(name, event.target.value),
   });
 
   return (
     <Grid
+      container
       item
       xs={12}
-      md={6}
-      container
-      className="background-color-card-background"
+      md={5}
+      direction="row"
+      className="p-1 background-color-card-background"
       justify="center"
       alignItems="center"
       alignContent="center"
     >
-      <Grid item xs={10} md={6} className='p-3'>
+      <Grid item xs={12} md={6} className="p-2">
         {children}
       </Grid>
 
@@ -142,14 +144,22 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
         error_msg={error?.armed?.msg}
       />
 
-      <Grid container md={8} xs={10} direction="row" justify="space-around">
+      <Grid
+        container
+        item
+        md={6}
+        xs={10}
+        direction="row"
+        className='p-top-1'
+        justify="space-around"
+      >
         <Button
           color="violet"
           xs={6}
           md={4}
           label={traslate.COMMON.BACK}
           className="p-1"
-          onClick={handleBack}
+          onClick={OnBackward}
         />
 
         <Button

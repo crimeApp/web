@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import yup from "../../../utils/yup";
 import Select from "../../../components/select/Select";
+import Button from "../../../components/button/Button";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
 import DiscreteSlider from "../../../components/slider/Slider";
@@ -9,15 +10,13 @@ import { accompaniment_options, place_options } from "../../../assets/options";
 
 const schema = yup.object({
   place_description: yup.mixed().default(''),
-  accompaniment:  yup.mixed().default(''),
+  accompaniment: yup.mixed().default(''),
   physical_damage: yup.number().optional().default(1),
   emotional_damage: yup.number().optional().default(1),
 });
 
-const StepThree = ({ data, handleNext, handleBack }) => {
+const StepThree = ({ data, children, handleNext, handleBack }) => {
   const [data_state, set_data] = useState({
-
-    ...data,
     ...schema.getDefault(),
     ...data,
   });
@@ -46,18 +45,33 @@ const StepThree = ({ data, handleNext, handleBack }) => {
 
   const InputConstructor = (name) => ({
     name,
-    xs: 12,
-    md: 10,
+    xs: 10,
+    md: 8,
+    //@ts-ignore
     value: data_state[name],
+    className: "p-3",
     color: "light-gray",
-    className: "m-top-1",
-    onChange: (event) => HandleChange(name, event.target.value),
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
+    onChange: (event) => HandleChange(name, event.target.value),
   });
 
   return (
-    <>
+    <Grid
+      container
+      item
+      xs={12}
+      md={5}
+      direction="row"
+      className="p-1 background-color-card-background"
+      justify="center"
+      alignItems="center"
+      alignContent="center"
+    >
+      <Grid item xs={12} md={6} className="p-2">
+        {children}
+      </Grid>
+
       <Select
         {...InputConstructor("place_description")}
         label={traslate.FORM.PERSONALINFO.SEX}
@@ -89,30 +103,36 @@ const StepThree = ({ data, handleNext, handleBack }) => {
         onChange={(event, newValue) =>
           HandleChange("emotional_damage", newValue)
         }
-      />
+      /> 
 
-      <Grid item className="m-top-1 m-bottom-2">
+      <Grid
+        container
+        item
+        md={6}
+        xs={10}
+        direction="row"
+        className='p-top-1'
+        justify="space-around"
+      >
         <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          className="m-right-3"
+          color="violet"
+          xs={6}
+          md={4}
+          label={traslate.COMMON.BACK}
+          className="p-1"
           onClick={OnBackward}
-        >
-          {traslate.COMMON.BACK}
-        </Button>
+        />
 
         <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          className=" m-left-3"
+          color="violet"
+          xs={6}
+          md={4}
+          label={traslate.COMMON.NEXT}
+          className="p-1"
           onClick={OnFoward}
-        >
-          {traslate.COMMON.NEXT}
-        </Button>
+        />
       </Grid>
-    </>
+    </Grid>
   );
 };
 

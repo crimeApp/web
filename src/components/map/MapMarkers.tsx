@@ -51,7 +51,7 @@ const MapMarkers = ({
     return (
         <Grid container item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`}>
             <Grid item>
-                <p className={"first-letter-cap  color-black w800 " + (error ? "color-red" : "")}>{label}</p>
+                <p className={"first-letter-cap  color-black w700 " + (error ? "color-red" : "")}>{label}</p>
             </Grid>
             <Grid item>
                 <MapContainer center={positionCenter} zoom={13} scrollWheelZoom={true}>

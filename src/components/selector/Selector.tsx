@@ -74,8 +74,8 @@ const Selector = ({
 }: SelectProps) => {
     return (
         <Grid
-            item
             container
+            item
             id={id}
             wrap={wrap}
             justify={justify}
@@ -84,7 +84,7 @@ const Selector = ({
             md={md}
             lg={lg}
             xl={xl}
-            className={`m-top-3 ${className}`}>
+            className={`m-top-1 ${className}`}>
             <Autocomplete
                 className={`text-field-container text-field-group`}
                 options={options}

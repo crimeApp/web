@@ -61,46 +61,41 @@ const CrimeFormPage = () => {
     case 0:
       return (
         <Scaffold>
-          <Container className="p-1" maxWidth="sm">
-            <Grid
-              container
-              item
-              xs={12}
-              md={10}
-              className="m-top-3 p-1 background-color-card-background"
-              justify="center"
-              alignItems="center"
-              alignContent="center"
-            >
-              <Grid item xs={10}>
-                <h2 className="m-bottom-1">{traslate["FORM"]["TITLE"]}</h2>
-              </Grid>
-
-              <Grid item xs={10}>
-                <p className="w500">
-                  Toda la información solicitada permanece completamente anónima
-                  para otros.
+          <Grid
+            container
+            item
+            md={6}
+            xs={12}
+            className="p-2 background-color-card-background"
+            justify="center"
+            alignItems="center"
+            alignContent="center"
+          >
+            <Grid item xs={12} className="p-2">
+              <h2>{traslate["FORM"]["TITLE"]}</h2>
+              <p className="w500">
+                Toda la información solicitada permanece completamente anónima
+                para otros.
                 </p>
-                <p className="w500">
-                  El propósito de este formulario es registrar ciertas
-                  tendencias criminales en Córdoba y contribuir a la seguridad
-                  ciudadana.
+              <p className="w500">
+                El propósito de este formulario es registrar ciertas
+                tendencias criminales en Córdoba y contribuir a la seguridad
+                ciudadana.
                 </p>
-                <p className="w800">¡Agradecemos tu contribución!</p>
-              </Grid>
-
-              <Button
-                  color="violet"
-                  xs={6}
-                  md={5}
-                  label={'Hacer denuncia'}
-                  className="p-1"
-                  onClick={() => {
-                    set_step(1);
-                  }}
-                />
+              <p className="w800">¡Agradecemos tu contribución!</p>
             </Grid>
-          </Container>
+
+            <Button
+              color="violet"
+              xs={6}
+              md={5}
+              label={'Hacer denuncia'}
+              className="p-1"
+              onClick={() => {
+                set_step(1);
+              }}
+            />
+          </Grid>
         </Scaffold>
       );
 
@@ -113,7 +108,7 @@ const CrimeFormPage = () => {
             handleNext={HandleNext}
           >
             <LinearProgress
-              className="border-normal width-400"
+              className="border-normal"
               variant="determinate"
               value={20}
             />
@@ -123,68 +118,76 @@ const CrimeFormPage = () => {
     case 2:
       return (
         <Scaffold>
-          <Grid
-            item
-            xs={12}
-            md={8}
-            container
-            className="background-color-card-background"
-            justify="center"
-            alignItems="center"
-          >
-            <StepTwo
-              data={form_data}
-              handleBack={HandleBack}
-              handleNext={HandleNext}>
-                <LinearProgress
-                className="border-normal width-400"
-                variant="determinate"
-                value={40}
-              />
-                </StepTwo>
-          </Grid>
+          <StepTwo
+            data={form_data}
+            handleBack={HandleBack}
+            handleNext={HandleNext}>
+            <LinearProgress
+              className="border-normal"
+              variant="determinate"
+              value={40}
+            />
+          </StepTwo>
         </Scaffold>
       );
-     
+
     case 3:
       return (
         <Scaffold>
           <Grid
-            item
-            xs={12}
-            md={8}
             container
-            className="p-3 background-color-card-background"
+            item
+            md={6}
+            xs={12}
+            className="p-2 background-color-card-background"
             justify="center"
             alignItems="center"
+            alignContent="center"
           >
-            <Grid item>
-              <h2>Hola xd</h2>
+            <Grid item xs={10}>
+              <h2>{traslate["FORM"]["INTRO"]}</h2>
+              <p className="w500">
+                Toda la información solicitada permanece completamente anónima
+                para otros.
+                </p>
+              <p className="w500">
+                El propósito de este formulario es registrar ciertas
+                tendencias criminales en Córdoba y contribuir a la seguridad
+                ciudadana.
+                </p>
+              <p className="w800">¡Agradecemos tu contribución!</p>
             </Grid>
-            <Grid item className="m-top-3 m-bottom-2">
+
+            <Grid
+              container
+              item
+              md={6}
+              xs={10}
+              direction="row"
+              className='p-top-1'
+              justify="space-around"
+            >
               <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                className=" m-left-3"
+                color="violet"
+                xs={6}
+                md={4}
+                label={traslate.COMMON.CANCEL}
+                className="p-1"
                 onClick={() => {
                   set_step(5);
                 }}
-              >
-                {traslate.COMMON.CANCEL}
-              </Button>
+              />
 
               <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                className="m-right-3"
+                color="violet"
+                xs={6}
+                md={4}
+                label={traslate.COMMON.NEXT}
+                className="p-1"
                 onClick={() => {
                   set_step(step + 1);
                 }}
-              >
-                {traslate.COMMON.CONFIRM}
-              </Button>
+              />
             </Grid>
           </Grid>
         </Scaffold>
@@ -193,28 +196,17 @@ const CrimeFormPage = () => {
     case 4:
       return (
         <Scaffold>
-          <Grid
-            item
-            xs={12}
-            container
-            className="p-3 background-color-card-background"
-            justify="center"
-            alignItems="center"
+          <StepThree
+            data={form_data}
+            handleBack={HandleBack}
+            handleNext={HandleNext}
           >
-            <Grid item xs={12}>
-              <LinearProgress
-                className="m-2 border-normal"
-                variant="determinate"
-                value={60}
-              />
-            </Grid>
-
-            <StepThree
-              data={form_data}
-              handleBack={HandleBack}
-              handleNext={HandleNext}
+            <LinearProgress
+              className="m-2 border-normal"
+              variant="determinate"
+              value={60}
             />
-          </Grid>
+          </StepThree>
         </Scaffold>
       );
     case 5:

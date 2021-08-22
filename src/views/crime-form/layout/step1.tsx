@@ -3,7 +3,7 @@ import { Grid, GridSize } from "@material-ui/core";
 import Select from "../../../components/select/Select";
 import Button from "../../../components/button/Button";
 import yup from "../../../utils/yup";
-import { dniExp } from "../../../utils/reg-exp";
+import { dniExp, hourExp } from "../../../utils/reg-exp";
 import Map from "../../../components/map/Map";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
@@ -13,11 +13,8 @@ import { attack_type_options, sex_options } from "../../../assets/options";
 
 const schema = yup.object().shape({
   attack_type: yup.mixed().oneOf(attack_type_options).required().default(""),
-  date_hour: yup
-    .date()
-    .min(new Date("01/01/2010"))
-    .required()
-    .default(new Date()),
+  hour: yup.string().required().matches(hourExp).default(""),
+  date: yup.date().required(),
   geopoint: yup
     .object({
       lat: yup.number().min(-90).max(90).required().default(-31.43087168213775),
@@ -29,8 +26,8 @@ const schema = yup.object().shape({
         .default(-64.21910252283733),
     })
     .required(),
-  //location: yup.string().min(3).max(100).required().default(""),
-  victim_victim_full_name: yup
+  location: yup.string().required().default(""),
+  victim_full_name: yup
     .string()
     .transform((e) => e.toLowerCase())
     .optional()
@@ -62,6 +59,7 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
 
   const OnFoward = async () => {
     set_error({});
+    console.log(data_state);
     const resp = await Validator(data_state, schema);
 
     if (resp.err) return set_error(resp.data);
@@ -75,7 +73,7 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
     md: 8 as GridSize,
     //@ts-ignore
     value: data_state[name],
-    className: "p-1",
+    className: "p-3",
     color: "light-gray" as ColorCA,
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
@@ -84,33 +82,32 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
 
   return (
     <Grid
+      container
       item
       xs={12}
-      md={6}
-      container
-      className="background-color-card-background"
+      md={5}
+      direction="row"
+      className="p-1 background-color-card-background"
       justify="center"
       alignItems="center"
       alignContent="center"
     >
-      <Grid item xs={10} md={6} className='p-3'>
+      <Grid item xs={12} md={6} className="p-2">
         {children}
       </Grid>
 
       <Map
         required
-        xs={10}
+        xs={12}
         md={8}
-        size="big"
         showSearch
-        justify="center"
         label={traslate.FORM.THEFTINFO.LOCATION}
         onChange={(newValue, label) => {
           HandleChange("geopoint", newValue);
           HandleChange("location", label);
         }}
-        error={error?.geopoint?.error}
-        error_msg={error?.geopoint?.msg}
+        error={error?.location?.error}
+        error_msg={error?.location?.msg}
       />
 
       <Select
@@ -118,12 +115,17 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         required
         label={traslate.FORM.THEFTINFO.THEFT}
         options={attack_type_options}
-        /* msg="Robo: apropiación violenta de un bien ajeno. 
-    Hurto: apropiación NO violenta." */
       />
 
       <Input
-        {...InputConstructor("date_hour")}
+        {...InputConstructor("hour")}
+        type="time"
+        required
+        label={traslate.FORM.THEFTINFO.TIME}
+      />
+
+      <Input
+        {...InputConstructor("date")}
         type="date"
         required
         label={traslate.FORM.THEFTINFO.DATE}
@@ -158,7 +160,15 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         {...InputConstructor("victim_age")}
       />
 
-      <Grid container md={6} xs={10} direction="row" justify="space-around">
+      <Grid
+        container
+        item
+        md={6}
+        xs={10}
+        direction="row"
+        className='p-top-1'
+        justify="space-around"
+      >
         <Button
           color="violet"
           xs={6}

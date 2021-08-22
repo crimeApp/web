@@ -76,6 +76,8 @@ const Switches = ({
       md={md}
       lg={lg}
       xl={xl}
+      container
+      justify='center'
       className={`${className}`}
     >
       <FormControlLabel

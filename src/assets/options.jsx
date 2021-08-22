@@ -79,3 +79,10 @@ export const age_options = [
     "Más de 50",
     "No recuerdo"
 ];
+
+export const time_options = [
+    "Maniana",
+    "Tarde",
+    "Noche"
+];
+

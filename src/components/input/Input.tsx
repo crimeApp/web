@@ -25,7 +25,7 @@ interface InputProps {
     rowsMax?: string | number;
     placeholder?: string;
     className?: string;
-    type?: "number" | "text" | "password" | "email" | "date";
+    type?: "number" | "text" | "password" | "email" | "date" | "time";
     color?: ColorCA;
     colorFont?: ColorCA;
     onChange?: React.EventHandler<any>;

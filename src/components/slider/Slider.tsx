@@ -70,23 +70,29 @@ const DiscreteSlider = ({
   return (
     <Grid
       item
-      className={`select m-bottom-2 ${className}`}
+      className={`${className} p-left-2 p-right-2`}
       xs={xs}
       md={md}
       sm={sm}
       lg={lg}
       xl={xl}
+      container
+      alignContent='center'
+      alignItems='center'
+      justify="center"
     >
       <InputLabel>
         <p
           className={
-            "first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-small w500 " +
+            "first-letter-cap m-top-1 m-bottom-1 font-size-small w500 " +
             (error ? "color-red" : "color-black")
           }
         >
           {label} {required ? "*" : ""}
         </p>
       </InputLabel>
+      
+      <Grid item xs={12} md={10}>
       <Slider
         onChange={onChange}
         getAriaValueText={valuetext}
@@ -98,6 +104,8 @@ const DiscreteSlider = ({
         min={1}
         max={5}
       />
+      </Grid>
+     
       <FormHelperText className={"p-left-1 font-size-normal" + (error_msg ? "color-red" : "color-gray")}>
             {error_msg ?? msg}
         </FormHelperText>

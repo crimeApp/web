@@ -16,7 +16,7 @@
     },
     
     "INSTRUCTIONS": {
-        "INTRO": "Como hacer tu denuncia?",
+        "INTRO": "¿Cómo hacer tu denuncia?",
         "1": "Ingrese a la página del ",
         "2": "Ingrese sus datos personales.",
         "3": "Concurrir a una unidad jurídica.",
@@ -27,13 +27,13 @@
         "INFO": "¿De qué se trata este proyecto?", 
         "TITLE": "DenunciaYa",
         "SUBTITLE": "Toda la información solicitada permanece completamente anónima para otros. El propósito de este formulario es registrar tendencias criminales en Córdoba y contribuir a la seguridad ciudadana. ¡Agradecemos tu contribución!",
-        "INTRO": "",
+        "INTRO": "Te gustaria hacer una encuesta academica?",
         "EXPLANATION": "A continuación, te dejamos los formularios disponibles para rellenar:",
 
         "THEFTINFO": {
             "THIEFINFO": "Información del Robo",
             "THEFT": "Ingrese el tipo de siniestro",
-            "TIMEFRACTION": "Ingrese franja horaria",
+            "TIME": "Ingrese hora",
             "DATE": "Ingrese fecha",
             "DATE-PLACEHOLDER": "dd-mm-aa",
             "EMOTIONAL-DAMAGE": "¿Qué tanto te afectó emocionalmente?",
@@ -43,7 +43,8 @@
             "STOLEN-OBJECTS": "Objetos robados",
             "PLACE-DESCRIPTION": "Descripción del lugar",
             "COMPANY": "¿Con quién te encontrabas?",
-            "LOCATION": "Ubicación"
+            "LOCATION": "Ubicación",
+            "TIMEFRACTION": "Franja horaria"
         },
 
         "PERSONALINFO": {
@@ -61,7 +62,7 @@
 
         "THEFTDETAILS": {
             "THIEFINFO": "Información del Agresor",
-            "PROFILE": "Perfil del agresor",
+            "AGRESSIVE": "Nivel de agresividad del agresor",
             "AGE": "Edad aproximada",
             "SEX": "Sexo",
             "SKIN": "Tonalidad de piel",
@@ -69,7 +70,8 @@
             "HEIGHT": "Altura",
             "PHYSICAL": "Contextura física",
             "COMPLAINT": "¿Se hizo una denuncia?",
-            "ARRESTED": "¿Fue arrestado?"
+            "ARRESTED": "¿Fue arrestado?",
+            "ARMED": "¿Estaba armado?"
         }
     },
 
