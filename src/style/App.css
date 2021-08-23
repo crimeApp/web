@@ -396,3 +396,11 @@ h6 {
 .width-400{
   width: 400px;
 }
+
+.border-soft{
+  border: var(--light-gray) 1px solid;
+}
+
+.border-medium{
+  border: var(--light-gray) 2px solid;
+}

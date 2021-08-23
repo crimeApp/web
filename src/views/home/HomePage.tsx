@@ -4,6 +4,7 @@ import {
   Avatar,
   ListItem,
   ListItemAvatar,
+  ListItemText,
   Link,
   Card,
 } from "@material-ui/core";
@@ -40,9 +41,8 @@ function HomePage() {
         item
         xs={12}
         container
-        className={`p-left-1 p-right-2 background-color-card-background  ${
-          xs ? "m-bottom-1" : "m-bottom-3"
-        }`}
+        className={`p-left-1 p-right-2 background-color-card-background  ${xs ? "" : "m-bottom-3"
+          }`}
       >
         <Grid
           item
@@ -128,18 +128,18 @@ function HomePage() {
           {xs || md ? (
             ""
           ) : (
-            <Grid item md={6} className="p-top-2">
-              <img
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-                alt="CardPhoto"
-                src={process.env.PUBLIC_URL + "/assets/home_page1.png"}
-              />
-            </Grid>
-          )}
+              <Grid item md={6} className="p-top-2">
+                <img
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                  alt="CardPhoto"
+                  src={process.env.PUBLIC_URL + "/assets/home_page1.png"}
+                />
+              </Grid>
+            )}
         </Grid>
       </Grid>
 
@@ -157,22 +157,21 @@ function HomePage() {
           item
           xs={12}
           md={5}
-          className={`border-normal background-color-light-gray ${
-            xs ? "p-2" : "m-left-4 p-3"
-          }`}
+          className={`border-normal background-color-light-gray ${xs ? "p-2" : "m-left-4 p-3"
+            }`}
         >
           {xs ? (
             <h3>{traslate.INSTRUCTIONS.INTRO}</h3>
           ) : (
-            <h2>{traslate.INSTRUCTIONS.INTRO}</h2>
-          )}
+              <h2>{traslate.INSTRUCTIONS.INTRO}</h2>
+            )}
 
           {explanation}
         </Grid>
         <MapMarkers
           xs={12}
           md={6}
-          className={"p-bottom-2"}
+          className={""}
           label={"Encontrá las unidades judiciales más cercanas acá."}
           positionCenter={user_position}
           positions={[
@@ -191,7 +190,10 @@ function HomePage() {
         />
       </Grid>
 
-      {xs ? "" : <CrimeMapPage />}
+      <Grid item xs={12}>
+        {xs ? "" : <CrimeMapPage />}
+      </Grid>
+
     </Scaffold>
   );
 }
@@ -215,9 +217,9 @@ const explanation = (
               <Avatar>{index + 1}</Avatar>
             </Avatar>
           </ListItemAvatar>
-          <p id={labelId} className="font-size-normal w400">
+          <ListItemText id={labelId}>
             {index === 0 ? (
-              <div>
+              <div className="font-size-normal w400">
                 {text}
                 <Link
                   underline="none"
@@ -228,9 +230,11 @@ const explanation = (
                 </Link>
               </div>
             ) : (
-              text
-            )}
-          </p>
+                <div className="font-size-normal w400">
+                  {text}
+                </div>
+              )}
+          </ListItemText>
         </ListItem>
       );
     })}

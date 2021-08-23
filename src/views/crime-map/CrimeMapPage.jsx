@@ -15,18 +15,8 @@ import Input from "../../components/input/Input";
 import Switches from "../../components/switch/Switch";
 import Select from "../../components/select/Select";
 import DiscreteSlider from "../../components/slider/Slider";
-//For charts
-import { Bar } from 'react-chartjs-2';
+import CrimeReports from "../crime-reports/CrimeReports";
 
-const data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [{
-    label: "My First dataset",
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30, 45],
-  }]
-}
 const schema = yup.object({
   time_fraction: yup.mixed().oneOf(time_options).default(""),
   date: yup.date().optional().default(""),
@@ -102,20 +92,18 @@ const CrimeMapPage = () => {
         item
         xs={12}
         container
-        className="p-bottom-3 background-color-card-background p-left-1 p-right-1"
+        className="background-color-card-background p-left-1 p-right-1"
         alignItems="center"
         alignContent="center"
         justify="space-between"
       >
-        <Card variant='outlined' className="p-left-1 p-right-1 m-top-1 p-bottom-1">
-        <Grid item xs={12}>
-          <div className="p-left-3 p-right-3">
+        <Grid item xs={12} className="p-left-1 p-right-1 m-top-1 p-bottom-1 border-medium border-normal" >
+          <div className="p-left-3 p-right-3 ">
           <h3>{traslate["CRIME-MAP"]["TITLE"]}</h3>
           <p className="home-subtitle">
             {traslate["CRIME-MAP"]["DESCRIPTION"]}
           </p>
           </div>
-          
 
           <Input
             {...InputConstructor("date")}
@@ -154,7 +142,6 @@ const CrimeMapPage = () => {
             onClick={HandleSubmit}
           />
         </Grid>
-        </Card>
         
         <MapMarkers
           xs={12}
@@ -175,6 +162,7 @@ const CrimeMapPage = () => {
           ]}
         />
       </Grid>
+      <CrimeReports/>
     </Scaffold>
   );
 };
