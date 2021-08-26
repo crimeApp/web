@@ -3,6 +3,7 @@ import {
   Grid,
   Avatar,
   ListItem,
+  ListItemText,
   ListItemAvatar,
   Link,
   Card,
@@ -215,7 +216,7 @@ const explanation = (
               <Avatar>{index + 1}</Avatar>
             </Avatar>
           </ListItemAvatar>
-          <p id={labelId} className="font-size-normal w400">
+          <ListItemText id={labelId} className="font-size-normal w400">
             {index === 0 ? (
               <div>
                 {text}
@@ -230,7 +231,7 @@ const explanation = (
             ) : (
               text
             )}
-          </p>
+          </ListItemText >
         </ListItem>
       );
     })}

@@ -81,6 +81,9 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
       alignContent="center"
     >
       {children}
+      <Grid item xs={12} md={5}>
+        <h3>Información del atacante</h3>
+      </Grid>
 
       <Select
         {...InputConstructor("thief_age")}

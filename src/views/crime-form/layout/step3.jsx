@@ -11,18 +11,17 @@ import DiscreteSlider from "../../../components/slider/Slider";
 import { accompaniment_options, items_options } from "../../../assets/options";
 
 const schema = yup.object({
-  thief_agressiveness: yup.number().min(1).max(5).required().default(1),
-  victim_company: yup.mixed().default(''),
-  stolenItems: yup.array().of(yup.string().required().min(1).max(5).default('')),
+  thief_agressiveness: yup.number().optional().default(1),
+  victim_company: yup.mixed().optional().default(''),
+  stolenItems: yup.array().of(yup.string().optional().default('')),
   other_items: yup.string().optional().default(''),
-  physical_damage: yup.number().required().default(1),
-  emotional_damage: yup.number().required().default(1),
-  comment: yup.string().min(0).max(150).optional().default('')
+  physical_damage: yup.number().optional().default(1),
+  emotional_damage: yup.number().optional().default(1),
+  comment: yup.string().optional().default('')
 });
 
 
 const StepThree = ({ data, children, handleNext, handleBack }) => {
-  
   const [data_state, set_data] = useState({
     ...schema.getDefault(),
     ...data,

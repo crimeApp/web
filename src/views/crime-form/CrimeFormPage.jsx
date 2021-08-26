@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import MuiAlert from "@material-ui/lab/Alert";
 import traslate from "../../assets/traslate/es.json";
 import Scaffold from "../../components/scaffold/scaffold";
 import { Container, Grid, LinearProgress } from "@material-ui/core";
@@ -10,13 +9,13 @@ import Button from "../../components/button/Button";
 import StepOne from "./layout/step1";
 import StepTwo from "./layout/step2";
 import StepThree from "./layout/step3";
-import AgreeStep from './AgreeStepPage';
 import SubmitStep from "./SubmitStepPage";
 
 const CrimeFormPage = () => {
   const [form_data, set_form_data] = useState({});
   const { xs } = useWindows();
   const [step, set_step] = useState(0);
+
   // Internal Functions with UpperCase
   const HandleNext = (data) => {
     set_form_data({ ...form_data, ...data });
@@ -36,7 +35,12 @@ const CrimeFormPage = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(url + "/new-sinister", form_data);
+      const response = await axios.post(url + "/new-sinister", {
+        ...form_data,
+        stolen_items: form_data.other_items
+          ? [...form_data.stolenItems, form_data.other_items]
+          : form_data.stolenItems,
+      });
       if (response) {
         setLoading(false);
       }
@@ -48,12 +52,8 @@ const CrimeFormPage = () => {
     }
   }
 
-  function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
-
   switch (step) {
-    case 3:
+    case 0:
       return (
         <Scaffold>
           <Grid
@@ -69,8 +69,10 @@ const CrimeFormPage = () => {
           >
             <Grid item xs={12} className="p-2">
               <h2>{traslate["FORM"]["TITLE"]}</h2>
-              <p className="w500">{traslate.FORM.INTROEXPLANATION1}
-                {traslate.FORM.EXPLANATION1}</p>
+              <p className="w500">
+                {traslate.FORM.INTROEXPLANATION1}
+                {traslate.FORM.EXPLANATION1}
+              </p>
               <p className="w800">{traslate.FORM.THANKS}</p>
             </Grid>
 
@@ -100,10 +102,11 @@ const CrimeFormPage = () => {
               item
               xs={12}
               md={10}
-              className={`${xs
-                ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
-                : "p-top-3 p-bottom-2 p-left-4 p-right-4"
-                }`}
+              className={`${
+                xs
+                  ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
+                  : "p-top-3 p-bottom-2 p-left-4 p-right-4"
+              }`}
             >
               <LinearProgress
                 className="border-normal"
@@ -126,10 +129,11 @@ const CrimeFormPage = () => {
               item
               xs={12}
               md={10}
-              className={`${xs
-                ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
-                : "p-top-3 p-bottom-2 p-left-4 p-right-4"
-                }`}
+              className={`${
+                xs
+                  ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
+                  : "p-top-3 p-bottom-2 p-left-4 p-right-4"
+              }`}
             >
               <LinearProgress
                 className="border-normal"
@@ -141,20 +145,7 @@ const CrimeFormPage = () => {
         </Scaffold>
       );
 
-    case 5:
-      return (
-        <Scaffold>
-          <AgreeStep
-              error={error}
-              Alert={Alert()}
-              isLoading={isLoading}
-              handleSubmit={HandleSubmit}
-              handleBack={HandleBack}
-            />
-        </Scaffold>
-      );
-
-    case 4:
+    case 3:
       return (
         <Scaffold>
           <StepThree
@@ -166,10 +157,11 @@ const CrimeFormPage = () => {
               item
               xs={12}
               md={6}
-              className={`${xs
-                ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
-                : "p-top-3 p-bottom-2 "
-                }`}
+              className={`${
+                xs
+                  ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
+                  : "p-top-3 p-bottom-2 "
+              }`}
             >
               <LinearProgress
                 className="border-normal"
@@ -180,7 +172,8 @@ const CrimeFormPage = () => {
           </StepThree>
         </Scaffold>
       );
-    case 0:
+
+    case 4:
       return (
         <Scaffold>
           <Container
@@ -189,7 +182,6 @@ const CrimeFormPage = () => {
           >
             <SubmitStep
               error={error}
-              Alert={Alert()}
               isLoading={isLoading}
               handleSubmit={HandleSubmit}
               handleBack={HandleBack}
@@ -197,6 +189,7 @@ const CrimeFormPage = () => {
           </Container>
         </Scaffold>
       );
+
     default:
       break;
   }
