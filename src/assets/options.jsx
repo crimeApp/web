@@ -25,43 +25,27 @@ export const attack_type_options = [
 ];
 
 export const items_options = [
-    "no aplica",
     "celular",
     "billetera",
-    "documentacion",
-    "dinero",
-    "auto",
-    "computadora",
-    "notebook",
-    "herramientas",
-    "mochila",
-    "cartera",
-    "llaves",
-    "motocicleta",
-    "ropa",
-    "alimento",
-    "accesorios",
     "tarjetas débito/crédito",
+    "Pesos y/o moneda extranjera",
+    "auto",
+    "motocicleta",
+    "computadora",
+    "mochila/cartera",
+    "ropa",
     "electrodomésticos",
     "muebles",
-    "dólares",
     "joyería",
-    "objetos de valor personal",
     "reliquias",
-    "maquinaria",
-    "mascotas",
-    "otros",
+    "mascotas"
 ];
 
 export const hair_options = [
-    "Formal",
-    "Casual",
-    "Deportivo",
-    "Trabajo",
-    "Semiformal",
-    "Escolar",
-    "Arreglado",
-    "Desalineado",
+    "Oscuro",
+    "Rubio",
+    "Castaño",
+    "Teñido fantasía (color no convencional)"
 ];
 
 export const sex_options = ["Hombre", "Mujer", "Indefinido"];

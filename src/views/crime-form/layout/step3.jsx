@@ -5,17 +5,24 @@ import Select from "../../../components/select/Select";
 import Button from "../../../components/button/Button";
 import traslate from "../../../assets/traslate/es.json";
 import Validator from "../../../utils/validator";
+import Input from "../../../components/input/Input";
+import MultipleCheckBox from "../../../components/checkbox/Checkbox";
 import DiscreteSlider from "../../../components/slider/Slider";
-import { accompaniment_options, place_options } from "../../../assets/options";
+import { accompaniment_options, items_options } from "../../../assets/options";
 
 const schema = yup.object({
-  place_description: yup.mixed().default(''),
-  accompaniment: yup.mixed().default(''),
-  physical_damage: yup.number().optional().default(1),
-  emotional_damage: yup.number().optional().default(1),
+  thief_agressiveness: yup.number().min(1).max(5).required().default(1),
+  victim_company: yup.mixed().default(''),
+  stolenItems: yup.array().of(yup.string().required().min(1).max(5).default('')),
+  other_items: yup.string().optional().default(''),
+  physical_damage: yup.number().required().default(1),
+  emotional_damage: yup.number().required().default(1),
+  comment: yup.string().min(0).max(150).optional().default('')
 });
 
+
 const StepThree = ({ data, children, handleNext, handleBack }) => {
+  
   const [data_state, set_data] = useState({
     ...schema.getDefault(),
     ...data,
@@ -45,11 +52,11 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
 
   const InputConstructor = (name) => ({
     name,
-    xs: 10,
-    md: 8,
+    xs: 12,
+    md: 7,
     //@ts-ignore
     value: data_state[name],
-    className: "p-3",
+    className: "p-left-3 p-right-3 p-top-2",
     color: "light-gray",
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
@@ -63,31 +70,35 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
       xs={12}
       md={5}
       direction="row"
-      className="p-1 background-color-card-background"
+      className="p-left-3 p-right-3 background-color-card-background"
       justify="center"
       alignItems="center"
       alignContent="center"
     >
-      <Grid item xs={12} md={6} className="p-2">
-        {children}
-      </Grid>
+      {children}
 
-      <Select
-        {...InputConstructor("place_description")}
-        label={traslate.FORM.PERSONALINFO.SEX}
-        options={place_options}
+      <MultipleCheckBox
+        {...InputConstructor("stolenItems")}
+        className="p-top-2"
+        label={'¿Qué te robaron?'}
+        onChange={(newValue) => HandleChange("stolenItems", newValue)}
+        options={items_options} />
+
+      <Input
+        {...InputConstructor("other_items")}
+        label={'¿No está en la lista? Agregalo acá'}
       />
 
       <Select
-        {...InputConstructor("accompaniment")}
-        label={traslate.FORM.PERSONALINFO.SEX}
+        {...InputConstructor("victim_company")}
+        label={'¿Estabas sólo o acompañado?'}
         options={accompaniment_options}
         required
       />
 
       <DiscreteSlider
         required
-        value={data_state.physical_damage}
+        {...InputConstructor("physical_damage")}
         onChange={(event, newValue) =>
           HandleChange("physical_damage", newValue)
         }
@@ -97,13 +108,31 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
 
       <DiscreteSlider
         required
-        value={data_state.emotional_damage}
+        {...InputConstructor("emotional_damage")}
         label={traslate.FORM.THEFTINFO["EMOTIONAL-DAMAGE"]}
         msg={traslate.FORM.THEFTINFO["EMOTIONAL-EXPLANATION"]}
         onChange={(event, newValue) =>
           HandleChange("emotional_damage", newValue)
         }
-      /> 
+      />
+
+      <DiscreteSlider
+        required
+        {...InputConstructor("thief_agressiveness")}
+        onChange={(event, newValue) =>
+          HandleChange("thief_agressiveness", newValue)
+        }
+        label={'¿Qué tan agresivo fue el atacante?'}
+        msg={'1- Inofensivo. 5- Muy agresivo'}
+      />
+
+      <Input
+        {...InputConstructor("comment")}
+        type="string"
+        multiline
+        rows={3}
+        label={'¿Algo que quieras agregar sobre el ataque?'}
+      />
 
       <Grid
         container
@@ -111,7 +140,7 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
         md={6}
         xs={10}
         direction="row"
-        className='p-top-1'
+        className='p-top-2'
         justify="space-around"
       >
         <Button

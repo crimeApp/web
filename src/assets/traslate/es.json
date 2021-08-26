@@ -26,9 +26,12 @@
     "FORM": {
         "INFO": "¿De qué se trata este proyecto?", 
         "TITLE": "DenunciaYa",
-        "SUBTITLE": "Toda la información solicitada permanece completamente anónima para otros. El propósito de este formulario es registrar tendencias criminales en Córdoba y contribuir a la seguridad ciudadana. ¡Agradecemos tu contribución!",
-        "INTRO": "Te gustaria hacer una encuesta academica?",
-        "EXPLANATION": "A continuación, te dejamos los formularios disponibles para rellenar:",
+        "INTROBUTTON": "Hacer denuncia",
+        "INTROEXPLANATION1": "Toda la información solicitada permanece completamente anónima para otros.",
+        "INTRO": "¿Te gustaría hacer una encuesta académica?",
+        "THANKS": "¡Agradecemos tu contribución!",
+        "EXPLANATION1": "El propósito de este formulario es registrar ciertas tendencias criminales en Córdoba y contribuir a la seguridad ciudadana.",
+        "EXPLANATION2": "Por esa razón, queremos saber si te gustaría completar el resto de la encuesta para dar información más certera sobre los siniestros.",
 
         "THEFTINFO": {
             "THIEFINFO": "Información del Robo",

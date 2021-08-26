@@ -7,7 +7,7 @@ import Validator from "../../../utils/validator";
 import Input from "../../../components/input/Input";
 import Switches from "../../../components/switch/Switch";
 import Select from "../../../components/select/Select";
-import DiscreteSlider from "../../../components/slider/Slider";
+
 import {
   age_options,
   sex_options,
@@ -18,14 +18,13 @@ import {
 
 const schema = yup.object({
   thief_age: yup.mixed().optional().default(''),
-  thief_height: yup.mixed().optional().default(''),
+  thief_hair_color: yup.mixed().optional().default(''),
   thief_sex: yup.mixed().optional().default(''),
   thief_skin: yup.mixed().optional().default(''),
-  thief_hair: yup.mixed().optional().default(''),
-  agressiveness: yup.number().optional().default(1),
-  armed: yup.boolean().optional().default(false),
-  company: yup.number().optional().default(1),
-  description: yup.string().optional().default('')
+  thief_height: yup.mixed().optional().default(''),
+  thief_company: yup.mixed().optional().default(''),
+  thief_armed: yup.boolean().optional().default(false),
+  thief_description: yup.string().optional().default('')
 });
 
 const StepTwo = ({ data, children, handleNext, handleBack }) => {
@@ -58,11 +57,11 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
 
   const InputConstructor = (name) => ({
     name,
-    xs: 10,
-    md: 8,
+    xs: 12,
+    md: 7,
     //@ts-ignore
     value: data_state[name],
-    className: "p-3",
+    className: "p-left-3 p-right-3 p-top-2",
     color: "light-gray",
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
@@ -76,14 +75,12 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
       xs={12}
       md={5}
       direction="row"
-      className="p-1 background-color-card-background"
+      className="p-left-3 p-right-3 background-color-card-background"
       justify="center"
       alignItems="center"
       alignContent="center"
     >
-      <Grid item xs={12} md={6} className="p-2">
-        {children}
-      </Grid>
+      {children}
 
       <Select
         {...InputConstructor("thief_age")}
@@ -98,9 +95,10 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
       />
 
       <Input
+        {...InputConstructor("thief_company")}
         type="number"
-        label={traslate.FORM.THEFTINFO.DATE}
-        {...InputConstructor("company")}
+        label={'Cantidad de cómplices y/o atacantes'}
+        placeholder='0 (si estaba solo/a)'
       />
 
       <Select
@@ -110,8 +108,8 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
       />
 
       <Select
-        {...InputConstructor("thief_hair")}
-        label={traslate.FORM.THEFTDETAILS.CLOTHING}
+        {...InputConstructor("thief_hair_color")}
+        label={'Color de pelo'}
         options={hair_options}
       />
 
@@ -121,25 +119,22 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
         options={skin_options}
       />
 
-      <DiscreteSlider
-        required
-        xs={10}
-        md={8}
-        value={data_state.agressiveness}
-        onChange={(event, newValue) =>
-          HandleChange("agressiveness", newValue)
-        }
-        label={traslate.FORM.THEFTINFO["PHYSICAL-DAMAGE"]}
-        msg={traslate.FORM.THEFTINFO["PHYSICAL-EXPLANATION"]}
+      <Input
+        {...InputConstructor("thief_description")}
+        type="string"
+        multiline
+        rows={'2'}
+        label={'Descripción del atacante'}
+        
       />
 
       <Switches
         xs={10}
         md={8}
-        className="p-top-1 p-bottom-1"
-        label={traslate.FORM.THEFTDETAILS.COMPLAINT}
+        className="p-top-2 p-bottom-1"
+        label={traslate.FORM.THEFTDETAILS.ARMED}
         value={data_state.armed}
-        onChange={(event) => HandleChange("armed", event.target.checked)}
+        onChange={(event) => HandleChange("thief_armed", event.target.checked)}
         error={error?.armed?.error}
         error_msg={error?.armed?.msg}
       />
@@ -150,7 +145,7 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
         md={6}
         xs={10}
         direction="row"
-        className='p-top-1'
+        className='p-top-2'
         justify="space-around"
       >
         <Button

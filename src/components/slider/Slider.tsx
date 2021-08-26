@@ -84,7 +84,7 @@ const DiscreteSlider = ({
       <InputLabel>
         <p
           className={
-            "first-letter-cap m-top-1 m-bottom-1 font-size-small w500 " +
+            "first-letter-cap m-top-1 m-bottom-1 font-size-normal w400 " +
             (error ? "color-red" : "color-black")
           }
         >
@@ -92,7 +92,7 @@ const DiscreteSlider = ({
         </p>
       </InputLabel>
       
-      <Grid item xs={12} md={10}>
+      <Grid item xs={12} md={10} className="p-left-3 p-right-3 p-top-2">
       <Slider
         onChange={onChange}
         getAriaValueText={valuetext}

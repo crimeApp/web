@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Map.css";
 import { TileLayer, MapContainer, Marker, useMap } from "react-leaflet";
-import { Grid, GridSize } from "@material-ui/core";
+import { Grid, GridSize, InputLabel } from "@material-ui/core";
 import { LatLngExpression } from "leaflet";
 import Selector from "../selector/Selector";
 //@ts-ignore
@@ -18,6 +18,7 @@ interface MapProps {
     lat: number;
     lng: number;
   };
+  placeholder?: string;
   showSearch?: boolean;
   location?: string;
   required?: boolean;
@@ -51,9 +52,9 @@ const Map = ({
   id,
   label,
   position,
+  placeholder,
   onChange = () => null,
   error,
-  location,
   required,
   justify,
   error_msg,
@@ -102,49 +103,60 @@ const Map = ({
       className={`map-container ${size} ${className}`}>
 
       {
-        showSearch &&
-        <Selector
-          label={label}
-          xs={10}
-          md={10}
-          value={value}
-          className="m-0 m-bottom-2"
-          options={opt.map(o => o.label)}
-          onInputChange={(_, v, __) => set_value(v)}
-        />
+        showSearch && <div>
+          <InputLabel>
+            <p
+              className={
+                "font-size-normal w400 " +
+                (error ? "color-red" : "color-black")
+              }
+            >
+              {label} {required ? "*" : ""}
+            </p>
+          </InputLabel>
+          <Selector
+            xs={12}
+            md={12}
+            value={value}
+            placeholder={placeholder}
+            className="m-bottom-2 "
+            options={opt.map(o => o.label)}
+            onInputChange={(_, v, __) => set_value(v)}
+          />
+        </div>
       }
 
-        <MapContainer
-          center={position}
-          zoom={zoom}
-          scrollWheelZoom={true}
-          // @ts-ignore
-          whenReady={(map) =>
-            map.target.on("click", (e: { latlng: { lat: any; lng: any } }) =>
-              onChange(e.latlng)
-            )
-          }
-        >
-          <ChangeView
-            center={showSearch ? pos : position?.lat ? position : TEMP_POSITION}
+      <MapContainer
+        center={position}
+        zoom={zoom}
+        scrollWheelZoom={true}
+        // @ts-ignore
+        whenReady={(map) =>
+          map.target.on("click", (e: { latlng: { lat: any; lng: any } }) =>
+            onChange(e.latlng)
+          )
+        }
+      >
+        <ChangeView
+          center={showSearch ? pos : position?.lat ? position : TEMP_POSITION}
+        />
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {
+          //showSearch ? :
+          <Marker
+            position={
+              showSearch
+                ? [pos.lat, pos.lng]
+                : position?.lat
+                  ? [position.lat, position.lng]
+                  : [TEMP_POSITION.lat, TEMP_POSITION.lng]
+            }
           />
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {
-            //showSearch ? :
-            <Marker
-              position={
-                showSearch
-                  ? [pos.lat, pos.lng]
-                  : position?.lat
-                    ? [position.lat, position.lng]
-                    : [TEMP_POSITION.lat, TEMP_POSITION.lng]
-              }
-            />
-          }
-        </MapContainer>
+        }
+      </MapContainer>
 
 
       <Grid item>

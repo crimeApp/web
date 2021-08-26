@@ -97,7 +97,7 @@ const MultipleSelect = ({
   return (
     <Grid
       item
-      className={`select m-bottom-2 ${className}`}
+      className={`m-bottom-2 ${className}`}
       xs={xs}
       md={md}
       sm={sm}

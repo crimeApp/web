@@ -14,7 +14,11 @@ import { attack_type_options, sex_options } from "../../../assets/options";
 const schema = yup.object().shape({
   attack_type: yup.mixed().oneOf(attack_type_options).required().default(""),
   hour: yup.string().required().matches(hourExp).default(""),
-  date: yup.date().required(),
+  date: yup
+    .date()
+    .max(new Date().toLocaleDateString("en-Latn-US"))
+    .required()
+    .default(new Date()),
   geopoint: yup
     .object({
       lat: yup.number().min(-90).max(90).required().default(-31.43087168213775),
@@ -27,14 +31,16 @@ const schema = yup.object().shape({
     })
     .required(),
   location: yup.string().required().default(""),
-  victim_full_name: yup
+  place_description: yup.string().optional().max(50).default(""),
+  full_name: yup
     .string()
     .transform((e) => e.toLowerCase())
     .optional()
+    .max(15)
     .default(""),
-  victim_dni: yup.string().matches(dniExp).required().default(""),
-  victim_age: yup.number().max(100).min(12).optional().default(12),
-  victim_sex: yup.mixed().optional().default(""),
+  dni: yup.string().matches(dniExp).required().default(""),
+  age: yup.number().max(100).min(12).optional().default(12),
+  sex: yup.mixed().optional().default(""),
 });
 
 interface StepOneProps {
@@ -69,11 +75,11 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
 
   const InputConstructor = (name: string) => ({
     name,
-    xs: 10 as GridSize,
-    md: 8 as GridSize,
+    xs: 12 as GridSize,
+    md: 6 as GridSize,
     //@ts-ignore
     value: data_state[name],
-    className: "p-3",
+    className: "p-left-3 p-right-3 p-top-2",
     color: "light-gray" as ColorCA,
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
@@ -87,20 +93,19 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
       xs={12}
       md={5}
       direction="row"
-      className="p-1 background-color-card-background"
+      className="p-left-1 p-right-1 background-color-card-background"
       justify="center"
       alignItems="center"
       alignContent="center"
     >
-      <Grid item xs={12} md={6} className="p-2">
-        {children}
-      </Grid>
+      {children}
 
       <Map
         required
         xs={12}
-        md={8}
+        md={12}
         showSearch
+        placeholder={"Escribe la dirección donde te atacaron"}
         label={traslate.FORM.THEFTINFO.LOCATION}
         onChange={(newValue, label) => {
           HandleChange("geopoint", newValue);
@@ -127,37 +132,46 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
       <Input
         {...InputConstructor("date")}
         type="date"
+        placeholder="dd-mm-aa"
         required
         label={traslate.FORM.THEFTINFO.DATE}
       />
 
       <Input
-        {...InputConstructor("victim_dni")}
+        {...InputConstructor("dni")}
         required
         type="number"
         label={traslate.FORM.PERSONALINFO.DNI}
-        value={data_state.victim_dni}
+        value={data_state.dni}
         error_msg={
-          error?.victim_dni?.type === "matches"
+          error?.dni?.type === "matches"
             ? "El dni ingresado es incorrecto"
-            : error?.victim_dni?.msg
+            : error?.dni?.msg
         }
       />
 
       <Input
+        {...InputConstructor("full_name")}
         label={traslate.FORM.PERSONALINFO.NAME}
-        {...InputConstructor("victim_full_name")}
       />
 
       <Select
-        {...InputConstructor("victim_sex")}
+        {...InputConstructor("sex")}
         label={traslate.FORM.PERSONALINFO.SEX}
         options={sex_options}
       />
 
       <Input
+        {...InputConstructor("age")}
         label={traslate.FORM.PERSONALINFO.AGE}
-        {...InputConstructor("victim_age")}
+
+      />
+
+      <Input
+        {...InputConstructor("place_description")}
+        label={"Descripción del lugar"}
+        multiline
+        rows={3}
       />
 
       <Grid
@@ -166,7 +180,7 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         md={6}
         xs={10}
         direction="row"
-        className='p-top-1'
+        className='p-top-2'
         justify="space-around"
       >
         <Button

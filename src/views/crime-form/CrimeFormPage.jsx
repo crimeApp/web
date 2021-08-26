@@ -4,16 +4,18 @@ import MuiAlert from "@material-ui/lab/Alert";
 import traslate from "../../assets/traslate/es.json";
 import Scaffold from "../../components/scaffold/scaffold";
 import { Container, Grid, LinearProgress } from "@material-ui/core";
-
+import useWindows from "../../hooks/useWindows";
 import Button from "../../components/button/Button";
 
 import StepOne from "./layout/step1";
 import StepTwo from "./layout/step2";
 import StepThree from "./layout/step3";
+import AgreeStep from './AgreeStepPage';
 import SubmitStep from "./SubmitStepPage";
 
 const CrimeFormPage = () => {
   const [form_data, set_form_data] = useState({});
+  const { xs } = useWindows();
   const [step, set_step] = useState(0);
   // Internal Functions with UpperCase
   const HandleNext = (data) => {
@@ -36,7 +38,6 @@ const CrimeFormPage = () => {
     try {
       const response = await axios.post(url + "/new-sinister", form_data);
       if (response) {
-        set_step(step + 1);
         setLoading(false);
       }
     } catch (e) {
@@ -51,14 +52,8 @@ const CrimeFormPage = () => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
 
-  const loadingMessage = <Alert>{traslate["COMMON"]["LOADING"]}</Alert>;
-
-  const errorMessage = (
-    <Alert severity="error">{traslate["COMMON"]["ERROR"]}</Alert>
-  );
-
   switch (step) {
-    case 0:
+    case 3:
       return (
         <Scaffold>
           <Grid
@@ -66,30 +61,24 @@ const CrimeFormPage = () => {
             item
             md={6}
             xs={12}
-            className="p-2 background-color-card-background"
+            className="m-top-2 p-2 border-normal
+             background-color-card-background "
             justify="center"
             alignItems="center"
             alignContent="center"
           >
             <Grid item xs={12} className="p-2">
               <h2>{traslate["FORM"]["TITLE"]}</h2>
-              <p className="w500">
-                Toda la información solicitada permanece completamente anónima
-                para otros.
-                </p>
-              <p className="w500">
-                El propósito de este formulario es registrar ciertas
-                tendencias criminales en Córdoba y contribuir a la seguridad
-                ciudadana.
-                </p>
-              <p className="w800">¡Agradecemos tu contribución!</p>
+              <p className="w500">{traslate.FORM.INTROEXPLANATION1}
+                {traslate.FORM.EXPLANATION1}</p>
+              <p className="w800">{traslate.FORM.THANKS}</p>
             </Grid>
 
             <Button
               color="violet"
-              xs={6}
+              xs={8}
               md={5}
-              label={'Hacer denuncia'}
+              label={traslate.FORM.INTROBUTTON}
               className="p-1"
               onClick={() => {
                 set_step(1);
@@ -107,11 +96,21 @@ const CrimeFormPage = () => {
             handleBack={HandleBack}
             handleNext={HandleNext}
           >
-            <LinearProgress
-              className="border-normal"
-              variant="determinate"
-              value={20}
-            />
+            <Grid
+              item
+              xs={12}
+              md={10}
+              className={`${xs
+                ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
+                : "p-top-3 p-bottom-2 p-left-4 p-right-4"
+                }`}
+            >
+              <LinearProgress
+                className="border-normal"
+                variant="determinate"
+                value={20}
+              />
+            </Grid>
           </StepOne>
         </Scaffold>
       );
@@ -121,75 +120,37 @@ const CrimeFormPage = () => {
           <StepTwo
             data={form_data}
             handleBack={HandleBack}
-            handleNext={HandleNext}>
-            <LinearProgress
-              className="border-normal"
-              variant="determinate"
-              value={40}
-            />
+            handleNext={HandleNext}
+          >
+            <Grid
+              item
+              xs={12}
+              md={10}
+              className={`${xs
+                ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
+                : "p-top-3 p-bottom-2 p-left-4 p-right-4"
+                }`}
+            >
+              <LinearProgress
+                className="border-normal"
+                variant="determinate"
+                value={40}
+              />
+            </Grid>
           </StepTwo>
         </Scaffold>
       );
 
-    case 3:
+    case 5:
       return (
         <Scaffold>
-          <Grid
-            container
-            item
-            md={6}
-            xs={12}
-            className="p-2 background-color-card-background"
-            justify="center"
-            alignItems="center"
-            alignContent="center"
-          >
-            <Grid item xs={10}>
-              <h2>{traslate["FORM"]["INTRO"]}</h2>
-              <p className="w500">
-                Toda la información solicitada permanece completamente anónima
-                para otros.
-                </p>
-              <p className="w500">
-                El propósito de este formulario es registrar ciertas
-                tendencias criminales en Córdoba y contribuir a la seguridad
-                ciudadana.
-                </p>
-              <p className="w800">¡Agradecemos tu contribución!</p>
-            </Grid>
-
-            <Grid
-              container
-              item
-              md={6}
-              xs={10}
-              direction="row"
-              className='p-top-1'
-              justify="space-around"
-            >
-              <Button
-                color="violet"
-                xs={6}
-                md={4}
-                label={traslate.COMMON.CANCEL}
-                className="p-1"
-                onClick={() => {
-                  set_step(5);
-                }}
-              />
-
-              <Button
-                color="violet"
-                xs={6}
-                md={4}
-                label={traslate.COMMON.NEXT}
-                className="p-1"
-                onClick={() => {
-                  set_step(step + 1);
-                }}
-              />
-            </Grid>
-          </Grid>
+          <AgreeStep
+              error={error}
+              Alert={Alert()}
+              isLoading={isLoading}
+              handleSubmit={HandleSubmit}
+              handleBack={HandleBack}
+            />
         </Scaffold>
       );
 
@@ -201,15 +162,25 @@ const CrimeFormPage = () => {
             handleBack={HandleBack}
             handleNext={HandleNext}
           >
-            <LinearProgress
-              className="m-2 border-normal"
-              variant="determinate"
-              value={60}
-            />
+            <Grid
+              item
+              xs={12}
+              md={6}
+              className={`${xs
+                ? "p-left-4 p-right-4 p-top-2 p-bottom-2 "
+                : "p-top-3 p-bottom-2 "
+                }`}
+            >
+              <LinearProgress
+                className="border-normal"
+                variant="determinate"
+                value={60}
+              />
+            </Grid>
           </StepThree>
         </Scaffold>
       );
-    case 5:
+    case 0:
       return (
         <Scaffold>
           <Container
@@ -218,11 +189,10 @@ const CrimeFormPage = () => {
           >
             <SubmitStep
               error={error}
-              data={form_data}
+              Alert={Alert()}
               isLoading={isLoading}
-              errorMessage={errorMessage}
               handleSubmit={HandleSubmit}
-              loadingMessage={loadingMessage}
+              handleBack={HandleBack}
             />
           </Container>
         </Scaffold>

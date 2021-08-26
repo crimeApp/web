@@ -47,9 +47,9 @@ yup.setLocale({
             msg: `Debe ser menor o igual a ${max}`,
             type: "max"
         }),
-        matches: ({ path, label, regex } : any) => ({
+        matches: ({ path } : any) => ({
             path,
-            msg: `La expresion debe coincidir con ${regex}`,
+            msg: `Por favor, ingrese el formato correcto.`,
             type: 'matches'
         })
     },

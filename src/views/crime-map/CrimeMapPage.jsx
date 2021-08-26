@@ -15,18 +15,7 @@ import Input from "../../components/input/Input";
 import Switches from "../../components/switch/Switch";
 import Select from "../../components/select/Select";
 import DiscreteSlider from "../../components/slider/Slider";
-//For charts
-import { Bar } from 'react-chartjs-2';
 
-const data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [{
-    label: "My First dataset",
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30, 45],
-  }]
-}
 const schema = yup.object({
   time_fraction: yup.mixed().oneOf(time_options).default(""),
   date: yup.date().optional().default(""),
