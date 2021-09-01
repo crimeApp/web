@@ -64,7 +64,7 @@ const Selector = ({
     inputValue,
     wrap,
     justify = "center",
-    border = "big",
+    border = "small",
     freeSolo,
     xs,
     sm,
@@ -99,7 +99,7 @@ const Selector = ({
                 onInputChange={onInputChange}
                 renderInput={(params) => (
                     <TextField
-                        label={`${label}${required ? "*" : ""}`}
+                        label={ label && `${label}${required ? "*" : ""}`}
                         hiddenLabel
                         placeholder={placeholder}
                         helperText={error ? error_msg : msg}

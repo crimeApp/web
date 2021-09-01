@@ -7,6 +7,7 @@ import {
   MenuItem,
   Select as SelectMUI,
 } from "@material-ui/core";
+import { BorderCA } from "../../style/type-style";
 
 const Select = ({
   options,
@@ -18,6 +19,7 @@ const Select = ({
   onChange,
   className,
   error,
+  border = "small",
   error_msg,
   msg,
   xs,
@@ -36,6 +38,7 @@ const Select = ({
   className?: string;
   multiple?: boolean;
   color?: string;
+  border?: BorderCA;
   colorFont?: string;
   onChange?: (
     event: React.ChangeEvent<{
@@ -78,7 +81,7 @@ const Select = ({
           height: "var(--height-normal-size)",
         }}
         disableUnderline={true}
-        className={`color-${colorFont} background-color-${color} border-normal`}
+        className={`color-${colorFont} background-color-${color} border-${border}`}
         value={value}
         onChange={onChange}
         MenuProps={{

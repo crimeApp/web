@@ -66,7 +66,7 @@ const Input = ({
   rowsMax,
   rows,
   name,
-  border = "big",
+  border = "small",
   xs,
   sm,
   md,

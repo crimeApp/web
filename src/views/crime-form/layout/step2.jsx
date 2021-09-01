@@ -75,7 +75,7 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
       xs={12}
       md={5}
       direction="row"
-      className="p-left-3 p-right-3 background-color-card-background"
+      className="p-left-3 p-right-3 background-color-light-gray"
       justify="center"
       alignItems="center"
       alignContent="center"

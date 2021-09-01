@@ -107,7 +107,7 @@ const LoginPage = () => {
         />
         <Grid item 
             xs={12} md={5} 
-            className="m-top-3 p-2 border-small background-color-card-background" 
+            className="m-top-3 p-2 border-small background-color-light-gray" 
             container justify="center">
             <Grid item xs={12}>
                 <h3 style={{ textAlign: "center" }}>Ingresar</h3>

@@ -15,6 +15,7 @@ interface MapProps {
         name?: string,
         address?: string,
     }[],
+    style?: React.CSSProperties,
     className?: string,
     error_msg?: string,
     error?: boolean,
@@ -47,9 +48,10 @@ const MapMarkers = ({
     md,
     lg,
     xl,
+    style
 }: MapProps) => {
     return (
-        <Grid container item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`}>
+        <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`map-container ${className}`} style={style} container>
             <Grid item>
                 <p className={"first-letter-cap  color-black w700 " + (error ? "color-red" : "")}>{label}</p>
             </Grid>

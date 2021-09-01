@@ -1,8 +1,6 @@
 export type ColorCA = |
     "white" |
-    "background-color" |
     "light-gray" |
-    "card-background" |
     "grey" |
     "green" |
     "cyan" |

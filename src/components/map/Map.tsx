@@ -103,7 +103,17 @@ const Map = ({
       className={`map-container ${size} ${className}`}>
 
       {
-        showSearch && <div>
+        showSearch ?
+          <Selector
+            xs={12}
+            md={12}
+            value={value}
+            placeholder={placeholder}
+            className="m-bottom-2"
+            options={opt.map(o => o.label)}
+            onInputChange={(_, v, __) => set_value(v)}
+          />
+          :
           <InputLabel>
             <p
               className={
@@ -114,18 +124,7 @@ const Map = ({
               {label} {required ? "*" : ""}
             </p>
           </InputLabel>
-          <Selector
-            xs={12}
-            md={12}
-            value={value}
-            placeholder={placeholder}
-            className="m-bottom-2 "
-            options={opt.map(o => o.label)}
-            onInputChange={(_, v, __) => set_value(v)}
-          />
-        </div>
       }
-
       <MapContainer
         center={position}
         zoom={zoom}
@@ -163,8 +162,8 @@ const Map = ({
         {error_msg ? (
           <p className="map-msg map-error-color font-size-small">{error_msg}</p>
         ) : (
-            msg && <p className="map-msg">{msg}</p>
-          )}
+          msg && <p className="map-msg">{msg}</p>
+        )}
       </Grid>
     </Grid>
   );

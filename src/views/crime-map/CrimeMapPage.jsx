@@ -91,7 +91,7 @@ const CrimeMapPage = () => {
         item
         xs={12}
         container
-        className="p-bottom-3 background-color-card-background p-left-1 p-right-1"
+        className="p-bottom-3 background-color-light-gray p-left-1 p-right-1"
         alignItems="center"
         alignContent="center"
         justify="space-between"

@@ -108,6 +108,7 @@
         "ADMIN": {
             "HOME": "/admin/home",
             "LOGIN": "/admin/login",
+            "FORGET_PASSWORD": "/admin/forget-password",
             "SIGNUP": "/admin/signup"
         }
     }

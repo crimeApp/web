@@ -39,7 +39,7 @@ const schema = yup.object().shape({
     .max(15)
     .default(""),
   dni: yup.string().matches(dniExp).required().default(""),
-  age: yup.number().max(100).min(12).optional().default(12),
+  age: yup.number().max(100).min(12).optional().default(20),
   sex: yup.mixed().optional().default(""),
 });
 
@@ -76,10 +76,9 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
   const InputConstructor = (name: string) => ({
     name,
     xs: 12 as GridSize,
-    md: 6 as GridSize,
     //@ts-ignore
     value: data_state[name],
-    className: "p-left-3 p-right-3 p-top-2",
+    className: "p-left-1 p-right-1 p-top-2",
     color: "light-gray" as ColorCA,
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
@@ -93,17 +92,16 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
       xs={12}
       md={5}
       direction="row"
-      className="p-left-1 p-right-1 background-color-card-background"
+      className="p-2 background-color-white"
       justify="center"
       alignItems="center"
       alignContent="center"
     >
       {children}
-
       <Map
+        className="p-left-1 p-right-1"
         required
         xs={12}
-        md={12}
         showSearch
         placeholder={"Escribe la dirección donde te atacaron"}
         label={traslate.FORM.THEFTINFO.LOCATION}
@@ -114,21 +112,18 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         error={error?.location?.error}
         error_msg={error?.location?.msg}
       />
-
       <Select
         {...InputConstructor("attack_type")}
         required
         label={traslate.FORM.THEFTINFO.THEFT}
         options={attack_type_options}
       />
-
       <Input
         {...InputConstructor("hour")}
         type="time"
         required
         label={traslate.FORM.THEFTINFO.TIME}
       />
-
       <Input
         {...InputConstructor("date")}
         type="date"
@@ -136,7 +131,6 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         required
         label={traslate.FORM.THEFTINFO.DATE}
       />
-
       <Input
         {...InputConstructor("dni")}
         required
@@ -149,35 +143,28 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
             : error?.dni?.msg
         }
       />
-
       <Input
         {...InputConstructor("full_name")}
         label={traslate.FORM.PERSONALINFO.NAME}
       />
-
       <Select
         {...InputConstructor("sex")}
         label={traslate.FORM.PERSONALINFO.SEX}
         options={sex_options}
       />
-
       <Input
         {...InputConstructor("age")}
         label={traslate.FORM.PERSONALINFO.AGE}
-
       />
-
       <Input
         {...InputConstructor("place_description")}
         label={"Descripción del lugar"}
         multiline
         rows={3}
       />
-
       <Grid
         container
         item
-        md={6}
         xs={10}
         direction="row"
         className='p-top-2'
@@ -186,16 +173,13 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         <Button
           color="violet"
           xs={6}
-          md={4}
           label={traslate.COMMON.BACK}
           className="p-1"
           onClick={handleBack}
         />
-
         <Button
           color="violet"
           xs={6}
-          md={4}
           label={traslate.COMMON.NEXT}
           className="p-1"
           onClick={OnFoward}

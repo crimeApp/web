@@ -1,8 +1,6 @@
 :root {
-  --white: #f6fafd;
-  --background-color: #e5e5e5;
+  --white: #fff;
   --light-gray: #ebebf3;
-  --card-background: #ffffff;
   --grey: #c6ceda;
   --green: #42b75e;
   --cyan: #a4eceb;
@@ -37,7 +35,7 @@
   --margin-bottom: 26px;
 
   /* BORDER */
-  --border-small: 5px;
+  --border-small: 7px;
   --border-normal: 15px;
   --border-big: 30px;
   --border-circle: 1000px;
@@ -68,13 +66,6 @@
 body,
 html {
   background-color: var(--light-gray) !important;
-}
-
-@media (max-width: 1024px) {
-  body,
-  html {
-    background-color: var(--card-background) !important;
-  }
 }
 
 input,
@@ -245,10 +236,6 @@ h6 {
   color: var(--gray) !important;
 }
 
-.color-card-background {
-  color: var(--card-background) !important;
-}
-
 .color-grey {
   color: var(--grey) !important;
 }
@@ -285,9 +272,6 @@ h6 {
 }
 .background-color-light-gray{
   background-color: var(--light-gray) !important;
-}
-.background-color-card-background{
-  background-color: var(--card-background) !important;
 }
 .background-color-grey{
   background-color: var(--grey) !important;
