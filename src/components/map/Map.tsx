@@ -88,6 +88,8 @@ const Map = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  useEffect(() => position ? set_pos(position) : undefined, [position])
+
   return (
     <Grid
       container
@@ -101,13 +103,13 @@ const Map = ({
       justify={justify}
       alignItems={'center'}
       className={`map-container ${size} ${className}`}>
-
       {
         showSearch ?
           <Selector
             xs={12}
             md={12}
             value={value}
+            label={label ? (label + (required ? "*" : "")) : undefined}
             placeholder={placeholder}
             className="m-bottom-2"
             options={opt.map(o => o.label)}
@@ -130,34 +132,20 @@ const Map = ({
         zoom={zoom}
         scrollWheelZoom={true}
         // @ts-ignore
-        whenReady={(map) =>
-          map.target.on("click", (e: { latlng: { lat: any; lng: any } }) =>
-            onChange(e.latlng)
-          )
+        whenReady={(map) => map.target.on("click", (e: { latlng: { lat: any; lng: any } }) => onChange(e.latlng, ""))
         }
       >
         <ChangeView
-          center={showSearch ? pos : position?.lat ? position : TEMP_POSITION}
+          center={pos}
         />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {
-          //showSearch ? :
-          <Marker
-            position={
-              showSearch
-                ? [pos.lat, pos.lng]
-                : position?.lat
-                  ? [position.lat, position.lng]
-                  : [TEMP_POSITION.lat, TEMP_POSITION.lng]
-            }
-          />
-        }
+        <Marker
+          position={[pos.lat, pos.lng]}
+        />
       </MapContainer>
-
-
       <Grid item>
         {error_msg ? (
           <p className="map-msg map-error-color font-size-small">{error_msg}</p>

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from '@material-ui/icons/Menu';
-import { ErrorOutline, Error, HelpOutline } from '@material-ui/icons';
+import { ErrorOutline, Error, HelpOutline, AccountCircle } from '@material-ui/icons';
 import "./navbar.css";
 import {
     Grid,
@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core";
 
 import useWindowSize from "../../hooks/useWindows";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,42 +43,36 @@ export default function Navbar() {
     const classes = useStyles();
 
     const [anchor, set_anchor] = useState(false);
-
-    const { md } = useWindowSize();
+    const history = useHistory()
 
     const MobileAccess = () => (
         <Fragment>
             <MenuList>
-                <MenuItem>
-                    <Button href="/crime-form">
-                        <ListItemIcon>
-                            <ErrorOutline fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText>Completar formulario</ListItemText>
-                    </Button>
-
+                <MenuItem onClick={() => history.push("/crime-form")}>
+                    <ListItemIcon>
+                        <ErrorOutline fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Completar formulario</ListItemText>
                 </MenuItem>
-
                 <Divider />
-
-                <MenuItem>
-                    <Button href="/crime-map">
-                        <ListItemIcon>
-                            <Error fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText>Ver mapa y reportes</ListItemText>
-                    </Button>
+                <MenuItem onClick={() => history.push("/crime-map")}>
+                    <ListItemIcon>
+                        <Error fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Ver mapa y reportes</ListItemText>
                 </MenuItem>
-
                 <Divider />
-
-                <MenuItem>
-                    <Button href="/contact">
-                        <ListItemIcon>
-                            <HelpOutline fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText>Sobre nosotros</ListItemText>
-                    </Button>
+                <MenuItem onClick={() => history.push("/contact")}>
+                    <ListItemIcon>
+                        <HelpOutline fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Sobre nosotros</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => history.push("/admin/login")} >
+                    <ListItemIcon>
+                        <AccountCircle fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Admin</ListItemText>
                 </MenuItem>
             </MenuList>
         </Fragment>
@@ -96,18 +91,14 @@ export default function Navbar() {
                             />
                         </Button>
                     </Grid>
-                    {!md ?
-                        null :
-                        <Fragment>
-                            <Grid item xs container justify="flex-end">
-                                <IconButton onClick={() => set_anchor(!anchor)}><MenuIcon /></IconButton>
-                            </Grid>
-                            <Drawer anchor="left" open={anchor} onClose={() => set_anchor(!anchor)}>
-                                <Grid item xs container direction="column" className="p-top-3 p-left-2">
-                                    <MobileAccess />
-                                </Grid>
-                            </Drawer>
-                        </Fragment>}
+                    <Grid item xs container justify="flex-end">
+                        <IconButton onClick={() => set_anchor(!anchor)}><MenuIcon /></IconButton>
+                    </Grid>
+                    <Drawer anchor="right" open={anchor} onClose={() => set_anchor(!anchor)}>
+                        <Grid item xs container direction="column" className="p-top-3 p-left-2">
+                            <MobileAccess />
+                        </Grid>
+                    </Drawer>
                 </Grid>
             </Toolbar>
         </AppBar >

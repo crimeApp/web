@@ -1,158 +1,156 @@
-import React, {useState} from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import traslate from "../../assets/traslate/es.json";
 import Scaffold from "../../components/scaffold/scaffold";
-import {Container, Grid, LinearProgress} from "@material-ui/core";
-import useWindows from "../../hooks/useWindows";
+import { Container, Grid, LinearProgress } from "@material-ui/core";
 import Button from "../../components/button/Button";
 
 import StepOne from "./layout/step1";
 import StepTwo from "./layout/step2";
 import StepThree from "./layout/step3";
 import SubmitStep from "./SubmitStepPage";
+import { HandleAPI } from "../../utils/handle-api";
+import HandlePetitions from "../../components/handle-peticion/HandlePetions";
+import useHandlePage from "../../hooks/useHandlePage";
+import { useHistory } from "react-router-dom";
 
 const CrimeFormPage = () => {
-    const [form_data, set_form_data] = useState({});
-    const {xs} = useWindows();
-    const [step, set_step] = useState(0);
+    const [form_data, set_form_data] = useState({})
+        , [handle_page, set_handle_page] = useHandlePage({})
+        , [step, set_step] = useState(0)
+        , history = useHistory()
 
-    // Internal Functions with UpperCase
-    const HandleNext = (data) => {
-        set_form_data({
-            ...form_data,
-            ...data
-        });
-        set_step(step + 1);
-    };
+        , HandleNext = (data) => {
+            set_form_data({
+                ...form_data,
+                ...data
+            });
+            set_step(step + 1);
+        }
+        , HandleBack = (data) => {
+            set_form_data({
+                ...form_data,
+                ...data
+            });
+            set_step(step - 1);
+        }
 
-    const HandleBack = (data) => {
-        set_form_data({
-            ...form_data,
-            ...data
-        });
-        set_step(step - 1);
-    };
-
-    const url = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app";
-    const [isLoading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-
-    async function HandleSubmit(event) {
-        setLoading(true);
-
-        try {
-            const response = await axios.post(url + "/new-sinister", {
+        , HandleSubmit = async () => {
+            set_handle_page(prev => ({
+                ...prev,
+                loading: true
+            }))
+            const data = {
                 ...form_data,
                 stolen_items: form_data.other_items ? [
                     ...form_data.stolenItems,
                     form_data.other_items
                 ] : form_data.stolenItems
-            });
-            if (response) {
-                setLoading(false);
             }
-        } catch (e) {
-            setTimeout(() => {
-                setError(true);
-                setLoading(false);
-            }, 3000);
+
+            Object.keys(data).forEach((k) => (!data[k] || (typeof data[k] === "string" && data[k].trim() === 0)) && delete data[k]);
+
+            const resp = await HandleAPI({
+                method: "post",
+                path: "/new-sinister",
+                data
+            });
+
+            if (!resp)
+                return set_handle_page({ loading: false, error: true, notification: true, msg: traslate.ERRORS.INTERNAL_SERVER_ERROR })
+
+            switch (resp.status) {
+                case 200:
+                    return set_handle_page({
+                        loading: false,
+                        error: false,
+                        notification: true,
+                        color: "green",
+                        severity: "success",
+                        msg: traslate.OK.SAVE,
+                        callback: () => history.push(traslate.ROUTES.PUBLIC.HOME)
+                    })
+                case 400:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        notification: true,
+                        severity: "error",
+                        msg: traslate.ERRORS.BAD_REQUEST
+                    })
+                default:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        notification: true,
+                        severity: "error",
+                        msg: traslate.ERRORS.INTERNAL_SERVER_ERROR
+                    })
+            }
         }
-    }
 
-    switch (step) {
-        case 0:
-            return (
-                <Scaffold>
-                    <Grid item md={6} xs={12} className="p-2 border-normal background-color-white " container justify="center" alignItems="center" alignContent="center">
-                        <Grid item xs={12} className="p-2">
-                            <h2>{traslate["FORM"]["TITLE"]}</h2>
-                            <p className="w500">
-                                {traslate.FORM.INTROEXPLANATION1}
-                                {traslate.FORM.EXPLANATION1} 
-                                </p>
-                            <p className="w800">{traslate.FORM.THANKS}</p>
-                        </Grid>
-                        <Button color="violet"
-                            xs={8}
-                            md={5}
-                            label={traslate.FORM.INTROBUTTON}
-                            className="p-1"
-                            onClick={() => set_step(1)}/>
-                    </Grid>
-            </Scaffold>
-            );
-
-        case 1:
-            return (
-                <Scaffold>
-                    <StepOne data={form_data} handleBack={HandleBack} handleNext={HandleNext}>
-                        <Grid item xs={12} className={"p-top-2 p-left-2 p-right-2"}>
-                            <h3>Informacion del siniestro</h3>
-                        </Grid>
-                        <Grid item xs={12} className={"p-bottom-3 p-left-2 p-right-2"}>
-                            <LinearProgress className="border-normal" variant="determinate"
-                                value={20}/>
-                        </Grid>
-                    </StepOne>
-                </Scaffold>
-            );
-        case 2:
-            return (
-                <Scaffold>
-                    <StepTwo data={form_data}
-                        handleBack={HandleBack}
-                        handleNext={HandleNext}>
-                        <Grid item
-                            xs={12}
-                            md={10}
-                            className={
-                                `${
-                                    xs ? "p-left-4 p-right-4 p-top-2 p-bottom-2 " : "p-top-3 p-bottom-2 p-left-4 p-right-4"
-                                }`
-                        }>
-                            <LinearProgress className="border-normal" variant="determinate"
-                                value={40}/>
-                        </Grid>
-                    </StepTwo>
-                </Scaffold>
-            );
-
-        case 3:
-            return (
-                <Scaffold>
-                    <StepThree data={form_data}
-                        handleBack={HandleBack}
-                        handleNext={HandleNext}>
-                        <Grid item
-                            xs={12}
-                            md={6}
-                            className={
-                                `${
-                                    xs ? "p-left-4 p-right-4 p-top-2 p-bottom-2 " : "p-top-3 p-bottom-2 "
-                                }`
-                        }>
-                            <LinearProgress className="border-normal" variant="determinate"
-                                value={60}/>
-                        </Grid>
-                    </StepThree>
-                </Scaffold>
-            );
-
-        case 4:
-            return (
-                <Scaffold>
-                    <Container className="p-3 m-top-2 background-color-light-gray" maxWidth="sm">
-                        <SubmitStep error={error}
-                            isLoading={isLoading}
-                            handleSubmit={HandleSubmit}
-                            handleBack={HandleBack}/>
-                    </Container>
-                </Scaffold>
-            );
-
-        default:
-            return null;
-    }
+    return <Scaffold>
+        <HandlePetitions
+            handlePage={handle_page}
+            setHandlePage={set_handle_page}
+        />
+        {
+            (() => {
+                switch (step) {
+                    case 0:
+                        return (
+                            <Grid item md={6} xs={12} className="p-2 border-small background-color-white " container justify="center" alignItems="center" alignContent="center">
+                                <Grid item xs={12} className="p-2">
+                                    <h2>{traslate["FORM"]["TITLE"]}</h2>
+                                    <p className="w500">{traslate.FORM.INTROEXPLANATION1}{traslate.FORM.EXPLANATION1} </p>
+                                    <p className="w800">{traslate.FORM.THANKS}</p>
+                                </Grid>
+                                <Button color="violet" xs={8} md={5} label={traslate.FORM.INTROBUTTON} className="p-1" onClick={() => set_step(1)} />
+                            </Grid>
+                        );
+                    case 1:
+                        return (
+                            <StepOne data={form_data} handleBack={HandleBack} handleNext={HandleNext}>
+                                <Grid item xs={12} className="p-left-2 p-right-2 p-bottom-2">
+                                    <h3>Informacion del siniestro</h3>
+                                </Grid>
+                                <Grid item xs={12} className={"p-bottom-3 p-left-2 p-right-2"}>
+                                    <LinearProgress className="border-normal" variant="determinate" value={20} />
+                                </Grid>
+                            </StepOne>
+                        );
+                    case 2:
+                        return (
+                            <StepTwo data={form_data} handleBack={HandleBack} handleNext={HandleNext}>
+                                <Grid item xs={12} className="p-left-2 p-right-2 p-bottom-2">
+                                    <h3>Información del atacante</h3>
+                                </Grid>
+                                <Grid item xs={12} className="p-bottom-3 p-left-2 p-right-2">
+                                    <LinearProgress className="border-normal" variant="determinate" value={40} />
+                                </Grid>
+                            </StepTwo>
+                        );
+                    case 3:
+                        return (
+                            <StepThree data={form_data} handleBack={HandleBack} handleNext={HandleNext}>
+                                <Grid item xs={12} className="p-left-2 p-right-2 p-bottom-2">
+                                    <h3>Informacion del siniestro</h3>
+                                </Grid>
+                                <Grid item xs={12} className="p-bottom-3 p-left-2 p-right-2">
+                                    <LinearProgress className="border-normal" variant="determinate" value={60} />
+                                </Grid>
+                            </StepThree>
+                        );
+                    case 4:
+                        return (
+                            <Container className="p-2 background-color-white border-small" maxWidth="sm">
+                                <SubmitStep error={handle_page.error} isLoading={handle_page.loading} handleSubmit={HandleSubmit} handleBack={HandleBack} />
+                            </Container>
+                        );
+                    default:
+                        return null;
+                }
+            })()
+        } </Scaffold>
 };
 
 export default CrimeFormPage;

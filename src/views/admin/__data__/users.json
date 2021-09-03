@@ -1,0 +1,46 @@
+[
+    {
+        "name": "Agustin",
+        "surname": "Maures",
+        "cuit": "40208528525",
+        "phone": "3516820607",
+        "mail": "enano@gmail.com",
+        "role": "policia",
+        "password": "string",
+        "place": "A11",
+        "createdAt": 1630706237
+    },
+    {
+        "name": "Agustin",
+        "surname": "Maures",
+        "cuit": "40208528525",
+        "phone": "3516820607",
+        "mail": "enano@gmail.com",
+        "role": "policia",
+        "password": "string",
+        "place": "A11",
+        "createdAt": 1630706237
+    },
+    {
+        "name": "Agustin",
+        "surname": "Maures",
+        "cuit": "40208528525",
+        "phone": "3516820607",
+        "mail": "enano@gmail.com",
+        "role": "funcionario",
+        "password": "string",
+        "place": "A11",
+        "createdAt": 1630706237
+    },
+    {
+        "name": "Agustin",
+        "surname": "Maures",
+        "cuit": "40208528525",
+        "phone": "3516820607",
+        "mail": "enano@gmail.com",
+        "role": "admin",
+        "password": "string",
+        "place": "A11",
+        "createdAt": 1630706237
+    }
+]

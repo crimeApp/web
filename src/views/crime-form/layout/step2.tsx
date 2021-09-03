@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, GridSize } from "@material-ui/core";
 import Button from "../../../components/button/Button";
 import yup from "../../../utils/yup";
 import traslate from "../../../assets/traslate/es.json";
@@ -15,6 +15,7 @@ import {
   height_options,
   hair_options,
 } from "../../../assets/options";
+import { ColorCA } from "../../../style/type-style";
 
 const schema = yup.object({
   thief_age: yup.mixed().optional().default(''),
@@ -27,16 +28,23 @@ const schema = yup.object({
   thief_description: yup.string().optional().default('')
 });
 
-const StepTwo = ({ data, children, handleNext, handleBack }) => {
+interface StepTwoProps {
+  data: any;
+  children: any;
+  handleNext: (data: any) => void;
+  handleBack: (data: any) => void;
+}
+
+const StepTwo = ({ data, children, handleNext, handleBack }: StepTwoProps) => {
   const [data_state, set_data] = useState({
     ...schema.getDefault(),
     ...data,
   });
 
-  const [error, set_error] = useState();
+  const [error, set_error] = useState<any>();
 
-  const HandleChange = (name, value) =>
-    set_data((prevState) => ({
+  const HandleChange = (name: string, value: any) =>
+    set_data((prevState: any) => ({
       ...prevState,
       [name]: value,
     }));
@@ -55,17 +63,16 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
     return handleBack(data_state);
   };
 
-  const InputConstructor = (name) => ({
+  const InputConstructor = (name: string) => ({
     name,
-    xs: 12,
-    md: 7,
+    xs: 12 as GridSize,
     //@ts-ignore
     value: data_state[name],
-    className: "p-left-3 p-right-3 p-top-2",
-    color: "light-gray",
+    className: "p-left-1 p-right-1 p-top-2",
+    color: "light-gray" as ColorCA,
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
-    onChange: (event) => HandleChange(name, event.target.value),
+    onChange: (event: any) => HandleChange(name, event.target.value),
   });
 
   return (
@@ -75,100 +82,74 @@ const StepTwo = ({ data, children, handleNext, handleBack }) => {
       xs={12}
       md={5}
       direction="row"
-      className="p-left-3 p-right-3 background-color-light-gray"
+      className="p-2 background-color-white"
       justify="center"
       alignItems="center"
       alignContent="center"
     >
       {children}
-      <Grid item xs={12} md={5}>
-        <h3>Información del atacante</h3>
-      </Grid>
-
       <Select
         {...InputConstructor("thief_age")}
         label={traslate.FORM.THEFTDETAILS.AGE}
         options={age_options}
       />
-
       <Select
         {...InputConstructor("thief_sex")}
         label={traslate.FORM.THEFTDETAILS.SEX}
         options={sex_options}
       />
-
       <Input
         {...InputConstructor("thief_company")}
         type="number"
         label={'Cantidad de cómplices y/o atacantes'}
         placeholder='0 (si estaba solo/a)'
       />
-
       <Select
         {...InputConstructor("thief_height")}
         label={traslate.FORM.THEFTDETAILS.HEIGHT}
         options={height_options}
       />
-
       <Select
         {...InputConstructor("thief_hair_color")}
         label={'Color de pelo'}
         options={hair_options}
       />
-
       <Select
         {...InputConstructor("thief_skin")}
         label={traslate.FORM.THEFTDETAILS.SKIN}
         options={skin_options}
       />
-
       <Input
         {...InputConstructor("thief_description")}
-        type="string"
         multiline
         rows={'2'}
         label={'Descripción del atacante'}
-        
       />
-
       <Switches
         xs={10}
         md={8}
         className="p-top-2 p-bottom-1"
         label={traslate.FORM.THEFTDETAILS.ARMED}
-        value={data_state.armed}
-        onChange={(event) => HandleChange("thief_armed", event.target.checked)}
-        error={error?.armed?.error}
-        error_msg={error?.armed?.msg}
+        value={data_state.thief_armed}
+        onChange={(event: any) => HandleChange("thief_armed", event.target.checked)}
+        error={error?.thief_armed?.error}
+        error_msg={error?.thief_armed?.msg}
+      />
+      <Button
+        color="violet"
+        xs={6}
+        label={traslate.COMMON.BACK}
+        className="p-1"
+        onClick={OnBackward}
       />
 
-      <Grid
-        container
-        item
-        md={6}
-        xs={10}
-        direction="row"
-        className='p-top-2'
-        justify="space-around"
-      >
-        <Button
-          color="violet"
-          xs={6}
-          md={4}
-          label={traslate.COMMON.BACK}
-          className="p-1"
-          onClick={OnBackward}
-        />
-
-        <Button
-          color="violet"
-          xs={6}
-          md={4}
-          label={traslate.COMMON.NEXT}
-          className="p-1"
-          onClick={OnFoward}
-        />
-      </Grid>
+      <Button
+        color="violet"
+        xs={6}
+        label={traslate.COMMON.NEXT}
+        className="p-1"
+        onClick={OnFoward}
+      />
     </Grid>
   );
 };

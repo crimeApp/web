@@ -27,7 +27,6 @@ interface ButtonProps {
   lg?: undefined | GridSize;
   xl?: undefined | GridSize;
   borderRadius?: BorderCA | undefined;
-  border?: boolean;
 }
 
 const Button = ({
@@ -38,7 +37,6 @@ const Button = ({
   xl,
   label,
   className,
-  border = false,
   borderRadius = "small",
   children,
   color = "violet",
@@ -58,7 +56,7 @@ const Button = ({
       style={{
         width: "100%",
         borderRadius: `var(--border-${borderRadius})`,
-        border: border ? `3px solid var(--${colorFont})` : "0px",
+        border: "0px"
       }}
       className={`background-color-${color} hover`}
       onClick={onClick}

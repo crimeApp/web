@@ -10,10 +10,10 @@ export const place_options = [
 ];
 
 export const accompaniment_options = [
-    "Solo/a, gente alrededor",
-    "Acompañado, gente alrededor",
-    "Solo/a, no gente",
-    "Acompañado, no gente alrededor",
+    "Solo/a, con gente alrededor",
+    "Solo/a, sin gente alrededor",
+    "Acompañado, con gente alrededor",
+    "Acompañado, sin gente alrededor",
 ];
 
 export const attack_type_options = [
@@ -48,7 +48,7 @@ export const hair_options = [
     "Teñido fantasía (color no convencional)"
 ];
 
-export const sex_options = ["Hombre", "Mujer", "Indefinido"];
+export const sex_options = ["Hombre", "Mujer", "Otro"];
 
 export const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 

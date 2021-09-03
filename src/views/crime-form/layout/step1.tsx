@@ -16,11 +16,9 @@ const schema = yup.object().shape({
   hour: yup.string().required().matches(hourExp).default(""),
   date: yup
     .date()
-    .max(new Date().toLocaleDateString("en-Latn-US"))
-    .required()
-    .default(new Date()),
-  geopoint: yup
-    .object({
+    .max(new Date(new Date().getFullYear(), new Date().getDay() + 1 < 31 ? new Date().getMonth() : new Date().getMonth() + 1, new Date().getDay() + 1 < 31 ? new Date().getDay() + 1 : 1))
+    .required(),
+  geopoint: yup.object({
       lat: yup.number().min(-90).max(90).required().default(-31.43087168213775),
       lng: yup
         .number()
@@ -28,9 +26,8 @@ const schema = yup.object().shape({
         .max(180)
         .required()
         .default(-64.21910252283733),
-    })
-    .required(),
-  location: yup.string().required().default(""),
+    }).required(),
+  location: yup.string().default(""),
   place_description: yup.string().optional().max(50).default(""),
   full_name: yup
     .string()
@@ -39,7 +36,7 @@ const schema = yup.object().shape({
     .max(15)
     .default(""),
   dni: yup.string().matches(dniExp).required().default(""),
-  age: yup.number().max(100).min(12).optional().default(20),
+  age: yup.number().max(100).min(12).optional(),
   sex: yup.mixed().optional().default(""),
 });
 
@@ -65,7 +62,6 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
 
   const OnFoward = async () => {
     set_error({});
-    console.log(data_state);
     const resp = await Validator(data_state, schema);
 
     if (resp.err) return set_error(resp.data);
@@ -102,6 +98,7 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         className="p-left-1 p-right-1"
         required
         xs={12}
+        position={data_state.geopoint}
         showSearch
         placeholder={"Escribe la dirección donde te atacaron"}
         label={traslate.FORM.THEFTINFO.LOCATION}
@@ -109,8 +106,8 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
           HandleChange("geopoint", newValue);
           HandleChange("location", label);
         }}
-        error={error?.location?.error}
-        error_msg={error?.location?.msg}
+        error={error?.geopoint?.error}
+        error_msg={error?.geopoint?.msg}
       />
       <Select
         {...InputConstructor("attack_type")}

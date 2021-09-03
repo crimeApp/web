@@ -77,10 +77,11 @@ label {
 p,
 ul,
 li {
-  font-size: var(--font-size-normal);
+  font-size: var(--font-size-small);
   font-weight: var(--weight-regular);
   font-family: "Poppins", sans-serif !important;
   color: var(--black);
+  margin: 2px;
 }
 
 h1,
@@ -90,6 +91,11 @@ h4,
 h5,
 h6 {
   font-weight: var(--weight-bold);
+  margin: 2px;
+}
+
+.hover:hover {
+  cursor: pointer;
 }
 
 /* Margin */

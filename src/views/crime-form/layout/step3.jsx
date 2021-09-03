@@ -52,10 +52,9 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
   const InputConstructor = (name) => ({
     name,
     xs: 12,
-    md: 7,
     //@ts-ignore
     value: data_state[name],
-    className: "p-left-3 p-right-3 p-top-2",
+    className: "p-left-1 p-right-1 p-top-2",
     color: "light-gray",
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
@@ -69,7 +68,7 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
       xs={12}
       md={5}
       direction="row"
-      className="p-left-3 p-right-3 background-color-light-gray"
+      className="p-left-2 p-right-2 background-color-white"
       justify="center"
       alignItems="center"
       alignContent="center"
@@ -78,23 +77,19 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
 
       <MultipleCheckBox
         {...InputConstructor("stolenItems")}
-        className="p-top-2"
         label={'¿Qué te robaron?'}
         onChange={(newValue) => HandleChange("stolenItems", newValue)}
         options={items_options} />
-
       <Input
         {...InputConstructor("other_items")}
         label={'¿No está en la lista? Agregalo acá'}
       />
-
       <Select
         {...InputConstructor("victim_company")}
         label={'¿Estabas sólo o acompañado?'}
         options={accompaniment_options}
         required
       />
-
       <DiscreteSlider
         required
         {...InputConstructor("physical_damage")}
@@ -132,34 +127,21 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
         rows={3}
         label={'¿Algo que quieras agregar sobre el ataque?'}
       />
+      <Button
+        color="violet"
+        xs={6}
+        label={traslate.COMMON.BACK}
+        className="p-1"
+        onClick={OnBackward}
+      />
 
-      <Grid
-        container
-        item
-        md={6}
-        xs={10}
-        direction="row"
-        className='p-top-2'
-        justify="space-around"
-      >
-        <Button
-          color="violet"
-          xs={6}
-          md={4}
-          label={traslate.COMMON.BACK}
-          className="p-1"
-          onClick={OnBackward}
-        />
-
-        <Button
-          color="violet"
-          xs={6}
-          md={4}
-          label={traslate.COMMON.NEXT}
-          className="p-1"
-          onClick={OnFoward}
-        />
-      </Grid>
+      <Button
+        color="violet"
+        xs={6}
+        label={traslate.COMMON.NEXT}
+        className="p-1"
+        onClick={OnFoward}
+      />
     </Grid>
   );
 };

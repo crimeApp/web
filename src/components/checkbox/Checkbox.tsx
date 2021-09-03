@@ -56,7 +56,7 @@ const MultipleCheckBox = ({
       lg={lg}
       xl={xl}
       container
-      justify='center'
+      justify='flex-start'
       className={`p-top-2 p-bottom-2 ${className}`}
     >
       <InputLabel>
@@ -69,7 +69,6 @@ const MultipleCheckBox = ({
           {label} {required ? "*" : ""}
         </p>
       </InputLabel>
-
       <Grid
         item
         xs={12}
@@ -79,7 +78,7 @@ const MultipleCheckBox = ({
         alignItems="flex-start"
       >
         {options.map((opt, index) => (
-          <Grid key={index} item xs={6}>
+          <Grid key={index} item xs={12} sm={6}>
             <FormControlLabel
               control={
                 <Checkbox

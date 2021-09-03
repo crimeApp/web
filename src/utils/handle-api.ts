@@ -1,31 +1,39 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 
-const ENDPOINT = "https://us-west2-crimen-app-ucc.cloudfunctions.net/app"
-
 const CONFIG_ADMIN = {
     headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
     }
 }
 
-export const HandleAPI = async (method: "get" | "post" | "put" | "delete", path: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<any>> => {
+const DEV = "DEV"; // process.env.REACT_APP_ENV ??
+
+export const HandleAPI = async ({ method, path, data, config }: { method: "get" | "post" | "put" | "delete", path: string, data?: any, config?: AxiosRequestConfig }): Promise<AxiosResponse<any>> => {
     try {
-        if (method === "get" || method === "delete") {
-            return await axios[method](ENDPOINT + path, config);
-        }
-        return await axios[method](ENDPOINT + path, data, config);
+        const resp = (method === "get" || method === "delete")
+            ? await axios[method](process.env.REACT_APP_API_GATEWAY + path, config)
+            : await axios[method](process.env.REACT_APP_API_GATEWAY + path, data, config)
+        if (DEV)
+            console.log(resp)
+        return resp
     } catch (error) {
+        if (DEV)
+            console.log(error.response)
         return error.response
     }
 }
 
 export const HandleAPIRestrict = async (method: "get" | "post" | "put" | "delete", path: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<any>> => {
     try {
-        if (method === "get" || method === "delete") {
-            return await axios[method](ENDPOINT + path, { ...CONFIG_ADMIN, ...config });
-        }
-        return await axios[method](ENDPOINT + path, data, { ...CONFIG_ADMIN, ...config });
+        const resp = (method === "get" || method === "delete")
+            ? await axios[method](process.env.REACT_APP_API_GATEWAY + path, { ...CONFIG_ADMIN, ...config })
+            : await axios[method](process.env.REACT_APP_API_GATEWAY + path, data, { ...CONFIG_ADMIN, ...config });
+        if (DEV)
+            console.log(resp)
+        return resp
     } catch (error) {
+        if (DEV)
+            console.log(error.response)
         return error.response
     }
 }

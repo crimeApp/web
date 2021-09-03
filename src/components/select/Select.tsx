@@ -66,7 +66,7 @@ const Select = ({
       <InputLabel>
         <p
           className={
-            "first-letter-cap p-left-2 m-top-1 m-bottom-1 font-size-normal w400 " +
+            "first-letter-cap p-left-2 font-size-small w400 " +
             (error ? "color-red" : "color-black")
           }
         >

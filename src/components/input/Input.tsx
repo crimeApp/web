@@ -82,12 +82,12 @@ const Input = ({
       md={md}
       lg={lg}
       xl={xl}
-      className={`p-top-2 p-bottom-2 ${className}`}
+      className={`p-top-2 p-bottom-1 ${className}`}
     >
       <InputLabel>
         <p
           className={
-            "first-letter-cap p-left-2 m-top-1 m-bottom-2 font-size-normal w400 " +
+            "first-letter-cap p-left-2 font-size-small w400 " +
             (error ? "color-red" : "color-black")
           }
         >
@@ -116,7 +116,7 @@ const Input = ({
         placeholder={placeholder}
         onChange={onChange}
         focused={placeholder ? true : false}
-        className={`text-field-container text-field-group`}
+        className={`text-field-container text-field-group border-${border}`}
         required
         variant="standard"
         InputLabelProps={{ ...inputLabelProps }}
@@ -125,8 +125,8 @@ const Input = ({
           disableUnderline: true,
           autoComplete: "off",
           maxlenght: maxlenght,
+          className: `border-${border}`,
           style: {
-            border: `var(--border-${border})`,
             backgroundColor: `var(--${color})`,
             color: `var(--${colorFont})`,
           },

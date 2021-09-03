@@ -10,19 +10,23 @@ export type ActionAdmin = {
 type StateAdmin = {
     login: boolean,
     token?: string,
+    admin: boolean,
 }
 
 const AdminReducer = (state: StateAdmin, action: ActionAdmin): StateAdmin => {
     switch (action.type) {
         case "LOGIN":
-            storejs.set("token", action.payload.token)
+            storejs.set("token_ca", action.payload.token)
             return {
                 token: action.payload.token,
-                login: true
+                login: true,
+                admin: action.payload.admin
             }
         case "LOGOUT":
+            storejs.remove("token_ca")
             return {
-                login: false
+                login: false,
+                admin: false
             }
         default:
             return state;
@@ -30,8 +34,9 @@ const AdminReducer = (state: StateAdmin, action: ActionAdmin): StateAdmin => {
 }
 
 const InitAdminState: StateAdmin = {
-    login: false,
-    token: storejs.get("token") as string | undefined,
+    login: storejs.get("token_ca") ? true : false,
+    token: storejs.get("token_ca") as string | undefined,
+    admin: false // DEUDA
 }
 
 const AdminContext = createContext<{

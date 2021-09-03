@@ -1,5 +1,5 @@
 import { Grid, GridSize } from "@material-ui/core";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "../../components/button/Button";
@@ -14,30 +14,30 @@ import { cuitExp, passwordExp } from "../../utils/reg-exp";
 import Validator from "../../utils/validator";
 import yup from "../../utils/yup";
 import traslate from "../../assets/traslate/es.json";
+import { AdminContext } from "../../context/admin-context";
 
 const schema = yup.object().shape({
     cuit: yup.string().required().matches(cuitExp),
     password: yup.string().required().matches(passwordExp)
 })
 
-
 const LoginPage = () => {
 
     const [errors, set_errors] = useState<any>()
-        , [handle_page, set_handle_page] = useHandlePage()
+        , [handle_page, set_handle_page] = useHandlePage({})
         , [form, set_form] = useState({
             cuit: "",
             password: ""
         })
+        , { admin_state, admin_dispatch } = useContext(AdminContext)
         , history = useHistory()
         , InputConstructor = (name: string) => ({
             name,
             xs: 12 as GridSize,
-            md: 10 as GridSize,
             //@ts-ignore
             value: form[name],
             color: "light-gray" as ColorCA,
-            className: "m-top-1",
+            className: "m-top-1 p-1",
             onChange: (event: any) => set_form(prev => ({ ...prev, [name]: event.target.value })),
             error: errors?.[name]?.error,
             error_msg: errors?.[name]?.type === "matches" ?
@@ -45,7 +45,7 @@ const LoginPage = () => {
                 traslate.ERRORS[name] : errors?.[name]?.msg
         })
         , onSummit = async () => {
-            set_handle_page({ ...handle_page, loading: true })
+            set_handle_page(prev => ({ ...prev, loading: true }))
             set_errors({})
 
             const resp = await Validator(form, schema);
@@ -55,7 +55,7 @@ const LoginPage = () => {
                 return set_errors(resp.data)
             }
 
-            const request = await HandleAPI("post", "/login", resp.data)
+            const request = await HandleAPI({ method: "post", path: "/admin/login", data: resp.data })
 
             if (!request) return set_handle_page({
                 ...handle_page,
@@ -68,7 +68,10 @@ const LoginPage = () => {
 
             switch (request.status) {
                 case 200:
-                    localStorage.setItem("token", request.data.token)
+                    admin_dispatch({
+                        type: "LOGIN",
+                        payload: request.data.token
+                    })
                     return history.push(traslate.ROUTES.ADMIN.HOME)
                 case 400:
                     return set_handle_page({
@@ -100,14 +103,16 @@ const LoginPage = () => {
             }
         };
 
+    useEffect(() => admin_state.login ? history.push(traslate.ROUTES.ADMIN.HOME) : undefined, [])
+
     return <Scaffold>
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
-        <Grid item 
-            xs={12} md={5} 
-            className="m-top-3 p-2 border-small background-color-light-gray" 
+        <Grid item
+            xs={12} md={5}
+            className="p-3 border-small background-color-white"
             container justify="center">
             <Grid item xs={12}>
                 <h3 style={{ textAlign: "center" }}>Ingresar</h3>
@@ -121,21 +126,23 @@ const LoginPage = () => {
                 label="Contraseña"
                 {...InputConstructor("password")}
             />
+            <Grid item xs={12}>
+                <p className="p-1 w400 font-size-small hover" onClick={() => history.push(traslate.ROUTES.ADMIN.FORGET_PASSWORD)}>Olvido su contrasenia? Ingrese aqui para recuperarla </p>
+            </Grid>
             <Button
-                xs={8}
-                md={10}
-                className="m-top-2"
+                xs={12}
+                md={6}
+                className="p-1 m-top-2"
                 label="Ingresar"
                 onClick={onSummit}
             />
             <Button
-                xs={8}
-                md={3}
-                className="m-top-2"
+                xs={12}
+                md={6}
+                className="p-1 m-top-2"
                 label="Volver"
                 color="white"
                 colorFont="violet"
-                border
                 onClick={() => history.push(traslate.ROUTES.PUBLIC.HOME)}
             />
         </Grid>
