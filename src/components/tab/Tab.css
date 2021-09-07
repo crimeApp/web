@@ -1,0 +1,23 @@
+/* Material UI re-write Class */
+
+/* TABS */
+.tab .MuiPaper-root {
+    background-color: transparent;
+}
+.tab .MuiTabs-root {
+    background-color: var(--white);
+}
+
+.tab .MuiTabs-root span {
+    font-family: "Poppins", sans-serif !important;
+    font-weight: var(--weight-bold);
+    color: var(--dark);
+}
+
+.tab .MuiTabs-root .Mui-selected {
+    color: var(--violet) !important;
+}
+
+.tab .MuiTabs-root .MuiTabs-indicator {
+    background-color: var(--violet) !important;
+}

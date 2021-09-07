@@ -1,0 +1,35 @@
+export type SiniesterModel = {
+    id: string,
+    attack_type: string,
+    createdAt: number,
+    date: string,
+    dni: string,
+    emotional_damage: number,
+    geopoint: {
+        lat: number,
+        lng: number
+    },
+    hash: string,
+    hour: string,
+    physical_damage: number,
+    severity: number,
+    thief_agressiveness: number,
+    thief_skin?: string,
+    time: number,
+    location?: string,
+    place_description?: string,
+    full_name?: string,
+    age?: number,
+    sex?: string,
+    thief_age?: string,
+    thief_hair_color?: string,
+    thief_sex?: string,
+    thief_height?: string,
+    thief_company?: string,
+    thief_armed?: boolean,
+    thief_description?: string,
+    victim_company?: number,
+    stolenItems?: string[],
+    other_items?: string
+    comment?: string
+}

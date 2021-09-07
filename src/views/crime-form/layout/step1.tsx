@@ -16,17 +16,17 @@ const schema = yup.object().shape({
   hour: yup.string().required().matches(hourExp).default(""),
   date: yup
     .date()
-    .max(new Date(new Date().getFullYear(), new Date().getDay() + 1 < 31 ? new Date().getMonth() : new Date().getMonth() + 1, new Date().getDay() + 1 < 31 ? new Date().getDay() + 1 : 1))
+    .max(new Date(new Date().getFullYear(), (new Date().getDay() + 1 < 31) ? new Date().getMonth() : new Date().getMonth() + 1, (new Date().getDay() + 1 < 31) ? new Date().getDay() : 1))
     .required(),
   geopoint: yup.object({
-      lat: yup.number().min(-90).max(90).required().default(-31.43087168213775),
-      lng: yup
-        .number()
-        .min(-180)
-        .max(180)
-        .required()
-        .default(-64.21910252283733),
-    }).required(),
+    lat: yup.number().min(-90).max(90).required().default(-31.43087168213775),
+    lng: yup
+      .number()
+      .min(-180)
+      .max(180)
+      .required()
+      .default(-64.21910252283733),
+  }).required(),
   location: yup.string().default(""),
   place_description: yup.string().optional().max(50).default(""),
   full_name: yup

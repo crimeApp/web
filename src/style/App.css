@@ -98,6 +98,31 @@ h6 {
   cursor: pointer;
 }
 
+/* SCROLLBAR */
+/* width */
+*::-webkit-scrollbar {
+  position: fixed !important;
+  right: 0px !important;
+  width: 7px !important;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: var(--grey) !important;
+  border-radius: var(--border-normal) !important;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--gray) !important;
+}
+
+
 /* Margin */
 .m-0 {
   margin: 0px !important;

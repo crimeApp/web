@@ -1,0 +1,6 @@
+
+
+.hover-card:hover {
+    cursor: pointer;
+    background-color: var(--grey) !important;
+}

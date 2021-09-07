@@ -7,7 +7,6 @@ import HandlePetitions from "../../components/handle-peticion/HandlePetions";
 import Input from "../../components/input/Input";
 import Scaffold from "../../components/scaffold/scaffold";
 import useHandlePage from "../../hooks/useHandlePage";
-//import { HandlePageModel } from "../../models/HandlePageModel";
 import { ColorCA } from "../../style/type-style";
 import { HandleAPI } from "../../utils/handle-api";
 import { cuitExp, passwordExp } from "../../utils/reg-exp";
@@ -70,7 +69,9 @@ const LoginPage = () => {
                 case 200:
                     admin_dispatch({
                         type: "LOGIN",
-                        payload: request.data.token
+                        payload: {
+                            token: request.data.token
+                        }
                     })
                     return history.push(traslate.ROUTES.ADMIN.HOME)
                 case 400:
