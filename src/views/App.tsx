@@ -11,7 +11,7 @@ import { useReducer } from 'react';
 import { AdminContext, AdminReducer, InitAdminState } from '../context/admin-context';
 import ForgetPasswordPage from './admin/forget-password-page';
 import HomeAdminPage from './admin/home';
-import MapAdminPage from './admin/map';
+import MapAdminPage from './admin/MapPage/map';
 import StadisticsPage from './admin/stadistic';
 import UsersAdminPage from './admin/users';
 

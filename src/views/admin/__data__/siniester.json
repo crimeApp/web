@@ -29,7 +29,7 @@
         "thief_company": "sin compania",
         "thief_armed": true,
         "thief_description": "nada mas para decir",
-        "victim_company": "yup.mixed().optional().default('')",
+        "victim_company": "Sin acompaniamiento",
         "stolenItems": [
             "celular", "billetera"
         ],
