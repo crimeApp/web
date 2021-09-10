@@ -55,7 +55,7 @@ const Tabs = ({
     return <>
         <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className="tab">
             <Paper>
-                <TabsM style={{ borderRadius: "10px 10px 0px 0px" }} value={value} variant={variant} onChange={handleChange}>
+                <TabsM style={{ borderRadius: "5px 5px 0px 0px" }} value={value} variant={variant} onChange={handleChange}>
                     {
                         labels.map((label, index) => <Tab key={index.toString()} label={label} value={index} />)
                     }

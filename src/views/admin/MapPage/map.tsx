@@ -31,8 +31,8 @@ const MapAdminPage = () => {
         <Grid item xs={12} sm={6} className='p-1' container alignContent="flex-start">
             <Tabs xs={12} labels={["Ubicacion", "Detalle"]} >
                 <Map xs={12} position={state.geopoint} />
-                <Grid className="background-color-white p-2" container>
-                    <Grid item xs={12} className='p-bottom-2'>
+                <Grid className="background-color-white p-2" container style={{ borderRadius: "0px 0px 5px 5px" }}>
+                    <Grid item xs={12} className='p-bottom-2 m-top-2'>
                         <h4>Descripcion del caso</h4>
                     </Grid>
                     <Grid item xs={12} className={classNameDetailGrid}>
@@ -41,7 +41,10 @@ const MapAdminPage = () => {
                     <Grid item xs={12} className={classNameDetailGrid}>
                         <p><span className={classNameDetailText}>Descripcion extra del lugar:</span>{state.place_description}</p>
                     </Grid>
-                    <Grid item xs={12} className='p-bottom-2'>
+                    <Grid item xs={12} className={classNameDetailGrid}>
+                        <p><span className={classNameDetailText}>Comentarios del caso:</span>{state.comment}</p>
+                    </Grid>
+                    <Grid item xs={12} className='p-top-3 p-bottom-2 m-top-2'>
                         <h4>Informacion de la victima</h4>
                     </Grid>
                     <Grid item xs={6} className={classNameDetailGrid}>
@@ -57,15 +60,21 @@ const MapAdminPage = () => {
                         <p><span className={classNameDetailText}>Sexo:</span>{state.sex}</p>
                     </Grid>
                     <Grid item xs={6} className={classNameDetailGrid}>
-                        <p><span className={classNameDetailText}>Danio emocional:</span>{state.emotional_damage}</p>
+                        <p><span className={classNameDetailText}>Daño emocional:</span>{state.emotional_damage}</p>
                     </Grid>
                     <Grid item xs={6} className={classNameDetailGrid}>
-                        <p><span className={classNameDetailText}>Danio fisico:</span>{state.physical_damage}</p>
+                        <p><span className={classNameDetailText}>Daño fisico:</span>{state.physical_damage}</p>
                     </Grid>
-                    <Grid item xs={6} className={classNameDetailGrid}>
-                        <p><span className={classNameDetailText}>Acompaniado </span>{state.victim_company}</p>
+                    <Grid item xs={12} className={classNameDetailGrid}>
+                        <p><span className={classNameDetailText}>Acompañado:</span>{state.victim_company}</p>
                     </Grid>
-                    <Grid item xs={12} className='p-top-3 p-bottom-2'>
+                    <Grid item xs={12} className={classNameDetailGrid}>
+                        <p><span className={classNameDetailText}>Objetos robados:</span>{state.stolenItems?.toString()}</p>
+                    </Grid>
+                    <Grid item xs={12} className={classNameDetailGrid}>
+                        <p><span className={classNameDetailText}>Otros objetos:</span>{state.other_items}</p>
+                    </Grid>
+                    <Grid item xs={12} className='p-top-3 p-bottom-2 m-top-2'>
                         <h4>Informacion del delincuente</h4>
                     </Grid>
                     <Grid item xs={6} className={classNameDetailGrid}>
@@ -87,6 +96,9 @@ const MapAdminPage = () => {
                         <p><span className={classNameDetailText}>Color de pelo:</span>{state.thief_hair_color}</p>
                     </Grid>
                     <Grid item xs={12} className={classNameDetailGrid}>
+                        <p><span className={classNameDetailText}>Acompañamiento:</span>{state.thief_company}</p>
+                    </Grid>
+                    <Grid item xs={12} className={classNameDetailGrid}>
                         <p><span className={classNameDetailText}>Altura con respecto de la victima:</span>{state.thief_height}</p>
                     </Grid>
                     <Grid item xs={12} className={classNameDetailGrid}>
@@ -95,7 +107,7 @@ const MapAdminPage = () => {
                 </Grid>
             </Tabs>
         </Grid>
-        <Grid item xs={12} sm={6} className="p-1" container style={{ height: "60vh", overflowY: "scroll" }} alignContent="flex-start">
+        <Grid item xs={12} sm={6} className="m-top-1 p-1" container style={{ height: "80vh", overflowY: "scroll" }} alignContent="flex-start">
             <Grid item xs={12} container className="p-2" style={{ borderLeft: "10px solid transparent" }}>
                 <Grid item xs={4} className="p-1" container justify="center"><p className="w700">Fecha</p></Grid>
                 <Grid item xs={5} className="p-1" container justify="center"><p className="w700">Siniestro</p></Grid>

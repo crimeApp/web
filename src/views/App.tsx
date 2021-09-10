@@ -12,8 +12,12 @@ import { AdminContext, AdminReducer, InitAdminState } from '../context/admin-con
 import ForgetPasswordPage from './admin/forget-password-page';
 import HomeAdminPage from './admin/home';
 import MapAdminPage from './admin/MapPage/map';
-import StadisticsPage from './admin/stadistic';
+import StadisticsPage from './admin/StadisticPage/stadistic';
 import UsersAdminPage from './admin/users';
+import BarPage from './admin/StadisticPage/layers/barPage';
+import LinePage from './admin/StadisticPage/layers/linePage';
+import PiePage from './admin/StadisticPage/layers/PiePage';
+import PolarPage from './admin/StadisticPage/layers/PolarPage';
 
 const App = () => {
     const [admin_state, admin_dispatch] = useReducer(AdminReducer, InitAdminState)
@@ -32,6 +36,10 @@ const App = () => {
                 <Route path="/admin/users" exact={true} component={UsersAdminPage} />
                 <Route path="/admin/map" exact={true} component={MapAdminPage} />
                 <Route path="/admin/statistics" exact={true} component={StadisticsPage} />
+                <Route path="/admin/statistics/bar" exact={true} component={BarPage} />
+                <Route path="/admin/statistics/line" exact={true} component={LinePage} />
+                <Route path="/admin/statistics/pie" exact={true} component={PiePage} />
+                <Route path="/admin/statistics/polar" exact={true} component={PolarPage} />
             </AdminContext.Provider>
         </Switch>
     </Router>

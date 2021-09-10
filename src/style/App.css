@@ -161,7 +161,7 @@ h6 {
   margin-top: 24px !important;
 }
 .m-top-4 {
-  margin: 32px !important;
+  margin-top: 32px !important;
 }
 .m-bottom-1 {
   margin-bottom: 6px !important;
@@ -173,7 +173,7 @@ h6 {
   margin-bottom: 24px !important;
 }
 .m-bottom-4 {
-  margin: 32px !important;
+  margin-bottom: 32px !important;
 }
 .m-right-1 {
   margin-right: 6px !important;
@@ -184,8 +184,8 @@ h6 {
 .m-right-3 {
   margin-right: 24px !important;
 }
-.m-right4 {
-  margin: 32px !important;
+.m-right-4 {
+  margin-right: 32px !important;
 }
 
 /* Padding */

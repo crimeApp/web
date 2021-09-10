@@ -128,6 +128,9 @@ const Map = ({
           </InputLabel>
       }
       <MapContainer
+        style={{
+          height: "350px"
+        }}
         center={position}
         zoom={zoom}
         scrollWheelZoom={true}

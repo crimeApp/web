@@ -70,7 +70,7 @@ const LoginPage = () => {
                     admin_dispatch({
                         type: "LOGIN",
                         payload: {
-                            token: request.data.token
+                            token: request.data
                         }
                     })
                     return history.push(traslate.ROUTES.ADMIN.HOME)
