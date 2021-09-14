@@ -115,7 +115,8 @@ const Selector = ({
                             style: {
                                 border: `var(--border-${border})`,
                                 backgroundColor: `var(--${color})`,
-                                color: `var(--${colorFont})`
+                                color: `var(--${colorFont})`,
+                                textTransform: "capitalize"
                             },
                             startAdornment: (
                                 <InputAdornment position="start">

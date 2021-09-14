@@ -25,14 +25,14 @@ const StadisticsPage = () => {
         {
             [
                 {
-                    title: "Cantidad de siniestros",
-                    description: "Evolucion de los casos en la ciudad de cordoba en el pasar de los meses",
+                    title: "Historico",
+                    description: "Evolucion de los casos en la ciudad de cordoba en el pasar de los meses filtrados por el tipo de caso",
                     href: "line",
                     img: "line"
                 },
                 {
-                    title: "Conformacion de los casos en el ultimo mes",
-                    description: "Evolucion de los casos en la ciudad de cordoba en el pasar de los meses",
+                    title: "Distribucion general",
+                    description: "Como es la evolucion de los casos en los ultimos 12 meses",
                     href: "bar",
                     img: "bar"
                 },
@@ -43,8 +43,8 @@ const StadisticsPage = () => {
                     img: "polar"
                 },
                 {
-                    title: "C",
-                    description: "Evolucion de los casos en la ciudad de cordoba en el pasar de los meses",
+                    title: "Resumen",
+                    description: "Diversos graficos que muestran un analisis general de toda la informacion",
                     href: "pie",
                     img: "pie"
                 }

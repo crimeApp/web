@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import HandlePetitions from "../../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
-import { Pie } from 'react-chartjs-2';
-import { MockDataCrimeTemp } from "../../__data__/stadistics";
+import { Bar, Pie, PolarArea } from 'react-chartjs-2';
+import { MockDataCrimeTemp, MockDataCrimeType } from "../../__data__/stadistics";
 import { Grid } from "@material-ui/core";
 import BackButton from "../../component/BackButton";
+import Button from "../../../../components/button/Button";
+import { uiPrint } from "../../../../utils/ui-print";
 
 const PiePage = () => {
 
@@ -15,25 +17,48 @@ const PiePage = () => {
         set_handle_page(prev => ({ ...prev, loading: false }))
     }, [])
 
-
     return <ScaffoldAdmin>
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
-        <Grid item xs={12} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white" container>
+        <Grid item xs={12} md={6} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white" container justify="center">
             <BackButton />
-            <Grid item xs={12} className="p-2">
-                <h3>Cantidad de siniestros</h3>
+            <Grid id="capture" item xs={12} container justify="center" >
+                <Grid item xs={12} className="p-2">
+                    <h3>Resumen</h3>
+                </Grid>
+                <Grid item xs={12} className="p-2">
+                    <p>Analisis con diferentes tipos de perspectivas del perfil del atacante</p>
+                </Grid>
+                <Grid item xs={12} className="p-2" container justify="center">
+                    <h4>Tipo de robo</h4>
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                    <Pie data={MockDataCrimeType} />
+                </Grid>
+                <Grid item xs={12} className="m-top-3 p-2" container justify="center">
+                    <h4>Tipo de robo</h4>
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                    <PolarArea data={MockDataCrimeType} />
+                </Grid>
+                <Grid item xs={12} className="m-top-3 p-2" container justify="center">
+                    <h4>Tipo de robo</h4>
+                </Grid>
+                <Grid item xs={12}>
+                    <Bar data={MockDataCrimeType} />
+                </Grid>
             </Grid>
-            <Grid item xs={12} sm={4} className="p-2">
-                <p>Descripcion total de bla bla bla</p>
-            </Grid>
-            <Grid item xs={12} sm={8} >
-                <Pie data={MockDataCrimeTemp} />
-            </Grid>
+            <Button
+                className="m-top-3"
+                xs={12}
+                sm={8}
+                label="Imprimir"
+                onClick={() => uiPrint({})}
+            />
         </Grid>
-    </ScaffoldAdmin>
+    </ScaffoldAdmin >
 }
 
 export default PiePage;
