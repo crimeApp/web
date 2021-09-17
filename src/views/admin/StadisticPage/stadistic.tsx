@@ -31,14 +31,14 @@ const StadisticsPage = () => {
                     img: "line"
                 },
                 {
-                    title: "Distribucion general",
-                    description: "Como es la evolucion de los casos en los ultimos 12 meses",
+                    title: "Distribucion",
+                    description: "Como es la evolucion de los tipos de casos en los ultimos 12 meses",
                     href: "bar",
                     img: "bar"
                 },
                 {
-                    title: "Exploracion de involucrados",
-                    description: "Evolucion de los casos en la ciudad de cordoba en el pasar de los meses",
+                    title: "Exploracion",
+                    description: "Analisis exploratorio de los sospechosos",
                     href: "polar",
                     img: "polar"
                 },

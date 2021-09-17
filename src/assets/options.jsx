@@ -4,6 +4,7 @@ export const place_options = [
     "Parada de colectivo",
     "Centro comercial",
     "Propiedad privada",
+    "Parque",
     "Supermercado",
     "Estacionamiento",
     "Otro",

@@ -38,12 +38,12 @@ const LinePage = () => {
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
-        <Grid item xs={12} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white" container>
+        <Grid item xs={12} sm={8} md={6} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white" container justify="center">
             <BackButton />
             <Grid item xs={12} className="p-2">
                 <h3>Evolucion de los datos</h3>
             </Grid>
-            <Grid item xs={12} sm={4} className="p-2" container alignContent="flex-start" justify="center">
+            <Grid item xs={12} className="p-2" container alignContent="flex-start" justify="center">
                 <Grid item xs={12}>
                     <p>El dataset esta conformado por la evolucion historica de los tipos de casos.</p>
                 </Grid>
@@ -54,17 +54,17 @@ const LinePage = () => {
                     options={OPTIONS}
                     onChange={handleDataset}
                 />
-                <Button
-                    className="m-top-3"
-                    xs={12}
-                    sm={8}
-                    label="Imprimir"
-                    onClick={() => uiPrint({ name: "Evolucion" })}
-                />
             </Grid>
-            <Grid id="capture" item xs={12} sm={8} >
+            <Grid id="capture" item xs={12} className="m-top-2" >
                 <Line data={data} />
             </Grid>
+            <Button
+                className="m-top-3"
+                xs={12}
+                sm={8}
+                label="Imprimir"
+                onClick={() => uiPrint({ name: "Evolucion" })}
+            />
         </Grid>
     </ScaffoldAdmin>
 }

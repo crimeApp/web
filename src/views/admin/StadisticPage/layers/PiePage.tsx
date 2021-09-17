@@ -3,11 +3,12 @@ import HandlePetitions from "../../../../components/handle-peticion/HandlePetion
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
 import { Bar, Pie, PolarArea } from 'react-chartjs-2';
-import { MockDataCrimeTemp, MockDataCrimeType } from "../../__data__/stadistics";
+import { MockDataCrimePlace, MockDataCrimeTemp, MockDataCrimeType } from "../../__data__/stadistics";
 import { Grid } from "@material-ui/core";
 import BackButton from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";
+import MakeChart from "./commond";
 
 const PiePage = () => {
 
@@ -29,26 +30,22 @@ const PiePage = () => {
                     <h3>Resumen</h3>
                 </Grid>
                 <Grid item xs={12} className="p-2">
-                    <p>Analisis con diferentes tipos de perspectivas del perfil del atacante</p>
+                    <p>Analisis con diferentes perspectiva de los casos</p>
                 </Grid>
-                <Grid item xs={12} className="p-2" container justify="center">
-                    <h4>Tipo de robo</h4>
-                </Grid>
-                <Grid item xs={12} sm={8}>
-                    <Pie data={MockDataCrimeType} />
-                </Grid>
-                <Grid item xs={12} className="m-top-3 p-2" container justify="center">
-                    <h4>Tipo de robo</h4>
-                </Grid>
-                <Grid item xs={12} sm={8}>
-                    <PolarArea data={MockDataCrimeType} />
-                </Grid>
-                <Grid item xs={12} className="m-top-3 p-2" container justify="center">
-                    <h4>Tipo de robo</h4>
-                </Grid>
-                <Grid item xs={12}>
-                    <Bar data={MockDataCrimeType} />
-                </Grid>
+                {
+                    [
+                        {
+                            label: "Tipo de robo",
+                            type: "Bar",
+                            data: MockDataCrimeType,
+                        },
+                        {
+                            label: "Lugar",
+                            type: "Radar",
+                            data: MockDataCrimePlace,
+                        },
+                    ].map(v => <MakeChart {...v} />)
+                }
             </Grid>
             <Button
                 className="m-top-3"
