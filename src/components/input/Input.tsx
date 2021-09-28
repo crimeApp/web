@@ -30,6 +30,7 @@ interface InputProps {
   colorFont?: ColorCA;
   onChange?: React.EventHandler<any>;
   register?: any;
+  disabled?: boolean;
   maxlenght?: number;
   styleHelperText?: React.CSSProperties;
   xs?: undefined | GridSize;
@@ -51,6 +52,7 @@ const Input = ({
   error_msg,
   msg,
   type,
+  disabled,
   required,
   iconLeft,
   iconRight,
@@ -100,6 +102,7 @@ const Input = ({
         multiline={multiline}
         rowsMax={rowsMax}
         rows={rows}
+        disabled={disabled}
         type={type}
         fullWidth
         helperText={error ? error_msg : msg}

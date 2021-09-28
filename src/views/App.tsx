@@ -13,11 +13,13 @@ import ForgetPasswordPage from './admin/forget-password-page';
 import HomeAdminPage from './admin/home';
 import MapAdminPage from './admin/MapPage/map';
 import StadisticsPage from './admin/StadisticPage/stadistic';
-import UsersAdminPage from './admin/users';
+import UsersAdminPage from './admin/user/UsersPage';
+import UserAdminPage from './admin/user/UserPage';
 import BarPage from './admin/StadisticPage/layers/barPage';
 import LinePage from './admin/StadisticPage/layers/linePage';
 import PiePage from './admin/StadisticPage/layers/PiePage';
 import PolarPage from './admin/StadisticPage/layers/PolarPage';
+import ConfigAdminPage from './admin/config/ConfigPage';
 
 const App = () => {
     const [admin_state, admin_dispatch] = useReducer(AdminReducer, InitAdminState)
@@ -34,7 +36,9 @@ const App = () => {
                 <Route path="/admin/forget-password" exact={true} component={ForgetPasswordPage} />
                 <Route path="/admin/home" exact={true} component={HomeAdminPage} />
                 <Route path="/admin/users" exact={true} component={UsersAdminPage} />
+                <Route path="/admin/user/:id" exact={true} component={UserAdminPage} />
                 <Route path="/admin/map" exact={true} component={MapAdminPage} />
+                <Route path="/admin/config" exact={true} component={ConfigAdminPage} />
                 <Route path="/admin/statistics" exact={true} component={StadisticsPage} />
                 <Route path="/admin/statistics/bar" exact={true} component={BarPage} />
                 <Route path="/admin/statistics/line" exact={true} component={LinePage} />

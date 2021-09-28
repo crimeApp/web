@@ -1,19 +1,21 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
-import HandlePetitions from "../../components/handle-peticion/HandlePetions";
-import Button from "../../components/button/Button";
-import useHandlePage from "../../hooks/useHandlePage";
-import useWindowSize from "../../hooks/useWindows";
-import { UserModel } from "../../models/user.models";
-import { UnixToDay } from "../../utils/time";
-import ChipRoleAdmin from "./component/RoleChip";
-import ScaffoldAdmin from "./component/ScaffoldAdmin";
-import users_data from "./__data__/users.json"
+import HandlePetitions from "../../../components/handle-peticion/HandlePetions";
+import Button from "../../../components/button/Button";
+import useHandlePage from "../../../hooks/useHandlePage";
+import useWindowSize from "../../../hooks/useWindows";
+import { UserModel } from "../../../models/user.models";
+import { UnixToDay } from "../../../utils/time";
+import ChipRoleAdmin from "../component/RoleChip";
+import ScaffoldAdmin from "../component/ScaffoldAdmin";
+import users_data from "../__data__/users.json"
+import { useHistory } from "react-router";
 
 const UsersAdminPage = () => {
 
     const users: UserModel[] = users_data as UserModel[]
         , [handle_page, set_handle_page] = useHandlePage({ loading: true })
+        , history = useHistory()
         , { xs } = useWindowSize()
 
     useEffect(() => {
@@ -63,7 +65,9 @@ const UsersAdminPage = () => {
             <Grid item xs={12} container alignContent="center" alignItems="center" justify="center" className="m-top-2">
                 {
                     users.map((user, index) =>
-                        <Grid item xs={12} className={`p-1 hover background-color-${index % 2 ? "white" : "light-gray"} border-small`} container alignItems="center">
+                        <Grid item xs={12} className={`p-1 hover background-color-${index % 2 ? "white" : "light-gray"} border-small`} container alignItems="center"
+                            onClick={() => history.push(`/admin/user/${user.cuit}`, user)}
+                        >
                             {
                                 !xs &&
                                 <Grid item xs={3} className="m-top-1 m-bottom-1" container justify="center" alignItems="center">

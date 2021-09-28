@@ -7,5 +7,8 @@ export type UserModel = {
     role: "policia" |"admin" |"funcionario",
     password: string,
     place: string,
-    createdAt: number
+    createdAt: number,
+    createdBy?: string,
+    createdByID?: string,
+    updatedAt: number,
 }

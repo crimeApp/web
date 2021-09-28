@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles } from "@material-ui/core/styles";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Person, BarChart, Explore, Menu, Home } from '@material-ui/icons';
+import { Person, BarChart, Explore, Menu, Home, Settings } from '@material-ui/icons';
 import {
     Grid,
     Toolbar,
@@ -190,6 +190,10 @@ const ScaffoldAdmin = ({ className, children }: any) => {
                                 <ListItemIcon><Explore color={navbar === "map" ? "primary" : "action"} /></ListItemIcon>
                                 <ListItemText primary={"Mapa"} />
                             </ListItem>
+                            <ListItem button onClick={() => history.push(`/admin/config`)}>
+                                <ListItemIcon><Settings color={navbar === "config" ? "primary" : "action"} /></ListItemIcon>
+                                <ListItemText primary={"Configuracion"} />
+                            </ListItem>
                         </List>
                     </Drawer>
                 }
@@ -211,6 +215,7 @@ const ScaffoldAdmin = ({ className, children }: any) => {
                             <BottomNavigationAction label="Usuarios" value="users" icon={<Person />} />
                             <BottomNavigationAction label="Estadisticas" value="statistics" icon={<BarChart />} />
                             <BottomNavigationAction label="Mapa" value="map" icon={<Explore />} />
+                            <BottomNavigationAction label="Config" value="config" icon={<Settings />} />
                         </BottomNavigation>
                         : null
                 }

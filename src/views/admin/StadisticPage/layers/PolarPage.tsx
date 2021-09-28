@@ -31,7 +31,7 @@ const PolarPage = () => {
                     <h3>Exploracion</h3>
                 </Grid>
                 <Grid item xs={12} className="p-2">
-                    <p>Analisis exploratorio de las caracteristicas fisicas de los sospechosos</p>
+                    <p>Analisis exploratorio de las caracteristicas de los sospechosos</p>
                 </Grid>
                 {
                     [
