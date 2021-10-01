@@ -121,9 +121,8 @@ const ScaffoldAdmin = ({ className, children }: any) => {
     const [anchor, set_anchor] = useState(false)
         , theme = useTheme()
         , location = useLocation()
-        , url = location.pathname.split("/")
         , { xs } = useWindowSize()
-        , [navbar, set_navbar] = useState(url[url.length - 1])
+        , [navbar, set_navbar] = useState(location.pathname.split("/")[2])
         , history = useHistory()
 
     return (

@@ -20,6 +20,7 @@ import LinePage from './admin/StadisticPage/layers/linePage';
 import PiePage from './admin/StadisticPage/layers/PiePage';
 import PolarPage from './admin/StadisticPage/layers/PolarPage';
 import ConfigAdminPage from './admin/config/ConfigPage';
+import ConfigStadisticPage from './admin/StadisticPage/layers/ConfigStadisticPage';
 
 const App = () => {
     const [admin_state, admin_dispatch] = useReducer(AdminReducer, InitAdminState)
@@ -44,6 +45,7 @@ const App = () => {
                 <Route path="/admin/statistics/line" exact={true} component={LinePage} />
                 <Route path="/admin/statistics/pie" exact={true} component={PiePage} />
                 <Route path="/admin/statistics/polar" exact={true} component={PolarPage} />
+                <Route path="/admin/statistics/config" exact={true} component={ConfigStadisticPage} />
             </AdminContext.Provider>
         </Switch>
     </Router>

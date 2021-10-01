@@ -20,7 +20,7 @@ const MakeChart = ({ label, data, type }: { label: string, data: any, type: "Pol
     }
 
     return <Grid item xs={12} container justify="center">
-        <Grid item xs={12} container justify="center">
+        <Grid item xs={12} className="m-top-3 m-bottom-3" container justify="center">
             <h4>{label}</h4>
         </Grid>
         <Struct />

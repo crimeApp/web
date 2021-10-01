@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HandlePetitions from "../../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
@@ -9,6 +9,7 @@ import BackButton from "../../component/BackButton";
 import Selector from "../../../../components/selector/Selector";
 import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";
+import { AdminContext } from "../../../../context/admin-context";
 
 const OPTIONS = ["bar", "polar"]
 
@@ -16,7 +17,8 @@ const BarPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
         , [graphics, set_grapics] = useState(OPTIONS[0])
-        , [data, set_data] = useState(MockDataCrimeType)
+        , { admin_state } = useContext(AdminContext)
+        , [data, set_data] = useState({ ...MockDataCrimeType, datasets: [{ ...MockDataCrimeType.datasets[0], ...admin_state.config.statistics }]})
 
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
@@ -29,8 +31,8 @@ const BarPage = () => {
             setHandlePage={set_handle_page}
         />
         <Grid item xs={12} sm={8} md={6} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white" container style={{ minHeight: "81vh" }} alignContent="flex-start" justify="center">
-            <BackButton />
-            <Grid item xs={12} className="p-2">
+            <BackButton xs={1} className="m-left-2" />
+            <Grid item xs>
                 <h3>Distribucion</h3>
             </Grid>
             <Grid item xs={12} className="p-2" container alignItems="flex-start" alignContent="flex-start">

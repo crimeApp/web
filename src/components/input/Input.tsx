@@ -25,10 +25,11 @@ interface InputProps {
   rowsMax?: string | number;
   placeholder?: string;
   className?: string;
-  type?: "number" | "text" | "password" | "email" | "date" | "time";
+  type?: "number" | "text" | "password" | "email" | "date" | "time" | "color";
   color?: ColorCA;
   colorFont?: ColorCA;
   onChange?: React.EventHandler<any>;
+  password?: boolean;
   register?: any;
   disabled?: boolean;
   maxlenght?: number;
@@ -58,11 +59,12 @@ const Input = ({
   iconRight,
   inputProps,
   inputLabelProps,
+  password,
   color = "white",
   colorFont = "black",
-  maxlenght = 20,
+  maxlenght = 40,
   styleHelperText,
-  onChange,
+  onChange = () => null,
   value,
   multiline,
   rowsMax,
@@ -75,6 +77,19 @@ const Input = ({
   lg,
   xl,
 }: InputProps) => {
+
+  const [visible, setVisibility] = React.useState<boolean>(false)
+  const [inputValue, setInputValue] = React.useState(value)
+    , refInput = React.useRef<any>({ target: { name, value } })
+
+  React.useEffect(() => {
+    if (inputValue === value) return
+    const delayDebounceFn = setTimeout(() => onChange(refInput.current), 1000)
+    return () => clearTimeout(delayDebounceFn)
+  }, [inputValue])
+
+  React.useEffect(() => (inputValue === value) ? undefined : setInputValue(value), [value])
+
   return (
     <Grid
       item
@@ -98,12 +113,16 @@ const Input = ({
       </InputLabel>
 
       <TextField
-        value={value}
+        value={inputValue}
         multiline={multiline}
         rowsMax={rowsMax}
         rows={rows}
         disabled={disabled}
-        type={type}
+        type={
+          password ?
+            (visible ? type : "password")
+            : type
+        }
         fullWidth
         helperText={error ? error_msg : msg}
         error={error}
@@ -117,7 +136,10 @@ const Input = ({
           },
         }}
         placeholder={placeholder}
-        onChange={onChange}
+        onChange={(e) => {
+          refInput.current = e;
+          return e.target.value.length < maxlenght ? setInputValue(e.target.value) : null
+        }}
         focused={placeholder ? true : false}
         className={`text-field-container text-field-group border-${border}`}
         required

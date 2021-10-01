@@ -4,10 +4,10 @@ import { ArrowBackIos } from "@material-ui/icons"
 import { useHistory } from "react-router"
 
 
-const BackButton = () => {
+const BackButton = ({ xs = 1, md = 1, className}: { xs?: any, md?: any, className?: string}) => {
     const history = useHistory()
 
-    return <Grid item xs={12} className="p-left-2 p-right-2" container justify="flex-start" alignItems="center">
+    return <Grid item xs={xs} md={md} className={className} container justify="flex-start" alignItems="center">
         <IconButton size="small" onClick={() => history.goBack()}>
             <ArrowBackIos />
         </IconButton>

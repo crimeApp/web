@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import HandlePetitions from "../../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
@@ -9,10 +9,12 @@ import BackButton from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";
 import MakeChart from "./commond";
+import { AdminContext } from "../../../../context/admin-context";
 
 const PiePage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
+    , { admin_state } = useContext(AdminContext)
 
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
@@ -24,9 +26,9 @@ const PiePage = () => {
             setHandlePage={set_handle_page}
         />
         <Grid item xs={12} md={6} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white" container justify="center">
-            <BackButton />
             <Grid id="capture" item xs={12} container justify="center" >
-                <Grid item xs={12} className="p-2">
+                <BackButton xs={1} className="m-left-2" />
+                <Grid item xs>
                     <h3>Resumen</h3>
                 </Grid>
                 <Grid item xs={12} className="p-2">
@@ -37,12 +39,12 @@ const PiePage = () => {
                         {
                             label: "Tipo de robo",
                             type: "Bar",
-                            data: MockDataCrimeType,
+                            data: { ...MockDataCrimeType, datasets: [{ ...MockDataCrimeType.datasets[0], ...admin_state.config.statistics }]},
                         },
                         {
                             label: "Lugar",
                             type: "Radar",
-                            data: MockDataCrimePlace,
+                            data: { ...MockDataCrimePlace, datasets: [{ ...MockDataCrimePlace.datasets[0], ...admin_state.config.statistics }]},
                         },
                     ].map(v => <MakeChart {...v} />)
                 }

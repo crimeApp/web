@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import HandlePetitions from "../../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
@@ -9,10 +9,12 @@ import BackButton from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";
 import MakeChart from "./commond";
+import { AdminContext } from "../../../../context/admin-context";
 
 const PolarPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
+        , { admin_state } = useContext(AdminContext)
 
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
@@ -25,9 +27,9 @@ const PolarPage = () => {
             setHandlePage={set_handle_page}
         />
         <Grid item xs={12} sm={8} md={6} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white" container justify="center">
-            <BackButton />
             <Grid id="capture" item xs={12} container >
-                <Grid item xs={12} className="p-2">
+                <BackButton xs={1} className="m-left-2" />
+                <Grid item xs >
                     <h3>Exploracion</h3>
                 </Grid>
                 <Grid item xs={12} className="p-2">
@@ -38,27 +40,27 @@ const PolarPage = () => {
                         {
                             label: "Altura",
                             type: "Bar",
-                            data: MockDataCrimeHeight,
+                            data: { ...MockDataCrimeHeight, datasets: [{ ...MockDataCrimeHeight.datasets[0], ...admin_state.config.statistics }] },
                         },
                         {
                             label: "Franja Etaria",
                             type: "Radar",
-                            data: MockDataCrimeAge,
+                            data: { ...MockDataCrimeAge, datasets: [{ ...MockDataCrimeAge.datasets[0], ...admin_state.config.statistics }] },
                         },
                         {
                             label: "Color de pelo",
                             type: "Bar",
-                            data: MockDataCrimeHair,
+                            data: { ...MockDataCrimeHair, datasets: [{ ...MockDataCrimeHair.datasets[0], ...admin_state.config.statistics }] },
                         },
                         {
                             label: "Color de piel",
                             type: "Pie",
-                            data: MockDataCrimeSkin,
+                            data: { ...MockDataCrimeSkin, datasets: [{ ...MockDataCrimeSkin.datasets[0], ...admin_state.config.statistics }] },
                         },
                         {
                             label: "Sexo",
                             type: "Pie",
-                            data: MockDataCrimeSex,
+                            data: { ...MockDataCrimeSex, datasets: [{ ...MockDataCrimeSex.datasets[0], ...admin_state.config.statistics }] },
                         }
                     ].map(v => <MakeChart {...v} />)
                 }

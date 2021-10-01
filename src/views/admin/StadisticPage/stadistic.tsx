@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import HandlePetitions from "../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../component/ScaffoldAdmin";
-import { Grid } from "@material-ui/core";
+import { Grid, Icon, IconButton } from "@material-ui/core";
 import { useHistory } from "react-router";
+import { Settings } from "@material-ui/icons";
 
 const StadisticsPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
+        , history = useHistory()
 
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
@@ -19,8 +21,13 @@ const StadisticsPage = () => {
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
-        <Grid item xs={12} className="p-left-2 p-top-2">
+        <Grid item xs={6} className="p-left-2 p-top-2">
             <h3>Estadisticas</h3>
+        </Grid>
+        <Grid item xs={6} container justify="flex-end">
+            <IconButton onClick={() => history.push("/admin/statistics/config")}>
+                <Settings />
+            </IconButton>
         </Grid>
         {
             [
@@ -56,7 +63,7 @@ const StadisticsPage = () => {
 export default StadisticsPage;
 
 
-const Cards = ({ title, description, href, img}: { title: string, description: string, href: string, img: string }) => {
+const Cards = ({ title, description, href, img }: { title: string, description: string, href: string, img: string }) => {
 
     const history = useHistory()
 

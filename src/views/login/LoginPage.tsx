@@ -123,8 +123,8 @@ const LoginPage = () => {
                 label="CUIT"
             />
             <Input
-                type="password"
                 label="Contraseña"
+                password
                 {...InputConstructor("password")}
             />
             <Grid item xs={12}>
