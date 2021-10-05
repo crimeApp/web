@@ -16,7 +16,12 @@ const schema = yup.object().shape({
   hour: yup.string().required().matches(hourExp).default(""),
   date: yup
     .date()
-    .max(new Date(new Date().getFullYear(), (new Date().getDay() + 1 < 31) ? new Date().getMonth() : new Date().getMonth() + 1, (new Date().getDay() + 1 < 31) ? new Date().getDay() : 1))
+    .max((() => {
+      const day = new Date();
+      const nextDay = new Date(day);
+      nextDay.setDate(day.getDate() + 1);
+      return nextDay
+    })())
     .required(),
   geopoint: yup.object({
     lat: yup.number().min(-90).max(90).required().default(-31.43087168213775),
@@ -28,7 +33,7 @@ const schema = yup.object().shape({
       .default(-64.21910252283733),
   }).required(),
   location: yup.string().default(""),
-  place_description: yup.string().optional().max(50).default(""),
+  place_description: yup.string().optional().max(250).default(""),
   full_name: yup
     .string()
     .transform((e) => e.toLowerCase())
@@ -157,6 +162,7 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         {...InputConstructor("place_description")}
         label={"Descripción del lugar"}
         multiline
+        maxlenght={250}
         rows={3}
       />
       <Grid

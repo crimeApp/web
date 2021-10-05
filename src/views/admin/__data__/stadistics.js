@@ -29,7 +29,7 @@ export const MockDataCrimeType = {
     labels: ["Robo con arma blanca", "Robo sin armas", "Robo con arma de fuego", "Daño a la propiedad privada", "Hurto"],
     datasets: [
         {
-            label: 'Tipo de crimen',
+            label: 'Tipo de siniestro',
             data: [242, 21, 1563, 15, 3021],
             backgroundColor: [
                 'rgba(75, 192, 192, 0.2)',

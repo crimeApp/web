@@ -5,6 +5,7 @@ import Input from "../../../components/input/Input";
 import { UserModel } from "../../../models/user.models";
 import { UnixToDate } from "../../../utils/time";
 import ScaffoldAdmin from "../component/ScaffoldAdmin";
+import BackButton from "../component/BackButton";
 
 const UserPage = () => {
 
@@ -22,7 +23,8 @@ const UserPage = () => {
     return <ScaffoldAdmin>
         <Grid item xs={12} sm={7} className="p-2">
             <Grid item xs={12} className="background-color-white border-small p-2" container>
-                <Grid item xs={12} className="m-bottom-2">
+                <BackButton />
+                <Grid item xs>
                     <h4>Informacion del usuario</h4>
                 </Grid>
                 <Input

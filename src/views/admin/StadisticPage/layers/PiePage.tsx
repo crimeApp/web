@@ -37,7 +37,7 @@ const PiePage = () => {
                 {
                     [
                         {
-                            label: "Tipo de robo",
+                            label: "Tipo de Siniestro",
                             type: "Bar",
                             data: { ...MockDataCrimeType, datasets: [{ ...MockDataCrimeType.datasets[0], ...admin_state.config.statistics }]},
                         },

@@ -66,7 +66,7 @@ const UsersAdminPage = () => {
                 {
                     users.map((user, index) =>
                         <Grid item xs={12} className={`p-1 hover background-color-${index % 2 ? "white" : "light-gray"} border-small`} container alignItems="center"
-                            onClick={() => history.push(`/admin/user/${user.cuit}`, user)}
+                            onClick={() => history.push(`/admin/users/${user.cuit}`, user)}
                         >
                             {
                                 !xs &&

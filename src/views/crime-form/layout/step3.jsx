@@ -17,7 +17,7 @@ const schema = yup.object({
   other_items: yup.string().optional().default(''),
   physical_damage: yup.number().optional().default(1),
   emotional_damage: yup.number().optional().default(1),
-  comment: yup.string().optional().default('')
+  comment: yup.string().optional().default('').max(250)
 });
 
 
@@ -74,7 +74,6 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
       alignContent="center"
     >
       {children}
-
       <MultipleCheckBox
         {...InputConstructor("stolenItems")}
         label={'¿Qué te robaron?'}
@@ -99,7 +98,6 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
         label={traslate.FORM.THEFTINFO["PHYSICAL-DAMAGE"]}
         msg={traslate.FORM.THEFTINFO["PHYSICAL-EXPLANATION"]}
       />
-
       <DiscreteSlider
         required
         {...InputConstructor("emotional_damage")}
@@ -109,7 +107,6 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
           HandleChange("emotional_damage", newValue)
         }
       />
-
       <DiscreteSlider
         required
         {...InputConstructor("thief_agressiveness")}
@@ -119,12 +116,12 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
         label={'¿Qué tan agresivo fue el atacante?'}
         msg={'1- Inofensivo. 5- Muy agresivo'}
       />
-
       <Input
         {...InputConstructor("comment")}
         type="string"
         multiline
         rows={3}
+        maxlenght={250}
         label={'¿Algo que quieras agregar sobre el ataque?'}
       />
       <Button
@@ -134,7 +131,6 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
         className="p-1"
         onClick={OnBackward}
       />
-
       <Button
         color="violet"
         xs={6}

@@ -23,9 +23,9 @@ const schema = yup.object({
   thief_sex: yup.mixed().optional().default(''),
   thief_skin: yup.mixed().optional().default(''),
   thief_height: yup.mixed().optional().default(''),
-  thief_company: yup.mixed().optional().default(''),
+  thief_company: yup.number().optional().default(0).max(10),
   thief_armed: yup.boolean().optional().default(false),
-  thief_description: yup.string().optional().default('')
+  thief_description: yup.string().optional().default('').max(250)
 });
 
 interface StepTwoProps {
@@ -123,6 +123,7 @@ const StepTwo = ({ data, children, handleNext, handleBack }: StepTwoProps) => {
         {...InputConstructor("thief_description")}
         multiline
         rows={'2'}
+        maxlenght={250}
         label={'Descripción del atacante'}
       />
       <Switches

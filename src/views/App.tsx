@@ -37,7 +37,7 @@ const App = () => {
                 <Route path="/admin/forget-password" exact={true} component={ForgetPasswordPage} />
                 <Route path="/admin/home" exact={true} component={HomeAdminPage} />
                 <Route path="/admin/users" exact={true} component={UsersAdminPage} />
-                <Route path="/admin/user/:id" exact={true} component={UserAdminPage} />
+                <Route path="/admin/users/:id" exact={true} component={UserAdminPage} />
                 <Route path="/admin/map" exact={true} component={MapAdminPage} />
                 <Route path="/admin/config" exact={true} component={ConfigAdminPage} />
                 <Route path="/admin/statistics" exact={true} component={StadisticsPage} />
