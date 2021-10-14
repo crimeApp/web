@@ -33,7 +33,8 @@ const AdminReducer = (state: StateAdmin, action: ActionAdmin): StateAdmin => {
                 admin: action.payload.admin
             }
         case "LOGOUT":
-            storejs.remove("token_ca")
+            storejs.remove("token_ca");
+            storejs.remove("config_admin_ca");
             return {
                 ...state,
                 login: false,
@@ -56,12 +57,8 @@ const InitAdminState: StateAdmin = {
     admin: false, // DEUDA
     config: !!storejs.get("config_admin_ca") ? storejs.get("config_admin_ca") : {
         statistics: {
-            backgroundColor: [
-                'rgba(75, 192, 192, 0.2)',
-            ],
-            borderColor: [
-                'rgba(75, 192, 192, 1)',
-            ],
+            backgroundColor: ["#e77c8d", "#c69255", "#98a255", "#56ad74", "#5aa9a2", "#5ea5c5"],
+            borderColor: ['#fff'],
             borderWidth: 2,
         }
     }

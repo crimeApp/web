@@ -42,7 +42,7 @@ const ConfigStadisticPage = () => {
                 ...prev,
                 loading: true
             }))
-            if(!admin_state.token)
+            if (!admin_state.token)
                 return history.push("/admin/login")
             // API ENDPOINT 
             console.log(parseJwt(admin_state.token))
@@ -56,7 +56,6 @@ const ConfigStadisticPage = () => {
             }))
         }
 
-    console.log(admin_state)
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
         set_data({
@@ -64,7 +63,7 @@ const ConfigStadisticPage = () => {
             user_id: "20418863235"
         })
     }, [])
-    return <ScaffoldAdmin>
+    return <ScaffoldAdmin className="p-bottom-4 m-bottom-4">
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}
@@ -73,7 +72,7 @@ const ConfigStadisticPage = () => {
             <Grid item xs={12} className="background-color-white border-small p-2" container>
                 <BackButton />
                 <Grid item xs>
-                    <h4>Ajustes Visuales</h4>
+                    <h4>Ajustes visuales</h4>
                 </Grid>
                 <Grid item xs={12} className="m-top-2 m-bottom-2" container justify="center">
                     <Input
@@ -85,17 +84,43 @@ const ConfigStadisticPage = () => {
                     />
                     <Input
                         xs={12}
-                        label="Color de fondo"
-                        type="color"
-                        value={state.backgroundColor[0]}
-                        onChange={(e) => set_state(prev => ({ ...prev, backgroundColor: [e.target.value] }))}
-                    />
-                    <Input
-                        xs={12}
                         label="Color de contorno"
                         type="color"
                         value={state.borderColor[0]}
                         onChange={(e) => set_state(prev => ({ ...prev, borderColor: [e.target.value] }))}
+                    />
+                    <Grid item xs={12} className="p-2">
+                        <h5>Colores de fondo</h5>
+                    </Grid>
+                    <PaletaCard
+                        value={state.backgroundColor}
+                        label="Seaborn Palette"
+                        onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
+                        colors={["#e77c8d", "#c69255", "#98a255", "#56ad74", "#5aa9a2", "#5ea5c5"]}
+                    />
+                    <PaletaCard
+                        value={state.backgroundColor}
+                        label="Saturation Palette"
+                        onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
+                        colors={["#8c8c8c", "#828996", "#79869f", "#6f83a9", "#6581b3", "#5b7ebd"]}
+                    />
+                    <PaletaCard
+                        value={state.backgroundColor}
+                        label="Dark Palette"
+                        onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
+                        colors={["#1a1a1a", "#27344d", "#345082", "#416ab6", "#618ad5", "#91acdf"]}
+                    />
+                    <PaletaCard
+                        value={state.backgroundColor}
+                        label="Hls Palette"
+                        onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
+                        colors={["#db5f57", "#dbc257", "#91db57", "#57db80", "#57d3db", "#5770db"]}
+                    />
+                    <PaletaCard
+                        value={state.backgroundColor}
+                        label="Rocket Palette"
+                        onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
+                        colors={["#35193e", "#701f57", "#ad1759", "#e13342", "#f37651", "#f6b48f"]}
                     />
                     <Button xs={12} md={6} label="Guardar" onClick={SubmitConfig} />
                 </Grid>
@@ -130,3 +155,19 @@ const ConfigStadisticPage = () => {
 }
 
 export default ConfigStadisticPage;
+
+
+export const PaletaCard = ({ label, value, colors, onClick }: { value: string[], label: string, colors: string[], onClick: (value: string[]) => void }) => <Grid item xs={12} className="p-2" container>
+    <Grid item xs={12} className="p-left-2 p-right-2">
+        <p>{label}</p>
+    </Grid>
+    <Grid onClick={() => onClick(colors)} item xs={12} className="bakground-color-white border-small shadow p-2 hover" container justify="center" style={{
+        borderLeft: value[0] === colors[0]
+            ? "10px solid var(--violet)"
+            : "10px solid transparent"
+    }}>
+        {
+            colors.map((el, index) => <Grid id={`${index.toString()}-color-pallete`} style={{ border: "2px solid #fff", backgroundColor: el, height: "30px" }} item xs={3} />)
+        }
+    </Grid>
+</Grid>

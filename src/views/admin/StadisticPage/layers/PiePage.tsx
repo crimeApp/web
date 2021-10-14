@@ -10,11 +10,12 @@ import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";
 import MakeChart from "./commond";
 import { AdminContext } from "../../../../context/admin-context";
+import Heatmap from "../../../../components/heatmap/Heatmap";
 
 const PiePage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
-    , { admin_state } = useContext(AdminContext)
+        , { admin_state } = useContext(AdminContext)
 
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
@@ -39,15 +40,22 @@ const PiePage = () => {
                         {
                             label: "Tipo de Siniestro",
                             type: "Bar",
-                            data: { ...MockDataCrimeType, datasets: [{ ...MockDataCrimeType.datasets[0], ...admin_state.config.statistics }]},
+                            data: { ...MockDataCrimeType, datasets: [{ ...MockDataCrimeType.datasets[0], ...admin_state.config.statistics }] },
                         },
                         {
                             label: "Lugar",
                             type: "Radar",
-                            data: { ...MockDataCrimePlace, datasets: [{ ...MockDataCrimePlace.datasets[0], ...admin_state.config.statistics }]},
+                            data: { ...MockDataCrimePlace, datasets: [{ ...MockDataCrimePlace.datasets[0], ...admin_state.config.statistics }] },
                         },
                     ].map(v => <MakeChart {...v} />)
                 }
+                <Grid item xs={12}>
+                    <Heatmap label="Heatmap siniestros" className="p-2" data={[
+                        [-31.416668, -64.183334, 10],
+                        [-32.416668, -64.183334, 10],
+                        [-32.416668, -64.183334, 10],
+                        [-33.416668, -64.183334, 10]]} />
+                </Grid>
             </Grid>
             <Button
                 className="m-top-3"

@@ -3,7 +3,7 @@ import ScaffoldAdmin from "../component/ScaffoldAdmin";
 
 const ConfigAdminPage = () => {
     return <ScaffoldAdmin>
-
+        
     </ScaffoldAdmin>
 }
 
