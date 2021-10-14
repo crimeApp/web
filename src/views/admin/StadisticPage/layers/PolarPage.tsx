@@ -3,7 +3,7 @@ import HandlePetitions from "../../../../components/handle-peticion/HandlePetion
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
 import { Bar, Pie, Radar } from 'react-chartjs-2';
-import { MockDataCrimeAge, MockDataCrimeHair, MockDataCrimeHeight, MockDataCrimeSex, MockDataCrimeSkin, MockDataCrimeTemp } from "../../__data__/stadistics";
+import { MockDataCrimeAccompaniment, MockDataCrimeAge, MockDataCrimeHair, MockDataCrimeHeight, MockDataCrimeSex, MockDataCrimeSkin, MockDataCrimeTemp } from "../../__data__/stadistics";
 import { Grid } from "@material-ui/core";
 import BackButton from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
@@ -61,6 +61,13 @@ const PolarPage = () => {
                             label: "Sexo",
                             type: "Pie",
                             data: { ...MockDataCrimeSex, datasets: [{ ...MockDataCrimeSex.datasets[0], ...admin_state.config.statistics }] },
+                        },
+                        {
+                            label: "Cantidad de sospechosos extra",
+                            type: "Bar",
+                            data: {
+                                ...MockDataCrimeAccompaniment, datasets: [{ ...MockDataCrimeAccompaniment.datasets[0], ...admin_state.config.statistics }]
+                            }
                         }
                     ].map(v => <MakeChart {...v} />)
                 }

@@ -4,7 +4,7 @@ import "leaflet.heat";
 
 /// AGREGAR VARIOS RENDER EN EL SETINGS
 
-const Heatmap = ({ data, className, label, center = [-31.416668, -64.183334] }: { data: [number, number, number][], center?: [number, number], label?: string, className?: string }) => {
+const Heatmap = ({ data, className, label, center = [-31.416668, -64.183334] }: { data: number[][], center?: [number, number], label?: string, className?: string }) => {
 
     useEffect(() => {
         var map = L.map('map').setView(center, 12);
@@ -18,7 +18,7 @@ const Heatmap = ({ data, className, label, center = [-31.416668, -64.183334] }: 
     }, [])
 
     return <div className={className}>
-        <h4>{label}</h4>
+        <h4 style={{ width: "100%", textAlign: "center" }}>{label}</h4>
         <div id="map" ></div>
     </div>
 }

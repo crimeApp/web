@@ -56,6 +56,7 @@ const InitAdminState: StateAdmin = {
     token: storejs.get("token_ca") as string | undefined,
     admin: false, // DEUDA
     config: !!storejs.get("config_admin_ca") ? storejs.get("config_admin_ca") : {
+        dataset: "last",
         statistics: {
             backgroundColor: ["#e77c8d", "#c69255", "#98a255", "#56ad74", "#5aa9a2", "#5ea5c5"],
             borderColor: ['#fff'],

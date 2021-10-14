@@ -3,7 +3,7 @@ import HandlePetitions from "../../../../components/handle-peticion/HandlePetion
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
 import { Bar, Pie, PolarArea } from 'react-chartjs-2';
-import { MockDataCrimePlace, MockDataCrimeTemp, MockDataCrimeType } from "../../__data__/stadistics";
+import { DataHeatMap, MockDataCrimePlace, MockDataCrimeTemp, MockDataCrimeTime, MockDataCrimeType, MockVictimAgresive, MockVictimEmotional, MockVictimPhysical } from "../../__data__/stadistics";
 import { Grid } from "@material-ui/core";
 import BackButton from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
@@ -47,14 +47,30 @@ const PiePage = () => {
                             type: "Radar",
                             data: { ...MockDataCrimePlace, datasets: [{ ...MockDataCrimePlace.datasets[0], ...admin_state.config.statistics }] },
                         },
+                        {
+                            label: "Horario",
+                            type: "Line",
+                            data: { ...MockDataCrimeTime, datasets: [{ ...MockDataCrimeTime.datasets[0], ...admin_state.config.statistics }] },
+                        },
+                        {
+                            label: "Daño fisico hacia la victima",
+                            type: "Bar",
+                            data: { ...MockVictimPhysical, datasets: [{ ...MockVictimPhysical.datasets[0], ...admin_state.config.statistics }] },
+                        },
+                        {
+                            label: "Daño emocional hacia la victima",
+                            type: "Bar",
+                            data: { ...MockVictimEmotional, datasets: [{ ...MockVictimEmotional.datasets[0], ...admin_state.config.statistics }] },
+                        },
+                        {
+                            label: "Nivel de agresividad del agresor",
+                            type: "Bar",
+                            data: { ...MockVictimAgresive, datasets: [{ ...MockVictimAgresive.datasets[0], ...admin_state.config.statistics }] },
+                        },
                     ].map(v => <MakeChart {...v} />)
                 }
                 <Grid item xs={12}>
-                    <Heatmap label="Heatmap siniestros" className="p-2" data={[
-                        [-31.416668, -64.183334, 10],
-                        [-32.416668, -64.183334, 10],
-                        [-32.416668, -64.183334, 10],
-                        [-33.416668, -64.183334, 10]]} />
+                    <Heatmap label="Mapa de calor" className="p-2" data={DataHeatMap} />
                 </Grid>
             </Grid>
             <Button

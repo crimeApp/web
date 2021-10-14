@@ -134,17 +134,17 @@ const LoginPage = () => {
                 xs={12}
                 md={6}
                 className="p-1 m-top-2"
-                label="Ingresar"
-                onClick={onSummit}
+                label="Volver"
+                color="white"
+                colorFont="violet"
+                onClick={() => history.push(traslate.ROUTES.PUBLIC.HOME)}
             />
             <Button
                 xs={12}
                 md={6}
                 className="p-1 m-top-2"
-                label="Volver"
-                color="white"
-                colorFont="violet"
-                onClick={() => history.push(traslate.ROUTES.PUBLIC.HOME)}
+                label="Ingresar"
+                onClick={onSummit}
             />
         </Grid>
     </Scaffold>
