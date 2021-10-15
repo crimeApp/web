@@ -1,5 +1,6 @@
 import React from "react";
 import { createContext } from "react";
+import { StadisticModel } from "../models/stadistic.model";
 const storejs = require("store-js");
 
 export type ActionAdmin = {
@@ -18,6 +19,7 @@ export type StateAdminConfig = {
 type StateAdmin = {
     login: boolean,
     token?: string,
+    database?: StadisticModel,
     admin: boolean,
     config: StateAdminConfig
 }
@@ -55,6 +57,7 @@ const InitAdminState: StateAdmin = {
     login: storejs.get("token_ca") ? true : false,
     token: storejs.get("token_ca") as string | undefined,
     admin: false, // DEUDA
+    database: storejs.get("database_ca") as StadisticModel | undefined,
     config: !!storejs.get("config_admin_ca") ? storejs.get("config_admin_ca") : {
         dataset: "last",
         statistics: {

@@ -30,32 +30,32 @@ const UserPage = () => {
                 <Input
                     xs={12}
                     label="Nombre"
-                    color="grey"
+                    color="light-gray"
                     disabled
                     value={user?.name}
                 />
                 <Input
                     xs={12}
                     label="Mail"
-                    color="grey"
+                    color="light-gray"
                     value={user?.mail}
                 />
                 <Input
                     xs={12}
                     label="CUIT"
-                    color="grey"
+                    color="light-gray"
                     value={user?.cuit}
                 />
                 <Input
                     xs={12}
                     label="Telefono"
-                    color="grey"
+                    color="light-gray"
                     value={user?.phone}
                 />
                 <Input
                     xs={12}
                     label="Lugar"
-                    color="grey"
+                    color="light-gray"
                     value={user?.place}
                 />
             </Grid>

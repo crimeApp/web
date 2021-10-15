@@ -17,8 +17,11 @@ export const HandleAPI = async ({ method, path, data, config }: { method: "get" 
             console.log(resp)
         return resp
     } catch (error) {
-        if (DEV)
+        if (DEV) {
+            //@ts-ignore
             console.log(error.response)
+        }
+        //@ts-ignore
         return error.response
     }
 }
@@ -32,8 +35,11 @@ export const HandleAPIRestrict = async (method: "get" | "post" | "put" | "delete
             console.log(resp)
         return resp
     } catch (error) {
-        if (DEV)
+        if (DEV) {
+            //@ts-ignore
             console.log(error.response)
+        }
+        //@ts-ignore
         return error.response
     }
 }

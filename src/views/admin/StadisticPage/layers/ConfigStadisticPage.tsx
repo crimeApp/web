@@ -10,10 +10,13 @@ import Button from "../../../../components/button/Button";
 import { UnixToDate, UnixToDay } from "../../../../utils/time";
 import { parseJwt } from "../../../../utils/token";
 import { useHistory } from "react-router";
+import { HandleAPI, HandleAPIRestrict } from "../../../../utils/handle-api";
+import Translate from "../../../../assets/traslate";
 
 const ConfigStadisticPage = () => {
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
         , { admin_state, admin_dispatch } = useContext(AdminContext)
+        , TRANSLATE = Translate["ES"]
         , [state, set_state] = useState({
             ...admin_state.config.statistics
         })
@@ -57,11 +60,35 @@ const ConfigStadisticPage = () => {
         }
 
     useEffect(() => {
-        set_handle_page(prev => ({ ...prev, loading: false }))
-        set_data({
-            date: 1633470422350,
-            user_id: "20418863235"
-        })
+        (async () => {
+            const request = await HandleAPI({
+                method: "get",
+                path: "/admin/staditistics",
+                config: {
+                    headers: {
+                        Authorization: `Bearer ${admin_state.token}`
+                    }
+                }
+            })
+
+            if (!request) return set_handle_page({
+                loading: false,
+                error: true,
+                notification: true,
+                msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
+            })
+
+            switch(request.status) {
+                case 200: 
+                    return 
+            }
+
+            set_handle_page(prev => ({ ...prev, loading: false }))
+            set_data({
+                date: 1633470422350,
+                user_id: "20418863235"
+            })
+        })();
     }, [])
     return <ScaffoldAdmin className="p-bottom-4 m-bottom-4">
         <HandlePetitions
@@ -78,7 +105,7 @@ const ConfigStadisticPage = () => {
                     <Input
                         xs={12}
                         label="Espesor de los graficos"
-                        color="grey"
+                        color="light-gray"
                         value={state.borderWidth}
                         onChange={(e) => set_state(prev => ({ ...prev, borderWidth: e.target.value }))}
                     />
