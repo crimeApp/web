@@ -40,7 +40,7 @@ const LinePage = () => {
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
-        <Grid item xs={12} sm={8} md={6} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white" container justify="center">
+        <Grid item xs={12} sm={8} md={6} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white shadow" container justify="center">
             <BackButton xs={1} className="m-left-2" />
             <Grid item xs>
                 <h3>Evolucion de los datos</h3>

@@ -118,7 +118,7 @@ const MapAdminPage = () => {
                     <Grid key={i} item xs={12} className='p-bottom-1' container >
                         <Grid
                             container
-                            className="p-2 background-color-white border-small map-hover-card"
+                            className="p-2 background-color-white border-small map-hover-card shadow"
                             onClick={() => set_state(s)}
                             justify="space-between"
                             alignItems="center"

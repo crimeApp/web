@@ -53,7 +53,7 @@ const Tabs = ({
     };
 
     return <>
-        <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className="tab">
+        <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className="tab shadow">
             <Paper>
                 <TabsM style={{ borderRadius: "5px 5px 0px 0px" }} value={value} variant={variant} onChange={handleChange}>
                     {

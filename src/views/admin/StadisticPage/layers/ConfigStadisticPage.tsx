@@ -12,6 +12,8 @@ import { parseJwt } from "../../../../utils/token";
 import { useHistory } from "react-router";
 import { HandleAPI, HandleAPIRestrict } from "../../../../utils/handle-api";
 import Translate from "../../../../assets/traslate";
+import { StadisticModel } from "../../../../models/stadistic.model";
+import { SiniesterModel } from "../../../../models/siniester.models";
 
 const ConfigStadisticPage = () => {
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
@@ -20,6 +22,7 @@ const ConfigStadisticPage = () => {
         , [state, set_state] = useState({
             ...admin_state.config.statistics
         })
+        , [databases, set_databases] = useState<StadisticModel[]>()
         , history = useHistory()
         , [data, set_data] = useState({
             date: 0,
@@ -63,7 +66,7 @@ const ConfigStadisticPage = () => {
         (async () => {
             const request = await HandleAPI({
                 method: "get",
-                path: "/admin/staditistics",
+                path: "/admin/stadistics",
                 config: {
                     headers: {
                         Authorization: `Bearer ${admin_state.token}`
@@ -78,16 +81,29 @@ const ConfigStadisticPage = () => {
                 msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
             })
 
-            switch(request.status) {
-                case 200: 
-                    return 
+            switch (request.status) {
+                case 200:
+                    set_databases(request.data)
+                    return set_handle_page(prev => ({
+                        ...prev,
+                        loading: false,
+                    }))
+                case 401:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        severity: "error",
+                        msg: TRANSLATE.ERRORS.UNAUTH,
+                        callback: () => history.push("/admin/login")
+                    })
+                default:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        notification: true,
+                        msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
+                    })
             }
-
-            set_handle_page(prev => ({ ...prev, loading: false }))
-            set_data({
-                date: 1633470422350,
-                user_id: "20418863235"
-            })
         })();
     }, [])
     return <ScaffoldAdmin className="p-bottom-4 m-bottom-4">
@@ -96,7 +112,7 @@ const ConfigStadisticPage = () => {
             setHandlePage={set_handle_page}
         />
         <Grid item xs={12} sm={6} className="p-2">
-            <Grid item xs={12} className="background-color-white border-small p-2" container>
+            <Grid item xs={12} className="background-color-white border-small p-2 shadow" container>
                 <BackButton />
                 <Grid item xs>
                     <h4>Ajustes visuales</h4>
@@ -115,6 +131,13 @@ const ConfigStadisticPage = () => {
                         type="color"
                         value={state.borderColor[0]}
                         onChange={(e) => set_state(prev => ({ ...prev, borderColor: [e.target.value] }))}
+                    />
+                    <Input
+                        xs={12}
+                        label="Color de contorno"
+                        type="date"
+                        value={state.borderColor[0]}
+                        onChange={(e) => console.log(e.target.value)}
                     />
                     <Grid item xs={12} className="p-2">
                         <h5>Colores de fondo</h5>
@@ -154,22 +177,13 @@ const ConfigStadisticPage = () => {
             </Grid>
         </Grid>
         <Grid item xs={12} sm={6} className="p-2">
-            <Grid item xs={12} className="background-color-white border-small p-2" container>
+            <Grid item xs={12} className="background-color-white border-small p-2 shadow" container>
                 <Grid item xs={12} className="m-bottom-3">
-                    <h4>Informacion de Datos</h4>
+                    <h4>Datasets</h4>
                 </Grid>
-                <Grid item xs={6}>
-                    <p className="w500">Ultima Actualizacion:</p>
-                </Grid>
-                <Grid item xs={6} container justify="flex-end">
-                    <p>{UnixToDate(data.date)}</p>
-                </Grid>
-                <Grid item xs={6}>
-                    <p className="w500">Actualizado por:</p>
-                </Grid>
-                <Grid item xs={6} container justify="flex-end" onClick={() => history.push(`/admin/user/${data.user_id}`)}>
-                    <p className="hover">{data.user_id}</p>
-                </Grid>
+                {
+                    databases?.map(s => <DatasetsCard key={s.id} data={s} value={admin_state.database?.id} onClick={(v) => admin_dispatch({ type: "CHANGE_DB", payload: v })} />)
+                }
                 <Button
                     className="m-top-3"
                     xs={12}
@@ -196,5 +210,19 @@ export const PaletaCard = ({ label, value, colors, onClick }: { value: string[],
         {
             colors.map((el, index) => <Grid id={`${index.toString()}-color-pallete`} style={{ border: "2px solid #fff", backgroundColor: el, height: "30px" }} item xs={3} />)
         }
+    </Grid>
+</Grid>
+
+const DatasetsCard = ({ value, data, onClick }: { value?: string, data: StadisticModel, onClick: (value: StadisticModel) => void }) => <Grid item xs={12} className="p-2" container>
+    <Grid onClick={() => onClick(data)} item xs={12} className="bakground-color-white border-small shadow p-2 hover" container justify="center" style={{
+        borderLeft: value === data.id
+            ? "10px solid var(--violet)"
+            : "10px solid transparent"
+    }}>
+        <Grid item xs={12} className="p-left-2 p-right-2">
+            <h5>{data.name}</h5>
+            <p>{data.description}</p>
+            <p className="font-size-little color-gray">Creado por {data.createdByID}</p>
+        </Grid>
     </Grid>
 </Grid>

@@ -4,7 +4,7 @@ import { StadisticModel } from "../models/stadistic.model";
 const storejs = require("store-js");
 
 export type ActionAdmin = {
-    type: "LOGIN" | "LOGOUT" | "CHANGE_CONFIG",
+    type: "LOGIN" | "LOGOUT" | "CHANGE_CONFIG" | "CHANGE_DB",
     payload: any,
 }
 
@@ -37,10 +37,17 @@ const AdminReducer = (state: StateAdmin, action: ActionAdmin): StateAdmin => {
         case "LOGOUT":
             storejs.remove("token_ca");
             storejs.remove("config_admin_ca");
+            storejs.remove("database_ca")
             return {
                 ...state,
                 login: false,
                 admin: false
+            }
+        case "CHANGE_DB":
+            storejs.set("database_ca")
+            return {
+                ...state,
+                database: action.payload
             }
         case "CHANGE_CONFIG":
             storejs.set("config_admin_ca", action.payload)
@@ -64,6 +71,7 @@ const InitAdminState: StateAdmin = {
             backgroundColor: ["#e77c8d", "#c69255", "#98a255", "#56ad74", "#5aa9a2", "#5ea5c5"],
             borderColor: ['#fff'],
             borderWidth: 2,
+            label: "data"
         }
     }
 }

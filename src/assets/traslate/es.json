@@ -82,10 +82,11 @@
     "ERRORS": {
         "INTERNAL_SERVER_ERROR": "Estamos teniendo problemas, intente mas tarde",
         "BAD_REQUEST": "Los datos enviados son incorrectos",
-        "UNAUTH": "El usuario no esta autorizado",
+        "UNAUTH": "Usuario no autorizado",
         "cuit": "El cuit debe ser sin guiones ni espacios",
         "password": "La contrasenia debe contener mayusculas, minusculas y numeros",
-        "USER_NOT_FOUND": "Usuiario y/o contrasenia incorrectos"
+        "USER_NOT_FOUND": "Usuiario y/o contrasenia incorrectos",
+        "NOT_FOUND_USER": "Usuario no encontrado"
     },
     "ROUTES": {
         "PUBLIC": {
