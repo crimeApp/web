@@ -55,6 +55,7 @@ const UsersAdminPage = () => {
                         loading: false,
                         error: true,
                         severity: "error",
+                        color: "red",
                         msg: TRANSLATE.ERRORS.UNAUTH,
                         callback: () => history.push("/admin/login")
                     })
@@ -63,6 +64,8 @@ const UsersAdminPage = () => {
                         loading: false,
                         error: true,
                         notification: true,
+                        color: "red",
+                        severity: "error",
                         msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
                     })
             }
@@ -100,6 +103,7 @@ const UsersAdminPage = () => {
                         loading: false,
                         error: true,
                         severity: "error",
+                        color: "red",
                         msg: TRANSLATE.ERRORS.UNAUTH,
                         callback: () => history.push("/admin/login")
                     })
@@ -108,6 +112,8 @@ const UsersAdminPage = () => {
                         loading: false,
                         error: true,
                         notification: true,
+                        color: "red",
+                        severity: "error",
                         msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
                     })
             }
@@ -158,7 +164,7 @@ const UsersAdminPage = () => {
             <Grid item xs={12} container alignContent="center" alignItems="center" justify="center" className="m-top-2">
                 {
                     users?.map((user, index) =>
-                        <Grid item xs={12} className={`p-1 hover background-color-${index % 2 ? "white" : "light-gray"} border-small`} container alignItems="center"
+                        <Grid key={user.cuit} item xs={12} className={`p-1 hover background-color-${index % 2 ? "white" : "light-gray"} border-small`} container alignItems="center"
                             onClick={() => history.push(`/admin/users/${user.cuit}`, user)}
                         >
                             {

@@ -13,6 +13,7 @@ const Select = ({
   options,
   label,
   value,
+  name,
   color = "white",
   colorFont = "black",
   required,
@@ -21,6 +22,7 @@ const Select = ({
   error,
   border = "small",
   error_msg,
+  disabled,
   msg,
   xs,
   sm,
@@ -31,7 +33,9 @@ const Select = ({
   value?: string;
   options?: string[];
   error?: boolean;
+  name?: string;
   error_msg?: string;
+  disabled?: boolean;
   msg?: string;
   label: string;
   required?: boolean;
@@ -56,7 +60,7 @@ const Select = ({
   return (
     <Grid
       item
-      className={`p-top-1 p-bottom-1 ${className}`}
+      className={`p-1 ${className}`}
       xs={xs}
       md={md}
       sm={sm}
@@ -75,15 +79,17 @@ const Select = ({
       </InputLabel>
       <SelectMUI
         required
+        disabled={disabled}
         style={{
           width: "100%",
-          marginTop: "5px",
           height: "var(--height-normal-size)",
+          boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
         }}
         disableUnderline={true}
         className={`color-${colorFont} background-color-${color} border-${border}`}
         value={value}
         onChange={onChange}
+        name={name}
         MenuProps={{
           PaperProps: {
             style: {

@@ -74,6 +74,8 @@ const UserPage = () => {
                         loading: false,
                         error: true,
                         notification: true,
+                        color: "red",
+                        severity: "error",
                         msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
                     })
             }
@@ -92,32 +94,27 @@ const UserPage = () => {
                 <Input
                     xs={12}
                     label="Nombre"
-                    color="light-gray"
                     disabled
                     value={user?.name}
                 />
                 <Input
                     xs={12}
                     label="Mail"
-                    color="light-gray"
                     value={user?.mail}
                 />
                 <Input
                     xs={12}
                     label="CUIT"
-                    color="light-gray"
                     value={user?.cuit}
                 />
                 <Input
                     xs={12}
                     label="Telefono"
-                    color="light-gray"
                     value={user?.phone}
                 />
                 <Input
                     xs={12}
                     label="Lugar"
-                    color="light-gray"
                     value={user?.place}
                 />
             </Grid>

@@ -43,24 +43,6 @@ const ConfigStadisticPage = () => {
                 severity: "success"
             }))
         }
-        , updateStadistics = () => {
-            set_handle_page(prev => ({
-                ...prev,
-                loading: true
-            }))
-            if (!admin_state.token)
-                return history.push("/admin/login")
-            // API ENDPOINT 
-            console.log(parseJwt(admin_state.token))
-            //set_data({ date: new Date().getTime(), user: admin_state.admin. })
-            set_handle_page(prev => ({
-                ...prev,
-                notification: true,
-                loading: false,
-                msg: "Cambios guardados correctamente",
-                severity: "success"
-            }))
-        }
 
     useEffect(() => {
         (async () => {
@@ -101,6 +83,8 @@ const ConfigStadisticPage = () => {
                         loading: false,
                         error: true,
                         notification: true,
+                        color: "red",
+                        severity: "error",
                         msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
                     })
             }
@@ -184,12 +168,11 @@ const ConfigStadisticPage = () => {
                 {
                     databases?.map(s => <DatasetsCard key={s.id} data={s} value={admin_state.database?.id} onClick={(v) => admin_dispatch({ type: "CHANGE_DB", payload: v })} />)
                 }
-                <Button
+                {/* <Button
                     className="m-top-3"
                     xs={12}
-                    label="Actualizar"
-                    onClick={updateStadistics}
-                />
+                    label="Cargar mas"
+                /> */}
             </Grid>
         </Grid>
     </ScaffoldAdmin>
@@ -198,9 +181,9 @@ const ConfigStadisticPage = () => {
 export default ConfigStadisticPage;
 
 
-export const PaletaCard = ({ label, value, colors, onClick }: { value: string[], label: string, colors: string[], onClick: (value: string[]) => void }) => <Grid item xs={12} className="p-2" container>
+export const PaletaCard = ({ label, value, colors, onClick = () => null }: { value: string[], label: string, colors: string[], onClick?: (value: string[]) => void }) => <Grid item xs={12} className="p-2" container>
     <Grid item xs={12} className="p-left-2 p-right-2">
-        <p>{label}</p>
+        <p className="w500">{label}</p>
     </Grid>
     <Grid onClick={() => onClick(colors)} item xs={12} className="bakground-color-white border-small shadow p-2 hover" container justify="center" style={{
         borderLeft: value[0] === colors[0]

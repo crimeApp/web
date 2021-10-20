@@ -84,7 +84,7 @@ const Selector = ({
             md={md}
             lg={lg}
             xl={xl}
-            className={`m-top-1 ${className}`}>
+            className={`p-1 ${className}`}>
             <Autocomplete
                 className={`text-field-container text-field-group`}
                 options={options}
@@ -115,6 +115,7 @@ const Selector = ({
                             style: {
                                 border: `var(--border-${border})`,
                                 backgroundColor: `var(--${color})`,
+                                boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
                                 color: `var(--${colorFont})`,
                                 textTransform: "capitalize"
                             },

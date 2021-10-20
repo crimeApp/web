@@ -17,10 +17,9 @@ const PolarPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
         , { admin_state } = useContext(AdminContext)
-        , [data, set_data] = useState<StadisticCharModel>()
+        , [data, set_data] = useState<StadisticCharModel | undefined>(StadisticsToChatsFormat(admin_state.database))
 
     useEffect(() => {
-        set_data(StadisticsToChatsFormat(admin_state.database))
         set_handle_page(prev => ({ ...prev, loading: false }))
     }, [])
 
@@ -44,7 +43,7 @@ const PolarPage = () => {
                             {
                                 label: "Altura",
                                 type: "Bar",
-                                data: { labels: data?.crimeHeight.labels, datasets: [{ ...data?.crimeHeight.datasets[0], ...admin_state.config.statistics }] },
+                                data: { ...data?.crimeHeight, datasets: [{ ...data?.crimeHeight.datasets[0], ...admin_state.config.statistics }] },
                             },
                             {
                                 label: "Franja Etaria",

@@ -44,7 +44,7 @@ const AdminReducer = (state: StateAdmin, action: ActionAdmin): StateAdmin => {
                 admin: false
             }
         case "CHANGE_DB":
-            storejs.set("database_ca")
+            storejs.set("database_ca", action.payload)
             return {
                 ...state,
                 database: action.payload

@@ -25,7 +25,7 @@ interface InputProps {
   rowsMax?: string | number;
   placeholder?: string;
   className?: string;
-  type?: "number" | "text" | "password" | "email" | "date" | "time" | "color";
+  type?: "number" | "text" | "password" | "email" | "date" | "time" | "color" | "datetime-local";
   color?: ColorCA;
   colorFont?: ColorCA;
   onChange?: React.EventHandler<any>;
@@ -99,12 +99,12 @@ const Input = ({
       md={md}
       lg={lg}
       xl={xl}
-      className={`p-top-2 p-bottom-1 ${className}`}
+      className={`p-1 ${className}`}
     >
       <InputLabel>
         <p
           className={
-            "first-letter-cap p-left-2 font-size-small w400 " +
+            "first-letter-cap p-left-2 font-size-small w400" +
             (error ? "color-red" : "color-black")
           }
         >
@@ -153,6 +153,7 @@ const Input = ({
           className: `border-${border}`,
           style: {
             backgroundColor: `var(--${color})`,
+            boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
             color: `var(--${colorFont})`,
           },
           startAdornment: (

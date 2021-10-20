@@ -75,13 +75,14 @@ const CrimeFormPage = () => {
                         error: true,
                         notification: true,
                         severity: "error",
+                        color: "red",
                         msg: traslate.ERRORS.BAD_REQUEST
                     })
                 default:
                     return set_handle_page({
                         loading: false,
                         error: true,
-                        notification: true,
+                        color: "red",
                         severity: "error",
                         msg: traslate.ERRORS.INTERNAL_SERVER_ERROR
                     })
