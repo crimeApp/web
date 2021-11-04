@@ -1,11 +1,11 @@
 import { Grid, GridSize } from "@material-ui/core";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import Button from "../../components/button/Button";
-import Input from "../../components/input/Input";
-import Scaffold from "../../components/scaffold/scaffold";
-import { ColorCA } from "../../style/type-style";
-import traslate from "../../assets/traslate/es.json";
+import Button from "../../../components/button/Button";
+import Input from "../../../components/input/Input";
+import Scaffold from "../../../components/scaffold/scaffold";
+import { ColorCA } from "../../../style/type-style";
+import traslate from "../../../assets/traslate/es.json";
 
 const ForgetPasswordPage = () => {
 

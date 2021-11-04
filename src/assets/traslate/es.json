@@ -100,7 +100,16 @@
             "USERS": "/admin/users",
             "SIGNUP": "/admin/signup",
             "MAP": "/admin/map",
-            "STADISTICS": "/admin/statistics"
+            "STADISTICS": {
+                "HOME": "/admin/statistics",
+                "BAR": "/admin/statistics/bar",
+                "PIE": "/admin/statistics/pie",
+                "LINE": "/admin/statistics/line",
+                "POLAR": "/admin/statistics/polar",
+                "CONFIG": "/admin/statistics/config"
+            },
+            "CONFIG": "/admin/config",
+            "EDIT_PROFILE": "/admin/config/profile"
         }
     }
 }

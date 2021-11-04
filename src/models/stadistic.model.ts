@@ -1,6 +1,7 @@
 export type DataStructStadistic = any
 
 type DataStructChar = { labels: string[], datasets: [{ label: string, data: number[] }] }
+type DataStructMap = { labels: string[], datasets: [{ label: string, data: { lat: number, lng: number, int: number }[] }] }
 
 export type StadisticModel = {
     id: string,
@@ -40,7 +41,7 @@ export type StadisticCharModel = {
     victimPhysical: DataStructChar,
     victimEmotional: DataStructChar,
     victimAgresive: DataStructChar,
-    crimePoints: { lat: number, lng: number, int: number }[],
+    crimePoints: DataStructMap,
     createdAt: number,
     createdByID: string,
     total: number

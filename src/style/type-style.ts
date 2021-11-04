@@ -13,3 +13,29 @@ export type BorderCA = "small" |
     "normal" |
     "big" |
     "circle"
+
+export type FontSizeCA =
+    "little" |
+    "small" |
+    "normal" |
+    "large" |
+    "extra-large" |
+    "big" |
+    "extra-big"
+
+export type WeightCA = 
+    "light" | 
+    "regular" | 
+    "medium" | 
+    "semi-bold" | 
+    "bold" | 
+    "extra-bold" | 
+    "black" | 
+    "w100" | 
+    "w200" | 
+    "w300" | 
+    "w400" | 
+    "w500" | 
+    "w600" | 
+    "w700" | 
+    "w800"

@@ -5,7 +5,7 @@ import ScaffoldAdmin from "../../component/ScaffoldAdmin";
 import { Bar, PolarArea } from 'react-chartjs-2';
 import { MockDataCrimeType } from "../../__data__/stadistics";
 import { Grid } from "@material-ui/core";
-import BackButton from "../../component/BackButton";
+import { BackButton } from "../../component/BackButton";
 import Selector from "../../../../components/selector/Selector";
 import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";

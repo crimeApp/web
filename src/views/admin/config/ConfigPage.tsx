@@ -1,13 +1,17 @@
 import { Grid } from "@material-ui/core";
 import React, { useContext } from "react";
 import ScaffoldAdmin from "../component/ScaffoldAdmin";
-import { ExitToApp, Warning, AccountBox } from '@material-ui/icons';
+import { ExitToApp, Warning, AccountBox, BarChart } from '@material-ui/icons';
 import { AdminContext } from "../../../context/admin-context";
 import { useHistory } from "react-router";
+import translate from "../../../assets/traslate";
+
 const ConfigAdminPage = () => {
 
     const { admin_dispatch, admin_state } = useContext(AdminContext)
         , history = useHistory()
+        , TRANSLATE = translate["ES"]
+        
     return <ScaffoldAdmin>
         <Grid item xs={12} className="p-2">
             <h3>Configuraciones</h3>
@@ -16,9 +20,16 @@ const ConfigAdminPage = () => {
             {
                 [
                     {
+                        title: "Estadisticas",
+                        description: "Haga click aqui para ir al menu de configuracion de las estadisticas",
+                        Icon: BarChart,
+                        onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.STADISTICS.CONFIG)
+                    },
+                    {
                         title: "Perfil",
                         description: "Haga click aqui para editar su cuenta",
-                        Icon: AccountBox
+                        Icon: AccountBox,
+                        onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.EDIT_PROFILE)
                     },
                     {
                         title: "Sección",
@@ -26,7 +37,7 @@ const ConfigAdminPage = () => {
                         Icon: ExitToApp,
                         onClick: () => {
                             admin_dispatch({ type: "LOGOUT", payload: {} })
-                            return history.push("/admin/login")
+                            return history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
                         }
                     }
                 ].map((el, index) => <Cards key={index.toString()} {...el} />)

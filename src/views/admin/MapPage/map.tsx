@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Chip, Grid, IconButton } from "@material-ui/core";
+import { Accordion, AccordionDetails, AccordionSummary, Chip, Grid, GridSize, IconButton } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import HandlePetitions from "../../../components/handle-peticion/HandlePetions";
 import Map from "../../../components/map/Map";
@@ -17,6 +17,33 @@ import EditIcon from '@material-ui/icons/Edit';
 import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
 import Select from "../../../components/select/Select";
+import yup from "../../../utils/yup";
+import Validator from "../../../utils/validator";
+import { ColorCA } from "../../../style/type-style";
+import SiniesterList from "./layers/SiniesterList";
+
+const schema = yup.object().shape({
+    full_name: yup.string().max(60),
+    age: yup.number().min(1).max(100),
+    sex: yup.string().max(30),
+    attack_type: yup.string().min(3).max(30),
+    location: yup.string().min(0).max(200),
+    place_description: yup.string().min(3).max(50),
+    thief_age: yup.string().max(60),
+    thief_hair_color: yup.string().max(30),
+    thief_height: yup.string().max(40),
+    thief_skin: yup.string().max(30),
+    thief_clothing: yup.string().max(30),
+    thief_accompanied: yup.number().max(10),
+    thief_armed: yup.bool(),
+    thief_physical: yup.string().max(30),
+    victim_accompaniment: yup.string().max(50),
+    thief_sex: yup.string().min(3).max(30),
+    thief_description: yup.string().min(3).max(50),
+    thief_company: yup.number().min(0).max(10),
+    stolen_items: yup.array().of(yup.string().required().min(3).max(30)).max(10),
+    comment: yup.string().max(150),
+});
 
 const MapAdminPage = () => {
 
@@ -28,8 +55,87 @@ const MapAdminPage = () => {
         //@ts-ignore
         , [state, set_state] = useState<SiniesterModel>(SINIESTER_DATA[0])
         , [edit_state, set_edit_state] = useState<boolean>(true)
+        , [errors, set_errors] = useState<any>()
         , classNameDetailText = "w600 p-right-1"
         , classNameDetailGrid = "p-top-1 p-bottom-1"
+        , onChange = (e: any) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))
+        , inputConstructor = (name: string) => ({
+            name,
+            xs: 6 as GridSize,
+            //@ts-ignore
+            value: state[name],
+            color: "light-gray" as ColorCA,
+            onChange: (event: any) => set_state(prev => ({ ...prev, [event.target.name]: event.target.value })),
+            error: errors?.[name]?.error,
+            error_msg: errors?.[name]?.msg
+        })
+        , submitEditSiniester = async () => {
+            set_handle_page(prev => ({ ...prev, loading: true }))
+
+            const val = await Validator(state, schema)
+
+            if (val.err) {
+                set_handle_page(prev => ({ ...prev, loading: false }))
+                return set_errors(val.data)
+            }
+
+            const request = await HandleAPI({
+                method: "put",
+                path: `/sinister/${state.id}`,
+                data: state,
+                config: {
+                    headers: {
+                        Authorization: `Bearer ${admin_state.token}`
+                    }
+                }
+            })
+
+            if (!request) return set_handle_page({
+                loading: false,
+                error: true,
+                notification: true,
+                msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
+            })
+
+            switch (request.status) {
+                case 200:
+                    return set_handle_page(prev => ({
+                        ...prev,
+                        msg: TRANSLATE.OK.SAVE,
+                        color: "green",
+                        notification: true,
+                        severity: "success",
+                        loading: false,
+                    }))
+                case 400:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        severity: "error",
+                        color: "red",
+                        msg: TRANSLATE.ERRORS.BAD_REQUEST,
+                        callback: () => history.push("/admin/login")
+                    })
+                case 401:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        severity: "error",
+                        color: "red",
+                        msg: TRANSLATE.ERRORS.UNAUTH,
+                        callback: () => history.push("/admin/login")
+                    })
+                default:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        notification: true,
+                        color: "red",
+                        severity: "error",
+                        msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
+                    })
+            }
+        }
 
     useEffect(() => {
         if (!admin_state.token) {
@@ -67,6 +173,7 @@ const MapAdminPage = () => {
                         loading: false,
                         error: true,
                         severity: "error",
+                        color: "red",
                         msg: TRANSLATE.ERRORS.UNAUTH,
                         callback: () => history.push("/admin/login")
                     })
@@ -92,7 +199,7 @@ const MapAdminPage = () => {
             <Tabs xs={12} labels={["Ubicacion", "Detalle"]} >
                 <Map xs={12} position={state.geopoint} />
                 <Grid className="background-color-white p-2" container style={{ borderRadius: "0px 0px 5px 5px" }}>
-                    <Grid item xs={8} className='p-bottom-2 m-top-2'>
+                    <Grid item xs={8} className='p-bottom-2 m-top-2 p-left-2'>
                         <h4>Descripcion del caso</h4>
                     </Grid>
                     {
@@ -103,96 +210,70 @@ const MapAdminPage = () => {
                         </Grid>
                     }
                     <Input
+                        {...inputConstructor("location")}
                         xs={12}
                         label="Lugar"
-                        color="light-gray"
-                        name="location"
                         disabled={edit_state}
-                        value={state.location}
                     />
                     <Input
+                        {...inputConstructor("place_description")}
                         xs={12}
                         label="Descripcion extra del lugar"
-                        color="light-gray"
                         disabled={edit_state}
                         multiline
-                        name="place_description"
                         rows={3}
                         maxlenght={250}
-                        value={state.place_description}
                     />
                     <Input
+                        {...inputConstructor("comment")}
                         xs={12}
                         label="Comentarios del caso"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="comment"
                         multiline
                         rows={3}
                         maxlenght={250}
-                        value={state.comment}
                     />
-                    <Grid item xs={12} className='p-top-3 p-bottom-2 m-top-2'>
+                    <Grid item xs={12} className='p-top-3 p-bottom-2 m-top-2 p-left-2'>
                         <h4>Informacion de la victima</h4>
                     </Grid>
                     <Input
+                        {...inputConstructor("dni")}
                         xs={12}
                         label="DNI"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="dni"
-                        value={state.dni}
                     />
                     <Input
-                        xs={6}
+                        {...inputConstructor("full_name")}
                         label="Nombre"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="fill_name"
-                        value={state.full_name}
                     />
                     <Input
-                        xs={6}
+                        {...inputConstructor("age")}
                         label="Edad"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="age"
-                        value={state.age}
                     />
                     <Input
-                        xs={6}
+                        {...inputConstructor("sex")}
                         label="Sexo"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="sex"
-                        value={state.sex}
                     />
                     <Input
-                        xs={6}
+                        {...inputConstructor("emotional_damage")}
                         label="Daño emocional"
-                        color="light-gray"
                         type="number"
                         disabled={edit_state}
-                        name="emotional_damage"
-                        value={state.emotional_damage}
                     />
                     <Input
-                        xs={6}
+                        {...inputConstructor("physical_damage")}
                         label="Daño fisico"
-                        color="light-gray"
                         type="number"
                         disabled={edit_state}
-                        name="physical_damage"
-                        value={state.physical_damage}
                     />
                     <Input
-                        xs={6}
+                        {...inputConstructor("victim_company")}
                         label="Acompañado"
                         type="number"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="victim_company"
-                        value={state.victim_company}
                     />
                     <Grid item xs={12} className={classNameDetailGrid}>
                         <p><span className={classNameDetailText}>Objetos robados:</span>{state.stolenItems?.toString()}</p>
@@ -200,139 +281,81 @@ const MapAdminPage = () => {
                     <Grid item xs={12} className={classNameDetailGrid}>
                         <p><span className={classNameDetailText}>Otros objetos:</span>{state.other_items}</p>
                     </Grid>
-                    <Grid item xs={12} className='p-top-3 p-bottom-2 m-top-2'>
+                    <Grid item xs={12} className='p-top-3 p-bottom-2 m-top-2 p-left-2'>
                         <h4>Informacion del delincuente</h4>
                     </Grid>
                     <Select
-                        xs={6}
+                        {...inputConstructor("thief_age")}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Rango etario"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="thief_age"
-                        value={state.thief_age}
                     />
                     <Input
-                        xs={6}
+                        {...inputConstructor("thief_agressiveness")}
                         label="Nivel de agresividad"
                         type="number"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="thief_agressiveness"
-                        value={state.thief_agressiveness}
                     />
                     <Grid item xs={6} className={classNameDetailGrid}>
                         <p><span className={classNameDetailText}>Estaba armado? </span>{state.thief_armed ? "Si" : "No"}</p>
                     </Grid>
                     <Select
-                        xs={6}
+                        {...inputConstructor("thief_sex")}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Sexo"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="thief_sex"
-                        value={state.thief_sex}
                     />
                     <Select
-                        xs={6}
+                        {...inputConstructor("thief_skin")}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Color de piel"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="thief_skin"
-                        value={state.thief_skin}
                     />
                     <Select
-                        xs={6}
+                        {...inputConstructor("thief_hair_color")}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Color de pelo"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="thief_hair_color"
-                        value={state.thief_hair_color}
                     />
                     <Input
-                        xs={6}
+                        {...inputConstructor("thief_company")}
                         label="Acompañado"
                         type="number"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="thief_company"
-                        value={state.thief_company}
                     />
                     <Select
-                        xs={6}
+                        {...inputConstructor("thief_height")}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Altura"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="thief_height"
-                        value={state.thief_height}
                     />
                     <Input
+                        {...inputConstructor("thief_description")}
                         xs={12}
                         label="Descripcion extra"
-                        color="light-gray"
                         disabled={edit_state}
-                        name="thief_description"
                         multiline
                         rows={3}
                         maxlenght={250}
-                        value={state.thief_description}
                     />
                     {
                         !edit_state && (
                             <>
                                 <Button xs={6} className="p-1" onClick={() => set_edit_state(true)} color="red" label="Cancelar" />
-                                <Button xs={6} className="p-1" label="Guardar" color="green" />
+                                <Button xs={6} className="p-1" label="Guardar" color="green" onClick={submitEditSiniester} />
                             </>
                         )
                     }
                 </Grid>
             </Tabs>
         </Grid>
-        <Grid item xs={12} sm={6} className="m-top-1 p-1" container style={{ height: "80vh", overflowY: "scroll" }} alignContent="flex-start">
-            <Grid item xs={12} container className="p-2" style={{ borderLeft: "10px solid transparent" }}>
-                <Grid item xs={4} className="p-1" container justify="center"><p className="w700">Fecha</p></Grid>
-                <Grid item xs={5} className="p-1" container justify="center"><p className="w700">Siniestro</p></Grid>
-                <Grid item xs={3} className="p-1" container justify="center"><p className="w700">Severidad</p></Grid>
-            </Grid>
-            {
-                siniesters.map((s, i) =>
-                    <Grid key={i} item xs={12} className='p-bottom-1' container >
-                        <Grid
-                            container
-                            className="p-2 background-color-white border-small map-hover-card shadow"
-                            onClick={() => set_state(s)}
-                            justify="space-between"
-                            alignItems="center"
-                            alignContent="center"
-                            style={{
-                                borderLeft: s.id === state.id
-                                    ? "10px solid var(--violet)"
-                                    : "10px solid transparent"
-                            }}
-                        >
-                            <Grid item className="p-1" xs={4} container justify="center">
-                                <p>{UnixToDate(s.time)}</p>
-                            </Grid>
-                            <Grid item className="p-1" xs={5} container justify="center">
-                                <p>{s.attack_type}</p>
-                            </Grid>
-                            <Grid item className="p-1" xs={3} container justify="center">
-                                <ChipSeverity severity={s.severity} />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                )
-            }
-        </Grid>
+        <SiniesterList state={state} set_state={set_state} siniesters={siniesters} />
     </ScaffoldAdmin>
 }
 
 export default MapAdminPage;
-
-
-const ChipSeverity = ({ text = "", severity }: { text?: string, severity: number }) => <Chip
-    color={
-        severity >= 0.6
-            ? "secondary"
-            : severity >= 0.4
-                ? "primary"
-                : "default"
-    } className="w700" label={text + " " + Number(severity.toFixed(2)) * 100 + "%"} />

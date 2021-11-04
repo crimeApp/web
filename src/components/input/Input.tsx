@@ -88,7 +88,10 @@ const Input = ({
     return () => clearTimeout(delayDebounceFn)
   }, [inputValue])
 
-  React.useEffect(() => (inputValue === value) ? undefined : setInputValue(value), [value])
+  React.useEffect(() => {
+    console.log(name, inputValue, value)
+    return (inputValue === value) ? undefined : setInputValue(value)
+  }, [value])
 
   return (
     <Grid

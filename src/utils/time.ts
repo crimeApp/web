@@ -1,5 +1,5 @@
 export function UnixToDate(timestamp: number) : string {
-    return new Date(timestamp).toLocaleTimeString([], {year: 'numeric', month: 'numeric', day: 'numeric',  hour: '2-digit', minute: '2-digit', hour12: false });
+    return new Date(timestamp).toLocaleTimeString('en', {year: 'numeric', month: 'numeric', day: 'numeric',  hour: '2-digit', minute: '2-digit', hour12: false });
 }
 
 export function UnixToDay(timestamp: number) : string {

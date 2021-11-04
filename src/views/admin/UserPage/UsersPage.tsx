@@ -118,7 +118,6 @@ const UsersAdminPage = () => {
                     })
             }
         })();
-        set_handle_page(prev => ({ ...prev, loading: false }))
     }, [])
 
     return <ScaffoldAdmin className="p-left-2 p-right-2">

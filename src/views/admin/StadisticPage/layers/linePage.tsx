@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import HandlePetitions from "../../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
-import BackButton from "../../component/BackButton";
+import { BackButton } from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
 import { Line } from 'react-chartjs-2';
 import { MockDataCrimeTemp, MockDataCrimeTempHurto, MockDataCrimeTempRobo, MockDataCrimeType } from "../../__data__/stadistics";

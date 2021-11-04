@@ -2,12 +2,13 @@
   --white: #fff;
   --light-gray: #ebebf3;
   --grey: #c6ceda;
-  --green: #42b75e;
+  --green: #4fce6c;
   --cyan: #a4eceb;
   --violet: #5063bb;
   --gray: #626284;
   --black: #1b1b25;
-  --red: red;
+  --orange: #ff9a57;
+  --red: rgb(255, 106, 106);
 
   /* BOX SHADOW */
   --box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
@@ -291,6 +292,10 @@ h6 {
   color: var(--black) !important;
 }
 
+.color-orange{
+  color: var(--orange) !important;
+}
+
 .color-red{
   color: var(--red) !important;
 }
@@ -321,6 +326,9 @@ h6 {
 }
 .background-color-black{
   background-color: var(--black) !important;
+}
+.background-color-orange{
+  background-color: var(--orange) !important;
 }
 .background-color-red {
   background-color: var(--red) !important;

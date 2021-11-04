@@ -5,7 +5,7 @@ import ScaffoldAdmin from "../../component/ScaffoldAdmin";
 import { Bar, Pie, Radar } from 'react-chartjs-2';
 import { MockDataCrimeAccompaniment, MockDataCrimeAge, MockDataCrimeHair, MockDataCrimeHeight, MockDataCrimeSex, MockDataCrimeSkin, MockDataCrimeTemp } from "../../__data__/stadistics";
 import { Grid } from "@material-ui/core";
-import BackButton from "../../component/BackButton";
+import { BackButton } from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";
 import MakeChart, { NotFoundData } from "./commond";

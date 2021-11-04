@@ -1,21 +1,19 @@
 import { Accordion, AccordionDetails, AccordionSummary, Grid } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
-import HandlePetitions from "../../components/handle-peticion/HandlePetions";
-import { AdminContext } from "../../context/admin-context";
-import useHandlePage from "../../hooks/useHandlePage";
-import { UserModel } from "../../models/user.models";
-import ScaffoldAdmin from "./component/ScaffoldAdmin";
-import Button from "../../components/button/Button";
+import HandlePetitions from "../../../components/handle-peticion/HandlePetions";
+import { AdminContext } from "../../../context/admin-context";
+import useHandlePage from "../../../hooks/useHandlePage";
+import ScaffoldAdmin from "../component/ScaffoldAdmin";
+import Button from "../../../components/button/Button";
 import { useHistory } from "react-router";
-import { parseJwt, TokenProps } from "../../utils/token";
-import { PaletaCard } from "./StadisticPage/layers/ConfigStadisticPage";
+import { PaletaCard } from "../StadisticPage/layers/ConfigStadisticPage";
 import Calendar from 'react-awesome-calendar';
-import useWindowSize from "../../hooks/useWindows";
-import Input from "../../components/input/Input";
-import { HandleAPI } from "../../utils/handle-api";
-import Translate from "../../assets/traslate";
-import yup from "../../utils/yup";
-import Validator from "../../utils/validator";
+import useWindowSize from "../../../hooks/useWindows";
+import Input from "../../../components/input/Input";
+import { HandleAPI } from "../../../utils/handle-api";
+import Translate from "../../../assets/traslate";
+import yup from "../../../utils/yup";
+import Validator from "../../../utils/validator";
 
 type EventCalendar = {
     id: string,
@@ -55,8 +53,10 @@ const HomeAdminPage = () => {
 
             const val = await Validator(new_event, schema);
 
-            if (val.err)
+            if (val.err) {
+                set_handle_page(prev => ({ ...prev, loading: false }))
                 return set_errors(val.data);
+            }
 
             const request = await HandleAPI({
                 method: "post",

@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import HandlePetitions from "../../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
-import BackButton from "../../component/BackButton";
+import { BackButtonString } from "../../component/BackButton";
 import { AdminContext } from "../../../../context/admin-context";
 import Input from "../../../../components/input/Input";
 import Button from "../../../../components/button/Button";
@@ -14,6 +14,7 @@ import { HandleAPI, HandleAPIRestrict } from "../../../../utils/handle-api";
 import Translate from "../../../../assets/traslate";
 import { StadisticModel } from "../../../../models/stadistic.model";
 import { SiniesterModel } from "../../../../models/siniester.models";
+import { ArrowBackIos } from "@material-ui/icons";
 
 const ConfigStadisticPage = () => {
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
@@ -95,9 +96,14 @@ const ConfigStadisticPage = () => {
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
+        <Grid item xs={12} className="p-left-2 p-right-2 p-top-2" container>
+            <BackButtonString />
+            <Grid item xs={12}>
+                <h3>Configuracion de Estadisticas</h3>
+            </Grid>
+        </Grid>
         <Grid item xs={12} sm={6} className="p-2">
             <Grid item xs={12} className="background-color-white border-small p-2 shadow" container>
-                <BackButton />
                 <Grid item xs>
                     <h4>Ajustes visuales</h4>
                 </Grid>
@@ -115,13 +121,6 @@ const ConfigStadisticPage = () => {
                         type="color"
                         value={state.borderColor[0]}
                         onChange={(e) => set_state(prev => ({ ...prev, borderColor: [e.target.value] }))}
-                    />
-                    <Input
-                        xs={12}
-                        label="Color de contorno"
-                        type="date"
-                        value={state.borderColor[0]}
-                        onChange={(e) => console.log(e.target.value)}
                     />
                     <Grid item xs={12} className="p-2">
                         <h5>Colores de fondo</h5>

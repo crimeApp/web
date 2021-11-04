@@ -5,7 +5,7 @@ import Input from "../../../components/input/Input";
 import { UserModel } from "../../../models/user.models";
 import { UnixToDate } from "../../../utils/time";
 import ScaffoldAdmin from "../component/ScaffoldAdmin";
-import BackButton from "../component/BackButton";
+import { BackButton } from "../component/BackButton";
 import { HandleAPI } from "../../../utils/handle-api";
 import { AdminContext } from "../../../context/admin-context";
 import useHandlePage from "../../../hooks/useHandlePage";

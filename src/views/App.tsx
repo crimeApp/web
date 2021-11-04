@@ -9,21 +9,24 @@ import CrimeMapPage from './crime-map/CrimeMapPage';
 import ContactPage from './contact/ContactPage';
 import { useReducer } from 'react';
 import { AdminContext, AdminReducer, InitAdminState } from '../context/admin-context';
-import ForgetPasswordPage from './admin/forget-password-page';
-import HomeAdminPage from './admin/home';
+import ForgetPasswordPage from './admin/config/forget-password-page';
+import HomeAdminPage from './admin/HomePage/home';
 import MapAdminPage from './admin/MapPage/map';
 import StadisticsPage from './admin/StadisticPage/stadistic';
-import UsersAdminPage from './admin/user/UsersPage';
-import UserAdminPage from './admin/user/UserPage';
+import UsersAdminPage from './admin/UserPage/UsersPage';
+import UserAdminPage from './admin/UserPage/UserPage';
 import BarPage from './admin/StadisticPage/layers/barPage';
 import LinePage from './admin/StadisticPage/layers/linePage';
 import PiePage from './admin/StadisticPage/layers/PiePage';
 import PolarPage from './admin/StadisticPage/layers/PolarPage';
 import ConfigAdminPage from './admin/config/ConfigPage';
 import ConfigStadisticPage from './admin/StadisticPage/layers/ConfigStadisticPage';
+import EditProfileAdmin from './admin/config/EditProfile';
+import Translate from '../assets/traslate';
 
 const App = () => {
-    const [admin_state, admin_dispatch] = useReducer(AdminReducer, InitAdminState)
+    const [admin_state, admin_dispatch] = useReducer(AdminReducer, InitAdminState),
+    TRANSLATE = Translate["ES"]
 
     return <Router>
         <Switch>
@@ -33,19 +36,20 @@ const App = () => {
             <Route path="/crime-map" exact={true} component={CrimeMapPage} />
             <Route path="/contact" exact={true} component={ContactPage} />
             <AdminContext.Provider value={{ admin_state, admin_dispatch }}>
-                <Route path="/admin/login" exact={true} component={LoginPage} />
-                <Route path="/admin/forget-password" exact={true} component={ForgetPasswordPage} />
-                <Route path="/admin/home" exact={true} component={HomeAdminPage} />
-                <Route path="/admin/users" exact={true} component={UsersAdminPage} />
-                <Route path="/admin/users/:id" exact={true} component={UserAdminPage} />
-                <Route path="/admin/map" exact={true} component={MapAdminPage} />
-                <Route path="/admin/config" exact={true} component={ConfigAdminPage} />
-                <Route path="/admin/statistics" exact={true} component={StadisticsPage} />
-                <Route path="/admin/statistics/bar" exact={true} component={BarPage} />
-                <Route path="/admin/statistics/line" exact={true} component={LinePage} />
-                <Route path="/admin/statistics/pie" exact={true} component={PiePage} />
-                <Route path="/admin/statistics/polar" exact={true} component={PolarPage} />
-                <Route path="/admin/statistics/config" exact={true} component={ConfigStadisticPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.LOGIN} exact={true} component={LoginPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.FORGET_PASSWORD} exact={true} component={ForgetPasswordPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.HOME} exact={true} component={HomeAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.USERS} exact={true} component={UsersAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.USERS + "/:id"} exact={true} component={UserAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.MAP} exact={true} component={MapAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG} exact={true} component={ConfigAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.EDIT_PROFILE} exact={true} component={EditProfileAdmin} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.HOME} exact={true} component={StadisticsPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.BAR}  exact={true} component={BarPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.LINE}  exact={true} component={LinePage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.PIE} exact={true} component={PiePage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.POLAR} exact={true} component={PolarPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.CONFIG} exact={true} component={ConfigStadisticPage} />
             </AdminContext.Provider>
         </Switch>
     </Router>

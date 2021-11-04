@@ -1,21 +1,24 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HandlePetitions from "../../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
 import { Bar, Pie, PolarArea } from 'react-chartjs-2';
 import { DataHeatMap, MockDataCrimePlace, MockDataCrimeTemp, MockDataCrimeTime, MockDataCrimeType, MockVictimAgresive, MockVictimEmotional, MockVictimPhysical } from "../../__data__/stadistics";
 import { Grid } from "@material-ui/core";
-import BackButton from "../../component/BackButton";
+import { BackButton } from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";
-import MakeChart from "./commond";
+import MakeChart, { NotFoundData } from "./commond";
 import { AdminContext } from "../../../../context/admin-context";
 import Heatmap from "../../../../components/heatmap/Heatmap";
+import { StadisticsToChatsFormat } from "../../../../utils/stadistcs-to";
+import { StadisticCharModel } from "../../../../models/stadistic.model";
 
 const PiePage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
         , { admin_state } = useContext(AdminContext)
+        , [data, set_data] = useState<StadisticCharModel | undefined>(StadisticsToChatsFormat(admin_state.database))
 
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
@@ -36,42 +39,43 @@ const PiePage = () => {
                     <p>Analisis con diferentes perspectiva de los casos</p>
                 </Grid>
                 {
-                    [
-                        {
-                            label: "Tipo de Siniestro",
-                            type: "Bar",
-                            data: { ...MockDataCrimeType, datasets: [{ ...MockDataCrimeType.datasets[0], ...admin_state.config.statistics }] },
-                        },
-                        {
-                            label: "Lugar",
-                            type: "Radar",
-                            data: { ...MockDataCrimePlace, datasets: [{ ...MockDataCrimePlace.datasets[0], ...admin_state.config.statistics }] },
-                        },
-                        {
-                            label: "Horario",
-                            type: "Line",
-                            data: { ...MockDataCrimeTime, datasets: [{ ...MockDataCrimeTime.datasets[0], ...admin_state.config.statistics }] },
-                        },
-                        {
-                            label: "Daño fisico hacia la victima",
-                            type: "Bar",
-                            data: { ...MockVictimPhysical, datasets: [{ ...MockVictimPhysical.datasets[0], ...admin_state.config.statistics }] },
-                        },
-                        {
-                            label: "Daño emocional hacia la victima",
-                            type: "Bar",
-                            data: { ...MockVictimEmotional, datasets: [{ ...MockVictimEmotional.datasets[0], ...admin_state.config.statistics }] },
-                        },
-                        {
-                            label: "Nivel de agresividad del agresor",
-                            type: "Bar",
-                            data: { ...MockVictimAgresive, datasets: [{ ...MockVictimAgresive.datasets[0], ...admin_state.config.statistics }] },
-                        },
-                    ].map(v => <MakeChart {...v} />)
+                    data ?
+                        <>
+                            {
+                                [
+                                    {
+                                        label: "Tipo de Siniestro",
+                                        type: "Bar",
+                                        data: { ...data.crimeType, datasets: [{ ...data.crimeType.datasets[0], ...admin_state.config.statistics }] },
+                                    },
+                                    {
+                                        label: "Horario",
+                                        type: "Line",
+                                        data: { ...data.crimeTime, datasets: [{ ...data.crimeTime.datasets[0], ...admin_state.config.statistics }] },
+                                    },
+                                    {
+                                        label: "Daño fisico hacia la victima",
+                                        type: "Bar",
+                                        data: { ...data.victimPhysical, datasets: [{ ...data.victimPhysical.datasets[0], ...admin_state.config.statistics }] },
+                                    },
+                                    {
+                                        label: "Daño emocional hacia la victima",
+                                        type: "Bar",
+                                        data: { ...data.victimEmotional, datasets: [{ ...data.victimEmotional.datasets[0], ...admin_state.config.statistics }] },
+                                    },
+                                    {
+                                        label: "Nivel de agresividad del agresor",
+                                        type: "Bar",
+                                        data: { ...data.victimAgresive, datasets: [{ ...data.victimAgresive.datasets[0], ...admin_state.config.statistics }] },
+                                    },
+                                ].map(v => <MakeChart {...v} />)
+                            }
+                            <Grid item xs={12}>
+                                <Heatmap label="Mapa de calor" className="p-2" data={data.crimePoints.datasets[0].data.map(e => ([e.lat, e.lng, e.int]))} />
+                            </Grid>
+                        </>
+                        : <NotFoundData />
                 }
-                <Grid item xs={12}>
-                    <Heatmap label="Mapa de calor" className="p-2" data={DataHeatMap} />
-                </Grid>
             </Grid>
             <Button
                 className="m-top-3"
