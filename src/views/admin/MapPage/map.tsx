@@ -21,6 +21,7 @@ import yup from "../../../utils/yup";
 import Validator from "../../../utils/validator";
 import { ColorCA } from "../../../style/type-style";
 import SiniesterList from "./layers/SiniesterList";
+import { CancelTwoTone } from "@material-ui/icons";
 
 const schema = yup.object().shape({
     full_name: yup.string().max(60),
@@ -198,17 +199,24 @@ const MapAdminPage = () => {
         <Grid item xs={12} sm={6} className='p-1' container alignContent="flex-start">
             <Tabs xs={12} labels={["Ubicacion", "Detalle"]} >
                 <Map xs={12} position={state.geopoint} />
-                <Grid className="background-color-white p-2" container style={{ borderRadius: "0px 0px 5px 5px" }}>
-                    <Grid item xs={8} className='p-bottom-2 m-top-2 p-left-2'>
+                <Grid className="background-color-white p-2" container
+                    style={{
+                        borderRadius: "0px 0px 5px 5px"
+                    }}>
+                    <Grid item xs={8} className='p-bottom-2 m-top-2 p-left-2' container alignItems="center" >
                         <h4>Descripcion del caso</h4>
+                        {
+                            !edit_state && <Chip size="small" label="Editando" />
+                        }
                     </Grid>
-                    {
-                        edit_state && <Grid item xs={4} container justify="flex-end">
-                            <IconButton onClick={() => set_edit_state(false)}>
-                                <EditIcon />
-                            </IconButton>
-                        </Grid>
-                    }
+                    <Grid item xs={4} container justify="flex-end">
+                        <IconButton onClick={() => set_edit_state(prev => !prev)}>
+                            {
+                                edit_state ? <EditIcon /> : <CancelTwoTone />
+                            }
+                        </IconButton>
+                    </Grid>
+
                     <Input
                         {...inputConstructor("location")}
                         xs={12}

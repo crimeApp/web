@@ -29,7 +29,13 @@ const ConfigAdminPage = () => {
                         title: "Perfil",
                         description: "Haga click aqui para editar su cuenta",
                         Icon: AccountBox,
-                        onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.EDIT_PROFILE)
+                        onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PROFILE)
+                    },
+                    {
+                        title: "Contrasenia",
+                        description: "Haga click aqui para cambiar su contrasenia",
+                        Icon: AccountBox,
+                        onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PASSWORD)
                     },
                     {
                         title: "Sección",

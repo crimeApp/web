@@ -42,8 +42,9 @@ const App = () => {
                 <Route path={TRANSLATE.ROUTES.ADMIN.USERS} exact={true} component={UsersAdminPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.USERS + "/:id"} exact={true} component={UserAdminPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.MAP} exact={true} component={MapAdminPage} />
-                <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG} exact={true} component={ConfigAdminPage} />
-                <Route path={TRANSLATE.ROUTES.ADMIN.EDIT_PROFILE} exact={true} component={EditProfileAdmin} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.HOME} exact={true} component={ConfigAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PROFILE} exact={true} component={EditProfileAdmin} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PASSWORD} exact={true} component={EditProfileAdmin} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.HOME} exact={true} component={StadisticsPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.BAR}  exact={true} component={BarPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.LINE}  exact={true} component={LinePage} />

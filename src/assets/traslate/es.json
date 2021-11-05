@@ -108,8 +108,11 @@
                 "POLAR": "/admin/statistics/polar",
                 "CONFIG": "/admin/statistics/config"
             },
-            "CONFIG": "/admin/config",
-            "EDIT_PROFILE": "/admin/config/profile"
+            "CONFIG": {
+                "HOME": "/admin/config",
+                "EDIT_PROFILE": "/admin/config/profile",
+                "EDIT_PASSWORD": "/admin/config/password"
+            }
         }
     }
 }
