@@ -12,9 +12,9 @@ const BackButton = ({ xs = 1, md = 1, className }: { xs?: any, md?: any, classNa
     </Grid>
 }
 
-const BackButtonString = () => {
+const BackButtonString = ({ className }: { className?: string}) => {
     const history = useHistory()
-    return <Grid item xs={12} className="hover" container alignItems="center" onClick={() => history.goBack()} >
+    return <Grid item xs={12} className={`hover ${className}`} container alignItems="center" onClick={() => history.goBack()} >
         <ArrowBackIos style={{ width: "12px", height: "12px" }} />
         <p className="font-size-little">
             Volver

@@ -2,10 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import HandlePetitions from "../../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../../component/ScaffoldAdmin";
-import { Bar, Pie, Radar } from 'react-chartjs-2';
-import { MockDataCrimeAccompaniment, MockDataCrimeAge, MockDataCrimeHair, MockDataCrimeHeight, MockDataCrimeSex, MockDataCrimeSkin, MockDataCrimeTemp } from "../../__data__/stadistics";
 import { Grid } from "@material-ui/core";
-import { BackButton } from "../../component/BackButton";
+import { BackButtonString } from "../../component/BackButton";
 import Button from "../../../../components/button/Button";
 import { uiPrint } from "../../../../utils/ui-print";
 import MakeChart, { NotFoundData } from "./commond";
@@ -17,7 +15,8 @@ const PolarPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
         , { admin_state } = useContext(AdminContext)
-        , [data, set_data] = useState<StadisticCharModel | undefined>(StadisticsToChatsFormat(admin_state.database))
+        // @ts-ignore
+        , [data, set_data] = useState<StadisticCharModel | undefined>(StadisticsToChatsFormat(admin_state.database)["all"]["struct"])
 
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
@@ -30,8 +29,8 @@ const PolarPage = () => {
         />
         <Grid item xs={12} sm={8} md={6} className="p-top-2 p-left-2 p-right-2 p-bottom-4 border-small background-color-white shadow" container justify="center">
             <Grid id="capture" item xs={12} container >
-                <BackButton xs={1} className="m-left-2" />
-                <Grid item xs >
+                <BackButtonString className="p-left-2"/>
+                <Grid item xs className="p-left-2" >
                     <h3>Exploracion</h3>
                 </Grid>
                 <Grid item xs={12} className="p-2">
@@ -40,38 +39,38 @@ const PolarPage = () => {
                 {
                     data ?
                         [
-                            {
+                            data.crimeHeight ? {
                                 label: "Altura",
                                 type: "Bar",
-                                data: { ...data?.crimeHeight, datasets: [{ ...data?.crimeHeight.datasets[0], ...admin_state.config.statistics }] },
-                            },
-                            {
+                                data: { ...data.crimeHeight, datasets: [{ ...data.crimeHeight.datasets[0], ...admin_state.config.statistics }] },
+                            } : {},
+                            data.crimeAge ? {
                                 label: "Franja Etaria",
                                 type: "Radar",
                                 data: { ...data?.crimeAge, datasets: [{ ...data?.crimeAge.datasets[0], ...admin_state.config.statistics }] },
-                            },
-                            {
+                            } : {},
+                            data.crimeHair ? {
                                 label: "Color de pelo",
                                 type: "Bar",
                                 data: { ...data?.crimeHair, datasets: [{ ...data?.crimeHair.datasets[0], ...admin_state.config.statistics }] },
-                            },
-                            {
+                            } : {},
+                            data.crimeSkin ? {
                                 label: "Color de piel",
                                 type: "Pie",
                                 data: { ...data?.crimeSkin, datasets: [{ ...data?.crimeSkin.datasets[0], ...admin_state.config.statistics }] },
-                            },
-                            {
+                            } : {},
+                            data.crimeSex ? {
                                 label: "Sexo",
                                 type: "Pie",
                                 data: { ...data?.crimeSex, datasets: [{ ...data?.crimeSex.datasets[0], ...admin_state.config.statistics }] },
-                            },
-                            {
+                            } : {},
+                            data.crimeAccompaniment ? {
                                 label: "Cantidad de sospechosos extra",
                                 type: "Bar",
                                 data: {
                                     ...data?.crimeAccompaniment, datasets: [{ ...data?.crimeAccompaniment.datasets[0], ...admin_state.config.statistics }]
                                 }
-                            }
+                            } : {}
                         ].map(v => <MakeChart {...v} />)
                         : <NotFoundData />
                 }

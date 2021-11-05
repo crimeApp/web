@@ -4,7 +4,9 @@ import { Bar, Line, Pie, PolarArea, Radar } from "react-chartjs-2";
 import { useHistory } from "react-router";
 import Button from "../../../../components/button/Button";
 
-const MakeChart = ({ label, data, type }: { label: string, data: any, type: "PolarArea" | "Pie" | "Bar" | "Radar" | "Line" | string }) => {
+const MakeChart = ({ label, data, type }: { label?: string, data?: any, type?: "PolarArea" | "Pie" | "Bar" | "Radar" | "Line" | string }) => {
+
+    if (!label || !data || !type) return null
 
     const opt = {
         plugins: {
@@ -44,6 +46,6 @@ export const NotFoundData = () => {
     const history = useHistory()
     return <Grid item xs={12} container justify="center" alignItems="center">
         <p className="w500 p-2">No se encontraron datos, haga click en el siguiente boton para seleccionar una base de datos</p>
-        <Button xs={8} label="Seleccionar dataset" onClick={() => history.push("/admin/statistics/config")}/>
+        <Button xs={8} label="Seleccionar dataset" onClick={() => history.push("/admin/statistics/config")} />
     </Grid>
 }
