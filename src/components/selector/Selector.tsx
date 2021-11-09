@@ -8,6 +8,7 @@ import {
     TextField
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import "./selector.css";
 import { BorderCA, ColorCA } from "../../style/type-style";
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
@@ -86,7 +87,7 @@ const Selector = ({
             xl={xl}
             className={`p-1 ${className}`}>
             <Autocomplete
-                className={`text-field-container text-field-group`}
+                className={`text-field-container`}
                 options={options}
                 disableClearable
                 freeSolo={freeSolo}
@@ -100,7 +101,6 @@ const Selector = ({
                 renderInput={(params) => (
                     <TextField
                         label={label ? (label + (required ? "*" : "")) : undefined}
-                        hiddenLabel
                         placeholder={placeholder}
                         helperText={error ? error_msg : msg}
                         FormHelperTextProps={{

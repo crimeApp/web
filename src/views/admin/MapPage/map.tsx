@@ -22,6 +22,7 @@ import Validator from "../../../utils/validator";
 import { ColorCA } from "../../../style/type-style";
 import SiniesterList from "./layers/SiniesterList";
 import { CancelTwoTone } from "@material-ui/icons";
+import { age_options, hair_options, height_options, sex_options, skin_options } from "../../../assets/options";
 
 const schema = yup.object().shape({
     full_name: yup.string().max(60),
@@ -59,7 +60,6 @@ const MapAdminPage = () => {
         , [errors, set_errors] = useState<any>()
         , classNameDetailText = "w600 p-right-1"
         , classNameDetailGrid = "p-top-1 p-bottom-1"
-        , onChange = (e: any) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))
         , inputConstructor = (name: string) => ({
             name,
             xs: 6 as GridSize,
@@ -136,6 +136,7 @@ const MapAdminPage = () => {
                         msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
                     })
             }
+            set_edit_state(true)
         }
 
     useEffect(() => {
@@ -260,9 +261,12 @@ const MapAdminPage = () => {
                         label="Edad"
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("sex")}
                         label="Sexo"
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
+                        options={sex_options}
                         disabled={edit_state}
                     />
                     <Input
@@ -298,6 +302,7 @@ const MapAdminPage = () => {
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Rango etario"
                         disabled={edit_state}
+                        options={age_options}
                     />
                     <Input
                         {...inputConstructor("thief_agressiveness")}
@@ -313,10 +318,12 @@ const MapAdminPage = () => {
                         //@ts-ignore
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Sexo"
+                        options={sex_options}
                         disabled={edit_state}
                     />
                     <Select
                         {...inputConstructor("thief_skin")}
+                        options={skin_options}
                         //@ts-ignore
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Color de piel"
@@ -327,6 +334,7 @@ const MapAdminPage = () => {
                         //@ts-ignore
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Color de pelo"
+                        options={hair_options}
                         disabled={edit_state}
                     />
                     <Input
@@ -337,6 +345,7 @@ const MapAdminPage = () => {
                     />
                     <Select
                         {...inputConstructor("thief_height")}
+                        options={height_options}
                         //@ts-ignore
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label="Altura"

@@ -15,7 +15,6 @@ const PolarPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
         , { admin_state } = useContext(AdminContext)
-        // @ts-ignore
         , [data, set_data] = useState<StadisticCharModel | undefined>(StadisticsToChatsFormat(admin_state.database)["all"]["struct"])
 
     useEffect(() => {

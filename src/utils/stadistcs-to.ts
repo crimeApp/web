@@ -1,8 +1,12 @@
 import { Label } from "@material-ui/icons";
-import { StadisticCharModel, StadisticModel } from "../models/stadistic.model";
+import { DataStructChar, StadisticCharModel, StadisticModel } from "../models/stadistic.model";
 
-export const StadisticsToChatsFormat = (model: StadisticModel | undefined): StadisticCharModel | undefined => {
-    if (!model) return
+export const StadisticsToChatsFormat = (model: StadisticModel | undefined): StadisticCharModel | { all: { struct: undefined } } => {
+    if (!model) return {
+        all: {
+            struct: undefined
+        }
+    }
     const temp = StadisticsToChartFormatByMonth(model)
         , sumatory = SumatoriOfAllData(model)
         , struct = TransformToCharFormat(sumatory);
@@ -57,13 +61,35 @@ const TransformToCharFormat = (model) => Object.assign({}, ...Object.keys(model)
     Object.assign({}, ...Object.keys(model[key]).map((data) => ({
         [key]: {
             //@ts-ignore
-            labels: Object.keys(model[key]),
+            labels: Object.keys(model[key]).sort(),
             datasets: [
                 {
                     //@ts-ignore
-                    data: Object.keys(model[key]).map(k => model[key][k]),
+                    data: Object.keys(model[key]).sort().map(k => model[key][k]),
                     label: ""
                 }
             ]
         }
     })))));
+
+export const GetTotalByMonth = (model: StadisticModel, year: string): DataStructChar => ({
+    labels: Object.keys(model[year]),
+    datasets: [
+        {
+            //@ts-ignore
+            data: Object.keys(model[year]).map(month => model[year][month]["total"]),
+            label: "Casos totales por mes"
+        }
+    ]
+});
+
+export const GetTypeCrimeByMonth = (model: StadisticModel, year: string, key: string): DataStructChar => ({
+    labels: Object.keys(model[year]).sort((a, b) => Number(a) - Number(b)),
+    datasets: [
+        {
+            //@ts-ignore
+            data: Object.keys(model[year]).sort((a, b) => Number(a) - Number(b)).map(month => model[year][month]["crimeType"][key]),
+            label: "Casos totales por mes"
+        }
+    ]
+});
