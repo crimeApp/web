@@ -95,6 +95,8 @@ const MapAdminPage = () => {
                 loading: false,
                 error: true,
                 notification: true,
+                severity: "error",
+                color: "red",
                 msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
             })
 
@@ -115,7 +117,7 @@ const MapAdminPage = () => {
                         severity: "error",
                         color: "red",
                         msg: TRANSLATE.ERRORS.BAD_REQUEST,
-                        callback: () => history.push("/admin/login")
+                        callback: () => history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
                     })
                 case 401:
                     return set_handle_page({
@@ -124,7 +126,7 @@ const MapAdminPage = () => {
                         severity: "error",
                         color: "red",
                         msg: TRANSLATE.ERRORS.UNAUTH,
-                        callback: () => history.push("/admin/login")
+                        callback: () => history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
                     })
                 default:
                     return set_handle_page({
@@ -141,7 +143,7 @@ const MapAdminPage = () => {
 
     useEffect(() => {
         if (!admin_state.token) {
-            return history.push("/admin/login")
+            return history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
         }
         (async () => {
             const request = await HandleAPI({
@@ -177,7 +179,7 @@ const MapAdminPage = () => {
                         severity: "error",
                         color: "red",
                         msg: TRANSLATE.ERRORS.UNAUTH,
-                        callback: () => history.push("/admin/login")
+                        callback: () => history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
                     })
                 default:
                     return set_handle_page({

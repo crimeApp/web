@@ -14,21 +14,22 @@ import Button from "../../../components/button/Button";
 import { BackButtonString } from "../component/BackButton";
 import Validator from "../../../utils/validator";
 import yup from "../../../utils/yup";
-import { phoneExp } from "../../../utils/reg-exp";
+import { passwordExp } from "../../../utils/reg-exp";
 
 const schema = yup.object().shape({
-    name: yup.string().required().min(3).max(50),
-    surname: yup.string().required().min(3).max(50),
-    phone: yup.string().matches(phoneExp).required(),
-    mail: yup.string().email().required(),
+    old_password: yup.string().matches(passwordExp).required(),
+    new_password: yup.string().matches(passwordExp).required(),
 })
 
-const EditProfileAdmin = () => {
+const EditPasswordAdmin = () => {
 
-    const [handle_page, set_handle_page] = useHandlePage({ loading: true }),
+    const [handle_page, set_handle_page] = useHandlePage({ loading: false }),
         { admin_state } = useContext(AdminContext),
         history = useHistory(),
-        [state, set_state] = useState<UserModel>(),
+        [state, set_state] = useState({
+            old_password: "",
+            new_password: ""
+        }),
         TRANSLATE = translate["ES"],
         [errors, set_errors] = useState<any>(),
         inputConstructor = (name: string) => ({
@@ -51,8 +52,8 @@ const EditProfileAdmin = () => {
                 set_errors(val.data)
             }
             const request = await HandleAPI({
-                method: "put",
-                path: "/admin/user",
+                method: "post",
+                path: "/admin/user/password",
                 data: val.data,
                 config: {
                     headers: {
@@ -111,74 +112,18 @@ const EditProfileAdmin = () => {
             }
         }
 
-    useEffect(() => {
-        if (!admin_state.token) {
-            return history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
-        }
-        (async () => {
-            const request = await HandleAPI({
-                method: "get",
-                path: "/admin/user",
-                config: {
-                    headers: {
-                        Authorization: `Bearer ${admin_state.token}`
-                    }
-                }
-            })
-
-            if (!request) return set_handle_page({
-                loading: false,
-                error: true,
-                notification: true,
-                msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
-            })
-
-            switch (request.status) {
-                case 200:
-                    set_state(request.data)
-                    return set_handle_page(prev => ({
-                        ...prev,
-                        loading: false,
-                    }))
-                case 401:
-                    return set_handle_page({
-                        loading: false,
-                        error: true,
-                        severity: "error",
-                        color: "red",
-                        msg: TRANSLATE.ERRORS.UNAUTH,
-                        callback: () => history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
-                    })
-                default:
-                    return set_handle_page({
-                        loading: false,
-                        error: true,
-                        notification: true,
-                        color: "red",
-                        severity: "error",
-                        msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
-                    })
-            }
-        })();
-    }, [])
-
     return <ScaffoldAdmin className="p-bottom-4 m-bottom-4">
         <HandlePetitions handlePage={handle_page} setHandlePage={set_handle_page} />
         <Grid item xs={12} md={6} className="p-2 border-small background-color-white shadow" container justify="center">
             <BackButtonString className="p-left-2" />
             <Grid item xs={12} className="p-left-2">
-                <h3>Editar Perfil</h3>
+                <h3>Editar Contraseña</h3>
             </Grid>
-            <Input {...inputConstructor("name")} />
-            <Input {...inputConstructor("surname")} />
-            <Input {...inputConstructor("cuit")} disabled />
-            <Input {...inputConstructor("mail")} />
-            <Input {...inputConstructor("phone")} />
-            <Input {...inputConstructor("place")} disabled />
-            <Input {...inputConstructor("role")} disabled />
+            <Input {...inputConstructor("old_password")} type="password" />
+            <Input {...inputConstructor("new_password")} type="password" />
             <Button className="p-top-3" xs={8} label={TRANSLATE.COMMON.SAVE} color="green" onClick={handleSummit} />
         </Grid>
     </ScaffoldAdmin>
 }
 
-export default EditProfileAdmin;
+export default EditPasswordAdmin;

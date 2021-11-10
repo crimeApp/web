@@ -4,9 +4,12 @@ import {
   InputAdornment,
   TextField,
   InputLabel,
+  IconButton,
 } from "@material-ui/core";
 import React from "react";
 import { BorderCA, ColorCA } from "../../style/type-style";
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import "./text-field.css";
 
 interface InputProps {
@@ -29,7 +32,6 @@ interface InputProps {
   color?: ColorCA;
   colorFont?: ColorCA;
   onChange?: React.EventHandler<any>;
-  password?: boolean;
   register?: any;
   disabled?: boolean;
   maxlenght?: number;
@@ -59,7 +61,6 @@ const Input = ({
   iconRight,
   inputProps,
   inputLabelProps,
-  password,
   color = "white",
   colorFont = "black",
   maxlenght = 40,
@@ -89,7 +90,6 @@ const Input = ({
   }, [inputValue])
 
   React.useEffect(() => {
-    console.log(name, inputValue, value)
     return (inputValue === value) ? undefined : setInputValue(value)
   }, [value])
 
@@ -122,8 +122,8 @@ const Input = ({
         rows={rows}
         disabled={disabled}
         type={
-          password ?
-            (visible ? type : "password")
+          type === "password" ?
+            (visible ? "text" : "password")
             : type
         }
         fullWidth
@@ -165,14 +165,22 @@ const Input = ({
             </InputAdornment>
           ),
           endAdornment: (
-            <InputAdornment position="end">
-              <div className="text-field-icon-end">{iconRight}</div>
+            <InputAdornment className="hover" position="end" onClick={() => type === "password" && setVisibility(prev => !prev)}>
+              <div className="text-field-icon-end">
+                {
+                  type === "password"
+                    ? visible
+                      ? <VisibilityIcon />
+                      : <VisibilityOffIcon />
+                    : iconRight
+                }
+              </div>
             </InputAdornment>
           ),
           ...inputProps,
         }}
       />
-    </Grid>
+    </Grid >
   );
 };
 export default Input;

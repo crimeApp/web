@@ -61,11 +61,11 @@ const TransformToCharFormat = (model) => Object.assign({}, ...Object.keys(model)
     Object.assign({}, ...Object.keys(model[key]).map((data) => ({
         [key]: {
             //@ts-ignore
-            labels: Object.keys(model[key]).sort(),
+            labels: Object.keys(model[key]).sort((a, b) => !isNaN(parseFloat(a)) && !isNaN(parseFloat(b)) ? Number(a) - Number(b) : a - b),
             datasets: [
                 {
                     //@ts-ignore
-                    data: Object.keys(model[key]).sort().map(k => model[key][k]),
+                    data: Object.keys(model[key]).sort((a, b) => !isNaN(parseFloat(a)) && !isNaN(parseFloat(b)) ? Number(a) - Number(b) : a - b).map(k => model[key][k]),
                     label: ""
                 }
             ]

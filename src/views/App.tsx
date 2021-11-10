@@ -23,6 +23,7 @@ import ConfigAdminPage from './admin/config/ConfigPage';
 import ConfigStadisticPage from './admin/StadisticPage/layers/ConfigStadisticPage';
 import EditProfileAdmin from './admin/config/EditProfile';
 import Translate from '../assets/traslate';
+import EditPasswordAdmin from './admin/config/EditPassword';
 
 const App = () => {
     const [admin_state, admin_dispatch] = useReducer(AdminReducer, InitAdminState),
@@ -44,7 +45,7 @@ const App = () => {
                 <Route path={TRANSLATE.ROUTES.ADMIN.MAP} exact={true} component={MapAdminPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.HOME} exact={true} component={ConfigAdminPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PROFILE} exact={true} component={EditProfileAdmin} />
-                <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PASSWORD} exact={true} component={EditProfileAdmin} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PASSWORD} exact={true} component={EditPasswordAdmin} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.HOME} exact={true} component={StadisticsPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.BAR}  exact={true} component={BarPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.LINE}  exact={true} component={LinePage} />

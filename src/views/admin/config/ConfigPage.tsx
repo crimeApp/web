@@ -32,8 +32,8 @@ const ConfigAdminPage = () => {
                         onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PROFILE)
                     },
                     {
-                        title: "Contrasenia",
-                        description: "Haga click aqui para cambiar su contrasenia",
+                        title: "Contraseña",
+                        description: "Haga click aqui para cambiar su contraseña",
                         Icon: AccountBox,
                         onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PASSWORD)
                     },

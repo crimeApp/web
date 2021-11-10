@@ -12,7 +12,7 @@ import { HandleAPI } from "../../utils/handle-api";
 import { cuitExp, passwordExp } from "../../utils/reg-exp";
 import Validator from "../../utils/validator";
 import yup from "../../utils/yup";
-import traslate from "../../assets/traslate/es.json";
+import traslate from "../../assets/traslate/index";
 import { AdminContext } from "../../context/admin-context";
 
 const schema = yup.object().shape({
@@ -28,6 +28,7 @@ const LoginPage = () => {
             cuit: "",
             password: ""
         })
+        , TRANSLATE = traslate["ES"]
         , { admin_state, admin_dispatch } = useContext(AdminContext)
         , history = useHistory()
         , InputConstructor = (name: string) => ({
@@ -35,13 +36,15 @@ const LoginPage = () => {
             xs: 12 as GridSize,
             //@ts-ignore
             value: form[name],
+            //@ts-ignore
+            label: TRANSLATE.LABELS[name.toUpperCase],
             color: "light-gray" as ColorCA,
             className: "m-top-1 p-1",
             onChange: (event: any) => set_form(prev => ({ ...prev, [name]: event.target.value })),
             error: errors?.[name]?.error,
             error_msg: errors?.[name]?.type === "matches" ?
                 // @ts-ignore
-                traslate.ERRORS[name] : errors?.[name]?.msg
+                TRANSLATE.ERRORS[name] : errors?.[name]?.msg
         })
         , onSummit = async () => {
             set_handle_page(prev => ({ ...prev, loading: true }))
@@ -61,7 +64,7 @@ const LoginPage = () => {
                 loading: false,
                 color: "red",
                 notification: true,
-                msg: traslate.ERRORS.INTERNAL_SERVER_ERROR,
+                msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR,
                 severity: "error"
             })
 
@@ -73,7 +76,7 @@ const LoginPage = () => {
                             token: request.data
                         }
                     })
-                    return history.push(traslate.ROUTES.ADMIN.HOME)
+                    return history.push(TRANSLATE.ROUTES.ADMIN.HOME)
                 case 400:
                     return set_handle_page({
                         ...handle_page,
@@ -81,7 +84,7 @@ const LoginPage = () => {
                         severity: "error",
                         notification: true,
                         loading: false,
-                        msg: traslate.ERRORS.BAD_REQUEST
+                        msg: TRANSLATE.ERRORS.BAD_REQUEST
                     })
                 case 404:
                     return set_handle_page({
@@ -90,7 +93,7 @@ const LoginPage = () => {
                         severity: "error",
                         notification: true,
                         loading: false,
-                        msg: traslate.ERRORS.USER_NOT_FOUND
+                        msg: TRANSLATE.ERRORS.USER_NOT_FOUND
                     })
                 default:
                     return set_handle_page({
@@ -99,12 +102,12 @@ const LoginPage = () => {
                         severity: "error",
                         notification: true,
                         loading: false,
-                        msg: traslate.ERRORS.INTERNAL_SERVER_ERROR
+                        msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
                     })
             }
         };
 
-    useEffect(() => admin_state.login ? history.push(traslate.ROUTES.ADMIN.HOME) : undefined, [])
+    useEffect(() => admin_state.login ? history.push(TRANSLATE.ROUTES.ADMIN.HOME) : undefined, [])
 
     return <Scaffold>
         <HandlePetitions
@@ -120,15 +123,12 @@ const LoginPage = () => {
             </Grid>
             <Input
                 {...InputConstructor("cuit")}
-                label="CUIT"
             />
             <Input
-                label="Contraseña"
-                password
                 {...InputConstructor("password")}
             />
             <Grid item xs={12}>
-                <p className="p-1 w400 font-size-small hover" onClick={() => history.push(traslate.ROUTES.ADMIN.FORGET_PASSWORD)}>Olvido su contrasenia? Ingrese aqui para recuperarla </p>
+                <p className="p-1 w400 font-size-small hover" onClick={() => history.push(TRANSLATE.ROUTES.ADMIN.FORGET_PASSWORD)}>Olvido su contrasenia? Ingrese aqui para recuperarla </p>
             </Grid>
             <Button
                 xs={12}
@@ -137,7 +137,7 @@ const LoginPage = () => {
                 label="Volver"
                 color="white"
                 colorFont="violet"
-                onClick={() => history.push(traslate.ROUTES.PUBLIC.HOME)}
+                onClick={() => history.push(TRANSLATE.ROUTES.PUBLIC.HOME)}
             />
             <Button
                 xs={12}

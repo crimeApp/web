@@ -1,6 +1,7 @@
 {
     "COMMON": {
         "START": "Comenzar",
+        "SAVE": "Guardar",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "NEXT": "Siguiente",
@@ -16,6 +17,18 @@
     "INSTRUCTIONS": {
         "INTRO": "¿Cómo hacer tu denuncia?",
         "DATA": ["Ingrese a la página del ", "Ingrese sus datos personales.", "Concurrir a una unidad jurídica.", "Recibir la constancia del siniestro para presentarla"]
+    },
+    "LABELS": {
+        "NAME": "Nombre",
+        "SURNAME": "Apellido",
+        "CUIT": "CUIT",
+        "MAIL": "Mail",
+        "PHONE": "Celular",
+        "PLACE": "Lugar",
+        "ROLE": "Role",
+        "PASSWORD": "Contraseña",
+        "NEW_PASSWORD": "Contraseña nueva",
+        "OLD_PASSWORD": "Contraseña actual"
     },
     "FORM": {
         "INFO": "¿De qué se trata este proyecto?",
@@ -84,8 +97,8 @@
         "BAD_REQUEST": "Los datos enviados son incorrectos",
         "UNAUTH": "Usuario no autorizado",
         "cuit": "El cuit debe ser sin guiones ni espacios",
-        "password": "La contrasenia debe contener mayusculas, minusculas y numeros",
-        "USER_NOT_FOUND": "Usuiario y/o contrasenia incorrectos",
+        "password": "La contraseña debe contener mayusculas, minusculas y numeros",
+        "USER_NOT_FOUND": "Usuiario y/o contraseña incorrectos",
         "NOT_FOUND_USER": "Usuario no encontrado"
     },
     "ROUTES": {

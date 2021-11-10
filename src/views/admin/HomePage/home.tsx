@@ -195,6 +195,7 @@ const HomeAdminPage = () => {
                             label="Descripcion"
                             multiline
                             name="title"
+                            color="light-gray"
                             error={errors?.title?.error}
                             error_msg={errors?.title?.msg}
                             value={new_event?.title}
@@ -205,6 +206,7 @@ const HomeAdminPage = () => {
                         <Input
                             type="datetime-local"
                             name="from"
+                            color="light-gray"
                             error={errors?.from?.error}
                             error_msg={errors?.from?.msg}
                             value={new_event?.from as Date}
@@ -215,6 +217,7 @@ const HomeAdminPage = () => {
                         <Input
                             type="datetime-local"
                             name="to"
+                            color="light-gray"
                             value={new_event?.to as Date}
                             error={errors?.to?.error}
                             error_msg={errors?.to?.msg}
@@ -225,6 +228,7 @@ const HomeAdminPage = () => {
                         <Input
                             xs={12}
                             name="color"
+                            color="light-gray"
                             value={new_event?.color}
                             error={errors?.color?.error}
                             error_msg={errors?.color?.msg}

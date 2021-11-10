@@ -1,13 +1,13 @@
 const Validator = async (values: any, schema: any): Promise<{ err: boolean, data: any }> => {
     try {
-        const data = await schema.validateSync(values, { abortEarly: false })
+        const data = await schema.validateSync(values, { abortEarly: false, stripUnknown: true })
         return {
             err: false,
             data: data
         }
     } catch (err) {
         let object = {}
-        // eslint-disable-next-line array-callback-return
+        // @ts-ignore
         err.errors.map((value: any) => {
             object = {
                 ...object,
@@ -18,9 +18,9 @@ const Validator = async (values: any, schema: any): Promise<{ err: boolean, data
                 }
             }
         });
-        return { 
-            err: true, 
-            data: object 
+        return {
+            err: true,
+            data: object
         };
     }
 }
