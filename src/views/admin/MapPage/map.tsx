@@ -72,6 +72,7 @@ const MapAdminPage = () => {
         })
         , submitEditSiniester = async () => {
             set_handle_page(prev => ({ ...prev, loading: true }))
+            set_edit_state(true)
 
             const val = await Validator(state, schema)
 
@@ -138,7 +139,6 @@ const MapAdminPage = () => {
                         msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
                     })
             }
-            set_edit_state(true)
         }
 
     useEffect(() => {
