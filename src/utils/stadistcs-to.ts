@@ -7,6 +7,7 @@ export const StadisticsToChatsFormat = (model: StadisticModel | undefined): Stad
             struct: undefined
         }
     }
+
     const temp = StadisticsToChartFormatByMonth(model)
         , sumatory = SumatoriOfAllData(model)
         , struct = TransformToCharFormat(sumatory);
@@ -83,13 +84,48 @@ export const GetTotalByMonth = (model: StadisticModel, year: string): DataStruct
     ]
 });
 
-export const GetTypeCrimeByMonth = (model: StadisticModel, year: string, key: string): DataStructChar => ({
-    labels: Object.keys(model[year]).sort((a, b) => Number(a) - Number(b)),
-    datasets: [
-        {
-            //@ts-ignore
-            data: Object.keys(model[year]).sort((a, b) => Number(a) - Number(b)).map(month => model[year][month]["crimeType"][key]),
-            label: "Casos totales por mes"
-        }
-    ]
-});
+export const GetTypeCrimeByMonth = (model: StadisticModel, year: string, key: string): DataStructChar => {
+    console.log(model, year, key)
+    return ({
+        labels: Object.keys(model[year]).sort((a, b) => Number(a) - Number(b)),
+        datasets: [
+            {
+                //@ts-ignore
+                data: Object.keys(model[year]).sort((a, b) => Number(a) - Number(b)).map(month => model[year][month]["crimeType"][key]),
+                label: "Casos totales por mes"
+            }
+        ]
+    })
+};
+
+export const TotalCasesByMonths = (model: StadisticModel) => {
+    //@ts-ignore
+    const years = Object.keys(model).filter(years => typeof model[years] === 'object' && !isNaN(years))
+
+    const months = years.map(year => Object.keys(model[year]).filter(e => typeof model[year][e] === 'object'));
+
+    const data = years.map((year, index) => ({
+        year,
+        months: months[index].map(month => ({
+            month: numberToMonth[month],
+            total: model[year][month].total
+        }))
+    }))
+
+    return data
+}
+
+const numberToMonth = {
+    '1': 'Enero',
+    '2': 'Febrero',
+    '3': 'Marzo',
+    '4': 'Abril',
+    '5': 'Mayo',
+    '6': 'Junio',
+    '7': 'Julio',
+    '8': 'Agosto',
+    '9': 'Septiembre',
+    '10': 'Octubre',
+    '11': 'Noviembre',
+    '12': 'Diciembre',
+}

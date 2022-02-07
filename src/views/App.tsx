@@ -24,6 +24,11 @@ import ConfigStadisticPage from './admin/StadisticPage/layers/ConfigStadisticPag
 import EditProfileAdmin from './admin/config/EditProfile';
 import Translate from '../assets/traslate';
 import EditPasswordAdmin from './admin/config/EditPassword';
+import NewStadisticPage from './admin/StadisticPage/layers/new';
+import DatasetsPage from './admin/datasets/AllDatasetsPage';
+import NewUserPage from './admin/UserPage/AddUserPage';
+import CreateAdminPage from './eateregg/createAdmin';
+import SiniesterPage from './admin/MapPage/SiniesterPage';
 
 const App = () => {
     const [admin_state, admin_dispatch] = useReducer(AdminReducer, InitAdminState),
@@ -40,9 +45,11 @@ const App = () => {
                 <Route path={TRANSLATE.ROUTES.ADMIN.LOGIN} exact={true} component={LoginPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.FORGET_PASSWORD} exact={true} component={ForgetPasswordPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.HOME} exact={true} component={HomeAdminPage} />
-                <Route path={TRANSLATE.ROUTES.ADMIN.USERS} exact={true} component={UsersAdminPage} />
-                <Route path={TRANSLATE.ROUTES.ADMIN.USERS + "/:id"} exact={true} component={UserAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.USERS.HOME} exact={true} component={UsersAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.USERS.HOME + "/:id"} exact={true} component={UserAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.USERS.NEW_USER} exact={true} component={NewUserPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.MAP} exact={true} component={MapAdminPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.SINIESTER + "/:id"} exact={true} component={SiniesterPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.HOME} exact={true} component={ConfigAdminPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PROFILE} exact={true} component={EditProfileAdmin} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.CONFIG.EDIT_PASSWORD} exact={true} component={EditPasswordAdmin} />
@@ -52,6 +59,9 @@ const App = () => {
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.PIE} exact={true} component={PiePage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.POLAR} exact={true} component={PolarPage} />
                 <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.CONFIG} exact={true} component={ConfigStadisticPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.STADISTICS.NEW} exact={true} component={NewStadisticPage} />
+                <Route path={TRANSLATE.ROUTES.ADMIN.DATASETS.ALL} exact={true} component={DatasetsPage} />
+                <Route path={TRANSLATE.ROUTES.EASTEREGG.CREATE_ADMIN} exact={true} component={CreateAdminPage} />
             </AdminContext.Provider>
         </Switch>
     </Router>

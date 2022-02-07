@@ -56,7 +56,14 @@ const CrimeFormPage = () => {
             });
 
             if (!resp)
-                return set_handle_page({ loading: false, error: true, notification: true, msg: traslate.ERRORS.INTERNAL_SERVER_ERROR })
+                return set_handle_page({ 
+                    loading: false, 
+                    error: true, 
+                    notification: true,
+                    severity: "error",
+                    color: "red",
+                    msg: traslate.ERRORS.INTERNAL_SERVER_ERROR 
+                })
 
             switch (resp.status) {
                 case 200:
@@ -66,7 +73,7 @@ const CrimeFormPage = () => {
                         notification: true,
                         color: "green",
                         severity: "success",
-                        msg: traslate.OK.SAVE,
+                        msg: traslate.OK.REPORT_COMPLETE,
                         callback: () => history.push(traslate.ROUTES.PUBLIC.HOME)
                     })
                 case 400:

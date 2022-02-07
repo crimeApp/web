@@ -1,6 +1,7 @@
 import React from "react";
 import { createContext } from "react";
 import { StadisticModel } from "../models/stadistic.model";
+import { parseJwt } from "../utils/token";
 const storejs = require("store-js");
 
 export type ActionAdmin = {
@@ -19,7 +20,9 @@ export type StateAdminConfig = {
 type StateAdmin = {
     login: boolean,
     token?: string,
+    role?: string,
     database?: StadisticModel,
+    cuit?: string,
     admin: boolean,
     config: StateAdminConfig
 }
@@ -32,7 +35,7 @@ const AdminReducer = (state: StateAdmin, action: ActionAdmin): StateAdmin => {
                 ...state,
                 token: action.payload.token,
                 login: true,
-                admin: action.payload.admin
+                ...getData(action.payload.token)
             }
         case "LOGOUT":
             storejs.remove("token_ca");
@@ -60,10 +63,25 @@ const AdminReducer = (state: StateAdmin, action: ActionAdmin): StateAdmin => {
     }
 }
 
+const getData = (token) => {
+    const parse = parseJwt(token);
+    if(!parse) return {}
+    return {
+        cuit: parse.uid,
+        role: parse.role,
+        admin: parse.role === "admin"
+    }
+}
+
+//@ts-ignore
 const InitAdminState: StateAdmin = {
     login: storejs.get("token_ca") ? true : false,
     token: storejs.get("token_ca") as string | undefined,
-    admin: false, // DEUDA
+    ...(() => {
+        const token = storejs.get("token_ca");
+        if (!token) return {}
+        return getData(token)
+    })(),
     database: storejs.get("database_ca") as StadisticModel | undefined,
     config: !!storejs.get("config_admin_ca") ? storejs.get("config_admin_ca") : {
         dataset: "last",

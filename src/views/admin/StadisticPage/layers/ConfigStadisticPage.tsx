@@ -7,14 +7,10 @@ import { BackButtonString } from "../../component/BackButton";
 import { AdminContext } from "../../../../context/admin-context";
 import Input from "../../../../components/input/Input";
 import Button from "../../../../components/button/Button";
-import { UnixToDate, UnixToDay } from "../../../../utils/time";
-import { parseJwt } from "../../../../utils/token";
 import { useHistory } from "react-router";
-import { HandleAPI, HandleAPIRestrict } from "../../../../utils/handle-api";
+import { HandleAPI } from "../../../../utils/handle-api";
 import Translate from "../../../../assets/traslate";
 import { StadisticModel } from "../../../../models/stadistic.model";
-import { SiniesterModel } from "../../../../models/siniester.models";
-import { ArrowBackIos } from "@material-ui/icons";
 
 const ConfigStadisticPage = () => {
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
@@ -40,7 +36,7 @@ const ConfigStadisticPage = () => {
                 ...prev,
                 notification: true,
                 loading: false,
-                msg: "Cambios guardados correctamente",
+                msg: TRANSLATE.OK.SAVE,
                 severity: "success"
             }))
         }
@@ -99,31 +95,31 @@ const ConfigStadisticPage = () => {
         <Grid item xs={12} className="p-left-2 p-right-2 p-top-2" container>
             <BackButtonString />
             <Grid item xs={12}>
-                <h3>Configuracion de Estadisticas</h3>
+                <h3>{TRANSLATE.STADISTICS.TITLE}</h3>
             </Grid>
         </Grid>
         <Grid item xs={12} sm={6} className="p-2">
             <Grid item xs={12} className="background-color-white border-small p-2 shadow" container>
                 <Grid item xs>
-                    <h4>Ajustes visuales</h4>
+                    <h4>{TRANSLATE.STADISTICS.VISUAL_CONFIG}</h4>
                 </Grid>
                 <Grid item xs={12} className="m-top-2 m-bottom-2" container justify="center">
                     <Input
                         xs={12}
-                        label="Espesor de los graficos"
+                        label={TRANSLATE.STADISTICS.GRAFIC_HEIGHT}
                         color="light-gray"
                         value={state.borderWidth}
                         onChange={(e) => set_state(prev => ({ ...prev, borderWidth: e.target.value }))}
                     />
                     <Input
                         xs={12}
-                        label="Color de contorno"
+                        label={TRANSLATE.STADISTICS.BORDER_COLOR}
                         type="color"
                         value={state.borderColor[0]}
                         onChange={(e) => set_state(prev => ({ ...prev, borderColor: [e.target.value] }))}
                     />
                     <Grid item xs={12} className="p-2">
-                        <h5>Colores de fondo</h5>
+                        <h5>{TRANSLATE.STADISTICS.BACKGROUND_COLOR}</h5>
                     </Grid>
                     <PaletaCard
                         value={state.backgroundColor}
@@ -161,17 +157,18 @@ const ConfigStadisticPage = () => {
         </Grid>
         <Grid item xs={12} sm={6} className="p-2">
             <Grid item xs={12} className="background-color-white border-small p-2 shadow" container>
-                <Grid item xs={12} className="m-bottom-3">
-                    <h4>Datasets</h4>
+                <Grid item xs className="m-bottom-3">
+                    <h4>{TRANSLATE.DATASETS.TITLE}</h4>
                 </Grid>
                 {
                     databases?.map(s => <DatasetsCard key={s.id} data={s} value={admin_state.database?.id} onClick={(v) => admin_dispatch({ type: "CHANGE_DB", payload: v })} />)
                 }
-                {/* <Button
-                    className="m-top-3"
+                <Button
+                    className="m-top-2"
                     xs={12}
-                    label="Cargar mas"
-                /> */}
+                    label={TRANSLATE.COMMON.SEE_MORE}
+                    onClick={() => history.push(TRANSLATE.ROUTES.ADMIN.DATASETS.ALL)}
+                />
             </Grid>
         </Grid>
     </ScaffoldAdmin>

@@ -5,6 +5,7 @@
   --green: #4fce6c;
   --cyan: #a4eceb;
   --violet: #5063bb;
+  --light-violet: #e0e4fa;
   --gray: #626284;
   --black: #1b1b25;
   --orange: #ff9a57;
@@ -251,6 +252,21 @@ h6 {
 .p-top-4 {
   padding-top: 48px !important;
 }
+.p-0 {
+  padding: 0px !important;
+}
+.p-bottom-0 {
+  padding-bottom: 0px !important;
+}
+.p-left-0 {
+  padding-left: 0px !important;
+}
+.p-right-0{
+  padding-right: 0px !important;
+}
+.p-top-0{
+  padding-top: 0px !important;
+}
 
 .first-letter-cap::first-letter {
   text-transform: uppercase;
@@ -300,6 +316,10 @@ h6 {
   color: var(--red) !important;
 }
 
+.color-light-violet{
+  color: var(--light-violet) !important;
+}
+
 .background-color-white{
   background-color: var(--white) !important;
 }
@@ -333,6 +353,9 @@ h6 {
 .background-color-red {
   background-color: var(--red) !important;
 }
+.background-color-light-violet{
+  background-color: var(--light-violet) !important;
+}
 
 .border-small {
     border-radius: var(--border-small) !important;
@@ -345,6 +368,10 @@ h6 {
 }
 .border-circle {
   border-radius: var(--border-circle) !important;
+}
+
+.text-overflow-ellipsis {
+  text-overflow: ellipsis;
 }
 
   .w100{

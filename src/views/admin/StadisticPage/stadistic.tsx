@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import HandlePetitions from "../../../components/handle-peticion/HandlePetions";
 import useHandlePage from "../../../hooks/useHandlePage";
 import ScaffoldAdmin from "../component/ScaffoldAdmin";
 import { Grid, Icon, IconButton } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { Settings } from "@material-ui/icons";
+import { BackButtonString } from "../component/BackButton";
+import { AdminContext } from "../../../context/admin-context";
+import Translate from "../../../assets/traslate";
 
 const StadisticsPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
+        , { admin_state } = useContext(AdminContext)
         , history = useHistory()
+        , TRANSLATE = Translate['ES']
 
     useEffect(() => {
         set_handle_page(prev => ({ ...prev, loading: false }))
@@ -21,13 +26,17 @@ const StadisticsPage = () => {
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
-        <Grid item xs={6} className="p-left-2 p-top-2">
-            <h3>Estadisticas</h3>
+        <BackButtonString className="p-left-2 p-top-2"/>
+        <Grid item xs={6} className="p-left-2">
+            <h3>{TRANSLATE.REPORTS.TITLE}</h3>
         </Grid>
         <Grid item xs={6} container justify="flex-end">
             <IconButton onClick={() => history.push("/admin/statistics/config")}>
                 <Settings />
             </IconButton>
+        </Grid>
+        <Grid item xs={12} className="p-left-2">
+            <p>{TRANSLATE.REPORTS.TITLE_HINT}</p>
         </Grid>
         {
             [
@@ -54,6 +63,13 @@ const StadisticsPage = () => {
                     description: "Diversos graficos que muestran un analisis general de toda la informacion",
                     href: "pie",
                     img: "pie"
+                },
+                {
+                    title: "Nuevo",
+                    description: "Crea un nuevo dataset de la informacion recolectada",
+                    href: "new",
+                    show: admin_state.admin,
+                    img: "new"
                 }
             ].map((data, index) => <Cards key={index} {...data} />)
         }
@@ -63,9 +79,11 @@ const StadisticsPage = () => {
 export default StadisticsPage;
 
 
-const Cards = ({ title, description, href, img }: { title: string, description: string, href: string, img: string }) => {
+const Cards = ({ title, description, href, img, show = true }: { show?: boolean, title: string, description: string, href: string, img: string }) => {
 
     const history = useHistory()
+
+    if(!show) return null;
 
     return <Grid item xs={12} sm={6} md={4} className="p-1" >
         <Grid item xs={12} className="m-top-1 m-bottom-1 background-color-white border-small p-2 hover" container onClick={() => history.push(`/admin/statistics/${href}`)} style={{ height: "100%" }} >

@@ -1,28 +1,227 @@
-{
-  "units": [
-    {
-      "type": "Unit",
-      "properties": {
-        "UNIT_ID": 960,
-        "NAME": "Unidad Judicial Nº 1 – Bº Centro",
-        "DESCRIPTION": "Balcarce 251, 1er Piso, Bª Centro. Tel. 4332647/8 – 4481016 Int. 34001"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-75.3372987731628, 45.383321536272049]
-      }
-    },
-    {
-      "type": "Unit",
-      "properties": {
-        "UNIT_ID": 2,
-        "NAME": "Unidad Judicial Nº 2 – Bº Alberdi",
-        "DESCRIPTION": "Santa Rosa nª 1345, Bª Alberdi Te. 4332649/50 – 4481016 Int. 34361"
-    },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-75.546518086577947, 45.467134581917357]
-      }
-    }
-  ]
-}
+[
+  {
+    "name":"COMISARIA N° 1",
+    "address": "Balcarce 251- Bº Centro.",
+    "point": [-31.42100864028167, -64.17684254573167]
+  },
+  {
+    "name":"COMISARIA N° 2",
+    "address": "Duarte Quirós 3990. Las Palmas.",
+    "point": [-31.404140533255156, -64.2343748037893]
+  },
+  {
+    "name":"COMISARIA N° 3",
+    "address": "Santa Rosa 1345. Bº Alberdi.",
+    "point": [-31.404113061667616, -64.23437480440413]
+  },
+  {
+    "name":"COMISARIA N° 4",
+    "address": "Av. República de Chile s/n. Bº Villa Revol Anexo.",
+    "point": [-31.430554857294748, -64.17301936519361]
+  },
+  {
+    "name":"COMISARIA N° 5",
+    "address": "Estados Unidos 2747. Bº San Vicente.",
+    "point": [-31.42187908771973, -64.14860459139082]
+  },
+  {
+    "name":"COMISARIA N° 6",
+    "address": "Av. 24 de Septiembre 1450 B° Gral. Paz.",
+    "point": [-31.413371561849782, -64.16441087449888]
+  },
+  {
+    "name":"COMISARIA N° 7",
+    "address": "Antonio del Viso 756.  B° Alta Córdoba",
+    "point": [-31.393011545579697, -64.18563310430751]
+  },
+  {
+    "name":"COMISARIA N° 8",
+    "address": "Julio de Vedia 3250  B° Patricios",
+    "point": [-31.372614798259363, -64.13824617752427]
+  },
+  {
+    "name":"COMISARIA N° 9",
+    "address": "Av. Castro Barros 1285. B° Bajo Galán",
+    "point": [-31.394097351113636, -64.20221672085421]
+  },
+  {
+    "name":"COMISARIA N° 10",
+    "address": "Santiago Cáceres s/n esq. Los Cocos. B° Cáceres",
+    "point": [-31.434197803858744, -64.19818993233567]
+  },
+  {
+    "name":"COMISARIA N° 11",
+    "address": "Duarte Quirós  3242. Alto Alberdi.",
+    "point": [-31.406018823264926, -64.22537854798617]
+  },
+  {
+    "name":"COMISARIA N° 12",
+    "address": "Av. Castro Barros 1285. B° Bajo Galá",
+    "point": [-31.39411566673082, -64.20217380504955]
+  },
+  {
+    "name":"COMISARIA N° 13",
+    "address": "Diag. Ica esq. Santiso y Moscoso 1250. B° Residencial América",
+    "point": [-31.386334348147603, -64.16266774735017]
+  },
+  {
+    "name":"COMISARIA N° 14",
+    "address": "Bv. de los Castellanos  6002  Bº Los Boulevares",
+    "point": [-31.34505709027469, -64.22198906091579]
+  },
+  {
+    "name":"COMISARIA N° 15",
+    "address": "Tristán Malbrán 4052. B° Cerro de las Rosas.",
+    "point": [-31.37360341856609, -64.2343841926241]
+  },
+  {
+    "name":"COMISARIA N° 16",
+    "address": "Sequeira y Sufrategui. B° Ferreyra.",
+    "point": [-31.463698781838584, -64.1112696202385]
+  },
+  {
+    "name":"COMISARIA N° 17",
+    "address": "Av. Juan B. Justo 6900. B° Liceo General Paz",
+    "point": [-31.337211642582314, -64.17640660567149]
+  },
+  {
+    "name":"COMISARIA N° 18",
+    "address": "Carmelo A. Ibarra 1250.  Bº Va. Libertador.",
+    "point": [-31.47151349810676, -64.22039321829847]
+  },
+  {
+    "name":"COMISARIA N° 19",
+    "address": "Gilardo Gilardi 1451. Bº Los Naranjos",
+    "point": [-31.426111161771022, -64.22126680420449]
+  },
+  {
+    "name":"COMISARIA N° 20",
+    "address": "Lagunilla y Bernardo. Houssey  Bº Matienzo.",
+    "point": [-31.436687119865354, -64.23231711829376]
+  },
+  {
+    "name":"COMISARIA N° 21",
+    "address": "Andalgalá y Soto. Bº Empalme",
+    "point": [-31.438321432201537, -64.12521305939715]
+  },
+  {
+    "name":"COMISARIA N° 22",
+    "address": "Lorenzo Suárez de Figueroa 550. B° Marques de Sobremonte",
+    "point": [-31.362338498475175, -64.19552997512909]
+  },
+  {
+    "name":"COMISARIA N° 23",
+    "address": "Hugo Wast 86. B° San Alfonso.",
+    "point": [-31.299447196192958, -64.29077421565704]
+  },
+  {
+    "name":"COMISARIA N° 24",
+    "address": "Gral. Paz esq. Azopardo. B° Centro.",
+    "point": [-31.343404270510664, -64.33721238478515]
+  },
+  {
+    "name":"COMISARIA N° 25",
+    "address": "9 de Julio  62. B° Centro",
+    "point": [-31.4142423543766, -64.18439341347191]
+  },
+  {
+    "name":"COMISARIA N° 26",
+    "address": "Av. Malvinas esq. Colón. B° Centro Mendiolaza.",
+    "point": [-31.265558147189076, -64.30361355208458]
+  },
+  {
+    "name":"COMISARIA N° 27",
+    "address": "Cayetano Silva 1050. Bº Alto Alberdi.",
+    "point": [-31.39433587598082, -64.21584739211588]
+  },
+  {
+    "name":"COMISARIA N° 28",
+    "address": "Av. Cárcano s/n. Parque Kempes.",
+    "point": [-31.415022652916946, -64.25982519034183]
+  },
+  {
+    "name":"COMISARIA N° 29",
+    "address": "Mariano Rosas 5650. Bº Parque República.",
+    "point": [-31.41477262624207, -64.25975603150545]
+  },
+  {
+    "name":"COMISARIA N° 30",
+    "address": "Villa María 6081.Bº Comercial.",
+    "point": [-32.41065588283804, -63.245574229585166]
+  },
+  {
+    "name":"COMISARIA N° 31",
+    "address": "Cabo Principal Carlos Cuevas 600. B° Inaudi.",
+    "point": [-31.476207010239133, -64.1935568324355]
+  },
+  {
+    "name":"COMISARIA N° 32",
+    "address": "Monteagudo 3360. B° Müller.",
+    "point": [-31.41093435611074, -64.13940473008185]
+  },
+  {
+    "name":"COMISARIA N° 33",
+    "address": "Castellano 2600. B° José Ignacio Díaz 1° Secc.",
+    "point": [-31.442016201882016, -64.14265288591668]
+  },
+  {
+    "name":"COMISARIA N° 34",
+    "address": "Watt 5420. B° Ituzaingó.",
+    "point": [-31.46380198981375, -64.09095216128354]
+  },
+  {
+    "name":"COMISARIA N° 35",
+    "address": "Calle Pública s/n. B° Zepa",
+    "point": [-31.390033381241167, -64.1038944835361]
+  },
+  {
+    "name":"COMISARIA N° 36",
+    "address": "José de Villegas 2100. B° Patricios.",
+    "point": [-31.368939469345634, -64.14284594908095]
+  },
+  {
+    "name":"COMISARIA N° 37",
+    "address": "Pedro Naón 1200. B° Juan Pablo II.",
+    "point": [-31.363289022374616, -64.15541614584114]
+  },
+  {
+    "name":"COMISARIA N° 38",
+    "address": "Av. Juan B. Justo 9653. B° Guiñazú.",
+    "point": [-31.311257275473903, -64.17645927874243]
+  },
+  {
+    "name":"COMISARIA N° 39",
+    "address": "Andrés Piñeiro 7785. B ° Quintas de  Argüello.",
+    "point": [-31.3436839797019, -64.26829773179574]
+  },
+  {
+    "name":"COMISARIA N° 40",
+    "address": "Manuel Cardeñosa 2800. B° La France.",
+    "point": [-31.367951366590272, -64.21466326253514]
+  },
+  {
+    "name":"COMISARIA N° 42",
+    "address": "Calle Pública s/n. Bº Villa Angelleli.",
+    "point": [-31.504431509933376, -64.19433114091602]
+  },
+  {
+    "name":"COMISARIA N° 43",
+    "address": "Calle Pública s/n. B° Ciudad Evita.",
+    "point": [-31.449457591040733, -64.10988463431978]
+  },
+  {
+    "name":"COMISARIA N° 45",
+    "address": "Calle Pública s/n. B° Cdad. de los Cuartetos.",
+    "point": [-31.354648239742378, -64.13171383274961]
+  },
+  {
+    "name":"COMISARIA N° 46",
+    "address": "Juan Gaudino 6834. B° Argüello Lourdes.",
+    "point": [-31.3299452165309, -64.25642265836343]
+  },
+  {
+    "name":"COMISARIA N° 47",
+    "address": "Calle N° 1 1254. B° Sol Naciente.",
+    "point": [-31.328865787275912, -64.24149152933005]
+  }
+]

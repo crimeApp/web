@@ -10,10 +10,12 @@ import MakeChart, { NotFoundData } from "./commond";
 import { AdminContext } from "../../../../context/admin-context";
 import { StadisticsToChatsFormat } from "../../../../utils/stadistcs-to";
 import { StadisticCharModel } from "../../../../models/stadistic.model";
+import Translate from "../../../../assets/traslate";
 
 const PolarPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
+        , TRANSLATE = Translate['ES']
         , { admin_state } = useContext(AdminContext)
         , [data, set_data] = useState<StadisticCharModel | undefined>(StadisticsToChatsFormat(admin_state.database)["all"]["struct"])
 
@@ -30,46 +32,56 @@ const PolarPage = () => {
             <Grid id="capture" item xs={12} container >
                 <BackButtonString className="p-left-2"/>
                 <Grid item xs className="p-left-2" >
-                    <h3>Exploracion</h3>
+                    <h3>
+                        {TRANSLATE.STADISTICS.TITLES.EXPLORE}
+                    </h3>
                 </Grid>
                 <Grid item xs={12} className="p-2">
-                    <p>Analisis exploratorio de las caracteristicas de los sospechosos</p>
+                    <p>
+                        {TRANSLATE.STADISTICS.TITLES.EXPLORE_HINT}
+                    </p>
                 </Grid>
                 {
                     data ?
                         [
-                            data.crimeHeight ? {
-                                label: "Altura",
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_HEIGHT,
                                 type: "Bar",
-                                data: { ...data.crimeHeight, datasets: [{ ...data.crimeHeight.datasets[0], ...admin_state.config.statistics }] },
-                            } : {},
-                            data.crimeAge ? {
-                                label: "Franja Etaria",
+                                error: !data.crimeHeight,
+                                data: { ...data.crimeHeight, datasets: [{ ...data.crimeHeight?.datasets[0], ...admin_state.config.statistics }] },
+                            },
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_AGE,
                                 type: "Radar",
-                                data: { ...data?.crimeAge, datasets: [{ ...data?.crimeAge.datasets[0], ...admin_state.config.statistics }] },
-                            } : {},
-                            data.crimeHair ? {
-                                label: "Color de pelo",
+                                error: !data.crimeAge,
+                                data: { ...data?.crimeAge, datasets: [{ ...data?.crimeAge?.datasets[0], ...admin_state.config.statistics }] },
+                            },
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_HAIR,
                                 type: "Bar",
-                                data: { ...data?.crimeHair, datasets: [{ ...data?.crimeHair.datasets[0], ...admin_state.config.statistics }] },
-                            } : {},
-                            data.crimeSkin ? {
-                                label: "Color de piel",
+                                error: !data.crimeHair,
+                                data: { ...data?.crimeHair, datasets: [{ ...data?.crimeHair?.datasets[0], ...admin_state.config.statistics }] },
+                            },
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_SKIN,
                                 type: "Pie",
-                                data: { ...data?.crimeSkin, datasets: [{ ...data?.crimeSkin.datasets[0], ...admin_state.config.statistics }] },
-                            } : {},
-                            data.crimeSex ? {
-                                label: "Sexo",
+                                error: !data.crimeSkin,
+                                data: { ...data?.crimeSkin, datasets: [{ ...data?.crimeSkin?.datasets[0], ...admin_state.config.statistics }] },
+                            },
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_SEX,
                                 type: "Pie",
-                                data: { ...data?.crimeSex, datasets: [{ ...data?.crimeSex.datasets[0], ...admin_state.config.statistics }] },
-                            } : {},
-                            data.crimeAccompaniment ? {
-                                label: "Cantidad de sospechosos extra",
+                                error: !data.crimeSex,
+                                data: { ...data?.crimeSex, datasets: [{ ...data?.crimeSex?.datasets[0], ...admin_state.config.statistics }] },
+                            },
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_ACCOMPANIMENT,
                                 type: "Bar",
+                                error: !data.crimeAccompaniment,
                                 data: {
-                                    ...data?.crimeAccompaniment, datasets: [{ ...data?.crimeAccompaniment.datasets[0], ...admin_state.config.statistics }]
+                                    ...data?.crimeAccompaniment, datasets: [{ ...data?.crimeAccompaniment?.datasets[0], ...admin_state.config.statistics }]
                                 }
-                            } : {}
+                            }
                         ].map(v => <MakeChart {...v} />)
                         : <NotFoundData />
                 }
@@ -79,7 +91,7 @@ const PolarPage = () => {
                     className="m-top-3"
                     xs={12}
                     sm={8}
-                    label="Imprimir"
+                    label={TRANSLATE.COMMON.PRINT}
                     onClick={() => uiPrint({ name: "Exploracion" })}
                 />
             }

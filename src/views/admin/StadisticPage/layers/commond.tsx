@@ -1,12 +1,23 @@
 import { Grid } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import React from "react";
 import { Bar, Line, Pie, PolarArea, Radar } from "react-chartjs-2";
 import { useHistory } from "react-router";
 import Button from "../../../../components/button/Button";
 
-const MakeChart = ({ label, data, type }: { label?: string, data?: any, type?: "PolarArea" | "Pie" | "Bar" | "Radar" | "Line" | string }) => {
+const MakeChart = ({ label, data, type, error }: { error?: boolean, label?: string, data?: any, type?: "PolarArea" | "Pie" | "Bar" | "Radar" | "Line" | string }) => {
 
-    if (!label || !data || !type) return null
+    if (error)
+        return <Grid item xs={12} container justify="center">
+            <Grid item xs={12} className="m-top-3" container justify="center">
+                <h4>{label}</h4>
+            </Grid>
+            <Grid>
+                <Alert severity="error">
+                    No hay suficientes datos para mostrar el grafico
+                </Alert>
+            </Grid>
+        </Grid>
 
     const opt = {
         plugins: {

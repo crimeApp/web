@@ -76,12 +76,16 @@ const Map = ({
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
-      const result = await prov.search({ query: value });
-      //@ts-ignore
-      set_opt(result);
-      if (result.length > 0) {
-        set_pos({ lat: result[0].y, lng: result[0].x });
-        onChange({ lat: result[0].y, lng: result[0].x }, result[0].label);
+      try {
+        const result = await prov.search({ query: value });
+        //@ts-ignore
+        set_opt(result);
+        if (result.length > 0) {
+          set_pos({ lat: result[0].y, lng: result[0].x });
+          onChange({ lat: result[0].y, lng: result[0].x }, result[0].label);
+        }
+      } catch (err) {
+        console.error(err)
       }
     }, 500);
     return () => clearTimeout(delayDebounceFn);
@@ -107,10 +111,10 @@ const Map = ({
         showSearch ?
           <Selector
             xs={12}
-            md={12}
             value={value}
             label={label ? (label + (required ? "*" : "")) : undefined}
             placeholder={placeholder}
+            msg={msg}
             className="m-bottom-2"
             options={opt.map(o => o.label)}
             onInputChange={(_, v, __) => set_value(v)}
@@ -153,7 +157,7 @@ const Map = ({
         {error_msg ? (
           <p className="map-msg map-error-color font-size-small">{error_msg}</p>
         ) : (
-          msg && <p className="map-msg">{msg}</p>
+          !showSearch && msg && <p className="map-msg">{msg}</p>
         )}
       </Grid>
     </Grid>
@@ -162,7 +166,7 @@ const Map = ({
 
 export default Map;
 
-function ChangeView({ center }: { center: LatLngExpression }) {
+export function ChangeView({ center }: { center: LatLngExpression }) {
   const map = useMap();
   map.setView(center);
   return null;

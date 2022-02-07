@@ -4,6 +4,12 @@ export type DataStructChar = { labels: string[], datasets: [{ label: string, dat
 type DataStructMap = { labels: string[], datasets: [{ label: string, data: { lat: number, lng: number, int: number }[] }] }
 
 export type StadisticModel = {
+    id?: string,
+    createdAt?: number,
+    createdByID?: number,
+    public?: boolean,
+    name?: string,
+    description?: string,
     [year: string]: {
         [month: string]: {
             crimeType: DataStructStadistic,

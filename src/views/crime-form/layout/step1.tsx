@@ -10,6 +10,7 @@ import Validator from "../../../utils/validator";
 import Input from "../../../components/input/Input";
 import { ColorCA } from "../../../style/type-style";
 import { attack_type_options, sex_options } from "../../../assets/options";
+import Translate from "../../../assets/traslate";
 
 const schema = yup.object().shape({
   attack_type: yup.mixed().oneOf(attack_type_options).required().default(""),
@@ -32,13 +33,14 @@ const schema = yup.object().shape({
       .required()
       .default(-64.21910252283733),
   }).required(),
-  location: yup.string().default(""),
+  location: yup.string().required().default("").max(60),
+  location_map: yup.string().default(""),
   place_description: yup.string().optional().max(250).default(""),
   full_name: yup
     .string()
     .transform((e) => e.toLowerCase())
     .optional()
-    .max(15)
+    .max(60)
     .default(""),
   dni: yup.string().matches(dniExp).required().default(""),
   age: yup.number().max(100).min(12).optional(),
@@ -83,6 +85,8 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
     color: "light-gray" as ColorCA,
     error: error?.[name]?.error,
     error_msg: error?.[name]?.msg,
+    label: Translate['ES'].LABELS[name.toUpperCase()],
+    msg: Translate['ES'].LABELS[`${name.toUpperCase()}_HINT`],
     onChange: (event: any) => HandleChange(name, event.target.value),
   });
 
@@ -109,16 +113,23 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         label={traslate.FORM.THEFTINFO.LOCATION}
         onChange={(newValue, label) => {
           HandleChange("geopoint", newValue);
-          HandleChange("location", label);
+          HandleChange("location_map", label);
         }}
+        msg="La direccion puede no aparecer, se recomienda seleccionar en el mapa"
         error={error?.geopoint?.error}
         error_msg={error?.geopoint?.msg}
       />
-      <Select
-        {...InputConstructor("attack_type")}
+      <Input
+        {...InputConstructor("location")}
         required
-        label={traslate.FORM.THEFTINFO.THEFT}
-        options={attack_type_options}
+        maxlenght={60}
+      />
+      <Input
+        {...InputConstructor("place_description")}
+        label={"Descripción del lugar"}
+        multiline
+        maxlenght={250}
+        rows={3}
       />
       <Input
         {...InputConstructor("hour")}
@@ -133,6 +144,15 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         required
         label={traslate.FORM.THEFTINFO.DATE}
       />
+      <Select
+        {...InputConstructor("attack_type")}
+        required
+        label={traslate.FORM.THEFTINFO.THEFT}
+        options={attack_type_options}
+      />
+      <Grid item xs={12} className="p-left-2 p-right-2 p-top-2">
+        <h4>Información de la victima</h4>
+      </Grid>
       <Input
         {...InputConstructor("dni")}
         required
@@ -157,13 +177,6 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
       <Input
         {...InputConstructor("age")}
         label={traslate.FORM.PERSONALINFO.AGE}
-      />
-      <Input
-        {...InputConstructor("place_description")}
-        label={"Descripción del lugar"}
-        multiline
-        maxlenght={250}
-        rows={3}
       />
       <Grid
         container

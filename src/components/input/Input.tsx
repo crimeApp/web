@@ -85,7 +85,7 @@ const Input = ({
 
   React.useEffect(() => {
     if (inputValue === value) return
-    const delayDebounceFn = setTimeout(() => onChange(refInput.current), 1000)
+    const delayDebounceFn = setTimeout(() => onChange(refInput.current), 300)
     return () => clearTimeout(delayDebounceFn)
   }, [inputValue])
 
@@ -114,7 +114,6 @@ const Input = ({
           {label} {required ? "*" : ""}
         </p>
       </InputLabel>
-
       <TextField
         value={inputValue}
         multiline={multiline}
@@ -131,7 +130,6 @@ const Input = ({
         error={error}
         FormHelperTextProps={{
           style: {
-            color: error ? `color-red` : `var(--${colorFont})`,
             marginLeft: "15px",
             marginRight: "15px",
             fontSize: "var(--font-size-small)",

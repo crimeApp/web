@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import "./Map.css";
 import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet";
 import { Grid, GridSize } from "@material-ui/core";
+import Button from "../button/Button";
+import { ChangeView } from "./Map";
 
 interface MapProps {
-    label: string,
+    label?: string,
     positionCenter?: {
         lat: number,
         lng: number
@@ -14,6 +16,7 @@ interface MapProps {
         lng: number,
         name?: string,
         address?: string,
+        onClick?: () => void
     }[],
     style?: React.CSSProperties,
     className?: string,
@@ -33,12 +36,7 @@ const MapMarkers = ({
         lat: -31.42384796597578,
         lng: -64.18635948818674,
     },
-    positions = [{
-        lat: -31.42384796597578,
-        lng: -64.18635948818674,
-        name: "Home",
-        address: "J.B justo 8000"
-    }],
+    positions,
     className,
     error,
     error_msg,
@@ -61,16 +59,15 @@ const MapMarkers = ({
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    <Marker position={[positionCenter.lat, positionCenter.lng]} >
-                        <Popup>
-                            Mi ubicacion
-                        </Popup>
-                    </Marker>
+                    <ChangeView center={positionCenter} />
                     {
-                        positions.map((pos, index) => <Marker key={index.toString()} position={[pos.lat, pos.lng]} alt={pos.name}>
-                            <Popup>
-                                {pos?.name} <br />
-                                {pos?.address}
+                        positions?.map((pos, index) => <Marker key={index.toString()} position={[pos.lat, pos.lng]} alt={pos.name}>
+                            <Popup >
+                                <p className="w500 m-bottom-1">{pos?.name}</p>
+                                <p className="font-size-little">{pos?.address}</p>
+                                {
+                                    pos.onClick && <Button className="p-top-0 p-bottom-0" label="Ver Siniestro" onClick={pos.onClick} />
+                                }
                             </Popup>
                         </Marker>)
                     }

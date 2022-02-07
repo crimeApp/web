@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, GridSize } from "@material-ui/core";
+import { FormHelperText, Grid, GridSize } from "@material-ui/core";
 import { BorderCA, ColorCA } from "../../style/type-style";
 
 interface ButtonProps {
@@ -20,6 +20,7 @@ interface ButtonProps {
   className?: string;
   color?: ColorCA;
   colorFont?: ColorCA;
+  disabled?: boolean;
   onClick?: React.EventHandler<any>;
   xs?: undefined | GridSize;
   sm?: undefined | GridSize;
@@ -36,7 +37,11 @@ const Button = ({
   lg,
   xl,
   label,
+  msg,
+  error,
+  error_msg,
   className,
+  disabled,
   borderRadius = "small",
   children,
   color = "violet",
@@ -53,12 +58,14 @@ const Button = ({
     className={`p-top-1 p-bottom-1  ${className}`}
   >
     <button
+      disabled={disabled}
       style={{
         width: "100%",
+        opacity: (disabled || error ) ? '0.7' : '1',
         borderRadius: `var(--border-${borderRadius})`,
         border: "0px"
       }}
-      className={`background-color-${color} hover`}
+      className={`background-color-${color} ${ disabled ? '' : 'hover'}`}
       onClick={onClick}
     >
       {label ? (
@@ -67,6 +74,13 @@ const Button = ({
         children
       )}
     </button>
+    <FormHelperText
+        className={
+          "p-left-1 font-size-small " + (error_msg ? "color-red" : "color-gray")
+        }
+      >
+        {error_msg ?? msg}
+      </FormHelperText>
   </Grid>
 );
 

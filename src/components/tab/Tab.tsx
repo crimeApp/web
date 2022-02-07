@@ -21,6 +21,7 @@ interface TabProps {
 
 interface TabsProps {
     labels: string[];
+    className?: string,
     xs?: GridSize;
     sm?: GridSize;
     md?: GridSize;
@@ -39,6 +40,7 @@ const Tabs = ({
     lg,
     xl,
     children,
+    className,
     variant = "fullWidth",
     tabProps }: TabsProps) => {
 
@@ -53,7 +55,7 @@ const Tabs = ({
     };
 
     return <>
-        <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className="tab shadow">
+        <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} className={`tab shadow ${className}`}>
             <Paper>
                 <TabsM style={{ borderRadius: "5px 5px 0px 0px" }} value={value} variant={variant} onChange={handleChange}>
                     {

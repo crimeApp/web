@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import clsx from 'clsx';
 import { makeStyles } from "@material-ui/core/styles";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Person, BarChart, Explore, Menu, Home, Settings } from '@material-ui/icons';
+import { Person, BarChart, Explore, Menu, Home, Settings, Storage } from '@material-ui/icons';
 import {
     Grid,
     Toolbar,
@@ -23,6 +23,7 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 import useWindowSize from "../../../hooks/useWindows";
 import translate from "../../../assets/traslate/es.json"
+import { AdminContext } from "../../../context/admin-context";
 
 const drawerWidth = 240;
 
@@ -124,6 +125,7 @@ const ScaffoldAdmin = ({ className, children }: any) => {
         , { xs } = useWindowSize()
         , [navbar, set_navbar] = useState(location.pathname.split("/")[2])
         , history = useHistory()
+        , { admin_state } = useContext(AdminContext)
 
     return (
         <>
@@ -189,6 +191,13 @@ const ScaffoldAdmin = ({ className, children }: any) => {
                                 <ListItemIcon><Explore color={navbar === "map" ? "primary" : "action"} /></ListItemIcon>
                                 <ListItemText primary={"Mapa"} />
                             </ListItem>
+                            {
+                                admin_state.admin &&
+                                <ListItem button onClick={() => history.push(`/admin/datasets`)}>
+                                <ListItemIcon><Storage color={navbar === "datasets" ? "primary" : "action"} /></ListItemIcon>
+                                <ListItemText primary={"Datasets"} />
+                            </ListItem>
+                            }
                             <ListItem button onClick={() => history.push(`/admin/config`)}>
                                 <ListItemIcon><Settings color={navbar === "config" ? "primary" : "action"} /></ListItemIcon>
                                 <ListItemText primary={"Configuracion"} />

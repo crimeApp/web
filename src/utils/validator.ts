@@ -9,6 +9,10 @@ const Validator = async (values: any, schema: any): Promise<{ err: boolean, data
         let object = {}
         // @ts-ignore
         err.errors.map((value: any) => {
+            if(typeof value === 'string') {
+                console.log(value)
+                return { err: false, data: {} };
+            }
             object = {
                 ...object,
                 [value.path]: {

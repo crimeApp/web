@@ -111,7 +111,7 @@ const StepTwo = ({ data, children, handleNext, handleBack }: StepTwoProps) => {
       />
       <Select
         {...InputConstructor("thief_hair_color")}
-        label={'Color de pelo'}
+        label={traslate.FORM.THEFTDETAILS.HAIR}
         options={hair_options}
       />
       <Select

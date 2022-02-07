@@ -36,8 +36,7 @@ const LoginPage = () => {
             xs: 12 as GridSize,
             //@ts-ignore
             value: form[name],
-            //@ts-ignore
-            label: TRANSLATE.LABELS[name.toUpperCase],
+            label: TRANSLATE.LABELS[name.toUpperCase()],
             color: "light-gray" as ColorCA,
             className: "m-top-1 p-1",
             onChange: (event: any) => set_form(prev => ({ ...prev, [name]: event.target.value })),
@@ -126,6 +125,7 @@ const LoginPage = () => {
             />
             <Input
                 {...InputConstructor("password")}
+                type="password"
             />
             <Grid item xs={12}>
                 <p className="p-1 w400 font-size-small hover" onClick={() => history.push(TRANSLATE.ROUTES.ADMIN.FORGET_PASSWORD)}>Olvido su contrasenia? Ingrese aqui para recuperarla </p>
@@ -134,7 +134,7 @@ const LoginPage = () => {
                 xs={12}
                 md={6}
                 className="p-1 m-top-2"
-                label="Volver"
+                label={TRANSLATE.COMMON.BACK}
                 color="white"
                 colorFont="violet"
                 onClick={() => history.push(TRANSLATE.ROUTES.PUBLIC.HOME)}
@@ -143,7 +143,7 @@ const LoginPage = () => {
                 xs={12}
                 md={6}
                 className="p-1 m-top-2"
-                label="Ingresar"
+                label={TRANSLATE.COMMON.GET_INTO}
                 onClick={onSummit}
             />
         </Grid>

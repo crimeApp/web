@@ -104,7 +104,7 @@ const Selector = ({
                         placeholder={placeholder}
                         helperText={error ? error_msg : msg}
                         FormHelperTextProps={{
-                            className: (error ? "color-red" : `color-${colorFont}`) + " font-size-normal p-left-1",
+                            className: (error ? "color-red" : `color-${colorFont}`) + " font-size-small p-left-1",
                         }}
                         className={`text-field-container`}
                         {...params}

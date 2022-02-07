@@ -1,4 +1,4 @@
-import { Chip } from "@material-ui/core";
+import { Chip, Tooltip } from "@material-ui/core";
 import React from "react";
 
 const label = {
@@ -8,6 +8,16 @@ const label = {
     not: "background-color-white"
 }
 
-const ChipRoleAdmin = ({ value = "not" }: { value: "policia" | "admin" | "funcionario" | "not" | undefined }) => <Chip className={`${label[value]} color-white w500`} label={value} />
+const helper = {
+    policia: "Permiso de lectura",
+    admin: "Permiso de lectura/escritura",
+    funcionario: "Permiso de lectura",
+    not: "Sin permisos"
+}
+
+const ChipRoleAdmin = ({ value = "not" }: { value: "policia" | "admin" | "funcionario" | "not" | undefined }) => 
+    <Tooltip title={helper[value]}>
+        <Chip className={`${label[value]} color-white w500`} label={value} />
+    </Tooltip>
 
 export default ChipRoleAdmin;

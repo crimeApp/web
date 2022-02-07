@@ -7,29 +7,6 @@ import {
   Slider,
 } from "@material-ui/core";
 
-const marks = [
-  {
-    value: 1,
-    label: "1",
-  },
-  {
-    value: 2,
-    label: "2",
-  },
-  {
-    value: 3,
-    label: "3",
-  },
-  {
-    value: 4,
-    label: "4",
-  },
-  {
-    value: 5,
-    label: "5",
-  },
-];
-
 function valuetext(value: number) {
   return `${value}`;
 }
@@ -43,6 +20,8 @@ const DiscreteSlider = ({
   error,
   error_msg,
   msg,
+  min = 1,
+  max = 5,
   xs,
   sm,
   md,
@@ -65,6 +44,8 @@ const DiscreteSlider = ({
   md?: GridSize;
   lg?: GridSize;
   xl?: GridSize;
+  min?: number;
+  max?: number;
 }) => {
 
   return (
@@ -95,14 +76,13 @@ const DiscreteSlider = ({
       <Grid item xs={12} md={10} className="p-left-3 p-right-3 p-top-2">
       <Slider
         onChange={onChange}
-        getAriaValueText={valuetext}
         value={value}
         aria-labelledby="discrete-slider-custom"
         valueLabelDisplay="off"
         step={1}
-        marks={marks}
-        min={1}
-        max={5}
+        marks={Array.from({ length: max }, (_, i) => ({ value: i + 1, label: i + 1 }))}
+        min={min}
+        max={max}
       />
       </Grid>
      

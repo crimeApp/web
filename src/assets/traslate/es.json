@@ -2,12 +2,135 @@
     "COMMON": {
         "START": "Comenzar",
         "SAVE": "Guardar",
+        "METADATA": "Configuraciones de informes",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",
         "NEXT": "Siguiente",
+        "GET_INTO": "Ingresar",
         "BACK": "Atrás",
+        "LOAD_MORE": "Cargar mas",
         "LOADING": "Cargando los datos...",
-        "ERROR": "Parece que hubo un error. Intenta de nuevo."
+        "DATABASE": "Informe",
+        "DATABASE_SELECT": "Informe seleccionado",
+        "CREATED_BY": "Creado por ",
+        "WITHOUT_DATABASE": "Sin informe seleccionado",
+        "WITHOUT_COLORS": "Sin colores asignados",
+        "FILTER_ADVANCE": "Busqueda Avanzada",
+        "CLEAR_FILTER": "Limpiar filtro",
+        "APPLY_FILTER": "Aplicar filtro",
+        "SEE_MORE": "Ver mas",
+        "ERROR": "Parece que hubo un error. Intenta de nuevo.",
+        "PRINT": "Imprimir",
+        "NEW_SINIESTER": "Crear nueva denuncia"
+    },
+    "HOME": {
+        "REPORT_SINIESTER_TITLE": "¿Querés reportar un siniestro?",
+        "REPORT_SINIESTER_DETAIL": "Alerta a las autoridades y a las personas mas cercanas si \n sufris algun tipo de siniestros para crear un espacio de \n comunicacion y favorecer la seguridad ciudadana de Cordoba.",
+        "STADISTIC_TITLE": "¿Querés ver cómo está la seguridad ciudadana actual?",
+        "STADISTIC_DETAIL": "Con los datos anónimos recibidos y las alertas, creamos reportes para informarte sobre los siniestros más recientes ocurridos en la ciudad. Para acceder, haz click en el siguiente botón.",
+        "STADICTIS_SUMMIT": "Ver reportes",
+        "CORDOBA": "Ciudad de Córdoba",
+        "LAST_SINIESTERS": "Últimos Siniestros",
+        "LAST_SINIESTERS_MAP": "Mapa de los últimos siniestros",
+        "FLASH_ACCESS": "Accesos rapido",
+        "IMGS": [
+            {
+                "img": "home_page1.png",
+                "href": "https://prensa.cba.gov.ar/",
+                "info": "Pagina oficial de noticias del gobierno de Córdoba."
+            },
+            {
+                "img": "trains.webp",
+                "href": "https://www.instagram.com/p/CZQKhJHrCjM/",
+                "info": "'Se van saqueados manga de giles' le gritaban los pibes de la villa a los empleados de Trenes Argentinos."
+            },
+            {
+                "img": "barrial.jpg",
+                "href": "https://www.instagram.com/p/CZRryVKsl92/",
+                "info": "Los Consejos Barriales de Prevención y Convivencia son un espacio de encuentro y trabajo entre todas las organizaciones que hay en cada barrio, el Estado provincial y el Estado municipal."
+            },
+            {
+                "img": "police.jpg",
+                "href": "https://www.policiacordoba.gov.ar/",
+                "info": "Pagina oficial de la policia de Córdoba."
+            }
+        ]
+    },
+    "MAP": {
+        "TITLE": "Siniestros",
+        "TITLE_INDIVIDUAL": "Siniestro ",
+        "STATE": "Estado",
+        "STATE_HINT": "Estado del caso. Pendiente significa que aun no se reviso el caso. Cancelado significa que se a dejado de lado. Revisado significa que ya se vio el caso.",
+        "KIND_CASE": "Tipo de siniestro",
+        "PLACE": "Lugar",
+        "ONLY_SEE": "Ver solo este siniestro",
+        "EDIT": "Editar siniestro",
+        "CANCEL": "Cancelar edicion",
+        "SEVERITY": "Severidad",
+        "SEVERITY_HINT": "Es la importancia que se le atribuye a la naturaleza del caso en base de los daños generados",
+        "VERSION_CONTROL": "Versiones"
+    },
+    "REPORTS": {
+        "TITLE": "Informes graficos",
+        "TITLE_HINT": "En esta pagina encontraras analisis graficos de diferentes variables de un informe de siniestro."
+    },
+    "STADISTICS": {
+        "TITLE": "Configuracion de Estadisticas",
+        "VISUAL_CONFIG": "Ajustes visuales",
+        "GRAFIC_HEIGHT": "Espesor de los graficos",
+        "BORDER_COLOR": "Color de contorno",
+        "BACKGROUND_COLOR": "Color de fondo",
+        "TITLES": {
+            "PUBLIC": "Dataset publicos",
+            "PUBLIC_HINT": "Analisis general en base a diferentes perspectivas",
+            "DISTRIBUTION": "Distribucion",
+            "DISTRIBUTION_HINT": "Distribucion general de los casos en los ultimos 12 meses",
+            "EVOLUTION": "Evolucion de los datos",
+            "EVOLUTION_HINT": "El dataset esta conformado por la evolucion historica de los tipos de casos.",
+            "SUMMARY": "Resumen",
+            "SUMMARY_HINT": "Analisis con diferentes perspectiva de los casos.",
+            "EXPLORE": "Exploracion",
+            "EXPLORE_HINT": "Analisis exploratorio de las caracteristicas de los perpetuadores del crimen",
+            "NOT_PUBLIC": "No hay datos publicos disponibles"
+        },
+        "LABELS": {
+            "CRIME_TYPE": "Tipo de Siniestro",
+            "CRIME_TIME": "Franja horaria",
+            "VICTIM_PHYSICAL": "Daño fisico hacia la victima",
+            "VICTIM_EMOTIONAL": "Daño emocional hacia la victima",
+            "VICTIME_AGRESIVE": "Nivel de agresividad del agresor",
+            "HEAT_MAP": "Mapa de calor",
+            "YEAR": "Año",
+            "KIND_GRAFIC": "Tipo de grafico",
+            "DATASET": "Dataset",
+            "CRIME_HEIGHT": "Altura",
+            "CRIME_AGE": "Franja etaria",
+            "CRIME_HAIR": "Color de pelo",
+            "CRIME_SKIN": "Color de piel",
+            "CRIME_SEX": "Sexo",
+            "CRIME_ACCOMPANIMENT": "Cantidad de sospechosos extra"
+        }
+    },
+    "DATASETS": {
+        "TITLE": "Informes de siniestros",
+        "TITLE_HINT": "Los informes de siniestros son analisis de un conjunto de siniestros agrupados por un periodo de tiempo y/o un sector geografico en especifico.",
+        "NEW_DATASET": "Nuevo Informe de Siniestros",
+        "NEW_DATASET_SUBTITLE": "Complete los siguientes campos para poder generar los reportes correspondiente a todos los siniestros que coincidan con los atributos especificados.",
+        "MAKE_PUBLIC": "Hacer publico",
+        "PUBLIC": "Los dataset publicos podran ser visualizados por todo el mundo.",
+        "SELECT_DATASET": "Cargar informe",
+        "DELECT_DATASET": "Eliminar informe",
+        "CREATE": "Crear nuevo informe"
+    },
+    "USERS": {
+        "TITLE_USER": "Informacion del usuario",
+        "TITLE_USERS": "Usuarios",
+        "ADD_USER": "Agregar nuevo usuario",
+        "EDIT_PROFILE": "Editar perfil",
+        "NAME": "Nombre completo",
+        "TTILE_NEW_USER": "Crear nuevo usuario",
+        "TITLE_CREATE_NEW_ADMIN": "Crear nuevo administrador",
+        "SUBTITLE_CREATE_NEW_ADMIN": "Datos del nuevo administrador"
     },
     "TITLES": {
         "MAP": "Ver mapa y reportes",
@@ -20,15 +143,56 @@
     },
     "LABELS": {
         "NAME": "Nombre",
+        "DESCRIPTION": "Descripcion",
+        "START_DATE": "Fecha de incio",
+        "END_DATE": "Fecha final",
+        "FIND_BY_AREA": "Buscar por area",
         "SURNAME": "Apellido",
         "CUIT": "CUIT",
+        "DNI": "DNI",
         "MAIL": "Mail",
         "PHONE": "Celular",
+        "PHONE_HINT": "El numero es solo el codigo caracteristico de area sin +54 ni 15. Ejemplo 3516820607",
         "PLACE": "Lugar",
-        "ROLE": "Role",
+        "ROLE": "Rol",
         "PASSWORD": "Contraseña",
         "NEW_PASSWORD": "Contraseña nueva",
-        "OLD_PASSWORD": "Contraseña actual"
+        "OLD_PASSWORD": "Contraseña actual",
+        "DAY": "Fecha",
+        "STATE": "Estado del siniestro",
+        "TIME": "Hora",
+        "LOCATION": "Lugar exacto",
+        "LOCATION_HINT": "Calle altura, Barrio",
+        "CREATEDAT": "Creado por",
+        "UPDATEDBY": "Actualizado por",
+        "ATTACK_TYPE": "Tipo de siniestro",
+        "PLACE_DESCRIPTION": "Descripcion del lugar",
+        "FULL_NAME": "Nombre completo",
+        "AGE": "Edad",
+        "SEX": "Sexo",
+        "THIEF_AGE": "Edad del sospechoso",
+        "THIEF_SKIN": "Color de piel del sospechoso",
+        "THIEF_HAIR_COLOR": "Color de pelo del sospechoso",
+        "THIEF_SEX": "Sexo del sospechoso",
+        "THIEF_HEIGHT": "Altura del sospechoso",
+        "THIEF_COMPANY": "Acompañamiento del sospechoso",
+        "THIEF_ARMED": "Armado el sospechoso",
+        "THIEF_DESCRIPTION": "Descripcion del sospechoso",
+        "THIEF_AGRESSIVENESS": "Agresividad del sospechoso",
+        "VICTIM_COMPANY": "Acompañamiento de la victima",
+        "STOLEN_ITEMS": "Elementos robados",
+        "OTHER_ITEMS": "Otros elementos robados",
+        "PHYSICAL_DAMAGE": "Daño fisico",
+        "EMOTIONAL_DAMAGE": "Daño psicologico",
+        "COMMENT": "Comentarios extra"
+    },
+    "EVENT": {
+        "CREATE_EVENT": "Crear nuevo evento",
+        "CREATE_EVENT_HINT": "Un evento es una actividad que te gustaria agendar en el calendario de CrimenApp.",
+        "DESCRIPTION": "Descripcion",
+        "FROM": "Fecha de inicio",
+        "TO": "Fecha final",
+        "COLOR": "Color"
     },
     "FORM": {
         "INFO": "¿De qué se trata este proyecto?",
@@ -41,22 +205,27 @@
         "EXPLANATION2": "Por esa razón, queremos saber si te gustaría completar el resto de la encuesta para dar información más certera sobre los siniestros.",
         "THEFTINFO": {
             "THIEFINFO": "Información del Robo",
+            "CASE_INFO": "Informacion del caso",
             "THEFT": "Ingrese el tipo de siniestro",
             "TIME": "Ingrese hora",
             "DATE": "Ingrese fecha",
             "DATE-PLACEHOLDER": "dd-mm-aa",
             "EMOTIONAL-DAMAGE": "¿Qué tanto te afectó emocionalmente?",
+            "EMOTIONAL": "Daño emocional",
             "EMOTIONAL-EXPLANATION": "1: Indiferente. 5: Muy traumático.",
             "PHYSICAL-DAMAGE": "¿Qué tan grave quedaste físicamente?",
+            "PHYSICAL": "Daño fisico",
             "PHYSICAL-EXPLANATION": "1: Ninguna lesión. 5: Hospitalizado/a.",
             "STOLEN-OBJECTS": "Objetos robados",
             "PLACE-DESCRIPTION": "Descripción del lugar",
             "COMPANY": "¿Con quién te encontrabas?",
             "LOCATION": "Ubicación",
-            "TIMEFRACTION": "Franja horaria"
+            "TIMEFRACTION": "Franja horaria",
+            "EXTRA_INFORMATION": "Informacion extra"
         },
         "PERSONALINFO": {
             "PERSONALINFO": "Información Personal",
+            "VICTIM_INFORMATION": "Informacion de la victima",
             "NAME": "Nombre",
             "DNI": "DNI",
             "SEX": "Sexo",
@@ -65,20 +234,26 @@
             "AGE": "Edad",
             "AGE-PLACEHOLDER": "Ingrese su edad.",
             "HEIGHT": "Altura",
-            "PHYSICAL": "Contextura física"
+            "PHYSICAL": "Contextura física",
+            "OBJECTS_STOLEN": "Objetos robados",
+            "OTHERS_OBJECTS": "Otros objetos robados"
         },
         "THEFTDETAILS": {
             "THIEFINFO": "Información del Agresor",
-            "AGRESSIVE": "Nivel de agresividad del agresor",
+            "AGRESSIVE": "Nivel de agresividad",
             "AGE": "Edad aproximada",
             "SEX": "Sexo",
+            "PLACE": "Lugar",
+            "PLACE_EXTRA_DESCRIPTION": "Descripcion extra del lugar",
             "SKIN": "Tonalidad de piel",
+            "HAIR": "Color de pelo",
             "CLOTHING": "Vestimenta",
             "HEIGHT": "Altura",
             "PHYSICAL": "Contextura física",
             "COMPLAINT": "¿Se hizo una denuncia?",
             "ARRESTED": "¿Fue arrestado?",
-            "ARMED": "¿Estaba armado?"
+            "ARMED": "¿Estaba armado?",
+            "ACCOMPANIED": "Acompañado"
         }
     },
     "CRIME-MAP": {
@@ -90,6 +265,7 @@
         "BUTTON-TEXT": "Volver a Inicio"
     },
     "OK": {
+        "REPORT_COMPLETE": "Denuncia hecha exitosamente",
         "SAVE": "Datos guardados correctamente"
     },
     "ERRORS": {
@@ -99,27 +275,44 @@
         "cuit": "El cuit debe ser sin guiones ni espacios",
         "password": "La contraseña debe contener mayusculas, minusculas y numeros",
         "USER_NOT_FOUND": "Usuiario y/o contraseña incorrectos",
-        "NOT_FOUND_USER": "Usuario no encontrado"
+        "NOT_FOUND_USER": "Usuario no encontrado",
+        "USER_ALREADY_EXIST": "El usuario ya existe",
+        "TO_DATE_ERROR":"Fecha de finalizacion no puede ser menor a fecha de inicio.",
+        "NOT_ADMIN": "Debes de ser Admin para poder realizar esta accion",
+        "NOT_DATA": "No se ingreso ningun dato",
+        "WITHOUT_DATA": "",
+        "NOT_FOUND_DATA": "No se encontra informacion."
     },
     "ROUTES": {
         "PUBLIC": {
             "HOME": "/",
             "FORM": "/crime-form"
         },
+        "EASTEREGG": {
+            "CREATE_ADMIN": "/easter-egg/createadmin"
+        },
         "ADMIN": {
             "HOME": "/admin/home",
             "LOGIN": "/admin/login",
             "FORGET_PASSWORD": "/admin/forget-password",
-            "USERS": "/admin/users",
+            "USERS": {
+                "HOME": "/admin/users",
+                "NEW_USER": "/admin/user/new"
+            },
             "SIGNUP": "/admin/signup",
             "MAP": "/admin/map",
+            "SINIESTER": "/admin/siniester",
             "STADISTICS": {
                 "HOME": "/admin/statistics",
                 "BAR": "/admin/statistics/bar",
                 "PIE": "/admin/statistics/pie",
                 "LINE": "/admin/statistics/line",
                 "POLAR": "/admin/statistics/polar",
-                "CONFIG": "/admin/statistics/config"
+                "CONFIG": "/admin/statistics/config",
+                "NEW": "/admin/statistics/new"
+            },
+            "DATASETS": {
+                "ALL": "/admin/datasets"
             },
             "CONFIG": {
                 "HOME": "/admin/config",

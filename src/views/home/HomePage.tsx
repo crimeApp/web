@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import Carousel from 'react-material-ui-carousel';
 import {
   Grid,
   Avatar,
@@ -15,12 +16,15 @@ import Button from "../../components/button/Button";
 import MapMarkers from "../../components/map/MapMarkers";
 import "./HomePage.css";
 import { useHistory } from "react-router-dom";
+import judicialUnits from '../../assets/judicial-units.json';
+import Translate from "../../assets/traslate";
 
 function HomePage() {
   const [user_position, set_position] = useState({
     lat: -31.42182659888641,
     lng: -64.18388759242008,
   })
+    , TRANSLATE = Translate['ES']
     , history = useHistory()
 
   useEffect(() => {
@@ -38,11 +42,9 @@ function HomePage() {
         <Grid item xs={12} md={5} container justify="center" alignContent="center" alignItems="center" >
           <Grid item xs={12} container className="background-color-white p-left-3 p-right-3 border-small m-bottom-2" alignItems="center" alignContent="flex-start" justify="center" >
             <Grid item xs={12} className="p-top-3">
-              <h3>¿Querés reportar un siniestro?</h3>
+              <h3>{TRANSLATE.HOME.REPORT_SINIESTER_TITLE}</h3>
               <p>
-                Alerta a las autoridades y a las personas mas cercanas si
-                sufris algun tipo de siniestros para crear un espacio de
-                comunicacion y favorecer la seguridad ciudadana de Cordoba.
+                {TRANSLATE.HOME.REPORT_SINIESTER_DETAIL}
               </p>
             </Grid>
             <Button
@@ -56,35 +58,48 @@ function HomePage() {
           </Grid>
           <Grid item xs={12} container className="background-color-white p-left-3 p-right-3 border-small m-bottom-2" alignItems="center" alignContent="center" justify="center">
             <Grid item xs={12} className="p-top-3">
-              <h3>¿Querés ver cómo está la seguridad ciudadana actual?</h3>
+              <h3>{TRANSLATE.HOME.STADISTIC_TITLE}</h3>
               <p>
-                Con los datos anónimos recibidos y las alertas, creamos
-                reportes para informarte sobre los siniestros más recientes
-                ocurridos en la ciudad. Para acceder, haz click en el
-                siguiente botón.
+                {TRANSLATE.HOME.STADISTIC_DETAIL}
               </p>
             </Grid>
             <Button
               xs={8}
               md={5}
               color="violet"
-              label={"Ver reportes"}
+              label={TRANSLATE.HOME.STADICTIS_SUMMIT}
               onClick={() => history.push("/crime-map")}
               className="m-bottom-3"
             />
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6} className="m-top-2">
-          <img
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: "var(--border-normal)"
-            }}
-            alt="CardPhoto"
-            src={process.env.PUBLIC_URL + "/assets/home_page1.png"}
-          />
+        <Grid item xs={12} md={7} className="p-left-2 p-right-2">
+          <h3>
+            {TRANSLATE.HOME.CORDOBA}
+          </h3>
+          <Carousel interval={10000}>
+            {
+              TRANSLATE.HOME.IMGS.map(data => <>
+                <img
+                  className={ data.href ? "hover" : undefined }
+                  style={{
+                    width: "100%",
+                    height: "350px",
+                    objectFit: "cover",
+                    borderRadius: "var(--border-normal)"
+                  }}
+                  onClick={() => {
+                    if(data.href) 
+                      window.location.href = data.href;
+                  }}
+                  alt="CardPhoto"
+                  src={`${process.env.PUBLIC_URL}/assets/home/${data.img}`}
+                />
+                <p style={{ height: '10px' }} className="p-left-2 p-right-2 p-bottom-3 text-overflow-ellipsis">{data.info}</p>
+              </>)
+            }
+          </Carousel>
+
         </Grid>
       </Grid>
       <Grid item xs={12} container className="p-2">
@@ -112,19 +127,7 @@ function HomePage() {
             className={"p-bottom-2"}
             label={"Encontrá las unidades judiciales más cercanas acá."}
             positionCenter={user_position}
-            positions={[
-              {
-                lat: -31.382232224204365,
-                lng: -64.18447639101693,
-                name: "casa de juan",
-              },
-              {
-                lat: -31.40385792696248,
-                lng: -64.21283551834296,
-                name: "casa de juan",
-              },
-              { lat: -31.38536, lng: -64.17993, name: "casa de juan" },
-            ]}
+            positions={judicialUnits.map(e => ({ lat: e.point[0], lng: e.point[1], name: e.address }))}
           />
         </Grid>
       </Grid>
@@ -146,7 +149,7 @@ const explanation = (
           </ListItemAvatar>
           <ListItemText id={`checkbox-list-label-${index}`} className="font-size-normal w400">
             {index === 0 ? (
-              <div>
+              <div>4
                 {text}
                 <Link
                   underline="none"
