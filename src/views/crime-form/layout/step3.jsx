@@ -13,7 +13,7 @@ import { accompaniment_options, items_options } from "../../../assets/options";
 const schema = yup.object({
   thief_agressiveness: yup.number().optional().default(1),
   victim_company: yup.mixed().optional().default(''),
-  stolen_items: yup.array().of(yup.string().optional().default('')),
+  stolen_items: yup.array().of(yup.string().optional()).default([]),
   other_items: yup.string().optional().default(''),
   physical_damage: yup.number().optional().default(1),
   emotional_damage: yup.number().optional().default(1),
@@ -75,9 +75,9 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
     >
       {children}
       <MultipleCheckBox
-        {...InputConstructor("stolenItems")}
+        {...InputConstructor("stolen_items")}
         label={'¿Qué te robaron?'}
-        onChange={(newValue) => HandleChange("stolenItems", newValue)}
+        onChange={(newValue) => HandleChange("stolen_items", newValue)}
         options={items_options} />
       <Input
         {...InputConstructor("other_items")}

@@ -1,16 +1,3 @@
-# Tareas por hacer:
-* nu8evo conjunto de reportes
-* crear conjunto de dataset de una semana para el dataset anterior
-
-https://github.com/crimeApp/backend/blob/master/functions/src/controllers/users/put-user.ts
-https://github.com/crimeApp/backend/blob/master/functions/src/index.ts
-https://github.com/crimeApp/backend/blob/master/functions/src/controllers/post-create-admin.ts
-
-DESLOGEARME Y PROBAR SI NADA SE ROMPE EN ADMIN PAGE
-AGREGAR GRAFICOS AL HOME PAGE
-CAMBIAR EN BACKEND EL ID PARA DATASET
-TRAER SINIESTRO BY ID - FRONT -BACK?
-
 # Crimen
 La espera me agotó
 

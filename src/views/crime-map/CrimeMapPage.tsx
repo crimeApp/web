@@ -6,12 +6,13 @@ import useHandlePage from "../../hooks/useHandlePage";
 import { HandleAPI } from "../../utils/handle-api";
 import Translate from "../../assets/traslate";
 import { useHistory } from "react-router-dom";
-import { StadisticsToChatsFormat } from "../../utils/stadistcs-to";
+import { StadisticsToChatsFormat, TotalCasesByMonths } from "../../utils/stadistcs-to";
 import Button from "../../components/button/Button";
 import Heatmap from "../../components/heatmap/Heatmap";
 import HandlePetitions from "../../components/handle-peticion/HandlePetions";
 import { BackButtonString } from "../admin/component/BackButton";
 import MakeChart from "../admin/StadisticPage/layers/commond";
+import { Skeleton } from "@material-ui/lab";
 
 
 const CrimeMapPage = () => {
@@ -88,13 +89,14 @@ const CrimeMapPage = () => {
           </Grid>
           <Grid item xs={12} className="p-left-2">
             <p>
-            {TRANSLATE.STADISTICS.TITLES.PUBLIC_HINT}
+              {TRANSLATE.STADISTICS.TITLES.PUBLIC_HINT}
             </p>
           </Grid>
           {
-            data ?
+            data && dataset ?
               <>
                 {
+
                   [
                     {
                       label: TRANSLATE.STADISTICS.LABELS.CRIME_TYPE,
@@ -123,15 +125,35 @@ const CrimeMapPage = () => {
                     },
                   ].map(v => <MakeChart {...v} />)
                 }
-                <Grid item xs={12}>
+                < Grid item xs={12}>
                   <Heatmap label={TRANSLATE.STADISTICS.LABELS.HEAT_MAP} className="p-2" data={data.crimePoints.datasets[0].data.map(e => ([e.lat, e.lng, e.int]))} />
                 </Grid>
+                <Grid item xs={12} className="p-left-2 p-top-2">
+                  <p className="font-size-normal w500">
+                    {TRANSLATE.STADISTICS.TITLES.SUBTITLE}
+                  </p>
+                </Grid>
+                <Grid item xs={12} className="p-2" container justify="flex-start">
+                  {
+                    TotalCasesByMonths(dataset).map(struct => <Grid item xs={12} sm={6} md={4}>
+                      <Grid item xs={12}>
+                        <h5>{struct.year}</h5>
+                      </Grid>
+                      {
+                        struct.months.map(month => <Grid item xs={12} container>
+                          <p className="w500">{month.month}:</p><p>{month.total}</p>
+                        </Grid>)
+                      }
+                    </Grid>)
+                  }
+                </Grid>
               </>
-              : null
+              :
+              Array.from({ length: 5 }).map(_ => <Skeleton className='m-bottom-3' height='400px' width='95%' />)
           }
         </Grid>
-      </Grid>
-    </Scaffold>
+      </Grid >
+    </Scaffold >
   );
 };
 

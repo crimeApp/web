@@ -172,6 +172,64 @@ const SiniesterPage = () => {
             set_handle_page(prev => ({ ...prev, loading: false }))
             return set_state(siniester_data)
         }
+
+        (async () => {
+            const request = await HandleAPI({
+                method: "get",
+                path: `/sinister/${state?.id}`,
+                data: state,
+                config: {
+                    headers: {
+                        Authorization: `Bearer ${admin_state.token}`
+                    }
+                }
+            })
+
+            if (!request) return set_handle_page({
+                loading: false,
+                error: true,
+                notification: true,
+                severity: "error",
+                color: "red",
+                msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
+            })
+
+            switch (request.status) {
+                case 200:
+                    set_state(request.data)
+                    return set_handle_page(prev => ({
+                        ...prev,
+                        loading: false,
+                    }))
+                case 400:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        severity: "error",
+                        color: "red",
+                        msg: TRANSLATE.ERRORS.BAD_REQUEST,
+                        callback: () => history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
+                    })
+                case 401:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        severity: "error",
+                        color: "red",
+                        msg: TRANSLATE.ERRORS.UNAUTH,
+                        callback: () => history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
+                    })
+                default:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        notification: true,
+                        color: "red",
+                        severity: "error",
+                        msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
+                    })
+            }
+        })()
     }, [])
 
     useEffect(() => {

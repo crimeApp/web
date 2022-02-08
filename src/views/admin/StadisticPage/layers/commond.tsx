@@ -1,14 +1,14 @@
-import { Grid } from "@material-ui/core";
+import { Grid, GridSize } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
 import { Bar, Line, Pie, PolarArea, Radar } from "react-chartjs-2";
 import { useHistory } from "react-router";
 import Button from "../../../../components/button/Button";
 
-const MakeChart = ({ label, data, type, error }: { error?: boolean, label?: string, data?: any, type?: "PolarArea" | "Pie" | "Bar" | "Radar" | "Line" | string }) => {
+const MakeChart = ({ xs=12, sm=12, md=12, xl=12, label, data, type, error }: { xs?: GridSize, sm?: GridSize, md?: GridSize, xl?: GridSize, error?: boolean, label?: string, data?: any, type?: "PolarArea" | "Pie" | "Bar" | "Radar" | "Line" | string }) => {
 
     if (error)
-        return <Grid item xs={12} container justify="center">
+        return <Grid item xs={xs} sm={sm} md={md} xl={xl} container justify="center">
             <Grid item xs={12} className="m-top-3" container justify="center">
                 <h4>{label}</h4>
             </Grid>
@@ -43,9 +43,9 @@ const MakeChart = ({ label, data, type, error }: { error?: boolean, label?: stri
         }
     }
 
-    return <Grid item xs={12} container justify="center">
-        <Grid item xs={12} className="m-top-3 m-bottom-3" container justify="center">
-            <h4>{label}</h4>
+    return <Grid item xs={xs} sm={sm} md={md} xl={xl} container justify="center">
+        <Grid item xs={12} className="m-top-2 m-bottom-2" container justify="center">
+            <h5>{label}</h5>
         </Grid>
         <Struct />
     </Grid>

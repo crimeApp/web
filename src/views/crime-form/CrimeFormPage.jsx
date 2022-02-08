@@ -35,64 +35,87 @@ const CrimeFormPage = () => {
         }
 
         , HandleSubmit = async () => {
-            set_handle_page(prev => ({
-                ...prev,
-                loading: true
-            }))
-            const data = {
-                ...form_data,
-                stolen_items: form_data.other_items ? [
-                    ...form_data.stolenItems,
-                    form_data.other_items
-                ] : form_data.stolenItems
-            }
+            try {
+                set_handle_page(prev => ({
+                    ...prev,
+                    loading: true
+                }))
+                const data = {
+                    ...form_data,
+                    stolen_items:
+                        form_data.other_items
+                            ?
+                            form_data.stolen_items
+                                ? [
+                                    ...form_data.stolen_items,
+                                    form_data.other_items
+                                ]
+                                :
+                                [form_data.other_items]
+                            : form_data.stolen_items
+                }
 
-            Object.keys(data).forEach((k) => (!data[k] || (typeof data[k] === "string" && data[k].trim() === 0)) && delete data[k]);
+                Object.keys(data).forEach((k) => (!data[k] || (typeof data[k] === "string" && data[k].trim() === 0)) && delete data[k]);
 
-            const resp = await HandleAPI({
-                method: "post",
-                path: "/new-sinister",
-                data
-            });
+                const resp = await HandleAPI({
+                    method: "post",
+                    path: "/new-sinister",
+                    data
+                });
 
-            if (!resp)
-                return set_handle_page({ 
-                    loading: false, 
-                    error: true, 
-                    notification: true,
-                    severity: "error",
-                    color: "red",
-                    msg: traslate.ERRORS.INTERNAL_SERVER_ERROR 
-                })
-
-            switch (resp.status) {
-                case 200:
-                    return set_handle_page({
-                        loading: false,
-                        error: false,
-                        notification: true,
-                        color: "green",
-                        severity: "success",
-                        msg: traslate.OK.REPORT_COMPLETE,
-                        callback: () => history.push(traslate.ROUTES.PUBLIC.HOME)
-                    })
-                case 400:
-                    return set_handle_page({
+                if (!resp)
+                    return set_handle_page(prev => ({
+                        ...prev,
                         loading: false,
                         error: true,
                         notification: true,
                         severity: "error",
                         color: "red",
-                        msg: traslate.ERRORS.BAD_REQUEST
-                    })
-                default:
-                    return set_handle_page({
-                        loading: false,
-                        error: true,
-                        color: "red",
-                        severity: "error",
                         msg: traslate.ERRORS.INTERNAL_SERVER_ERROR
-                    })
+                    }))
+
+                switch (resp.status) {
+                    case 200:
+                        return set_handle_page(prev => ({
+                            ...prev,
+                            loading: false,
+                            error: false,
+                            notification: true,
+                            color: "green",
+                            severity: "success",
+                            msg: traslate.OK.REPORT_COMPLETE,
+                            callback: () => history.push(traslate.ROUTES.PUBLIC.HOME)
+                        }))
+                    case 400:
+                        return set_handle_page(prev => ({
+                            ...prev,
+                            loading: false,
+                            error: true,
+                            notification: true,
+                            severity: "error",
+                            color: "red",
+                            msg: traslate.ERRORS.BAD_REQUEST
+                        }))
+                    default:
+                        return set_handle_page(prev => ({
+                            ...prev,
+                            loading: false,
+                            error: true,
+                            color: "red",
+                            severity: "error",
+                            msg: traslate.ERRORS.INTERNAL_SERVER_ERROR
+                        }))
+                }
+            } catch (e) {
+                console.log(e)
+                set_handle_page(prev => ({
+                    ...prev,
+                    loading: false,
+                    error: true,
+                    color: "red",
+                    severity: "error",
+                    msg: traslate.ERRORS.INTERNAL_SERVER_ERROR
+                }))
             }
         }
 

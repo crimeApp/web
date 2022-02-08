@@ -354,7 +354,7 @@ const MapAdminPage = () => {
                         disabled={edit_state}
                     />
                     <Input
-                        {...inputConstructor("stolenItems")}
+                        {...inputConstructor("stolen_items")}
                         xs={12}
                         label={TRANSLATE.FORM.PERSONALINFO.OBJECTS_STOLEN}
                         value={state?.stolen_items?.toString()}

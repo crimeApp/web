@@ -11,6 +11,7 @@ interface MapProps {
         lat: number,
         lng: number
     },
+    zoom?: number,
     positions?: {
         lat: number,
         lng: number,
@@ -45,6 +46,7 @@ const MapMarkers = ({
     sm,
     md,
     lg,
+    zoom = 13,
     xl,
     style
 }: MapProps) => {
@@ -54,7 +56,7 @@ const MapMarkers = ({
                 <p className={"first-letter-cap  color-black w700 " + (error ? "color-red" : "")}>{label}</p>
             </Grid>
             <Grid item>
-                <MapContainer center={positionCenter} zoom={13} scrollWheelZoom={true}>
+                <MapContainer center={positionCenter} zoom={zoom} scrollWheelZoom={true}>
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

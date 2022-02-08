@@ -21,6 +21,11 @@ import { AttackTypeIcons, ChipSeverity } from "../MapPage/layers/SiniesterList";
 import Heatmap from "../../../components/heatmap/Heatmap";
 import MapMarkers from "../../../components/map/MapMarkers";
 import { Skeleton } from "@material-ui/lab";
+import Switches from "../../../components/switch/Switch";
+import { StadisticCharModel, StadisticModel } from "../../../models/stadistic.model";
+import CreateStatisticModel from "../../../utils/CreateStadisticModel";
+import { StadisticsToChatsFormat } from "../../../utils/stadistcs-to";
+import MakeChart from "../StadisticPage/layers/commond";
 
 type EventCalendar = {
     id: string,
@@ -54,12 +59,14 @@ const HomeAdminPage = () => {
         , [new_event, set_new_event] = useState<EventCalendar>()
         , [events, set_events] = useState<EventCalendar[]>([])
         , [siniesters, set_siniesters] = useState<SiniesterModel[]>()
+        , [heat_map, set_heatmap] = useState<boolean>(false)
         , [position, set_position] = useState<{
             lat: number,
             lng: number
         }>()
         //@ts-ignore
         , onChange = (e: any) => set_new_event(prev => ({ ...prev, [e.target.name]: e.target.value }))
+        , [dataset, set_dateset] = useState<StadisticCharModel>()
         , summitEvent = async () => {
             set_handle_page(prev => ({ ...prev, loading: true }))
             set_errors(undefined)
@@ -96,6 +103,8 @@ const HomeAdminPage = () => {
                 loading: false,
                 error: true,
                 notification: true,
+                color: "red",
+                severity: "error",
                 msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
             })
 
@@ -142,7 +151,7 @@ const HomeAdminPage = () => {
         if (!admin_state.token) {
             return history.push("/admin/login")
         }
-        (async () => handleFindSiniesters())();
+        (async () => await handleFindSiniesters())();
         (async () => {
             const request = await HandleAPI({
                 method: "get",
@@ -158,6 +167,8 @@ const HomeAdminPage = () => {
                 loading: false,
                 error: true,
                 notification: true,
+                color: "red",
+                severity: "error",
                 msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
             })
 
@@ -190,11 +201,21 @@ const HomeAdminPage = () => {
         })();
     }, [])
 
-    const handleFindSiniesters = async () => {
 
+    useEffect(() => siniesters
+        ? set_dateset(StadisticsToChatsFormat(CreateStatisticModel(siniesters))["all"]["struct"])
+        : undefined,
+        [siniesters])
+
+    const handleFindSiniesters = async (more?: boolean) => {
+        set_handle_page(prev => ({ ...prev, loading: true }))
+        let timestamp;
+        if (siniesters && more && siniesters.length > 1) {
+            timestamp = siniesters.sort((a, b) => (b.time - a.time))[siniesters.length - 1].time
+        }
         const request = await HandleAPI({
             method: "get",
-            path: `/sinisters?limit=4`,
+            path: `/sinisters?limit=8${timestamp ? `&timestamp=${timestamp}` : ''}`,
             config: {
                 headers: {
                     Authorization: `Bearer ${admin_state.token}`
@@ -206,15 +227,18 @@ const HomeAdminPage = () => {
             loading: false,
             error: true,
             notification: true,
+            color: "red",
+            severity: "error",
             msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
         })
 
         switch (request.status) {
             case 200:
-                set_siniesters(request.data)
+                set_siniesters(prev => (more && prev) ? [...prev, ...request.data] : request.data)
                 return set_handle_page(prev => ({
                     ...prev,
                     loading: false,
+                    error: request.data.length < 8
                 }))
             case 401:
                 return set_handle_page({
@@ -243,7 +267,11 @@ const HomeAdminPage = () => {
             setHandlePage={set_handle_page}
         />
         <Grid item xs={12} sm={4} className="p-2">
-            <Grid item xs={12} className="background-color-white border-small p-2 shadow" container alignItems="center">
+            <Grid item xs={12} className="background-color-white border-small p-2 shadow" container alignItems="center"
+                style={{
+                    height: "434px",
+                    overflowY: 'scroll'
+                }}>
                 <Grid item xs={8} className='p-top-2 p-bottom-2'>
                     <h4>{TRANSLATE.HOME.LAST_SINIESTERS}</h4>
                 </Grid>
@@ -298,49 +326,78 @@ const HomeAdminPage = () => {
         </Grid>
         <Grid item xs={12} sm={8} className="p-2" container>
             <Grid item xs={12} className="background-color-white border-small p-2 shadow" container alignItems="center">
-                <Grid item xs={8}>
+                <Grid item xs={12} sm={8}>
                     <h4>{TRANSLATE.HOME.LAST_SINIESTERS_MAP}</h4>
                 </Grid>
+                <Switches
+                    label={TRANSLATE.LABELS.HEAT_MAP}
+                    value={heat_map}
+                    onChange={(e) => set_heatmap(e.target.checked)}
+                    sm={4}
+                    xs={12}
+                />
                 <Grid item xs={12}>
-                    <MapMarkers xs={12}
-                        positionCenter={position}
-                        positions={siniesters?.map(e => ({
-                            lat: e.geopoint.lat,
-                            lng: e.geopoint.lng,
-                            name: e.attack_type,
-                            address: UnixToDateString(e.time),
-                            onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.SINIESTER + '/' + e.id, e)
-                        }))} />
+                    {
+                        siniesters && heat_map ?
+                            <Heatmap data={siniesters?.map(e => [
+                                e.geopoint.lat,
+                                e.geopoint.lng, 10])} />
+                            :
+                            <MapMarkers xs={12}
+                                zoom={12}
+                                positionCenter={position || { lat: -31.416668, lng: -64.183334 }}
+                                positions={siniesters?.map(e => ({
+                                    lat: e.geopoint.lat,
+                                    lng: e.geopoint.lng,
+                                    name: e.attack_type,
+                                    address: UnixToDateString(e.time),
+                                    onClick: () => history.push(TRANSLATE.ROUTES.ADMIN.SINIESTER + '/' + e.id, e)
+                                }))} />
+                    }
+
                 </Grid>
             </Grid>
         </Grid>
-        <Grid item xs={12} className="p-2" container >
-            <Grid item xs={12} className="background-color-white border-small p-2 shadow" container alignItems="center">
-                <Grid item xs={12} className="m-bottom-2">
-                    <h4>{TRANSLATE.HOME.FLASH_ACCESS}</h4>
-                </Grid>
-                <Grid item xs={12} sm={4} className="p-2 background-color-white border-small shadow hover" container justify="center">
-                        <h5>Graficos</h5>
-                        <img
-                            src={process.env.PUBLIC_URL + '/assets/grafics/line.png'}
-                            style={{
-                                objectFit: 'contain',
-                                width: '100%',
-                                height: '150px'
-                            }} />
-                </Grid>
-                <Grid item xs={12} sm={4} className="p-2 background-color-white border-small shadow hover" container justify="center">
-                        <h5>Graficos</h5>
-                        <img
-                            src={process.env.PUBLIC_URL + '/assets/grafics/line.png'}
-                            style={{
-                                objectFit: 'contain',
-                                width: '100%',
-                                height: '150px'
-                            }} />
+        {
+            dataset && <Grid item xs={12} className="p-2" container >
+                <Grid item xs={12} className="background-color-white border-small p-2 shadow" container alignItems="center">
+                    <Grid item xs={8} >
+                        <h4>{TRANSLATE.HOME.FLASH_ACCESS} de {siniesters?.length} siniestros</h4>
+                    </Grid>
+                    {
+                        !handle_page.error && 
+                        <Grid className="hover" item xs container justify="flex-end" >
+                            <Button disabled={handle_page.loading} xs={12} sm={6} label={TRANSLATE.COMMON.LOAD_MORE_SINIESTERS} onClick={() => handleFindSiniesters(true)} />
+                        </Grid>
+                    }
+                    <Grid item xs={12} className="m-bottom-2">
+                        <p>{TRANSLATE.HOME.FLASH_ACCESS_HINT}</p>
+                    </Grid>
+                    {
+                        [
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_TYPE,
+                                type: "Bar",
+                                error: !dataset.crimeType,
+                                data: { ...dataset.crimeType, datasets: [{ ...dataset.crimeType?.datasets[0], ...admin_state.config.statistics }] },
+                            },
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_TIME,
+                                type: "Bar",
+                                error: !dataset.crimeTime,
+                                data: { ...dataset.crimeTime, datasets: [{ ...dataset.crimeTime?.datasets[0], ...admin_state.config.statistics }] },
+                            },
+                            {
+                                label: TRANSLATE.STADISTICS.LABELS.CRIME_SEX,
+                                type: "Bar",
+                                error: !dataset.crimeSex,
+                                data: { ...dataset?.crimeSex, datasets: [{ ...dataset?.crimeSex?.datasets[0], ...admin_state.config.statistics }] },
+                            },
+                        ].map(v => <MakeChart xs={12} sm={6} md={4} {...v} />)
+                    }
                 </Grid>
             </Grid>
-        </Grid>
+        }
         <Grid item xs={12} className="p-2" container >
             <Grid item xs={12} sm={6}>
                 <Accordion className="background-color-white border-small shadow m-bottom-2">
