@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     navigator: {
         position: "fixed",
+        zIndex: 3000,
         width: "100%",
         bottom: "0px",
         left: "0px",

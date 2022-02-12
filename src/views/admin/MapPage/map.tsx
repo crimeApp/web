@@ -182,6 +182,8 @@ const MapAdminPage = () => {
             loading: false,
             error: true,
             notification: true,
+            severity: "error",
+            color: "red",
             msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
         })
 

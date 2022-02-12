@@ -95,7 +95,7 @@ function HomePage() {
                   alt="CardPhoto"
                   src={`${process.env.PUBLIC_URL}/assets/home/${data.img}`}
                 />
-                <p style={{ height: '10px' }} className="p-left-2 p-right-2 p-bottom-3 text-overflow-ellipsis">{data.info}</p>
+                <p className="p-left-2 p-right-2 p-bottom-3 overflow-text-home">{data.info}</p>
               </>)
             }
           </Carousel>
@@ -149,7 +149,7 @@ const explanation = (
           </ListItemAvatar>
           <ListItemText id={`checkbox-list-label-${index}`} className="font-size-normal w400">
             {index === 0 ? (
-              <div>4
+              <div>
                 {text}
                 <Link
                   underline="none"

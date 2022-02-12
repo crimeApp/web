@@ -45,8 +45,12 @@ export const items_options = [
 export const hair_options = [
     "Oscuro",
     "Rubio",
+    "Rubio oscuro",
     "Castaño",
-    "Teñido fantasía (color no convencional)"
+    "Castaño claro",
+    "Pelirrojo",
+    "Canoso",
+    "Teñido fantasía"
 ];
 
 export const sex_options = ["Hombre", "Mujer", "Otro"];
@@ -66,7 +70,7 @@ export const age_options = [
 ];
 
 export const time_options = [
-    "Maniana",
+    "Mañana",
     "Tarde",
     "Noche"
 ];

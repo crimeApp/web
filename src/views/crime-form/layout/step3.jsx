@@ -17,7 +17,7 @@ const schema = yup.object({
   other_items: yup.string().optional().default(''),
   physical_damage: yup.number().optional().default(1),
   emotional_damage: yup.number().optional().default(1),
-  comment: yup.string().optional().default('').max(250)
+  comment: yup.string().optional().default('').max(150)
 });
 
 
@@ -121,7 +121,7 @@ const StepThree = ({ data, children, handleNext, handleBack }) => {
         type="string"
         multiline
         rows={3}
-        maxlenght={250}
+        maxlenght={150}
         label={'¿Algo que quieras agregar sobre el ataque?'}
       />
       <Button

@@ -35,7 +35,7 @@ const schema = yup.object().shape({
   }).required(),
   location: yup.string().required().default("").max(60),
   location_map: yup.string().default(""),
-  place_description: yup.string().optional().max(250).default(""),
+  place_description: yup.string().optional().max(50).default(""),
   full_name: yup
     .string()
     .transform((e) => e.toLowerCase())
@@ -128,7 +128,7 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         {...InputConstructor("place_description")}
         label={"Descripción del lugar"}
         multiline
-        maxlenght={250}
+        maxlenght={50}
         rows={3}
       />
       <Input

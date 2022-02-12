@@ -302,13 +302,13 @@ const HomeAdminPage = () => {
                                     }}>
                                         <p className="font-size-little w500">{UnixToDateString(DateMoreTime(s.time, s.hour))}</p>
                                     </div>
-                                    <Grid item className="p-1" xs={9} md={7} container justify="center">
+                                    <Grid item className="p-1" xs={8} md={7} container justify="center">
                                         <p className="overflow-text-siniester">{s.location}</p>
                                     </Grid>
                                     <Grid item className="p-1" xs={2} md={3} container justify="center">
                                         <ChipSeverity severity={s.severity} />
                                     </Grid>
-                                    <Grid item xs={1} md={2}>
+                                    <Grid item xs={2} md={2}>
                                         <AttackTypeIcons text={s.attack_type} />
                                     </Grid>
                                 </Grid>
@@ -398,8 +398,8 @@ const HomeAdminPage = () => {
                 </Grid>
             </Grid>
         }
-        <Grid item xs={12} className="p-2" container >
-            <Grid item xs={12} sm={6}>
+        <Grid item xs={12} container >
+            <Grid item xs={12} sm={6} className="p-2">
                 <Accordion className="background-color-white border-small shadow m-bottom-2">
                     <AccordionSummary >
                         <Tooltip title="Preciona aqui para crear un evento">
@@ -506,7 +506,7 @@ const HomeAdminPage = () => {
                     }
                 </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} className="p-left-2">
+            <Grid item xs={12} sm={6} className="p-2">
                 <Grid item xs={12} className="background-color-white border-small p-2 shadow" container>
                     <Calendar
                         //@ts-ignore

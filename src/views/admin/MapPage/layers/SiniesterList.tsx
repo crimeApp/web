@@ -7,24 +7,25 @@ import Button from "../../../../components/button/Button";
 import { SiniesterModel } from "../../../../models/siniester.models";
 import { DateMoreTime, UnixToDateString } from "../../../../utils/time";
 import StateSiniester from "../../component/StateSiniester";
+import $ from 'jquery';
 
 const SiniesterList = ({ siniesters = [], state, set_state, notMore, onMore }: { siniesters?: SiniesterModel[], state?: SiniesterModel, set_state: any, notMore?: boolean, onMore: () => void }) => {
 
     const TRANSLATE = Translate['ES']
 
     return <Grid item xs={12} sm={6} className="m-top-1 p-1" container style={{ height: "80vh", overflowY: "scroll" }} alignContent="flex-start">
-        <Grid item xs={12} container className="p-2" alignItems="center" style={{
+        <Grid item xs={12} container alignItems="center" style={{
             borderRight: "10px solid transparent"
         }}>
-            <Grid item xs={3} className="p-1" container justify="center"><p className="w700 font-size-small">{TRANSLATE.MAP.PLACE}</p></Grid>
-            <Grid item xs={3} className="p-1" container justify="center" alignItems="center">
+            <Grid item xs={2} className="p-1" container justify="center"><p className="w700 font-size-small">{TRANSLATE.MAP.PLACE}</p></Grid>
+            <Grid item xs={4} className="p-1" container justify="center" alignItems="center">
                 <p className="w700 font-size-small">{TRANSLATE.MAP.SEVERITY}</p>
                 <Tooltip className="w700 font-size-normal" title={TRANSLATE.MAP.SEVERITY_HINT}>
                     <Info />
                 </Tooltip>
             </Grid>
-            <Grid item xs={3} className="p-1" container justify="center"><p className="w700 font-size-small">{TRANSLATE.MAP.KIND_CASE}</p></Grid>
-            <Grid item xs={3} className="p-1" container justify="center" alignItems="center">
+            <Grid item xs={2} className="p-1" container justify="center"><p className="w700 font-size-small">{TRANSLATE.MAP.KIND_CASE}</p></Grid>
+            <Grid item xs={4} className="p-1" container justify="center" alignItems="center">
                 <p className="w700 font-size-small">{TRANSLATE.MAP.STATE}</p>
                 <Tooltip className="w700 font-size-normal" title={TRANSLATE.MAP.STATE_HINT}>
                     <Info />
@@ -38,7 +39,10 @@ const SiniesterList = ({ siniesters = [], state, set_state, notMore, onMore }: {
                         <Grid
                             container
                             className="p-2 background-color-white border-small map-hover-card shadow"
-                            onClick={() => set_state(s)}
+                            onClick={() => {
+                                set_state(s)
+                                $('html, body').animate({scrollTop: 0 }, 'slow');
+                            }}
                             justify="flex-start"
                             alignItems="center"
                             alignContent="center"
@@ -58,7 +62,7 @@ const SiniesterList = ({ siniesters = [], state, set_state, notMore, onMore }: {
                             }}>
                                 <p className="font-size-little w500">{UnixToDateString(DateMoreTime(s.time, s.hour))}</p>
                             </div>
-                            <Grid item className="p-1" xs={9} container justify="center">
+                            <Grid item className="p-1" xs={7} md={9}>
                                 <p className="overflow-text-siniester">{s.location}</p>
                             </Grid>
                             <Grid item className="p-1" xs container justify="center">

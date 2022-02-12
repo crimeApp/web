@@ -156,7 +156,7 @@ const UsersAdminPage = () => {
         }
     }
 
-    return <ScaffoldAdmin className="p-left-2 p-right-2">
+    return <ScaffoldAdmin className="p-left-2 p-right-2 p-bottom-4 m-bottom-4">
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}

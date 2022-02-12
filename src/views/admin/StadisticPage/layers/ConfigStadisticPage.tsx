@@ -161,7 +161,17 @@ const ConfigStadisticPage = () => {
                     <h4>{TRANSLATE.DATASETS.TITLE}</h4>
                 </Grid>
                 {
-                    databases?.map(s => <DatasetsCard key={s.id} data={s} value={admin_state.database?.id} onClick={(v) => admin_dispatch({ type: "CHANGE_DB", payload: v })} />)
+                    databases?.map(s => <DatasetsCard key={s.id} data={s} value={admin_state.database?.id}
+                        onClick={(v) => {
+                            set_handle_page(prev => ({
+                                ...prev,
+                                notification: true,
+                                loading: false,
+                                msg: TRANSLATE.OK.SAVE,
+                                severity: "success"
+                            }))
+                            admin_dispatch({ type: "CHANGE_DB", payload: v })
+                        }} />)
                 }
                 <Button
                     className="m-top-2"
