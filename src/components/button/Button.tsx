@@ -55,7 +55,7 @@ const Button = ({
     md={md}
     lg={lg}
     xl={xl}
-    className={`p-top-1 p-bottom-1  ${className}`}
+    className={`p-top-1 p-bottom-1 ${className}`}
   >
     <button
       disabled={disabled}

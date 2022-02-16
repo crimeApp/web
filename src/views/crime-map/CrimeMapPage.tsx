@@ -123,7 +123,7 @@ const CrimeMapPage = () => {
                       type: "Bar",
                       data: { ...data.victimAgresive, datasets: [{ ...data.victimAgresive.datasets[0], ...colorDataChars }] },
                     },
-                  ].map(v => <MakeChart {...v} />)
+                  ].map((v, index) => <MakeChart key={index} {...v} />)
                 }
                 < Grid item xs={12}>
                   <Heatmap label={TRANSLATE.STADISTICS.LABELS.HEAT_MAP} className="p-2" data={data.crimePoints.datasets[0].data.map(e => ([e.lat, e.lng, e.int]))} />
@@ -135,12 +135,12 @@ const CrimeMapPage = () => {
                 </Grid>
                 <Grid item xs={12} className="p-2" container justify="flex-start">
                   {
-                    TotalCasesByMonths(dataset).map(struct => <Grid item xs={12} sm={6} md={4}>
+                    TotalCasesByMonths(dataset).map((struct, index) => <Grid key={index} item xs={12} sm={6} md={4}>
                       <Grid item xs={12}>
                         <h5>{struct.year}</h5>
                       </Grid>
                       {
-                        struct.months.map(month => <Grid item xs={12} container>
+                        struct.months.map((month, index) => <Grid key={index} item xs={12} container>
                           <p className="w500">{month.month}:</p><p>{month.total}</p>
                         </Grid>)
                       }
@@ -149,7 +149,7 @@ const CrimeMapPage = () => {
                 </Grid>
               </>
               :
-              Array.from({ length: 5 }).map(_ => <Skeleton className='m-bottom-3' height='400px' width='95%' />)
+              Array.from({ length: 5 }).map((_, index) => <Skeleton key={index} className='m-bottom-3' height='400px' width='95%' />)
           }
         </Grid>
       </Grid >

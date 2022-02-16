@@ -25,13 +25,12 @@ const schema = yup.object().shape({
     })())
     .required(),
   geopoint: yup.object({
-    lat: yup.number().min(-90).max(90).required().default(-31.43087168213775),
+    lat: yup.number().min(-90).max(90).required(),
     lng: yup
       .number()
       .min(-180)
       .max(180)
-      .required()
-      .default(-64.21910252283733),
+      .required(),
   }).required(),
   location: yup.string().required().default("").max(60),
   location_map: yup.string().default(""),
@@ -71,7 +70,22 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
     set_error({});
     const resp = await Validator(data_state, schema);
 
-    if (resp.err) return set_error(resp.data);
+    if (resp.err)
+      return set_error(!data_state.geopoint.lat
+        ? {
+          ...resp.data, geopoint: {
+            error: true,
+            msg: "No se ha seleccionado una ubicacion."
+          }
+        }
+        : resp.data);
+
+    if (!data_state.geopoint.lat) return set_error({
+      geopoint: {
+        error: true,
+        msg: "No se ha seleccionado una ubicacion."
+      }
+    })
 
     return handleNext(resp.data);
   };
@@ -107,7 +121,7 @@ const StepOne = ({ data, children, handleNext, handleBack }: StepOneProps) => {
         className="p-left-1 p-right-1"
         required
         xs={12}
-        position={data_state.geopoint}
+        position={data_state.geopoint.lat ? data_state.geopoint : undefined}
         showSearch
         placeholder={"Escribe la dirección donde te atacaron"}
         label={traslate.FORM.THEFTINFO.LOCATION}

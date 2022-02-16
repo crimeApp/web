@@ -70,7 +70,7 @@ const Map = ({
   size,
 }: MapProps) => {
   const [value, set_value] = useState<string>(""),
-    [pos, set_pos] = useState<{ lat: number; lng: number }>(TEMP_POSITION),
+    [pos, set_pos] = useState<{ lat: number; lng: number }>(position || TEMP_POSITION),
     [opt, set_opt] = useState<SearchResult<RawResult>[]>([]),
     prov = new OpenStreetMapProvider();
 
@@ -93,7 +93,6 @@ const Map = ({
   }, [value]);
 
   useEffect(() => position ? set_pos(position) : undefined, [position])
-
   return (
     <Grid
       container
@@ -135,7 +134,7 @@ const Map = ({
         style={{
           height: "350px"
         }}
-        center={position}
+        center={position ?? TEMP_POSITION}
         zoom={zoom}
         scrollWheelZoom={true}
         // @ts-ignore
@@ -149,9 +148,11 @@ const Map = ({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        <Marker
-          position={[pos.lat, pos.lng]}
-        />
+        {
+          pos && <Marker
+            position={[pos.lat, pos.lng]}
+          />
+        }
       </MapContainer>
       <Grid item>
         {error_msg ? (
@@ -166,8 +167,11 @@ const Map = ({
 
 export default Map;
 
-export function ChangeView({ center }: { center: LatLngExpression }) {
+export function ChangeView({ center }: { center?: LatLngExpression }) {
   const map = useMap();
-  map.setView(center);
+  useEffect(() => {
+    if (!center) return;
+    map.setView(center);
+  }, [center])
   return null;
 }

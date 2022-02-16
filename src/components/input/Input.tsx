@@ -32,6 +32,7 @@ interface InputProps {
   color?: ColorCA;
   colorFont?: ColorCA;
   onChange?: React.EventHandler<any>;
+  onKeyDown?: React.EventHandler<any>;
   register?: any;
   disabled?: boolean;
   maxlenght?: number;
@@ -41,12 +42,14 @@ interface InputProps {
   md?: undefined | GridSize;
   lg?: undefined | GridSize;
   xl?: undefined | GridSize;
+  refChild?: any;
   border?: BorderCA | undefined;
   inputProps?: any;
   inputLabelProps?: any;
 }
 
 const Input = ({
+  refChild,
   id,
   label,
   className,
@@ -70,6 +73,7 @@ const Input = ({
   multiline,
   rowsMax,
   rows,
+  onKeyDown,
   name,
   border = "small",
   xs,
@@ -85,7 +89,7 @@ const Input = ({
 
   React.useEffect(() => {
     if (inputValue === value) return
-    const delayDebounceFn = setTimeout(() => onChange(refInput.current), 300)
+    const delayDebounceFn = setTimeout(() => onChange(refInput.current), 150)
     return () => clearTimeout(delayDebounceFn)
   }, [inputValue])
 
@@ -137,6 +141,7 @@ const Input = ({
           },
         }}
         placeholder={placeholder}
+        onKeyDown={onKeyDown}
         onChange={(e) => {
           refInput.current = e;
           return e.target.value.length < maxlenght ? setInputValue(e.target.value) : null
@@ -147,7 +152,8 @@ const Input = ({
         variant="standard"
         InputLabelProps={{ ...inputLabelProps }}
         InputProps={{
-          name: name,
+          inputRef: refChild,
+          name,
           disableUnderline: true,
           autoComplete: "off",
           maxlenght: maxlenght,

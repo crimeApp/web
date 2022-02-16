@@ -16,12 +16,14 @@ import { useHistory } from "react-router-dom";
 import { ColorCA } from "../../../../style/type-style";
 import yup from "../../../../utils/yup";
 import Validator from "../../../../utils/validator";
+import Tags from "../../../../components/tags/Tags";
 
 const schema = yup.object().shape({
     name: yup.string().max(50).required(),
     description: yup.string().max(150).required(),
     start: yup.date(),
-    end: yup.date()
+    end: yup.date(),
+    tags: yup.array().of(yup.string())
 })
 
 const NewStadisticPage = () => {
@@ -35,7 +37,8 @@ const NewStadisticPage = () => {
         , [form, set_form] = useState<any>({
             name: "",
             description: "",
-            hash: ""
+            hash: "",
+            tags: []
         })
         , [errors, set_errors] = useState<any>()
         , inputConstructor = (name: string) => ({
@@ -161,7 +164,6 @@ const NewStadisticPage = () => {
             }
         }
 
-        console.log(errors)
     return <ScaffoldAdmin className="m-bottom-4">
         <HandlePetitions
             handlePage={handle_page}
@@ -179,6 +181,14 @@ const NewStadisticPage = () => {
             <Input { ...inputConstructor('description') } />
             <Input { ...inputConstructor('start') } label={TRANSLATE.LABELS.START_DATE} type="date" />
             <Input { ...inputConstructor('end') } label={TRANSLATE.LABELS.END_DATE} type="date" />
+            <Tags 
+                tags={form.tags} 
+                label="Etiquetas para el informe"
+                onChange={(_, tags) => set_form(prev => ({ ...prev, tags }))}
+                maxTags={10}
+                maxLenght={40}
+                msg="Precione Enter para guardar la etiqueta"
+                buttonLabel={TRANSLATE.COMMON.SELECT} />
             <Switches label={TRANSLATE.LABELS.FIND_BY_AREA} value={map} onChange={() => set_map(!map)} />
             {
                 map && <Map position={map_value} onChange={(nv, _) => set_map_value(nv)} />

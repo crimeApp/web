@@ -317,8 +317,8 @@ const HomeAdminPage = () => {
                         :
                         <Grid item xs={12} className='p-bottom-1' container >
                             {
-                                Array.from({ length: 4 }).map(e =>
-                                    <Skeleton className='m-top-1 border-small' height='74px' width='100%' variant="rect" />)
+                                Array.from({ length: 4 }).map((e, index) =>
+                                    <Skeleton key={index} className='m-top-1 border-small' height='74px' width='100%' variant="rect" />)
                             }
                         </Grid>
                 }
@@ -393,7 +393,7 @@ const HomeAdminPage = () => {
                                 error: !dataset.crimeSex,
                                 data: { ...dataset?.crimeSex, datasets: [{ ...dataset?.crimeSex?.datasets[0], ...admin_state.config.statistics }] },
                             },
-                        ].map(v => <MakeChart xs={12} sm={6} md={4} {...v} />)
+                        ].map((v, index) => <MakeChart key={index} xs={12} sm={6} md={4} {...v} />)
                     }
                 </Grid>
             </Grid>

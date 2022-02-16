@@ -43,33 +43,40 @@ const StadisticsPage = () => {
                 {
                     title: "Historico",
                     description: "Evolucion de los casos en la ciudad de cordoba en el pasar de los meses filtrados por el tipo de caso",
-                    href: "line",
+                    href: "statistics/line",
                     img: "line"
                 },
                 {
                     title: "Distribucion",
                     description: "Como es la evolucion de los tipos de casos en los ultimos 12 meses",
-                    href: "bar",
+                    href: "statistics/bar",
                     img: "bar"
                 },
                 {
                     title: "Exploracion",
                     description: "Analisis exploratorio de los sospechosos",
-                    href: "polar",
+                    href: "statistics/polar",
                     img: "polar"
                 },
                 {
                     title: "Resumen",
                     description: "Diversos graficos que muestran un analisis general de toda la informacion",
-                    href: "pie",
+                    href: "statistics/pie",
                     img: "pie"
                 },
                 {
                     title: "Nuevo",
                     description: "Crea un nuevo dataset de la informacion recolectada",
-                    href: "new",
+                    href: "statistics/new",
                     show: admin_state.admin,
                     img: "new"
+                },
+                {
+                    title: "Informes",
+                    description: "Visualiza todos los informes disponibles",
+                    href: "datasets",
+                    show: admin_state.admin,
+                    img: "pie"
                 }
             ].map((data, index) => <Cards key={index} {...data} />)
         }
@@ -86,7 +93,7 @@ const Cards = ({ title, description, href, img, show = true }: { show?: boolean,
     if(!show) return null;
 
     return <Grid item xs={12} sm={6} md={4} className="p-1" >
-        <Grid item xs={12} className="m-top-1 m-bottom-1 background-color-white border-small p-2 hover" container onClick={() => history.push(`/admin/statistics/${href}`)} style={{ height: "100%" }} >
+        <Grid item xs={12} className="m-top-1 m-bottom-1 background-color-white border-small p-2 hover" container onClick={() => history.push(`/admin/${href}`)} style={{ height: "100%" }} >
             <Grid item xs={12}>
                 <h4>{title}</h4>
             </Grid>

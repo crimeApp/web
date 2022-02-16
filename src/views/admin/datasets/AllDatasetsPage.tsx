@@ -1,5 +1,5 @@
-import { Accordion, AccordionDetails, AccordionSummary, Grid, IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import { Accordion, AccordionDetails, AccordionSummary, Chip, Grid, IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import HandlePetitions from "../../../components/handle-peticion/HandlePetions";
 import Button from "../../../components/button/Button";
 import useHandlePage from "../../../hooks/useHandlePage";
@@ -15,21 +15,34 @@ import { StadisticModel } from "../../../models/stadistic.model";
 import { Add, MoreVert, Public } from "@material-ui/icons";
 import { TotalCasesByMonths } from "../../../utils/stadistcs-to";
 import { Skeleton } from "@material-ui/lab";
+import FilterDatabaseLayer from "./FilterLayer";
+import qs from "querystring";
 
 const DatasetsPage = () => {
 
     const [handle_page, set_handle_page] = useHandlePage({ loading: true })
         , { admin_state, admin_dispatch } = useContext(AdminContext)
         , TRANSLATE = Translate["ES"]
+        , refQuerry = useRef<any>({})
         , history = useHistory()
         , [datasets, set_datasets] = useState<StadisticModel[]>([])
         , { xs } = useWindowSize()
         , [data_selected, set_data_selected] = useState<StadisticModel>()
-        , loadMore = async () => {
-            if (!datasets || datasets?.length < 1) return
+        , loadMore = async (more: boolean, tags?: string[]) => {
+
+            set_handle_page(prev => ({ ...prev, loading: true }))
+            let data: any = {};
+            if (more && datasets?.length < 1) {
+                data = refQuerry.current
+                data.timestamp = datasets[datasets.length - 1].createdAt
+            } else if (!!tags) {
+                data.tags = tags
+                refQuerry.current = data;
+            }
+            const query = qs.encode(JSON.parse(JSON.stringify(data)))
             const request = await HandleAPI({
                 method: "get",
-                path: `/admin/stadistics?timestamp=${datasets[datasets.length - 1].createdAt}`,
+                path: `/admin/stadistics?${query}`,
                 config: {
                     headers: {
                         Authorization: `Bearer ${admin_state.token}`
@@ -41,12 +54,14 @@ const DatasetsPage = () => {
                 loading: false,
                 error: true,
                 notification: true,
+                severity: "error",
+                color: "red",
                 msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
             })
 
             switch (request.status) {
                 case 200:
-                    set_datasets(prev => [...prev, request.data])
+                    set_datasets(prev => more ? [...prev, ...request.data] : request.data)
                     return set_handle_page(prev => ({
                         ...prev,
                         loading: false,
@@ -109,7 +124,7 @@ const DatasetsPage = () => {
 
         switch (request.status) {
             case 200:
-                set_datasets(prev => prev?.map(data => data.id === data_selected.id ? { ...data, public: true } : data))
+                set_datasets(prev => prev?.map(data => data.id === data_selected.id ? { ...data, public: true } : { ...data, public: false }))
                 set_handle_page(prev => ({
                     ...prev,
                     loading: false,
@@ -251,54 +266,7 @@ const DatasetsPage = () => {
     }
 
     useEffect(() => {
-        (async () => {
-            const request = await HandleAPI({
-                method: "get",
-                path: "/admin/stadistics",
-                config: {
-                    headers: {
-                        Authorization: `Bearer ${admin_state.token}`
-                    }
-                }
-            })
-
-            if (!request) return set_handle_page({
-                loading: false,
-                error: true,
-                notification: true,
-                severity: "error",
-                color: "red",
-                msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
-            })
-
-            switch (request.status) {
-                case 200:
-                    set_datasets(request.data)
-                    return set_handle_page(prev => ({
-                        ...prev,
-                        loading: false,
-                        error: (request.data.length < 10)
-                    }))
-                case 401:
-                    return set_handle_page({
-                        loading: false,
-                        error: true,
-                        severity: "error",
-                        color: "red",
-                        msg: TRANSLATE.ERRORS.UNAUTH,
-                        callback: () => history.push("/admin/login")
-                    })
-                default:
-                    return set_handle_page({
-                        loading: false,
-                        error: true,
-                        notification: true,
-                        color: "red",
-                        severity: "error",
-                        msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
-                    })
-            }
-        })();
+        (async () => await loadMore(false))();
     }, [])
 
     return <ScaffoldAdmin className="p-left-2 p-right-2 p-bottom-4 m-bottom-4">
@@ -310,6 +278,7 @@ const DatasetsPage = () => {
         <Grid item xs>
             <h3 className="p-left-1">{TRANSLATE.DATASETS.TITLE}</h3>
         </Grid>
+        <FilterDatabaseLayer onSummit={(tags) => loadMore(false, tags)} />
         <div className="button-hover-expand m-left-2" onClick={() => history.push(TRANSLATE.ROUTES.ADMIN.STADISTICS.NEW)}>
             <Add className="icon" />
             <span className="text">{TRANSLATE.DATASETS.CREATE}</span>
@@ -346,9 +315,9 @@ const DatasetsPage = () => {
             </Grid>
             <Grid item xs={12} container alignContent="center" alignItems="center" justify="center" className="m-top-2">
                 {
-                    datasets.length > 1 ?
+                    datasets.length > 0 ?
                         datasets.map((data, index) =>
-                            <Accordion elevation={0} style={{ width: '100%' }} className={` background-color-${index % 2 ? "white" : "light-gray"}`}>
+                            <Accordion key={index} elevation={0} style={{ width: '100%' }} className={` background-color-${index % 2 ? "white" : "light-gray"}`}>
                                 <AccordionSummary >
                                     <Grid container key={data.name} xs={12} alignItems="center">
                                         <Grid item xs={4} sm={2} className="m-top-1 m-bottom-1" container justify="center" alignItems="center">
@@ -399,12 +368,12 @@ const DatasetsPage = () => {
                                                 <h4>Cantidad de casos reportados</h4>
                                             </Grid>
                                             {
-                                                TotalCasesByMonths(data).map(struct => <Grid item xs={12} sm={6} md={3}>
+                                                TotalCasesByMonths(data).map((struct, index) => <Grid key={index} item xs={12} sm={6} md={3}>
                                                     <Grid item xs={12}>
                                                         <h5>{struct.year}</h5>
                                                     </Grid>
                                                     {
-                                                        struct.months.map(month => <Grid item xs={12} container>
+                                                        struct.months.map((month, index) => <Grid key={index} item xs={12} container>
                                                             <p className="w500">{month.month}:</p><p>{month.total}</p>
                                                         </Grid>)
                                                     }
@@ -417,6 +386,20 @@ const DatasetsPage = () => {
                                         <Grid item xs={12} className="p-left-2 p-right-2">
                                             <p>Creado el: {UnixToDay(data.createdAt)} </p>
                                         </Grid>
+                                        <Grid item xs={12} className="p-left-2 p-right-2" container>
+                                            <p className="w600">Etiquetas:</p>
+                                        </Grid>
+                                        <Grid item xs={12} className='p-1'>
+                                            {
+                                                data.tags?.map((t: string) => (
+                                                    <Chip
+                                                        className={`chip-item background-color-light-grey`}
+                                                        label={t}
+                                                        key={t}
+                                                        size="small"/>
+                                                ))
+                                            }
+                                        </Grid>
                                     </Grid>
                                 </AccordionDetails>
                             </Accordion>
@@ -424,8 +407,8 @@ const DatasetsPage = () => {
                         :
                         <Grid item xs={12} className='p-bottom-1' container >
                             {
-                                Array.from({ length: 5 }).map(e =>
-                                    <Skeleton className='m-top-1 border-small' height='74px' width='100%' variant="rect" />)
+                                Array.from({ length: 5 }).map((e, index) =>
+                                    <Skeleton key={index} className='m-top-1 border-small' height='74px' width='100%' variant="rect" />)
                             }
                         </Grid>
                 }
@@ -443,7 +426,7 @@ const DatasetsPage = () => {
             <MenuItem onClick={deleteDataset}>{TRANSLATE.DATASETS.DELECT_DATASET}</MenuItem>
         </Menu>
         {
-            !handle_page.error && <Button className="m-top-3" xs={12} sm={6} label="Cargar Mas" onClick={loadMore} />
+            !handle_page.error && <Button className="m-top-3" xs={12} sm={6} label="Cargar Mas" onClick={() => loadMore(true)} />
         }
     </ScaffoldAdmin>
 }

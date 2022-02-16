@@ -86,7 +86,7 @@ const UsersAdminPage = () => {
             loading: true,
         }))
         let timestamp
-        if (more && users.length > 1) {
+        if (more && users.length > 0) {
             data = contextQueryRef.current
             timestamp = users[users.length - 1].createdAt
         } else {
@@ -210,7 +210,7 @@ const UsersAdminPage = () => {
             </Grid>
             <Grid item xs={12} container alignContent="center" alignItems="center" justify="center" className="m-top-2">
                 {
-                    users.length > 1 ?
+                    users.length > 0 ?
                         users.map((user, index) =>
                             <Grid key={user.cuit} item xs={12} className={`p-1 hover background-color-${admin_state.cuit === user.cuit
                                 ? "cyan"
@@ -251,8 +251,8 @@ const UsersAdminPage = () => {
                         ) :
                         <Grid item xs={12} className='p-bottom-1' container >
                             {
-                                Array.from({ length: 6 }).map(e =>
-                                    <Skeleton className='m-top-1 border-small' height='60px' width='100%' variant="rect" />)
+                                Array.from({ length: 6 }).map((e, index) =>
+                                    <Skeleton key={index} className='m-top-1 border-small' height='60px' width='100%' variant="rect" />)
                             }
                         </Grid>
                 }

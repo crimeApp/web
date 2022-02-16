@@ -2,6 +2,7 @@
     "COMMON": {
         "START": "Comenzar",
         "SAVE": "Guardar",
+        "SELECT": "Seleccionar",
         "METADATA": "Configuraciones de informes",
         "CONFIRM": "Confirmar",
         "CANCEL": "Cancelar",

@@ -33,7 +33,7 @@ const SiniesterList = ({ siniesters = [], state, set_state, notMore, onMore }: {
             </Grid>
         </Grid>
         {
-            siniesters.length > 1 ?
+            siniesters.length > 0 ?
                 siniesters.map((s, i) =>
                     <Grid key={i} item xs={12} className='p-bottom-1' container >
                         <Grid
@@ -79,8 +79,8 @@ const SiniesterList = ({ siniesters = [], state, set_state, notMore, onMore }: {
                 ) :
                 <Grid item xs={12} className='p-bottom-1' container >
                     {
-                        Array.from({ length: 10 }).map(e =>
-                            <Skeleton className='m-top-1 border-small' height='74px' width='100%' variant="rect" />)
+                        Array.from({ length: 10 }).map((e, index) =>
+                            <Skeleton key={index} className='m-top-1 border-small' height='74px' width='100%' variant="rect" />)
                     }
                 </Grid>
         }

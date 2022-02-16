@@ -80,7 +80,7 @@ const PiePage = () => {
                                         error: !data.victimAgresive,
                                         data: { ...data.victimAgresive, datasets: [{ ...data.victimAgresive?.datasets[0], ...admin_state.config.statistics }] },
                                     },
-                                ].map(v => <MakeChart {...v} />)
+                                ].map((v, index) => <MakeChart key={index} {...v} />)
                             }
                             <Grid item xs={12}>
                                 <Heatmap label={TRANSLATE.STADISTICS.LABELS.HEAT_MAP} className="p-2" data={data.crimePoints.datasets[0].data.map(e => ([e.lat, e.lng, e.int]))} />

@@ -82,7 +82,7 @@ const PolarPage = () => {
                                     ...data?.crimeAccompaniment, datasets: [{ ...data?.crimeAccompaniment?.datasets[0], ...admin_state.config.statistics }]
                                 }
                             }
-                        ].map(v => <MakeChart {...v} />)
+                        ].map((v, index) => <MakeChart key={index} {...v} />)
                         : <NotFoundData />
                 }
             </Grid>

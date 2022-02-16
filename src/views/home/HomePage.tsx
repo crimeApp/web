@@ -79,8 +79,9 @@ function HomePage() {
           </h3>
           <Carousel interval={10000}>
             {
-              TRANSLATE.HOME.IMGS.map(data => <>
+              TRANSLATE.HOME.IMGS.map((data, index) => <>
                 <img
+                  key={index}
                   className={ data.href ? "hover" : undefined }
                   style={{
                     width: "100%",

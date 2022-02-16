@@ -9,6 +9,7 @@ export type StadisticModel = {
     createdByID?: number,
     public?: boolean,
     name?: string,
+    tags?: string[],
     description?: string,
     [year: string]: {
         [month: string]: {

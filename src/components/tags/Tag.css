@@ -1,0 +1,32 @@
+.tags-title {
+    color: var(--secondary-color);
+    font-weight: var(--weight-bold);
+    font-size: var(--font-size-normal) !important;
+    margin-left: 15px;
+}
+.tag-button {
+    padding-left: 10px !important;
+}
+.tags-subtitle {
+    color: var(--secondary-color);
+    font-weight: var(--weight-medium);
+    font-size: var(--font-size-little);
+    margin-left: 15px;
+}
+
+.chip-item {
+    text-transform: capitalize;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    padding: 3px;
+    font-weight: var(--weight-medium);
+}
+
+.tag {
+    margin: 3px;
+    color: var(--dark) !important;
+    background-color: var(--secondary-color) !important;
+    font-weight: var(--weight-medium);
+
+}
