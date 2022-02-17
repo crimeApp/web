@@ -128,8 +128,15 @@ const LoginPage = () => {
                 type="password"
             />
             <Grid item xs={12}>
-                <p className="p-1 w400 font-size-small hover" onClick={() => history.push(TRANSLATE.ROUTES.ADMIN.FORGET_PASSWORD)}>Olvido su contrasenia? Ingrese aqui para recuperarla </p>
+                <p className="p-1 w400 font-size-small hover" onClick={() => history.push(TRANSLATE.ROUTES.ADMIN.FORGET_PASSWORD)}>{TRANSLATE.COMMON.FORGET_PASSWORD}</p>
             </Grid>
+            <Button
+                xs={12}
+                md={6}
+                className="p-1 m-top-2"
+                label={TRANSLATE.COMMON.GET_INTO}
+                onClick={onSummit}
+            />
             <Button
                 xs={12}
                 md={6}
@@ -138,13 +145,6 @@ const LoginPage = () => {
                 color="white"
                 colorFont="violet"
                 onClick={() => history.push(TRANSLATE.ROUTES.PUBLIC.HOME)}
-            />
-            <Button
-                xs={12}
-                md={6}
-                className="p-1 m-top-2"
-                label={TRANSLATE.COMMON.GET_INTO}
-                onClick={onSummit}
             />
         </Grid>
     </Scaffold>

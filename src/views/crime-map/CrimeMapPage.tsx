@@ -13,6 +13,7 @@ import HandlePetitions from "../../components/handle-peticion/HandlePetions";
 import { BackButtonString } from "../admin/component/BackButton";
 import MakeChart from "../admin/StadisticPage/layers/commond";
 import { Skeleton } from "@material-ui/lab";
+import { uiDowloadJson } from "../../utils/ui-print";
 
 
 const CrimeMapPage = () => {
@@ -147,6 +148,7 @@ const CrimeMapPage = () => {
                     </Grid>)
                   }
                 </Grid>
+                <Button label={TRANSLATE.DATASETS.DOWNLOAD_DATASET} xs={12} sm={8} onClick={() => uiDowloadJson(dataset, 'Informe publico')} />
               </>
               :
               Array.from({ length: 5 }).map((_, index) => <Skeleton key={index} className='m-bottom-3' height='400px' width='95%' />)

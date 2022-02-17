@@ -19,12 +19,13 @@ import yup from "../../../utils/yup";
 import Validator from "../../../utils/validator";
 import { ColorCA } from "../../../style/type-style";
 import SiniesterList from "./layers/SiniesterList";
-import { Add, CancelTwoTone, More, Search, Visibility } from "@material-ui/icons";
+import { Add, ArrowUpward, CancelTwoTone, More, Search, Visibility } from "@material-ui/icons";
 import { age_options, attack_type_options, hair_options, height_options, sex_options, skin_options } from "../../../assets/options";
 import { BackButtonString } from "../component/BackButton";
 import DrawerFilterLayer from "./layers/DrawerFilter";
 import qs from 'querystring';
 import { UnixToDate, UnixToDay, UnixToTime } from "../../../utils/time";
+import useWindowSize from "../../../hooks/useWindows";
 
 const schema = yup.object().shape({
     full_name: yup.string().max(60),
@@ -221,7 +222,7 @@ const MapAdminPage = () => {
         }
     }
 
-    return <ScaffoldAdmin>
+    return <ScaffoldAdmin className="p-bottom-4">
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}
@@ -238,11 +239,11 @@ const MapAdminPage = () => {
             <DrawerFilterLayer onSummit={handleFindSiniesters} />
             <Tabs className="m-top-2" xs={12} labels={["Ubicacion", "Detalle"]} >
                 <Map xs={12} position={state?.geopoint} />
-                <Grid className="background-color-white p-2" container
+                <Grid className="background-color-white p-2" container justify="space-between"
                     style={{
                         borderRadius: "0px 0px 5px 5px"
                     }}>
-                    <Grid item xs={10} className='p-bottom-2 m-top-2 p-left-2' container alignItems="center" >
+                    <Grid item xs={8} sm={10} className='p-bottom-2 m-top-2 p-left-2' container alignItems="center" >
                         <h4>{TRANSLATE.FORM.THEFTINFO.CASE_INFO}</h4>
                         {
                             !edit_state && <Chip size="small" label="Editando" />

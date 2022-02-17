@@ -23,7 +23,8 @@
         "SEE_MORE": "Ver mas",
         "ERROR": "Parece que hubo un error. Intenta de nuevo.",
         "PRINT": "Imprimir",
-        "NEW_SINIESTER": "Crear nueva denuncia"
+        "NEW_SINIESTER": "Crear nueva denuncia",
+        "FORGET_PASSWORD": "Olvido su contraseña? Ingrese aquí para recuperarla."
     },
     "HOME": {
         "REPORT_SINIESTER_TITLE": "¿Querés reportar un siniestro?",
@@ -117,9 +118,11 @@
     },
     "DATASETS": {
         "TITLE": "Informes de siniestros",
+        "TITLE_SELECT": "Seleccione el informe con el que desea trabajar",
         "TITLE_HINT": "Los informes de siniestros son analisis de un conjunto de siniestros agrupados por un periodo de tiempo y/o un sector geografico en especifico.",
         "NEW_DATASET": "Nuevo Informe de Siniestros",
         "NEW_DATASET_SUBTITLE": "Complete los siguientes campos para poder generar los reportes correspondiente a todos los siniestros que coincidan con los atributos especificados.",
+        "DOWNLOAD_DATASET": "Descargar informe",
         "MAKE_PUBLIC": "Hacer publico",
         "PUBLIC": "Los dataset publicos podran ser visualizados por todo el mundo.",
         "SELECT_DATASET": "Cargar informe",
@@ -271,7 +274,8 @@
     },
     "OK": {
         "REPORT_COMPLETE": "Denuncia hecha exitosamente",
-        "SAVE": "Datos guardados correctamente"
+        "SAVE": "Datos guardados correctamente",
+        "PASS_CHANGE": "Contraseña cambiada correctamente, revise su mail."
     },
     "ERRORS": {
         "INTERNAL_SERVER_ERROR": "Estamos teniendo problemas, intente mas tarde",
@@ -281,6 +285,7 @@
         "password": "La contraseña debe contener mayusculas, minusculas y numeros",
         "USER_NOT_FOUND": "Usuiario y/o contraseña incorrectos",
         "NOT_FOUND_USER": "Usuario no encontrado",
+        "MAIL_ERROR": "Error enviando informacion por el mail. Comuniquese con administracion.",
         "USER_ALREADY_EXIST": "El usuario ya existe",
         "TO_DATE_ERROR":"Fecha de finalizacion no puede ser menor a fecha de inicio.",
         "NOT_ADMIN": "Debes de ser Admin para poder realizar esta accion",

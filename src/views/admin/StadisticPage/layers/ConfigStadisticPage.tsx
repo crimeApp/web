@@ -122,30 +122,35 @@ const ConfigStadisticPage = () => {
                         <h5>{TRANSLATE.STADISTICS.BACKGROUND_COLOR}</h5>
                     </Grid>
                     <PaletaCard
+                        key={'1'}
                         value={state.backgroundColor}
                         label="Seaborn Palette"
                         onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
                         colors={["#e77c8d", "#c69255", "#98a255", "#56ad74", "#5aa9a2", "#5ea5c5"]}
                     />
                     <PaletaCard
+                        key={'2'}
                         value={state.backgroundColor}
                         label="Saturation Palette"
                         onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
                         colors={["#8c8c8c", "#828996", "#79869f", "#6f83a9", "#6581b3", "#5b7ebd"]}
                     />
                     <PaletaCard
+                        key={'3'}
                         value={state.backgroundColor}
                         label="Dark Palette"
                         onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
                         colors={["#1a1a1a", "#27344d", "#345082", "#416ab6", "#618ad5", "#91acdf"]}
                     />
                     <PaletaCard
+                        key={'4'}
                         value={state.backgroundColor}
                         label="Hls Palette"
                         onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
                         colors={["#db5f57", "#dbc257", "#91db57", "#57db80", "#57d3db", "#5770db"]}
                     />
                     <PaletaCard
+                        key={'5'}
                         value={state.backgroundColor}
                         label="Rocket Palette"
                         onClick={(colors) => set_state(prev => ({ ...prev, backgroundColor: colors }))}
@@ -157,20 +162,24 @@ const ConfigStadisticPage = () => {
         </Grid>
         <Grid item xs={12} sm={6} className="p-2">
             <Grid item xs={12} className="background-color-white border-small p-2 shadow" container>
-                <Grid item xs className="m-bottom-3">
+                <Grid item xs={12}>
                     <h4>{TRANSLATE.DATASETS.TITLE}</h4>
+                </Grid>
+                <Grid item xs className="m-bottom-3">
+                    <p>{TRANSLATE.DATASETS.TITLE_SELECT}</p>
                 </Grid>
                 {
                     databases?.map(s => <DatasetsCard key={s.id} data={s} value={admin_state.database?.id}
                         onClick={(v) => {
+                            admin_dispatch({ type: "CHANGE_DB", payload: v })
                             set_handle_page(prev => ({
                                 ...prev,
                                 notification: true,
                                 loading: false,
                                 msg: TRANSLATE.OK.SAVE,
+                                callback: () => history.push(TRANSLATE.ROUTES.ADMIN.STADISTICS.HOME),
                                 severity: "success"
                             }))
-                            admin_dispatch({ type: "CHANGE_DB", payload: v })
                         }} />)
                 }
                 <Button

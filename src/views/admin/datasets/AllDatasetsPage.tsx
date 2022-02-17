@@ -17,6 +17,7 @@ import { TotalCasesByMonths } from "../../../utils/stadistcs-to";
 import { Skeleton } from "@material-ui/lab";
 import FilterDatabaseLayer from "./FilterLayer";
 import qs from "querystring";
+import { uiDowloadJson } from "../../../utils/ui-print";
 
 const DatasetsPage = () => {
 
@@ -98,6 +99,11 @@ const DatasetsPage = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const downloadDataset = () => {
+        if (!data_selected) return
+        uiDowloadJson(data_selected, data_selected?.name)
+    }
 
     const makePublic = async () => {
         if (!data_selected) return
@@ -421,6 +427,7 @@ const DatasetsPage = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
         >
+            <MenuItem onClick={downloadDataset}>{TRANSLATE.DATASETS.DOWNLOAD_DATASET}</MenuItem>
             <MenuItem onClick={makePublic}>{TRANSLATE.DATASETS.MAKE_PUBLIC}</MenuItem>
             <MenuItem onClick={useDataset}>{TRANSLATE.DATASETS.SELECT_DATASET}</MenuItem>
             <MenuItem onClick={deleteDataset}>{TRANSLATE.DATASETS.DELECT_DATASET}</MenuItem>

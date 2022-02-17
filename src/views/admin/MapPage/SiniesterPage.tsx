@@ -253,7 +253,7 @@ const SiniesterPage = () => {
         }
     }, [state])
 
-    return <ScaffoldAdmin>
+    return <ScaffoldAdmin className="p-bottom-4">
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}

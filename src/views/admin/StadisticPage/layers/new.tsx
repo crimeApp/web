@@ -48,7 +48,7 @@ const NewStadisticPage = () => {
             color: "light-gray" as ColorCA,
             label: TRANSLATE.LABELS[name.toUpperCase()],
             // @ts-ignore
-            onChange: (e) => set_form(prev => ({ ...prev, [e.target.name]: e.target.value })),
+            onChange: (e) => e.target.value.trim().length > 0 ? set_form(prev => ({ ...prev, [e.target.name]: e.target.value })) : set_form(prev => ({ ...prev, [e.target.name]: undefined })),
             error: errors?.[name]?.error,
             error_msg: errors?.[name]?.msg
         })
@@ -63,6 +63,26 @@ const NewStadisticPage = () => {
             if(err) {
                 set_errors(data)
                 return  set_handle_page( prev => ({ ...prev, loading: false }))
+            }
+
+            if(form.start && !form.end) {
+                set_handle_page( prev => ({ ...prev, loading: false }))
+                return set_errors({
+                    end: {
+                        error: true,
+                        msg: 'Si tiene fecha de inicio, tiene que tener fecha final'
+                    }
+                });
+            }
+
+            if(!form.start && form.end) {
+                set_handle_page( prev => ({ ...prev, loading: false }))
+                return set_errors({
+                    start: {
+                        error: true,
+                        msg: 'Si tiene fecha final, tiene que tener fecha inicial'
+                    }
+                });
             }
 
             if(form.start && form.end && form.start > form.end) {
@@ -164,7 +184,7 @@ const NewStadisticPage = () => {
             }
         }
 
-    return <ScaffoldAdmin className="m-bottom-4">
+    return <ScaffoldAdmin className="m-bottom-4 p-bottom-4">
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}
@@ -178,7 +198,7 @@ const NewStadisticPage = () => {
                 <p>{TRANSLATE.DATASETS.NEW_DATASET_SUBTITLE}</p>
             </Grid>
             <Input { ...inputConstructor('name') } />
-            <Input { ...inputConstructor('description') } />
+            <Input { ...inputConstructor('description') } maxlenght={149} multiline rows={3} />
             <Input { ...inputConstructor('start') } label={TRANSLATE.LABELS.START_DATE} type="date" />
             <Input { ...inputConstructor('end') } label={TRANSLATE.LABELS.END_DATE} type="date" />
             <Tags 

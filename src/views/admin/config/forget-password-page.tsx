@@ -6,11 +6,20 @@ import Input from "../../../components/input/Input";
 import Scaffold from "../../../components/scaffold/scaffold";
 import { ColorCA } from "../../../style/type-style";
 import traslate from "../../../assets/traslate/es.json";
+import useHandlePage from "../../../hooks/useHandlePage";
+import Translate from "../../../assets/traslate";
+import Validator from "../../../utils/validator";
+import yup from "../../../utils/yup";
+import { cuitExp } from "../../../utils/reg-exp";
+import { HandleAPI } from "../../../utils/handle-api";
+import HandlePetitions from "../../../components/handle-peticion/HandlePetions";
 
 const ForgetPasswordPage = () => {
 
-    const [form, set_form] = useState({ code: "", cuit: "" })
+    const [form, set_form] = useState({ cuit: "" })
+        , [handle_page, set_handle_page] = useHandlePage({ loading: false })
         , [state, set_state] = useState(0)
+        , TRANSLATE = Translate['ES']
         , history = useHistory()
         , [errors, set_errors] = useState<any>()
         , InputConstructor = (name: string) => ({
@@ -25,59 +34,102 @@ const ForgetPasswordPage = () => {
             error_msg: errors?.[name]?.msg
         })
         , onSummitCuit = async () => {
+            set_handle_page(prev => ({ ...prev, loading: true }))
 
-            return set_state(1)
+            const val = await Validator(form.cuit, yup.string().matches(cuitExp))
+
+            if (val.err) {
+                set_handle_page(prev => ({ ...prev, loading: false }))
+                return set_errors(val.data)
+            }
+
+            const request = await HandleAPI({
+                method: "post",
+                path: `/admin/forget-password`,
+                data: {
+                    cuit: form.cuit
+                },
+            })
+
+            if (!request) return set_handle_page({
+                loading: false,
+                error: true,
+                notification: true,
+                severity: "error",
+                color: "red",
+                msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
+            })
+
+            switch (request.status) {
+                case 200:
+                    return set_handle_page(prev => ({
+                        ...prev,
+                        msg: TRANSLATE.OK.PASS_CHANGE,
+                        color: "green",
+                        notification: true,
+                        severity: "success",
+                        loading: false,
+                        callback: () => history.goBack()
+                    }))
+                case 400:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        severity: "error",
+                        color: "red",
+                        msg: TRANSLATE.ERRORS.BAD_REQUEST,
+                        callback: () => history.push(TRANSLATE.ROUTES.ADMIN.LOGIN)
+                    })
+                case 404:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        severity: "error",
+                        color: "red",
+                        msg: TRANSLATE.ERRORS.NOT_FOUND_USER,
+                        callback: () => history.goBack()
+                    })
+                case 535:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        severity: "error",
+                        color: "red",
+                        msg: TRANSLATE.ERRORS.NOT_FOUND_USER,
+                        callback: () => history.goBack()
+                    })
+                default:
+                    return set_handle_page({
+                        loading: false,
+                        error: true,
+                        notification: true,
+                        color: "red",
+                        severity: "error",
+                        msg: TRANSLATE.ERRORS.INTERNAL_SERVER_ERROR
+                    })
+            }
         }
-        , onSummitCode = async () => {
-
-            return
-        }
-
-    const SendCuit = () => <>
-        <Input
-            label="Cuit"
-            {...InputConstructor("cuit")}
-        />
-        <Button
-            xs={12}
-            md={6}
-            className="p-1 m-top-2"
-            label="Siguiente"
-            onClick={onSummitCuit}
-        />
-    </>
-
-    const SendCode = () => <>
-        <Input
-            label="Codigo"
-            {...InputConstructor("code")}
-            styleHelperText={{
-                textAlign: "right",
-                paddingRight: "1rem",
-                color: form.code.length > 6 ? `var(--red)` : `var(--dark)`,
-            }}
-        />
-        <Button
-            xs={12}
-            md={6}
-            className="p-1 m-top-2"
-            label="Validar"
-            onClick={onSummitCode}
-        />
-    </>
 
     return <Scaffold>
+        <HandlePetitions handlePage={handle_page} setHandlePage={set_handle_page} />
         <Grid item
             xs={12} md={5}
             className="p-2 border-small background-color-white"
             container justify="center">
             <Grid item xs={12}>
-                <h3 style={{ textAlign: "center" }}>Recuperar contrasenia</h3>
+                <h3 style={{ textAlign: "center" }}>Recuperar Contraseña</h3>
             </Grid>
-            <h3 className="color-red">20% A TERMINAR POR LA TESIS</h3>
-            {
-                state === 0 ? <SendCuit /> : <SendCode />
-            }
+            <Input
+                label="Cuit"
+                {...InputConstructor("cuit")}
+            />
+            <Button
+                xs={12}
+                md={6}
+                className="p-1 m-top-2"
+                label="Enviar"
+                onClick={onSummitCuit}
+            />
             <Button
                 xs={12}
                 md={6}

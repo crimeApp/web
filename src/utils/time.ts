@@ -15,15 +15,20 @@ export function UnixToDateString(timestamp: number) : string {
     const diff = new Date().getTime() - timestamp;
     const count = diff/(1000*60*60*24);
     if(count < 1) {
+        if (new Date(timestamp).getHours() > new Date().getHours()) {
+            return `Ayer a las ${UnixToTime(timestamp)}`
+        }
         return `Hoy a las ${UnixToTime(timestamp)}`
     } else if (count < 2) {
         return `Ayer a las ${UnixToTime(timestamp)}`
     } else if (count < 7) {
-        return `Hace ${Math.round(count)} dias`
+        return `Hace ${Math.round(count)} ${Math.round(count) > 1 ? 'dias' : 'dia'}`
     } else if (count < 40) {
-        return `Hace ${Math.round(count/7)} semanas`
+        return `Hace ${Math.round(count/7)} ${Math.round(count/7) > 1 ? 'semanas' : 'semana'}`
+    } else if (count < 365) {
+        return `Hace ${Math.round(count/30)} ${Math.round(count/30) > 1 ? 'meses' : 'mes'}`
     } else {
-        return `Hace ${Math.round(count/30)} meses`
+        return `Hace ${Math.round(count/365)} ${Math.round(count/365) > 1 ? 'años' : 'año'}`
     }
 }
 

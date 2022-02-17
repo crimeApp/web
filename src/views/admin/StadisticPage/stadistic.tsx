@@ -27,10 +27,10 @@ const StadisticsPage = () => {
             setHandlePage={set_handle_page}
         />
         <BackButtonString className="p-left-2 p-top-2"/>
-        <Grid item xs={6} className="p-left-2">
+        <Grid item xs={10} className="p-left-2" container alignContent="center">
             <h3>{TRANSLATE.REPORTS.TITLE}</h3>
         </Grid>
-        <Grid item xs={6} container justify="flex-end">
+        <Grid item xs={2} container justify="flex-end">
             <IconButton onClick={() => history.push("/admin/statistics/config")}>
                 <Settings />
             </IconButton>

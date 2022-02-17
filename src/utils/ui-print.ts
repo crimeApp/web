@@ -19,3 +19,13 @@ export const uiPrint = ({ idElement = "capture", name = "resumen" }: { idElement
         }
     });
 }
+
+export const uiDowloadJson = (json: Object, name = 'informe') => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", name + ".json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
