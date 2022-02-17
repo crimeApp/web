@@ -22,14 +22,8 @@ import SiniesterList from "./layers/SiniesterList";
 import { CancelTwoTone, Search } from "@material-ui/icons";
 import { age_options, attack_type_options, hair_options, height_options, sex_options, skin_options } from "../../../assets/options";
 import { BackButtonString } from "../component/BackButton";
-import DrawerFilterLayer from "./layers/DrawerFilter";
-import qs from 'querystring';
 import { UnixToDate, UnixToDay, UnixToTime } from "../../../utils/time";
-import { uiPrint } from "../../../utils/ui-print";
-import $ from 'jquery';
 import { deepDiffMapper } from "../../../utils/controllers";
-import { version } from "store/dist/store.modern.min";
-import { string } from "yup/lib/locale";
 
 const schema = yup.object().shape({
     full_name: yup.string().max(60),
@@ -126,6 +120,7 @@ const SiniesterPage = () => {
                         notification: true,
                         severity: "success",
                         loading: false,
+                        callback: () => history.goBack()
                     }))
                 case 400:
                     return set_handle_page({
@@ -444,6 +439,14 @@ const SiniesterPage = () => {
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         label={TRANSLATE.FORM.THEFTDETAILS.HAIR}
                         options={[...hair_options, TRANSLATE.ERRORS.WITHOUT_DATA]}
+                        disabled={edit_state}
+                    />
+                    <Select
+                        {...inputConstructor("thief_height")}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
+                        label={TRANSLATE.FORM.THEFTDETAILS.HEIGHT}
+                        options={[...height_options, TRANSLATE.ERRORS.WITHOUT_DATA]}
                         disabled={edit_state}
                     />
                     <Input
