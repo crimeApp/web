@@ -26,6 +26,7 @@ import { StadisticCharModel, StadisticModel } from "../../../models/stadistic.mo
 import CreateStatisticModel from "../../../utils/CreateStadisticModel";
 import { StadisticsToChatsFormat } from "../../../utils/stadistcs-to";
 import MakeChart from "../StadisticPage/layers/commond";
+import ChipRoleAdmin from "../component/RoleChip";
 
 type EventCalendar = {
     id: string,
@@ -111,6 +112,7 @@ const HomeAdminPage = () => {
             switch (request.status) {
                 case 200:
                     set_new_event(undefined)
+                    set_events(request.data.data)
                     return set_handle_page(prev => ({
                         ...prev,
                         loading: false,
@@ -266,7 +268,11 @@ const HomeAdminPage = () => {
             handlePage={handle_page}
             setHandlePage={set_handle_page}
         />
-        <Grid item xs={12} sm={4} className="p-2">
+        <Grid item xs={12} className='p-2' container justify="space-between">
+            <h3>Bienvenido {admin_state?.name}</h3>
+            <ChipRoleAdmin value={admin_state.role} />
+        </Grid>
+        <Grid item xs={12} sm={4} className="p-left-2 p-right-2">
             <Grid item xs={12} className="background-color-white border-small p-2 shadow" container alignItems="center"
                 style={{
                     height: "434px",
@@ -491,7 +497,7 @@ const HomeAdminPage = () => {
                             </Grid>
                         </> : <Grid item xs={12}>
                             <p>{TRANSLATE.COMMON.WITHOUT_DATABASE}</p>
-                            <Button label="Seleccionar dataset" onClick={() => history.push("/admin/statistics/config")} />
+                            <Button label={TRANSLATE.COMMON.SELECT} onClick={() => history.push("/admin/statistics/config")} />
                         </Grid>
                     }
                     {

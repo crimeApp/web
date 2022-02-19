@@ -272,6 +272,8 @@ const DatasetsPage = () => {
     }
 
     useEffect(() => {
+        if(admin_state.role !== 'admin')
+            return history.goBack();
         (async () => await loadMore(false))();
     }, [])
 

@@ -21,6 +21,7 @@ type StateAdmin = {
     login: boolean,
     token?: string,
     role?: string,
+    name?: string,
     database?: StadisticModel,
     cuit?: string,
     admin: boolean,
@@ -67,6 +68,7 @@ const getData = (token) => {
     const parse = parseJwt(token);
     if(!parse) return {}
     return {
+        name: parse.full_name,
         cuit: parse.uid,
         role: parse.role,
         admin: parse.role === "admin"

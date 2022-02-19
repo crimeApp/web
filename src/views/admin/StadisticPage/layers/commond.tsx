@@ -3,6 +3,7 @@ import { Alert } from "@material-ui/lab";
 import React from "react";
 import { Bar, Line, Pie, PolarArea, Radar } from "react-chartjs-2";
 import { useHistory } from "react-router";
+import Translate from "../../../../assets/traslate";
 import Button from "../../../../components/button/Button";
 
 const MakeChart = ({ xs=12, sm=12, md=12, xl=12, label, data, type, error }: { xs?: GridSize, sm?: GridSize, md?: GridSize, xl?: GridSize, error?: boolean, label?: string, data?: any, type?: "PolarArea" | "Pie" | "Bar" | "Radar" | "Line" | string }) => {
@@ -54,9 +55,10 @@ const MakeChart = ({ xs=12, sm=12, md=12, xl=12, label, data, type, error }: { x
 export default MakeChart;
 
 export const NotFoundData = () => {
-    const history = useHistory()
+    const history = useHistory(),
+        TRANSLATE = Translate['ES']
     return <Grid item xs={12} container justify="center" alignItems="center">
-        <p className="w500 p-2">No se encontraron datos, haga click en el siguiente boton para seleccionar una base de datos</p>
-        <Button xs={8} label="Seleccionar dataset" onClick={() => history.push("/admin/statistics/config")} />
+        <p className="w500 p-2">No se encontraron un informe previamente cargado, haga click en el siguiente boton para seleccionar el informe que desee cargar</p>
+        <Button xs={8} label={TRANSLATE.COMMON.SELECT} onClick={() => history.push("/admin/statistics/config")} />
     </Grid>
 }

@@ -9,13 +9,13 @@ const label = {
 }
 
 const helper = {
-    policia: "Permiso de lectura",
-    admin: "Permiso de lectura/escritura",
-    funcionario: "Permiso de lectura",
+    policia: "Permiso de lectura de todos los datos",
+    admin: "Permiso de lectura/escritura de todos los datos",
+    funcionario: "Permiso de lectura de todos los datos",
     not: "Sin permisos"
 }
 
-const ChipRoleAdmin = ({ value = "not" }: { value: "policia" | "admin" | "funcionario" | "not" | undefined }) => 
+const ChipRoleAdmin = ({ value = "not" }: { value?: string }) => 
     <Tooltip title={helper[value]}>
         <Chip className={`${label[value]} color-white w500`} label={value} />
     </Tooltip>

@@ -40,7 +40,7 @@ const LinePage = () => {
         : undefined,
         [selected, dataset])
 
-    return <ScaffoldAdmin>
+    return <ScaffoldAdmin className="m-bottom-4 p-bottom-4">
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}

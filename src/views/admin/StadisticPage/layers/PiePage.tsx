@@ -27,7 +27,7 @@ const PiePage = () => {
         set_handle_page(prev => ({ ...prev, loading: false }))
     }, [])
 
-    return <ScaffoldAdmin>
+    return <ScaffoldAdmin className='m-bottom-4 p-bottom-4'>
         <HandlePetitions
             handlePage={handle_page}
             setHandlePage={set_handle_page}

@@ -45,7 +45,7 @@ const ConfigStadisticPage = () => {
         (async () => {
             const request = await HandleAPI({
                 method: "get",
-                path: "/admin/stadistics",
+                path: admin_state.role !== 'admin' ? "/admin/stadistic" : "/admin/stadistics",
                 config: {
                     headers: {
                         Authorization: `Bearer ${admin_state.token}`
@@ -62,7 +62,7 @@ const ConfigStadisticPage = () => {
 
             switch (request.status) {
                 case 200:
-                    set_databases(request.data)
+                    set_databases(admin_state.role !== 'admin' ? [request.data] : request.data)
                     return set_handle_page(prev => ({
                         ...prev,
                         loading: false,
@@ -182,12 +182,14 @@ const ConfigStadisticPage = () => {
                             }))
                         }} />)
                 }
-                <Button
-                    className="m-top-2"
-                    xs={12}
-                    label={TRANSLATE.COMMON.SEE_MORE}
-                    onClick={() => history.push(TRANSLATE.ROUTES.ADMIN.DATASETS.ALL)}
-                />
+                {
+                    admin_state.role === 'admin' && <Button
+                        className="m-top-2"
+                        xs={12}
+                        label={TRANSLATE.COMMON.SEE_MORE}
+                        onClick={() => history.push(TRANSLATE.ROUTES.ADMIN.DATASETS.ALL)}
+                    />
+                }
             </Grid>
         </Grid>
     </ScaffoldAdmin>
