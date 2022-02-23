@@ -248,7 +248,7 @@
         },
         "THEFTDETAILS": {
             "THIEFINFO": "Información del Agresor",
-            "AGRESSIVE": "Nivel de agresividad",
+            "AGRESSIVE": "Agresividad",
             "AGE": "Edad aproximada",
             "SEX": "Sexo",
             "PLACE": "Lugar",

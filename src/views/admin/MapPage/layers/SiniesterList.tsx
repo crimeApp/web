@@ -9,7 +9,7 @@ import { DateMoreTime, UnixToDateString } from "../../../../utils/time";
 import StateSiniester from "../../component/StateSiniester";
 import $ from 'jquery';
 
-const SiniesterList = ({ siniesters = [], state, set_state, notMore, onMore }: { siniesters?: SiniesterModel[], state?: SiniesterModel, set_state: any, notMore?: boolean, onMore: () => void }) => {
+const SiniesterList = ({ loading, siniesters = [], state, set_state, notMore, onMore }: { loading?: boolean, siniesters?: SiniesterModel[], state?: SiniesterModel, set_state: any, notMore?: boolean, onMore: () => void }) => {
 
     const TRANSLATE = Translate['ES']
 
@@ -33,7 +33,7 @@ const SiniesterList = ({ siniesters = [], state, set_state, notMore, onMore }: {
             </Grid>
         </Grid>
         {
-            siniesters.length > 0 ?
+            !loading ?
                 siniesters.map((s, i) =>
                     <Grid key={i} item xs={12} className='p-bottom-1' container >
                         <Grid

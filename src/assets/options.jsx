@@ -55,6 +55,8 @@ export const hair_options = [
 
 export const sex_options = ["Hombre", "Mujer", "Otro"];
 
+export const number_options = ['1', '2', '3', '4', '5'];
+
 export const height_options = ["Alto", "Mediano", "Bajo", "No recuerdo"];
 
 export const skin_options = ["no lo sé/no contesta", "piel muy clara", "piel clara",

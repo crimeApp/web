@@ -323,7 +323,7 @@ const DatasetsPage = () => {
             </Grid>
             <Grid item xs={12} container alignContent="center" alignItems="center" justify="center" className="m-top-2">
                 {
-                    datasets.length > 0 ?
+                    !handle_page.loading ?
                         datasets.map((data, index) =>
                             <Accordion key={index} elevation={0} style={{ width: '100%' }} className={` background-color-${index % 2 ? "white" : "light-gray"}`}>
                                 <AccordionSummary >

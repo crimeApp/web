@@ -20,7 +20,7 @@ import Validator from "../../../utils/validator";
 import { ColorCA } from "../../../style/type-style";
 import SiniesterList from "./layers/SiniesterList";
 import { CancelTwoTone, Search } from "@material-ui/icons";
-import { age_options, attack_type_options, hair_options, height_options, sex_options, skin_options } from "../../../assets/options";
+import { age_options, attack_type_options, hair_options, height_options, number_options, sex_options, skin_options } from "../../../assets/options";
 import { BackButtonString } from "../component/BackButton";
 import { UnixToDate, UnixToDay, UnixToTime } from "../../../utils/time";
 import { deepDiffMapper } from "../../../utils/controllers";
@@ -360,25 +360,31 @@ const SiniesterPage = () => {
                         label={TRANSLATE.FORM.PERSONALINFO.SEX}
                         //@ts-ignore
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
-                        options={[...sex_options, TRANSLATE.ERRORS.WITHOUT_DATA]}
+                        options={sex_options}
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("emotional_damage")}
                         label={TRANSLATE.FORM.THEFTINFO.EMOTIONAL}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("physical_damage")}
                         label={TRANSLATE.FORM.THEFTINFO.PHYSICAL}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("victim_company")}
                         label={TRANSLATE.FORM.THEFTDETAILS.ACCOMPANIED}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
                     <Input
@@ -411,10 +417,12 @@ const SiniesterPage = () => {
                         disabled={edit_state}
                         options={[...age_options, TRANSLATE.ERRORS.WITHOUT_DATA]}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("thief_agressiveness")}
                         label={TRANSLATE.FORM.THEFTDETAILS.AGRESSIVE}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
                     <Select
@@ -449,10 +457,12 @@ const SiniesterPage = () => {
                         options={[...height_options, TRANSLATE.ERRORS.WITHOUT_DATA]}
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("thief_company")}
                         label={TRANSLATE.FORM.THEFTDETAILS.ACCOMPANIED}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
                     <Select
@@ -461,7 +471,7 @@ const SiniesterPage = () => {
                         xs={12}
                         //@ts-ignore
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
-                        label={TRANSLATE.FORM.THEFTDETAILS.ARMED}
+                        label={TRANSLATE.LABELS.ATTACK_TYPE}
                         disabled={edit_state}
                     />
                     <Input

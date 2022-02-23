@@ -119,7 +119,7 @@ const Input = ({
         </p>
       </InputLabel>
       <TextField
-        value={inputValue}
+        value={inputValue || ''}
         multiline={multiline}
         rowsMax={rowsMax}
         rows={rows}

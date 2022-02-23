@@ -20,7 +20,7 @@ import Validator from "../../../utils/validator";
 import { ColorCA } from "../../../style/type-style";
 import SiniesterList from "./layers/SiniesterList";
 import { Add, ArrowUpward, CancelTwoTone, More, Search, Visibility } from "@material-ui/icons";
-import { age_options, attack_type_options, hair_options, height_options, sex_options, skin_options } from "../../../assets/options";
+import { age_options, attack_type_options, hair_options, height_options, number_options, sex_options, skin_options } from "../../../assets/options";
 import { BackButtonString } from "../component/BackButton";
 import DrawerFilterLayer from "./layers/DrawerFilter";
 import qs from 'querystring';
@@ -338,22 +338,28 @@ const MapAdminPage = () => {
                         options={[...sex_options, TRANSLATE.ERRORS.WITHOUT_DATA]}
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("emotional_damage")}
                         label={TRANSLATE.FORM.THEFTINFO.EMOTIONAL}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("physical_damage")}
                         label={TRANSLATE.FORM.THEFTINFO.PHYSICAL}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("victim_company")}
                         label={TRANSLATE.FORM.THEFTDETAILS.ACCOMPANIED}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
                     <Input
@@ -386,10 +392,12 @@ const MapAdminPage = () => {
                         disabled={edit_state}
                         options={[...age_options, TRANSLATE.ERRORS.WITHOUT_DATA]}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("thief_agressiveness")}
                         label={TRANSLATE.FORM.THEFTDETAILS.AGRESSIVE}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
                     <Select
@@ -416,10 +424,12 @@ const MapAdminPage = () => {
                         options={[...hair_options, TRANSLATE.ERRORS.WITHOUT_DATA]}
                         disabled={edit_state}
                     />
-                    <Input
+                    <Select
                         {...inputConstructor("thief_company")}
                         label={TRANSLATE.FORM.THEFTDETAILS.ACCOMPANIED}
-                        type="number"
+                        options={number_options}
+                        //@ts-ignore
+                        onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
                         disabled={edit_state}
                     />
                     <Select
@@ -428,7 +438,7 @@ const MapAdminPage = () => {
                         xs={12}
                         //@ts-ignore
                         onChange={(e, _) => set_state(prev => ({ ...prev, [e.target.name]: e.target.value }))}
-                        label={TRANSLATE.FORM.THEFTDETAILS.ARMED}
+                        label={TRANSLATE.LABELS.ATTACK_TYPE}
                         disabled={edit_state}
                     />
                     <Input
@@ -451,7 +461,7 @@ const MapAdminPage = () => {
                 </Grid>
             </Tabs>
         </Grid>
-        <SiniesterList state={state} set_state={set_state} siniesters={siniesters} notMore={handle_page.error} onMore={() => handleFindSiniesters({}, true)} />
+        <SiniesterList loading={handle_page.loading} state={state} set_state={set_state} siniesters={siniesters} notMore={handle_page.error} onMore={() => handleFindSiniesters({}, true)} />
     </ScaffoldAdmin>
 }
 

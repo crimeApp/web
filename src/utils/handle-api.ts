@@ -6,7 +6,7 @@ const CONFIG_ADMIN = {
     }
 }
 
-const DEV = "DEV"; // process.env.REACT_APP_ENV ??
+const DEV = false; // process.env.REACT_APP_ENV ??
 
 export const HandleAPI = async ({ method, path, data, config }: { method: "get" | "post" | "put" | "delete", path: string, data?: any, config?: AxiosRequestConfig }): Promise<AxiosResponse<any>> => {
     try {

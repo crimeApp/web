@@ -210,7 +210,7 @@ const UsersAdminPage = () => {
             </Grid>
             <Grid item xs={12} container alignContent="center" alignItems="center" justify="center" className="m-top-2">
                 {
-                    users.length > 0 ?
+                    !handle_page.loading ?
                         users.map((user, index) =>
                             <Grid key={user.cuit} item xs={12} className={`p-1 hover background-color-${admin_state.cuit === user.cuit
                                 ? "cyan"

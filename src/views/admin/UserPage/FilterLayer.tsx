@@ -16,7 +16,7 @@ const schema = yup.object().shape({
     place: yup.string().max(50)
 })
 
-const FilterLayer = ({ onSummit } : { onSummit: ({cuit, role, place } : { cuit?: string, role?: string, place?: string}) => void }) => {
+const FilterLayer = ({ onSummit } : { onSummit: ({ cuit, role, place } : { cuit?: string, role?: string, place?: string}) => void }) => {
     const TRANSLATE = Translate['ES']
         , [open, set_open] = useState(false)
         , { xs } = useWindowSize()
@@ -60,7 +60,10 @@ const FilterLayer = ({ onSummit } : { onSummit: ({cuit, role, place } : { cuit?:
         }
 
     return <>
-        <div className="button-hover-expand" onClick={() => set_open(true)}>
+        <div className="button-hover-expand" onClick={() => {
+            set_state({})
+            set_open(true)
+        }}>
             <Search className="icon" />
             <span className="text">{TRANSLATE.COMMON.FILTER_ADVANCE}</span>
         </div>

@@ -9,11 +9,12 @@ import Select from "../../../../components/select/Select";
 import Switches from "../../../../components/switch/Switch";
 import useWindowSize from "../../../../hooks/useWindows";
 import GeoHash from "../../../../utils/hashing";
+import { dniExp } from "../../../../utils/reg-exp";
 import Validator from "../../../../utils/validator";
 import yup from "../../../../utils/yup";
 
 const schema = yup.object().shape({
-    dni: yup.string(),
+    dni: yup.string().matches(dniExp),
     start: yup.date(),
     end: yup.date()
 })
@@ -77,9 +78,15 @@ const DrawerFilterLayer = ({ onSummit } : { onSummit: ({ dni, start, end, hash }
                 hash
             })
         }
+    , onOpen = () => {
+        set_state(undefined)
+        set_map(false)
+        set_map_value(undefined)
+        set_open(true)
+    }
 
     return <>
-        <div className="button-hover-expand" onClick={() => set_open(true)}>
+        <div className="button-hover-expand" onClick={onOpen}>
             <Search className="icon" />
             <span className="text">{TRANSLATE.COMMON.FILTER_ADVANCE}</span>
         </div>
@@ -97,9 +104,10 @@ const DrawerFilterLayer = ({ onSummit } : { onSummit: ({ dni, start, end, hash }
                     <Button label={TRANSLATE.COMMON.CLEAR_FILTER} onClick={() => {
                         set_map_value(undefined)
                         set_state({})
+                        set_map(false)
                     }} /> 
                 </Grid>
-                <Input {...inputConstructor('dni')} />
+                <Input {...inputConstructor('dni')} maxlenght={9} />
                 <Input {...inputConstructor('start')} label={TRANSLATE.LABELS.START_DATE} type="date" />
                 <Input {...inputConstructor('end')} label={TRANSLATE.LABELS.END_DATE} type="date" />
                 <Switches label={TRANSLATE.LABELS.FIND_BY_AREA} value={map} onChange={() => set_map(!map)} />
